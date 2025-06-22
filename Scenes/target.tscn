@@ -8,6 +8,7 @@ albedo_color = Color(1, 0, 1, 1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_ls7vh"]
 
 [node name="Target" type="RigidBody3D"]
+collision_layer = 5
 lock_rotation = true
 freeze = true
 

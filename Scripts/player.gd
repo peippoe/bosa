@@ -6,15 +6,33 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * 0.001)
 		cam.rotate_x(-event.relative.y * 0.001)
 		cam.rotation.x = clampf(cam.rotation.x, -PI/2, PI/2)
+	
+	elif event is InputEventMouseButton:
+		if event.pressed: shoot(event)
 
-func shoot():
-	pass
+func shoot(event):
+	var from = cam.global_position
+	var to = from + -cam.global_basis.z * 100
+	
+	var space_state = get_world_3d().direct_space_state
+	
+	var query = PhysicsRayQueryParameters3D.create(from, to, 4)
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		AudioPlayer.play_audio("res://Assets/Audio/kick.ogg", result.position, Vector2(0.9, 1.1))
+		pop(result.collider)
+
+func pop(target : RigidBody3D):
+	target.queue_free()
 
 #func _physics_process(delta):
 	## Add the gravity.

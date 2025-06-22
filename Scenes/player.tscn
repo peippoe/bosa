@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=4 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Scripts/player.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Scenes/ui.tscn" id="2_cvnsp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 
@@ -16,3 +17,9 @@ unique_name_in_owner = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="UI" parent="." instance=ExtResource("2_cvnsp")]
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]

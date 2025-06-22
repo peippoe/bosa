@@ -11,10 +11,21 @@ config_version=5
 [application]
 
 config/name="bosa"
+config/tags=PackedStringArray("official")
 run/main_scene="uid://sast1hlg37nk"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AudioPlayer="*res://Singletons/AudioPlayer.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[layer_names]
+
+3d_physics/layer_1="world"
+3d_physics/layer_2="player"
+3d_physics/layer_3="target"
