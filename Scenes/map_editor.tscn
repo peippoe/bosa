@@ -1,0 +1,115 @@
+[gd_scene load_steps=10 format=3 uid="uid://4uvg1b2unkyd"]
+
+[ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Scripts/ghost_cam.gd" id="1_cy2dn"]
+[ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shaders/grid.gdshader" id="2_7xmfy"]
+[ext_resource type="Script" uid="uid://fwdo34xs83us" path="res://Scripts/editor_ui.gd" id="3_43ajp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7xmfy"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_43ajp"]
+sky_material = SubResource("ProceduralSkyMaterial_7xmfy")
+
+[sub_resource type="Environment" id="Environment_kqkv5"]
+background_mode = 2
+sky = SubResource("Sky_43ajp")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_7xmfy"]
+size = Vector2(10, 10)
+orientation = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_43ajp"]
+render_priority = 0
+shader = ExtResource("2_7xmfy")
+shader_parameter/subdivisions = 10.0
+shader_parameter/grid_width = 0.01
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 0.4)
+shader_parameter/background_color_two = Color(0.101961, 0.101961, 0.101961, 0.580392)
+shader_parameter/grid_color = Color(1, 1, 1, 0.388235)
+shader_parameter/dashed_scale_x = 0.2
+shader_parameter/dashed_scale_y = 0.2
+shader_parameter/dashed_count_x = 2.0
+shader_parameter/dashed_count_y = 2.0
+shader_parameter/point_width = 0.021
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
+points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
+
+[node name="MapEditor" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kqkv5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GhostCam" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_cy2dn")
+
+[node name="Cam" type="Camera3D" parent="GhostCam"]
+
+[node name="Grid" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_7xmfy")
+surface_material_override/0 = SubResource("ShaderMaterial_43ajp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Grid"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cy2dn")
+
+[node name="EditorUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_43ajp")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="EditorUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpawnTarget" type="Button" parent="EditorUI/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "spawn target"
+
+[node name="Control" type="Control" parent="EditorUI/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="EditorUI/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Timeline"
+
+[node name="HScrollBar" type="HScrollBar" parent="EditorUI/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+
+[connection signal="pressed" from="EditorUI/HBoxContainer/SpawnTarget" to="EditorUI" method="_on_spawn_target_pressed"]
