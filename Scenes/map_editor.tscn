@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://4uvg1b2unkyd"]
+[gd_scene load_steps=12 format=3 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Scripts/ghost_cam.gd" id="1_cy2dn"]
 [ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shaders/grid.gdshader" id="2_7xmfy"]
@@ -47,6 +47,15 @@ shader_parameter/in_dashed_count_y = 6.0
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
 points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
+
+[sub_resource type="Animation" id="Animation_43ajp"]
+resource_name = "new_animation"
+length = 10.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kqkv5"]
+_data = {
+&"new_animation": SubResource("Animation_43ajp")
+}
 
 [node name="MapEditor" type="Node3D"]
 
@@ -105,11 +114,27 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="EditorUI/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Timeline"
 
-[node name="HScrollBar" type="HScrollBar" parent="EditorUI/HBoxContainer/HBoxContainer"]
+[node name="TimeLabel" type="Label" parent="EditorUI/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 2
+text = "0.00"
+
+[node name="Timeline" type="HScrollBar" parent="EditorUI/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 10.0
+step = 0.01
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kqkv5")
+}
 
 [connection signal="pressed" from="EditorUI/HBoxContainer/SpawnTarget" to="EditorUI" method="_on_spawn_target_pressed"]
+[connection signal="scrolling" from="EditorUI/HBoxContainer/HBoxContainer/Timeline" to="EditorUI" method="_on_timeline_scrolling"]
