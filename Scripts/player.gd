@@ -13,6 +13,8 @@ func _input(event):
 		cam.rotate_x(-event.relative.y * 0.001)
 		cam.rotation.x = clampf(cam.rotation.x, -PI/2, PI/2)
 
+func shoot():
+	pass
 
 #func _physics_process(delta):
 	## Add the gravity.
