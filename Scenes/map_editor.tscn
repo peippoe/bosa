@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://4uvg1b2unkyd"]
+[gd_scene load_steps=15 format=3 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Scripts/ghost_cam.gd" id="1_cy2dn"]
+[ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://Editor/gizmo_position.tscn" id="1_kqkv5"]
 [ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shaders/grid.gdshader" id="2_7xmfy"]
 [ext_resource type="Script" uid="uid://fwdo34xs83us" path="res://Scripts/editor_ui.gd" id="3_43ajp"]
 
@@ -48,6 +49,12 @@ shader_parameter/in_dashed_count_y = 6.0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
 points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43ajp"]
+bg_color = Color(0, 0.385866, 0.783494, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kqkv5"]
+font_size = 26
+
 [sub_resource type="Animation" id="Animation_43ajp"]
 resource_name = "new_animation"
 length = 10.0
@@ -66,11 +73,17 @@ environment = SubResource("Environment_kqkv5")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
+[node name="gizmo_position" parent="." instance=ExtResource("1_kqkv5")]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.319575, 1, 0)
+visible = false
+
 [node name="GhostCam" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_cy2dn")
 
 [node name="Cam" type="Camera3D" parent="GhostCam"]
+unique_name_in_owner = true
 
 [node name="Grid" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_7xmfy")
@@ -90,7 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_43ajp")
 
-[node name="HBoxContainer" type="VBoxContainer" parent="EditorUI"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,32 +111,61 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SpawnTarget" type="Button" parent="EditorUI/HBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "spawn target"
-
-[node name="Control" type="Control" parent="EditorUI/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/HBoxContainer"]
+[node name="Control" type="Control" parent="EditorUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="PanelContainer" type="PanelContainer" parent="EditorUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="SpawnTarget" type="Button" parent="EditorUI/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "spawn target"
+
+[node name="PanelContainer" type="PanelContainer" parent="EditorUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_43ajp")
+
+[node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="EditorUI/HBoxContainer/HBoxContainer"]
+[node name="Label" type="RichTextLabel" parent="EditorUI/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Timeline"
+bbcode_enabled = true
+text = "[indent]Timeline"
 
-[node name="TimeLabel" type="Label" parent="EditorUI/HBoxContainer/HBoxContainer"]
+[node name="TimeLabel" type="Label" parent="EditorUI/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.00"
+label_settings = SubResource("LabelSettings_kqkv5")
+horizontal_alignment = 1
 
-[node name="Timeline" type="HScrollBar" parent="EditorUI/HBoxContainer/HBoxContainer"]
+[node name="Timeline" type="HScrollBar" parent="EditorUI/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -131,10 +173,13 @@ size_flags_vertical = 1
 size_flags_stretch_ratio = 10.0
 step = 0.01
 
+[node name="Scene" type="Node3D" parent="."]
+unique_name_in_owner = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_kqkv5")
 }
 
-[connection signal="pressed" from="EditorUI/HBoxContainer/SpawnTarget" to="EditorUI" method="_on_spawn_target_pressed"]
-[connection signal="scrolling" from="EditorUI/HBoxContainer/HBoxContainer/Timeline" to="EditorUI" method="_on_timeline_scrolling"]
+[connection signal="pressed" from="EditorUI/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/SpawnTarget" to="EditorUI" method="_on_spawn_target_pressed"]
+[connection signal="scrolling" from="EditorUI/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Timeline" to="EditorUI" method="_on_timeline_scrolling"]

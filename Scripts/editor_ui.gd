@@ -2,12 +2,13 @@ extends Control
 
 @onready var time_label = %TimeLabel
 @onready var timeline = %Timeline
-
+@onready var scene = %Scene
 
 
 func _on_spawn_target_pressed():
 	var a = Vector3(1, 1, 1)
-	TargetUtility.spawn_target(a, 5)
+	
+	UtilityFunctions.spawn_entity("res://Editor/gizmo_target.tscn", scene, a, 5)
 
 
 

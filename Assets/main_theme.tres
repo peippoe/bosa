@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://crk4nvf5s0bqn"]
+
+[ext_resource type="FontFile" uid="uid://qd3vh5k0d8wm" path="res://Assets/Fonts/GraffitiBrick-xR5PK.ttf" id="1_j03tf"]
+
+[resource]
+default_font = ExtResource("1_j03tf")

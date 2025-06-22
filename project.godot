@@ -19,11 +19,19 @@ config/icon="res://icon.svg"
 [autoload]
 
 AudioPlayer="*res://Singletons/AudioPlayer.gd"
-TargetUtility="*res://Singletons/TargetUtility.gd"
+UtilityFunctions="*res://Singletons/UtilityFunctions.gd"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://crk4nvf5s0bqn"
 
 [input]
 
