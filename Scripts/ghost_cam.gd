@@ -14,6 +14,10 @@ var drag_delta := Vector3.ZERO
 
 
 
+func _ready():
+	open_fd()
+	#_on_data_folder_pressed()
+
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		self.rotate_y(-event.relative.x * 0.001)
@@ -138,3 +142,21 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("shoot"):
 		pass
+
+
+
+func _on_data_folder_pressed():
+	var path = ProjectSettings.globalize_path("user://")
+	OS.shell_open(path)
+
+func open_fd():
+	var fd = FileDialog.new()
+	fd.access = FileDialog.ACCESS_FILESYSTEM
+	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	fd.filters = PackedStringArray(["*.mp3", "*.ogg", "*.wav"])
+	add_child(fd)
+	fd.popup_centered()
+	fd.connect("file_selected", _on_file_selected)
+
+func _on_file_selected(path):
+	print(path)

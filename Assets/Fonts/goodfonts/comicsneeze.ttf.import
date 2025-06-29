@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://58biabck4h4n"
-path="res://.godot/imported/Next Ups.ttf-40483581dd86bdd55f89e9b24a4da0f7.fontdata"
+uid="uid://cv76pcalujae"
+path="res://.godot/imported/comicsneeze.ttf-626153abf07c9970e268adfc4129e193.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/Next Ups.ttf"
-dest_files=["res://.godot/imported/Next Ups.ttf-40483581dd86bdd55f89e9b24a4da0f7.fontdata"]
+source_file="res://Assets/Fonts/goodfonts/comicsneeze.ttf"
+dest_files=["res://.godot/imported/comicsneeze.ttf-626153abf07c9970e268adfc4129e193.fontdata"]
 
 [params]
 

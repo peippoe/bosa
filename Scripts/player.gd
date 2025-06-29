@@ -28,7 +28,7 @@ func shoot(event):
 	var result = space_state.intersect_ray(query)
 	
 	if result:
-		AudioPlayer.play_audio("res://Assets/Audio/kick.ogg", result.position, Vector2(0.9, 1.1))
+		AudioPlayer.play_audio("res://Assets/Audio/osuhit.ogg", result.position, Vector2(0.9, 1.1))
 		pop(result.collider)
 
 func pop(target : RigidBody3D):

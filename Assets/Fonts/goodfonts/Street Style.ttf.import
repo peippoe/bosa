@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://clilsp7klripw"
-path="res://.godot/imported/Next Ups Black.ttf-91edf35e36a3587ec1cc9e188402cd1b.fontdata"
+uid="uid://lx115etbeneo"
+path="res://.godot/imported/Street Style.ttf-7d49f3a3617af88213a3b2b9d5b10f57.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/Next Ups Black.ttf"
-dest_files=["res://.godot/imported/Next Ups Black.ttf-91edf35e36a3587ec1cc9e188402cd1b.fontdata"]
+source_file="res://Assets/Fonts/goodfonts/Street Style.ttf"
+dest_files=["res://.godot/imported/Street Style.ttf-7d49f3a3617af88213a3b2b9d5b10f57.fontdata"]
 
 [params]
 

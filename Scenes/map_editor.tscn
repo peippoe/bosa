@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4uvg1b2unkyd"]
+[gd_scene load_steps=13 format=3 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Scripts/ghost_cam.gd" id="1_cy2dn"]
 [ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://Editor/gizmo_position.tscn" id="1_kqkv5"]
@@ -49,12 +49,6 @@ shader_parameter/in_dashed_count_y = 6.0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
 points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43ajp"]
-bg_color = Color(0, 0.385866, 0.783494, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_kqkv5"]
-font_size = 26
-
 [sub_resource type="Animation" id="Animation_43ajp"]
 resource_name = "new_animation"
 length = 10.0
@@ -103,6 +97,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_43ajp")
 
+[node name="Settings" type="Control" parent="EditorUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="EditorUI"]
 layout_mode = 1
 anchors_preset = 15
@@ -137,7 +139,6 @@ text = "spawn target"
 [node name="PanelContainer" type="PanelContainer" parent="EditorUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_43ajp")
 
 [node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -162,7 +163,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.00"
-label_settings = SubResource("LabelSettings_kqkv5")
 horizontal_alignment = 1
 
 [node name="Timeline" type="HScrollBar" parent="EditorUI/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
@@ -172,6 +172,16 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 10.0
 step = 0.01
+
+[node name="FileDialog" type="FileDialog" parent="EditorUI"]
+title = "Open a File"
+position = Vector2i(0, 36)
+theme_override_colors/folder_icon_color = Color(1, 0.843137, 0.329412, 1)
+theme_override_colors/file_icon_color = Color(1, 1, 1, 1)
+theme_override_colors/file_disabled_color = Color(0, 0, 0, 1)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
 
 [node name="Scene" type="Node3D" parent="."]
 unique_name_in_owner = true
