@@ -1,0 +1,283 @@
+[gd_scene load_steps=14 format=3 uid="uid://4uvg1b2unkyd"]
+
+[ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/map_editor.gd" id="1_ohqx4"]
+[ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/gizmo_position.tscn" id="2_3amqy"]
+[ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Scripts/ghost_cam.gd" id="3_p3oym"]
+[ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_4j6mt"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7xmfy"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_43ajp"]
+sky_material = SubResource("ProceduralSkyMaterial_7xmfy")
+
+[sub_resource type="Environment" id="Environment_kqkv5"]
+background_mode = 2
+sky = SubResource("Sky_43ajp")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_7xmfy"]
+size = Vector2(10, 10)
+orientation = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_43ajp"]
+render_priority = 0
+shader = ExtResource("4_4j6mt")
+shader_parameter/subdivisions = 10.0
+shader_parameter/grid_width = 0.01
+shader_parameter/background_color = Color(0.2, 0.2, 0.2, 0.4)
+shader_parameter/background_color_two = Color(0.101961, 0.101961, 0.101961, 0.580392)
+shader_parameter/grid_color = Color(1, 1, 1, 0.388235)
+shader_parameter/dashed_scale_x = 0.2
+shader_parameter/dashed_scale_y = 0.2
+shader_parameter/dashed_count_x = 2.0
+shader_parameter/dashed_count_y = 2.0
+shader_parameter/point_width = 0.021
+shader_parameter/point_color = Color(0, 0, 0, 1)
+shader_parameter/point_scale_x = 0.05
+shader_parameter/point_scale_y = 0.05
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_subdivisions = 6.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/in_dashed_scale_x = 0.3
+shader_parameter/in_dashed_scale_y = 0.3
+shader_parameter/in_dashed_count_x = 6.0
+shader_parameter/in_dashed_count_y = 6.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
+points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
+
+[sub_resource type="Animation" id="Animation_kqkv5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldEnvironment/DirectionalLight3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_43ajp"]
+resource_name = "new_animation"
+length = 100.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldEnvironment/DirectionalLight3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.35, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kqkv5"]
+_data = {
+&"RESET": SubResource("Animation_kqkv5"),
+&"new_animation": SubResource("Animation_43ajp")
+}
+
+[node name="MapEditor" type="Node3D"]
+script = ExtResource("1_ohqx4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kqkv5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="gizmo_position" parent="." instance=ExtResource("2_3amqy")]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.319575, 1, 0)
+visible = false
+
+[node name="GhostCam" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("3_p3oym")
+
+[node name="Cam" type="Camera3D" parent="GhostCam"]
+unique_name_in_owner = true
+
+[node name="Grid" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_7xmfy")
+surface_material_override/0 = SubResource("ShaderMaterial_43ajp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Grid"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cy2dn")
+
+[node name="EditorUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="EditorUI/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="EditPanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.35
+
+[node name="Label" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+size_flags_stretch_ratio = 10.0
+theme_type_variation = &"FancyLabel"
+bbcode_enabled = true
+text = "[font_size=30][color=black]edit tab"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 35
+
+[node name="SpawnTarget" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "spawn target"
+
+[node name="SpawnTarget2" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "spawn target"
+
+[node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[indent]Timeline"
+
+[node name="TimeLabel" type="Label" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.00"
+horizontal_alignment = 1
+
+[node name="Timeline" type="HScrollBar" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 10.0
+step = 0.01
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="EditorUI"]
+layout_mode = 2
+offset_left = 15.0
+offset_top = 8.0
+offset_right = 1167.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0401426
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="File" type="Button" parent="EditorUI/VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "file"
+
+[node name="Settings" type="Button" parent="EditorUI/VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "settings"
+
+[node name="Save" type="Button" parent="EditorUI/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "save"
+
+[node name="Play" type="Button" parent="EditorUI/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "play"
+
+[node name="FileDialog" type="FileDialog" parent="EditorUI"]
+title = "Open a File"
+position = Vector2i(0, 36)
+theme_override_colors/folder_icon_color = Color(1, 0.843137, 0.329412, 1)
+theme_override_colors/file_icon_color = Color(1, 1, 1, 1)
+theme_override_colors/file_disabled_color = Color(0, 0, 0, 1)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
+[node name="Map" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kqkv5")
+}
+
+[connection signal="pressed" from="EditorUI/VBoxContainer2/File" to="GhostCam" method="_on_file_pressed"]

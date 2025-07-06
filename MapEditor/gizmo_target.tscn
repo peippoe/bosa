@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7qjodp44hgqf"]
+
+[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/gizmo_hitbox.tscn" id="1_hvoow"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7f73g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vq1qf"]
+albedo_color = Color(1, 0, 1, 1)
+
+[node name="GizmoTarget" type="MeshInstance3D" groups=["gizmo_single_select"]]
+mesh = SubResource("SphereMesh_7f73g")
+surface_material_override/0 = SubResource("StandardMaterial3D_vq1qf")
+metadata/pop_time = 0.0
+
+[node name="GizmoHitbox" parent="." instance=ExtResource("1_hvoow")]

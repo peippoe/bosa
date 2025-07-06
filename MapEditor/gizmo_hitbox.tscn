@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgm0tck70mjnv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_o7fyr"]
+
+[node name="GizmoHitbox" type="Area3D"]
+collision_mask = 0
+input_ray_pickable = false
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_o7fyr")

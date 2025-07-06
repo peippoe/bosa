@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dexavr3vx741d"]
+
+[ext_resource type="Script" uid="uid://fpf8lkmbtve4" path="res://Singletons/playback.gd" id="1_bniq8"]
+[ext_resource type="AudioStream" uid="uid://bjug51s8payhp" path="res://Assets/Audio/Death By Glamour.mp3" id="1_jmps5"]
+
+[node name="Playback" type="AudioStreamPlayer"]
+stream = ExtResource("1_jmps5")
+script = ExtResource("1_bniq8")

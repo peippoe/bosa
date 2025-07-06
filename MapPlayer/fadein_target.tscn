@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://obmh54s5rw8l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5p0he"]
+transparency = 1
+albedo_color = Color(0, 0, 1, 0.423529)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5p0he"]
+material = SubResource("StandardMaterial3D_5p0he")
+
+[node name="fadein_target" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_5p0he")

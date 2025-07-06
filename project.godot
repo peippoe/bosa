@@ -14,13 +14,15 @@ config/name="bosa"
 config/tags=PackedStringArray("official")
 run/main_scene="uid://sast1hlg37nk"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Image/icon.svg"
 
 [autoload]
 
 AudioPlayer="*res://Singletons/audio_player.gd"
 UtilityFunctions="*res://Singletons/utility_functions.gd"
 Settings="*res://Singletons/settings.gd"
+GameManager="*res://Singletons/game_manager.gd"
+Playback="*res://Singletons/playback.tscn"
 
 [display]
 
@@ -29,6 +31,10 @@ window/vsync/vsync_mode=0
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[global_group]
+
+gizmo_single_select=""
 
 [gui]
 

@@ -1,13 +1,17 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://crk4nvf5s0bqn"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://crk4nvf5s0bqn"]
 
-[ext_resource type="FontFile" uid="uid://bqeei4ay71ebk" path="res://Assets/Fonts/comicsans/comici.ttf" id="1_j03tf"]
+[ext_resource type="FontFile" uid="uid://tf3e664pkot6" path="res://Assets/Font/BOREDSB.TTF" id="1_65lvl"]
+[ext_resource type="FontFile" uid="uid://bqeei4ay71ebk" path="res://Assets/Font/comicsans/comici.ttf" id="1_j03tf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j03tf"]
-bg_color = Color(1, 0.992157, 0.921569, 1)
+bg_color = Color(1, 0.980392, 0.941176, 1)
 
 [resource]
 default_font = ExtResource("1_j03tf")
 Button/constants/outline_size = 5
+FancyLabel/base_type = &"RichTextLabel"
+FancyLabel/constants/outline_size = 0
+FancyLabel/fonts/normal_font = ExtResource("1_65lvl")
 Label/constants/outline_size = 5
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_j03tf")
 RichTextLabel/constants/outline_size = 5
