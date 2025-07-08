@@ -9,4 +9,4 @@ func _ready():
 	var z = -5
 	var pos = Vector3(x, y, z)
 	
-	UtilityFunctions.spawn_entity("res://Scenes/target.tscn", null, pos)
+	Utility.spawn_entity("res://Targets/target.tscn", null, pos)

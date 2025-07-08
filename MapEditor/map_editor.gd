@@ -4,6 +4,8 @@ extends Node3D
 @onready var gizmo_position = %gizmo_position
 @onready var map = %Map
 
+var beatmap_data = []
+
 var selected : Node = null
 
 var dragging := false
@@ -16,33 +18,22 @@ var marker_dragged : Control = null
 var marker_drag_offset := 0.0
 
 func _ready():
-	%Save.pressed.connect(save_map)
+	%File.pressed.connect(func file(): %FileDropdown.visible = !%FileDropdown.visible; %SettingsDropdown.hide())
+	%SongPath.text_submitted.connect(func song_path(text): print(text))
+	%Settings.pressed.connect(func settings(): %SettingsDropdown.visible = !%SettingsDropdown.visible; %FileDropdown.hide())
+	%UserFiles.pressed.connect(func file(): OS.shell_open(ProjectSettings.globalize_path("user://")))
+	%Save.pressed.connect(save_map.bind("user://beatmaps/beatmap.json"))
+	%Load.pressed.connect(load_map)
 	%Play.pressed.connect(func play(): GameManager.play_map("user://beatmaps/beatmap.json"))
 	%SpawnTarget.pressed.connect(
 		func spawn():
 			var cam = get_viewport().get_camera_3d()
 			var pos = cam.global_position + -cam.global_basis.z * 2
-			var new_target = UtilityFunctions.spawn_entity("res://MapEditor/gizmo_target.tscn", map, pos)
-			new_target.set_meta("pop_time", Playback.playhead)
+			var new_target = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", map, pos)
+			new_target.pop_time = Playback.playhead
 			
-			var new_marker = TextureButton.new()
-			%Timeline.add_child(new_marker)
-			new_marker.scale = Vector2(0.2, 0.4)
-			new_marker.texture_normal = load("res://Assets/Image/icon.svg")
-			new_marker.set_anchors_preset(Control.PRESET_CENTER)
-			#new_marker.position.y = %Timeline.size.y/2
-			new_marker.position.x = remap(Playback.playhead, 0, %Timeline.max_value, 0, %Timeline.size.x)
-			new_marker.button_down.connect(
-				func start_drag_marker():
-					marker_dragged = new_marker
-					var mouse_x = get_viewport().get_mouse_position().x
-					var x = marker_dragged.global_position.x
-					marker_drag_offset = x - mouse_x
-			)
-			new_marker.button_up.connect(
-				func end_drag_marker():
-					marker_dragged = null
-			)
+			var new_marker = Utility.spawn_marker(new_target)
+			connect_marker_signals(new_marker)
 	)
 	%Timeline.scrolling.connect(
 		func _on_timeline_scrolling():
@@ -52,25 +43,44 @@ func _ready():
 			elif Input.is_action_pressed("shift"):
 				new_step = 0.1
 			%Timeline.step = new_step
-			%TimeLabel.text = str(%Timeline.value).pad_decimals(2)
 			Playback.playhead = %Timeline.value
+			print(Playback.playhead)
+	)
+
+func connect_marker_signals(marker):
+	marker.get_child(0).button_down.connect(
+		func start_drag_marker():
+			marker_dragged = marker
+			var mouse_x = get_viewport().get_mouse_position().x
+			var x = marker_dragged.global_position.x
+			marker_drag_offset = x - mouse_x
+	)
+	marker.get_child(0).button_up.connect(
+		func end_drag_marker():
+			marker_dragged = null
 	)
 
 
 
-
-
 func _input(event):
-	if event is InputEventMouseButton and event.button_index == 1:
-		if event.pressed:
-			click(event)
-		else:
-			dragging = false
-	
 	if event is InputEventMouseMotion and marker_dragged:
-		var mouse = get_viewport().get_mouse_position() #current_marker_dragged.get_local_mouse_position()
-		marker_dragged.global_position.x = mouse.x + marker_drag_offset
-		print(marker_dragged.global_position.x)
+		var mouse = get_viewport().get_mouse_position()
+		var min = %Timeline.global_position.x
+		var max = min + %Timeline.size.x
+		marker_dragged.global_position.x = clamp(mouse.x + marker_drag_offset, min, max)
+		#print(marker_dragged.global_position.x)
+
+
+
+func _unhandled_input(event):
+	
+	if event is InputEventMouseButton:
+		
+		if event.button_index == 1:
+			if event.pressed:
+				click(event)
+			else:
+				dragging = false
 
 
 func click(event):
@@ -99,10 +109,21 @@ func click(event):
 	
 	set_selected(coll)
 
+
 func set_selected(new_selected):
 	toggle_node_process(selected)
 	toggle_node_process(new_selected)
+	
 	selected = new_selected
+	if not selected:
+		%SelectionProperties.hide()
+	else:
+		%SelectionProperties.show()
+
+
+
+
+
 
 func toggle_node_process(node : Node):
 	if not node: return
@@ -130,6 +151,7 @@ func start_drag(event, coll):
 func _process(delta):
 	handle_gizmos()
 	handle_dragging()
+	%TimeLabel.text = str(Playback.playhead).pad_decimals(2)# + " -- " + str(%Timeline.value - Playback.playhead).pad_decimals(2)
 
 func handle_gizmos():
 	if not selected:
@@ -166,6 +188,7 @@ func handle_dragging():
 	var a = get_mouse_position_on_plane(mouse_pos, plane)
 	var b = get_mouse_position_on_plane(drag_start_mouse_pos, plane)
 	drag_delta = (a - b) * drag_axis
+	drag_delta = drag_delta.normalized() * min(drag_delta.length(), 100)
 	var new_pos = drag_start_pos + drag_delta
 	
 	if Input.is_action_pressed("ctrl"):
@@ -185,34 +208,83 @@ func get_mouse_position_on_plane(mouse_pos, plane) -> Vector3:
 	return hit_point if hit_point else Vector3.ZERO
 
 
-func save_map():
-	var all_data = []
-	for i in map.get_children():
-		all_data.append(get_entity_data(i))
+
+
+func load_map():
 	
-	all_data.sort_custom(func(a, b):
+	#var fd = FileDialog.new()
+	#fd.access = FileDialog.ACCESS_FILESYSTEM
+	#fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	##fd.filters = PackedStringArray(["*.mp3", "*.ogg", "*.wav"])
+	#add_child(fd)
+	#fd.popup_centered()
+	#fd.connect("file_selected", load_map_2)
+	
+	print("load")
+	load_map_2("C:/Users/Gamer/AppData/Roaming/Godot/app_userdata/bosa/beatmaps/beatmap.json")
+
+func load_map_2(path):
+	print(path)
+	
+	var file = FileAccess.open(path, FileAccess.READ)
+	var parsed = JSON.parse_string(file.get_as_text())
+	if not parsed: return
+	parsed = Utility.convert_vec3s(parsed)
+	parsed = Utility.convert_ints(parsed)
+	
+	Playback.beatmap_data = parsed
+	
+	for i in Playback.beatmap_data.size():
+		
+		var new_target
+		
+		var target_data = Playback.beatmap_data[i]
+		
+		match target_data["type"]:
+			0: new_target = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", %Map, Playback.beatmap_data[i]["global_position"])
+			_: print("UNSUPPORTED TARGET TYPE")
+		
+		new_target.pop_time = target_data["pop_time"]
+		
+		var new_marker = Utility.spawn_marker(new_target)
+		connect_marker_signals(new_marker)
+
+
+func save_map(path):
+	for i in map.get_children():
+		beatmap_data.append(Utility.get_entity_properties(i))
+	
+	beatmap_data.sort_custom(func(a, b):
 		return a["pop_time"] < b["pop_time"]
 	)
 	
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists("beatmaps"): dir.make_dir("beatmaps")
 	
-	var path = "user://beatmaps/beatmap.json"
-	write_to_json(all_data, path)
+	write_to_json(beatmap_data, path)
 
 func write_to_json(data, path):
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(data, "\t"))
 		file.close()
+		print("Saved successfully to " + path)
 	else:
 		print("Failed to write to JSON")
 
-func get_entity_data(entity : Node):
-	var data = {
-		"type": 0,
-		"pop_time": entity.get_meta("pop_time"),
-		"pos": entity.global_position,
-		"rot": entity.global_rotation,
-	}
-	return data
+
+
+
+
+
+
+func _on_play_pressed():
+	# save objects as beatmap_data
+	# playback the beatmap_data
+	
+	Playback.playback_speed = 1
+	%Map.hide()
+
+func _on_pause_pressed():
+	Playback.playback_speed = 0
+	%Map.show()

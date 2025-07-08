@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7qjodp44hgqf"]
+[gd_scene load_steps=5 format=3 uid="uid://b7qjodp44hgqf"]
 
 [ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/gizmo_hitbox.tscn" id="1_hvoow"]
+[ext_resource type="Script" uid="uid://dgb0cvx4wwv33" path="res://MapEditor/gizmo_target.gd" id="1_rffix"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_7f73g"]
 
@@ -10,6 +11,7 @@ albedo_color = Color(1, 0, 1, 1)
 [node name="GizmoTarget" type="MeshInstance3D" groups=["gizmo_single_select"]]
 mesh = SubResource("SphereMesh_7f73g")
 surface_material_override/0 = SubResource("StandardMaterial3D_vq1qf")
+script = ExtResource("1_rffix")
 metadata/pop_time = 0.0
 
 [node name="GizmoHitbox" parent="." instance=ExtResource("1_hvoow")]
