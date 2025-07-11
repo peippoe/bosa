@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://cubq6fokxek2n"]
+
+[ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://c3npvnfvy1c5m" path="res://Player/ui.gd" id="3_btcbx"]
+[ext_resource type="AudioStream" uid="uid://do5u0i4tioxpg" path="res://Assets/Audio/Jump.wav" id="4_gwnis"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+
+[node name="Player" type="CharacterBody3D"]
+floor_constant_speed = true
+floor_max_angle = 0.959931
+floor_snap_length = 0.25
+script = ExtResource("1_v0iea")
+
+[node name="Head" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="Cam" type="Camera3D" parent="Head"]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="UI" parent="." instance=ExtResource("2_cvnsp")]
+script = ExtResource("3_btcbx")
+
+[node name="Debug" type="Control" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI/Debug"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "vel"
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="Jump" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("4_gwnis")
+
+[node name="JumpBuffer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+one_shot = true

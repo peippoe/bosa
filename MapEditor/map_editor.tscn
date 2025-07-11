@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/map_editor.gd" id="1_ohqx4"]
 [ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/gizmo_position.tscn" id="2_3amqy"]
-[ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Scripts/ghost_cam.gd" id="3_p3oym"]
+[ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Player/ghost_cam.gd" id="3_p3oym"]
 [ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_4j6mt"]
 [ext_resource type="Script" uid="uid://bv6etpelrcaqk" path="res://MapEditor/jump_on_click.gd" id="5_3amqy"]
 [ext_resource type="Script" uid="uid://rhyjgow2pmwl" path="res://MapEditor/selection_properties.gd" id="5_ohqx4"]

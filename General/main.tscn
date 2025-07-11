@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://sast1hlg37nk"]
 
-[ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scripts/target_spawner.gd" id="1_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Scenes/player.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://General/target_spawner.gd" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://c8f7fcydwdc4q" path="res://Blender/test_area.blend" id="3_8gbba"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
@@ -39,5 +39,6 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+floor_constant_speed = false
 
 [node name="test_area" parent="." instance=ExtResource("3_8gbba")]

@@ -29,11 +29,15 @@ func get_control_local_position(control):
 	return control.global_position - control.get_parent().global_position
 
 
-@onready var fd = get_node_or_null_in_scene("%FileDialog").connect("file_selected", func disconnect_all(_path):
-	await get_tree().physics_frame
-	var connections = fd.get_signal_connection_list("file_selected")
-	for conn in connections: fd.disconnect("file_selected", conn.callable)
-	)
+@onready var fd = get_node_or_null_in_scene("%FileDialog")
+func _ready():
+	if fd:
+		fd.connect("file_selected", func disconnect_all(_path):
+			await get_tree().physics_frame
+			var connections = fd.get_signal_connection_list("file_selected")
+			for conn in connections: fd.disconnect("file_selected", conn.callable)
+		)
+
 
 func open_file_dialog(file_location : String, file_mode : FileDialog.FileMode, file_selected_callable : Callable, filters : PackedStringArray = []):
 	file_location = ProjectSettings.globalize_path(file_location)
