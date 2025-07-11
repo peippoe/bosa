@@ -312,30 +312,22 @@ offset_top = 44.0
 offset_right = 179.0
 offset_bottom = 208.0
 
-[node name="Label" type="Label" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown"]
+[node name="SongLabel" type="Label" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "path to song"
+text = "song: null"
 
-[node name="SongPath" type="LineEdit" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown"]
+[node name="ChooseSong" type="Button" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
+text = "choose song"
 
 [node name="Play" type="Button" parent="EditorUI/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 text = "play"
-
-[node name="FileDialog" type="FileDialog" parent="EditorUI"]
-title = "Open a File"
-position = Vector2i(0, 36)
-theme_override_colors/folder_icon_color = Color(1, 0.843137, 0.329412, 1)
-theme_override_colors/file_icon_color = Color(1, 1, 1, 1)
-theme_override_colors/file_disabled_color = Color(0, 0, 0, 1)
-ok_button_text = "Open"
-file_mode = 0
-access = 2
 
 [node name="SelectionProperties" type="PanelContainer" parent="EditorUI"]
 unique_name_in_owner = true
@@ -395,6 +387,18 @@ offset_bottom = 31.0
 grow_horizontal = 0
 focus_mode = 0
 text = "anchor"
+
+[node name="FileDialog" type="FileDialog" parent="EditorUI"]
+unique_name_in_owner = true
+title = "Open a File"
+position = Vector2i(0, 36)
+theme_override_colors/folder_icon_color = Color(1, 0.843137, 0.329412, 1)
+theme_override_colors/file_icon_color = Color(1, 1, 1, 1)
+theme_override_colors/file_disabled_color = Color(0, 0, 0, 1)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
 
 [node name="Map" type="Node3D" parent="."]
 unique_name_in_owner = true

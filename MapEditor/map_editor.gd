@@ -4,7 +4,21 @@ extends Node3D
 @onready var gizmo_position = %gizmo_position
 @onready var map = %Map
 
-var beatmap_data = []
+var beatmap_data = {
+	"config": {
+		"name": null,
+		"creator": null,
+		"song": null,
+		"version": 0.1
+	},
+	"events": [],
+	"beatmap": [],
+}:
+	set(value):
+		print(value)
+		if value["config"]["song"] != beatmap_data["config"]["song"]:
+			print("SONG CHANGED")
+		beatmap_data = value
 
 var selected : Node = null
 
@@ -17,9 +31,20 @@ var drag_delta := Vector3.ZERO
 var marker_dragged : Control = null
 var marker_drag_offset := 0.0
 
+
+
 func _ready():
 	%File.pressed.connect(func file(): %FileDropdown.visible = !%FileDropdown.visible; %SettingsDropdown.hide())
-	%SongPath.text_submitted.connect(func song_path(text): print(text))
+	
+	var song_file_selected = func song_file_selected(path : String):
+		beatmap_data["config"]["song"] = path.get_file()
+		%SongLabel.text = path.get_file()
+	%ChooseSong.pressed.connect(func choose_song():
+		Utility.open_file_dialog("user://songs", FileDialog.FILE_MODE_OPEN_FILE, song_file_selected, PackedStringArray(["*.mp3", "*.ogg", "*.wav"]))
+	)
+	
+	
+	
 	%Settings.pressed.connect(func settings(): %SettingsDropdown.visible = !%SettingsDropdown.visible; %FileDropdown.hide())
 	%UserFiles.pressed.connect(func file(): OS.shell_open(ProjectSettings.globalize_path("user://")))
 	%Save.pressed.connect(save_map.bind("user://beatmaps/beatmap.json"))
@@ -44,7 +69,6 @@ func _ready():
 				new_step = 0.1
 			%Timeline.step = new_step
 			Playback.playhead = %Timeline.value
-			print(Playback.playhead)
 	)
 
 func connect_marker_signals(marker):
@@ -212,13 +236,13 @@ func get_mouse_position_on_plane(mouse_pos, plane) -> Vector3:
 
 func load_map():
 	
-	#var fd = FileDialog.new()
-	#fd.access = FileDialog.ACCESS_FILESYSTEM
-	#fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	##fd.filters = PackedStringArray(["*.mp3", "*.ogg", "*.wav"])
-	#add_child(fd)
-	#fd.popup_centered()
-	#fd.connect("file_selected", load_map_2)
+	var fd = FileDialog.new()
+	fd.access = FileDialog.ACCESS_FILESYSTEM
+	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	#fd.filters = PackedStringArray(["*.mp3", "*.ogg", "*.wav"])
+	add_child(fd)
+	fd.popup_centered()
+	fd.connect("file_selected", load_map_2)
 	
 	print("load")
 	load_map_2("C:/Users/Gamer/AppData/Roaming/Godot/app_userdata/bosa/beatmaps/beatmap.json")

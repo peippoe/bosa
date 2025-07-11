@@ -8,6 +8,8 @@ func round_float(value : float, rounding : int):
 	var r := pow(10, rounding)
 	return round(value * r) / r
 
+func get_node_or_null_in_scene(node_path : String):
+	return get_tree().current_scene.get_node_or_null(node_path)
 
 
 func get_scrollbar_value_from_position(pos, scrollbar : ScrollBar, axis := 0):
@@ -27,18 +29,29 @@ func get_control_local_position(control):
 	return control.global_position - control.get_parent().global_position
 
 
-func open_fd():
-	var fd = FileDialog.new()
-	fd.access = FileDialog.ACCESS_FILESYSTEM
-	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	fd.filters = PackedStringArray(["*.mp3", "*.ogg", "*.wav"])
-	add_child(fd)
+@onready var fd = get_node_or_null_in_scene("%FileDialog").connect("file_selected", func disconnect_all(_path):
+	await get_tree().physics_frame
+	var connections = fd.get_signal_connection_list("file_selected")
+	for conn in connections: fd.disconnect("file_selected", conn.callable)
+	)
+
+func open_file_dialog(file_location : String, file_mode : FileDialog.FileMode, file_selected_callable : Callable, filters : PackedStringArray = []):
+	file_location = ProjectSettings.globalize_path(file_location)
+	ensure_dir_exists(file_location)
+	
+	fd = get_node_or_null_in_scene("%FileDialog")
+	if not fd: push_error("NO FILE DIALOG"); return
+	fd.current_dir = file_location
+	fd.file_mode = file_mode
+	fd.filters = filters
 	fd.popup_centered()
-	fd.connect("file_selected", _on_file_selected)
+	fd.connect("file_selected", file_selected_callable)
 
-func _on_file_selected(path):
-	print(path)
 
+func ensure_dir_exists(absolute_path : String):
+	if not DirAccess.dir_exists_absolute(absolute_path):
+		var err := DirAccess.make_dir_recursive_absolute(absolute_path)
+		if err != OK: push_error("Could not create folder '%s' (error %d)" % [absolute_path, err])
 
 
 
@@ -107,7 +120,7 @@ func pop_target(target : Node):
 
 func spawn_marker(target : Node):
 	var new_marker = load("res://MapEditor/marker.tscn").instantiate()
-	var timeline = get_tree().current_scene.get_node("%Timeline")
+	var timeline = Utility.get_node_or_null_in_scene("%Timeline")
 	timeline.add_child(new_marker)
 	target.marker = new_marker
 	new_marker.position.x = remap(target.pop_time, 0, timeline.max_value, 0, timeline.size.x)

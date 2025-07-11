@@ -5,8 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://c8f7fcydwdc4q" path="res://Blender/test_area.blend" id="3_8gbba"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+sky_top_color = Color(0.200345, 0.356139, 1, 1)
+sky_horizon_color = Color(0.289992, 0.552758, 1, 1)
+sky_curve = 0.252269
+ground_bottom_color = Color(0, 0.195909, 1, 1)
+ground_horizon_color = Color(0.280466, 0.554351, 1, 1)
+ground_curve = 0.485029
+sun_curve = 0.0568394
 
 [sub_resource type="Sky" id="Sky_bo1nx"]
 sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
@@ -20,7 +25,7 @@ glow_enabled = true
 [node name="Main" type="Node3D"]
 
 [node name="TargetSpawner" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17, 0)
 script = ExtResource("1_bo1nx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -28,6 +33,8 @@ environment = SubResource("Environment_8gbba")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(1, 0.971277, 0.74013, 1)
+light_angular_distance = 2.18
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]

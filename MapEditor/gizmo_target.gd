@@ -6,7 +6,7 @@ var marker : Node:
 	set(value):
 		marker = value
 		marker.get_child(0).button_up.connect(func marker_up():
-			var timeline = get_tree().current_scene.get_node("%Timeline")
+			var timeline = Utility.get_node_or_null_in_scene("%Timeline")
 			var marker_local = Utility.get_control_local_position(marker)
 			pop_time = Utility.get_scrollbar_value_from_position(marker_local, timeline)
 		)
