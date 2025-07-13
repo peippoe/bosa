@@ -378,6 +378,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Anchor" type="Button" parent="EditorUI/SelectionProperties/Control"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -387,6 +388,19 @@ offset_bottom = 31.0
 grow_horizontal = 0
 focus_mode = 0
 text = "anchor"
+
+[node name="Delete" type="Button" parent="EditorUI/SelectionProperties/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -136.0
+offset_right = -77.0
+offset_bottom = 31.0
+grow_horizontal = 0
+focus_mode = 0
+text = "delete"
 
 [node name="FileDialog" type="FileDialog" parent="EditorUI"]
 unique_name_in_owner = true
@@ -413,4 +427,3 @@ libraries = {
 
 [connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer/Pause" to="." method="_on_pause_pressed"]
-[connection signal="pressed" from="EditorUI/SelectionProperties/Control/Anchor" to="EditorUI/SelectionProperties" method="_on_anchor_pressed"]

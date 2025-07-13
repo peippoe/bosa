@@ -4,22 +4,6 @@ extends Node3D
 @onready var gizmo_position = %gizmo_position
 @onready var map = %Map
 
-var beatmap_data = {
-	"config": {
-		"name": null,
-		"creator": null,
-		"song": null,
-		"version": 0.1
-	},
-	"events": [],
-	"beatmap": [],
-}:
-	set(value):
-		print(value)
-		if value["config"]["song"] != beatmap_data["config"]["song"]:
-			print("SONG CHANGED")
-		beatmap_data = value
-
 var selected : Node = null
 
 var dragging := false
@@ -33,12 +17,38 @@ var marker_drag_offset := 0.0
 
 
 
+
+func set_song(path):
+	%SongLabel.text = path.get_file()
+	print(path)
+	var extension = path.get_extension()
+	var file = FileAccess.open(path, FileAccess.READ)
+	if not file: return
+	var stream
+	match extension:
+		"ogg":
+			stream = AudioStreamOggVorbis.load_from_file(path)
+		"wav":
+			stream = AudioStreamWAV.load_from_file(path)
+		"mp3":
+			stream = AudioStreamMP3.load_from_file(path)
+		_:
+			push_error("INVALID AUDIO FILE")
+	
+	Playback.stream = stream
+
+
+
+
+
+
 func _ready():
 	%File.pressed.connect(func file(): %FileDropdown.visible = !%FileDropdown.visible; %SettingsDropdown.hide())
 	
 	var song_file_selected = func song_file_selected(path : String):
-		beatmap_data["config"]["song"] = path.get_file()
-		%SongLabel.text = path.get_file()
+		Playback.beatmap_data["config"]["song"] = path.get_file()
+		set_song(path)
+	
 	%ChooseSong.pressed.connect(func choose_song():
 		Utility.open_file_dialog("user://songs", FileDialog.FILE_MODE_OPEN_FILE, song_file_selected, PackedStringArray(["*.mp3", "*.ogg", "*.wav"]))
 	)
@@ -82,6 +92,10 @@ func connect_marker_signals(marker):
 	marker.get_child(0).button_up.connect(
 		func end_drag_marker():
 			marker_dragged = null
+	)
+	marker.get_child(0).pressed.connect(
+		func pressed_marker():
+			set_selected(marker.get_meta("gizmo"))
 	)
 
 
@@ -135,7 +149,7 @@ func click(event):
 
 
 func set_selected(new_selected):
-	toggle_node_process(selected)
+	if selected: toggle_node_process(selected)
 	toggle_node_process(new_selected)
 	
 	selected = new_selected
@@ -236,56 +250,55 @@ func get_mouse_position_on_plane(mouse_pos, plane) -> Vector3:
 
 func load_map():
 	
-	var fd = FileDialog.new()
-	fd.access = FileDialog.ACCESS_FILESYSTEM
-	fd.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	#fd.filters = PackedStringArray(["*.mp3", "*.ogg", "*.wav"])
-	add_child(fd)
-	fd.popup_centered()
-	fd.connect("file_selected", load_map_2)
+	var load_map_file_selected = func load_map_file_selected(path : String):
+		for i in map.get_children(): Utility.delete_gizmo(i)
+		
+		
+		print(path)
+		
+		var file = FileAccess.open(path, FileAccess.READ)
+		var parsed = JSON.parse_string(file.get_as_text())
+		if not parsed: return
+		parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
+		parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
+		
+		Playback.beatmap_data = parsed
+		
+		if Playback.beatmap_data["config"]["song"]: set_song("user://songs/" + Playback.beatmap_data["config"]["song"])
+		
+		
+		
+		for i in Playback.beatmap_data["beatmap"].size():
+			
+			var new_target
+			
+			var target_data = Playback.beatmap_data["beatmap"][i]
+			
+			match target_data["type"]:
+				0: new_target = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", %Map, Playback.beatmap_data["beatmap"][i]["global_position"])
+				_: print("UNSUPPORTED TARGET TYPE")
+			
+			new_target.pop_time = target_data["pop_time"]
+			
+			var new_marker = Utility.spawn_marker(new_target)
+			connect_marker_signals(new_marker)
 	
-	print("load")
-	load_map_2("C:/Users/Gamer/AppData/Roaming/Godot/app_userdata/bosa/beatmaps/beatmap.json")
-
-func load_map_2(path):
-	print(path)
-	
-	var file = FileAccess.open(path, FileAccess.READ)
-	var parsed = JSON.parse_string(file.get_as_text())
-	if not parsed: return
-	parsed = Utility.convert_vec3s(parsed)
-	parsed = Utility.convert_ints(parsed)
-	
-	Playback.beatmap_data = parsed
-	
-	for i in Playback.beatmap_data.size():
-		
-		var new_target
-		
-		var target_data = Playback.beatmap_data[i]
-		
-		match target_data["type"]:
-			0: new_target = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", %Map, Playback.beatmap_data[i]["global_position"])
-			_: print("UNSUPPORTED TARGET TYPE")
-		
-		new_target.pop_time = target_data["pop_time"]
-		
-		var new_marker = Utility.spawn_marker(new_target)
-		connect_marker_signals(new_marker)
+	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_OPEN_FILE, load_map_file_selected, PackedStringArray(["*.json"]))
 
 
 func save_map(path):
+	Playback.beatmap_data["beatmap"] = []
 	for i in map.get_children():
-		beatmap_data.append(Utility.get_entity_properties(i))
+		Playback.beatmap_data["beatmap"].append(Utility.get_entity_properties(i))
 	
-	beatmap_data.sort_custom(func(a, b):
+	Playback.beatmap_data["beatmap"].sort_custom(func(a, b):
 		return a["pop_time"] < b["pop_time"]
 	)
 	
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists("beatmaps"): dir.make_dir("beatmaps")
 	
-	write_to_json(beatmap_data, path)
+	write_to_json(Playback.beatmap_data, path)
 
 func write_to_json(data, path):
 	var file = FileAccess.open(path, FileAccess.WRITE)

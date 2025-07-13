@@ -11,7 +11,25 @@ var old_unanchored_offset := Vector2.ZERO + Vector2(100, -50)
 var new_unanchored_offset := Vector2.ZERO
 
 
-func _ready(): hide()
+func _ready():
+	hide()
+	%Anchor.pressed.connect(
+		func anchor():
+			if anchored:
+				anchored = false
+				$Control/Anchor.text = "anchor"
+				old_unanchored_offset = global_position - cam.unproject_position(editor.selected.global_position)
+				new_unanchored_offset = Vector2.ZERO
+			else:
+				anchored = true
+				$Control/Anchor.text = "unanchor"
+				drag_mouse_start = Vector2.ZERO
+				drag_mouse = global_position
+	)
+	%Delete.pressed.connect(
+		func delete():
+			Utility.delete_gizmo(editor.selected)
+	)
 
 
 func _process(delta):
@@ -61,15 +79,3 @@ func _gui_input(event):
 	if event is InputEventMouseMotion and dragging:
 		drag_mouse = get_viewport().get_mouse_position()
 		new_unanchored_offset = drag_mouse - drag_mouse_start
-
-func _on_anchor_pressed():
-	if anchored:
-		anchored = false
-		$Control/Anchor.text = "anchor"
-		old_unanchored_offset = global_position - cam.unproject_position(editor.selected.global_position)
-		new_unanchored_offset = Vector2.ZERO
-	else:
-		anchored = true
-		$Control/Anchor.text = "unanchor"
-		drag_mouse_start = Vector2.ZERO
-		drag_mouse = global_position

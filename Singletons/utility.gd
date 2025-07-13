@@ -127,11 +127,14 @@ func spawn_marker(target : Node):
 	var timeline = Utility.get_node_or_null_in_scene("%Timeline")
 	timeline.add_child(new_marker)
 	target.marker = new_marker
+	new_marker.set_meta("gizmo", target)
 	new_marker.position.x = remap(target.pop_time, 0, timeline.max_value, 0, timeline.size.x)
 	return new_marker
 
-
-
+func delete_gizmo(gizmo):
+	gizmo.marker.queue_free()
+	gizmo.queue_free()
+	get_tree().current_scene.set_selected(null)
 
 
 

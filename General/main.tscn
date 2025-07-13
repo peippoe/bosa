@@ -39,6 +39,5 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
-floor_constant_speed = false
 
 [node name="test_area" parent="." instance=ExtResource("3_8gbba")]
