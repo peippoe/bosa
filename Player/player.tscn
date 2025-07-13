@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=9 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
@@ -6,17 +6,33 @@
 [ext_resource type="AudioStream" uid="uid://do5u0i4tioxpg" path="res://Assets/Audio/Jump.wav" id="4_gwnis"]
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/slideloop.wav" id="5_k53q1"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_k53q1"]
+radius = 0.3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fhl08"]
+radius = 0.2
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
+radius = 0.3
 
 [node name="Player" type="CharacterBody3D"]
-floor_constant_speed = true
-floor_max_angle = 0.959931
-floor_snap_length = 0.25
+floor_max_angle = 1.0472
+floor_snap_length = 0.5
 script = ExtResource("1_v0iea")
+
+[node name="GroundCast" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+visible = false
+shape = SubResource("SphereShape3D_k53q1")
+target_position = Vector3(0, -0.5, 0)
+
+[node name="FloatCast" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("SphereShape3D_fhl08")
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="Cam" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
@@ -59,10 +75,19 @@ one_shot = true
 
 [node name="CoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.2
+wait_time = 0.3
 one_shot = true
 
 [node name="SlideBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.1
+one_shot = true
+
+[node name="DoubleJumpDebounce" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[node name="SlideOffFloorTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true

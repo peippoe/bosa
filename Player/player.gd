@@ -35,66 +35,89 @@ func shoot():
 
 
 
-const GRAV := 9.5
-const FALL_GRAV := 10.0
+const GRAV := 10.0
+const FALL_GRAV := 15.0
 const SKYDIVE_GRAV_BOOST := 15.0
 const JUMP_VELOCITY := 4.0
 
 const MAX_SPEED := 8.0
 var acceleration := 0.0
 const GROUND_ACCELERATION := 45.0
-const AIR_ACCELERATION := 33.0
+const AIR_ACCELERATION := 38.0
 const GROUND_FRICTION := 45.0
 
 var input_dir := Vector2.ZERO
 var move_dir := Vector3.ZERO
 
 var sliding := false
-const SLIDE_ACCELERATION := 5.0
+const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
 const SLIDE_BOOST := 1.2
-const SLIDE_LIMIT := 5.0
+const SLIDE_LIMIT := 8.0
+const SLIDE_DOWNHILL_BOOST := 1.7
+
+var on_floor := false
 
 var vel_buffer := []
 const VEL_BUFFER_SIZE := 4
 
+var prev_y := 0.0
+
 func _physics_process(delta):
 	slide()
-	
 	movement(delta)
+	update_variables()
 	
-	if is_on_floor(): %CoyoteTime.start()
+	if on_floor: %CoyoteTime.start()
 	
-	if not %CoyoteTime.is_stopped() and not %JumpBuffer.is_stopped():
+	var can_jump := false
+	if not %DoubleJumpDebounce.is_stopped():
+		can_jump = on_floor
+	else:
+		can_jump = not %CoyoteTime.is_stopped()
+	
+	if can_jump and not %JumpBuffer.is_stopped():
+		if sliding: stop_sliding()
+		%DoubleJumpDebounce.start()
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
-		velocity.y += JUMP_VELOCITY
-		AudioPlayer.play_audio("res://Assets/Audio/Jump.wav", null, Vector2(0.9, 1.1))
-	
-	update_variables()
+		var hvel = velocity - Vector3.UP*velocity.y
+		velocity.y = max(velocity.y, 0)# + JUMP_VELOCITY
+		velocity += velocity * 0.1 + get_floor_normal() * JUMP_VELOCITY
+		AudioPlayer.play_audio("res://Assets/Audio/Jump.wav", null, Vector2(0.8, 1.2))
 
 func update_variables():
+	on_floor = is_on_floor()
+	
 	vel_buffer.push_front(velocity)
 	if vel_buffer.size() > VEL_BUFFER_SIZE:
 		vel_buffer.pop_back()
+	
+	prev_y = global_position.y
 
 func slide():
 	if Input.is_action_just_pressed("shift"): %SlideBuffer.start()
-	if not %SlideBuffer.is_stopped() and is_on_floor():
+	if not %SlideBuffer.is_stopped() and on_floor:
 		%SlideBuffer.stop()
 		%Sliding.play()
 		sliding = true
-		$CollisionShape3D.shape.height = 0.5
+		$CollisionShape3D.shape.height = .2
 		position.y -= 1
 		velocity = get_real_velocity() * SLIDE_BOOST
-	if (Input.is_action_just_released("shift") or not is_on_floor() or velocity.length() < SLIDE_LIMIT) and sliding:
+	
+	if sliding and on_floor: %SlideOffFloorTimer.start()
+	if (Input.is_action_just_released("shift") or velocity.length() < SLIDE_LIMIT or %SlideOffFloorTimer.is_stopped()) and sliding:
+		stop_sliding()
+
+func stop_sliding():
+		%SlideOffFloorTimer.stop()
 		%Sliding.stop()
 		sliding = false
 		$CollisionShape3D.shape.height = 2
-		position.y += 0.75
+		position.y += 1
 
 func movement(delta):
-	if not is_on_floor():
+	if not on_floor:
 		var grav = GRAV
 		if velocity.y < 0: grav = FALL_GRAV
 		if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
@@ -109,16 +132,22 @@ func movement(delta):
 	var hvel := velocity
 	hvel.y = 0
 	
+	#if on_floor:
+	var floor_normal = get_floor_normal()
+	if floor_normal == Vector3.ZERO: floor_normal = Vector3.UP
+	#move_dir = move_dir.slide(floor_normal)
+	#hvel = hvel.slide(floor_normal)
+	
+	
 	#var target := move_dir * MAX_SPEED
-	#if target == Vector3.ZERO and not is_on_floor(): target = hvel
+	#if target == Vector3.ZERO and not on_floor: target = hvel
 	#
-	#if not is_on_floor() or move_dir.dot(hvel) > 0:
+	#if not on_floor or move_dir.dot(hvel) > 0:
 		#acceleration = GROUND_ACCELERATION
 	#else:
 		#acceleration = GROUND_DECELERATION
 	#
 	#hvel = hvel.lerp(target, acceleration * delta)
-	#
 	#velocity.x = hvel.x
 	#velocity.z = hvel.z
 	
@@ -129,20 +158,66 @@ func movement(delta):
 	
 	if add_speed > 0:
 		var accel = AIR_ACCELERATION
-		if is_on_floor(): accel = GROUND_ACCELERATION
+		if sliding: accel = SLIDE_ACCELERATION
+		elif on_floor: accel = GROUND_ACCELERATION
 		accel *= delta
 		accel = min(accel, add_speed)
 		velocity += wish_dir * accel
 	
-	if is_on_floor() and not sliding: # friction
-		velocity += (-hvel.normalized() + wish_dir) * GROUND_FRICTION * min(hvel.length(), 1.0) * delta
-	
-	
-	
-	
-	
-	#if sliding:
-		#print("slide")
+	friction(hvel, wish_dir, delta)
 	
 	
 	move_and_slide()
+	
+	var current_y = global_position.y
+	var y_diff = current_y - prev_y
+	
+	if sliding and floor_normal != Vector3.UP and y_diff > 0.0:
+		velocity = velocity.slide(floor_normal)
+	
+	
+	if sliding:
+		if y_diff < 0.0:
+			velocity += velocity.normalized() * -y_diff * SLIDE_DOWNHILL_BOOST
+
+func friction(hvel, wish_dir, delta):
+	var slowdown : float = min(hvel.length(), 1.0)
+	var friction_vec : Vector3 = -hvel.normalized() + wish_dir
+	var friction_mult := 0.0
+	if sliding:
+		friction_mult = SLIDE_FRICTION
+	elif on_floor: # friction
+		friction_mult = GROUND_FRICTION
+	
+	velocity += friction_vec * friction_mult * slowdown * delta
+
+
+
+
+
+
+
+
+@onready var float_shapecast = %FloatCast
+@onready var ground_shapecast = %GroundCast
+var float_distance := 0.0
+func _float(delta):
+	on_floor = float_shapecast.is_colliding()
+	
+	#if velocity.y > 1.0:
+		#return
+	
+	if not on_floor:
+		return
+	
+	var point = float_shapecast.get_collision_point(0)
+	var dist = abs(float_shapecast.global_position.y - point.y)
+	
+	if not sliding: float_distance = 0.5
+	else: float_distance = 0.0
+	var diff = (float_distance - dist)
+	
+	
+	const DOWN_DRIVER := 200.0
+	const UP_DRIVER := 50.0
+	velocity.y += (diff * DOWN_DRIVER - (velocity.y * UP_DRIVER)) * delta
