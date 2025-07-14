@@ -36,6 +36,8 @@ var playback_speed := 0.0:
 		
 		if playback_speed == 0:
 			stop()
+			if GameManager.in_editor:
+				for i in GameManager.target_parent.get_children(): i.queue_free()
 		else:
 			recalculate_event_index()
 			pitch_scale = playback_speed
@@ -43,12 +45,14 @@ var playback_speed := 0.0:
 			else: seek(playhead)
 
 var event_index = 0
-var fadein_index = 0
 var fadein_time := 0.6
 
 var pop_times = []
 var targets = []
-var fadeins = []
+
+func auto_pop(new_target):
+	await get_tree().create_timer(fadein_time).timeout
+	Utility.pop_target(new_target)
 
 func _process(delta):
 	if playback_speed == 0.0: return
@@ -58,23 +62,24 @@ func _process(delta):
 	
 	var beatmap = beatmap_data["beatmap"]
 	
-	if event_index < beatmap.size() and playhead > beatmap[event_index]["pop_time"]:
+	if event_index < beatmap.size() and playhead > beatmap[event_index]["pop_time"] - fadein_time:
 		var new_target = Utility.spawn_target(beatmap[event_index])
 		event_index += 1
 		if GameManager.in_editor:
-			Utility.pop_target(new_target)
+			call_deferred("auto_pop", new_target)
+			
 		
-	elif fadein_index < beatmap.size() and playhead > beatmap[fadein_index]["pop_time"] - fadein_time:
-		var new_fadein = Utility.spawn_entity("res://MapPlayer/fadein_target.tscn", null, beatmap[fadein_index]["global_position"])
-		new_fadein.set_meta("start", playhead)
-		new_fadein.set_meta("end", playhead + fadein_time)
-		fadein_index += 1
-		fadeins.append(new_fadein)
-	
-	for i in fadeins:
-		var alpha = remap(playhead, i.get_meta("start"), i.get_meta("end"), 0, 1)
-		i.scale = Vector3.ONE * alpha
-		if alpha > 1: i.queue_free(); fadeins.remove_at(0)
+	#elif fadein_index < beatmap.size() and playhead > beatmap[fadein_index]["pop_time"] - fadein_time:
+		#var new_fadein = Utility.spawn_entity("res://MapPlayer/fadein_target.tscn", null, beatmap[fadein_index]["global_position"])
+		#new_fadein.set_meta("start", playhead)
+		#new_fadein.set_meta("end", playhead + fadein_time)
+		#fadein_index += 1
+		#fadeins.append(new_fadein)
+	#
+	#for i in fadeins:
+		#var alpha = remap(playhead, i.get_meta("start"), i.get_meta("end"), 0, 1)
+		#i.scale = Vector3.ONE * alpha
+		#if alpha > 1: i.queue_free(); fadeins.remove_at(0)
 
 func sort_beatmap_data():
 	beatmap_data["beatmap"].sort_custom(func(a, b):
@@ -97,7 +102,7 @@ func get_event_index():
 
 func recalculate_event_index():
 	event_index = get_event_index()
-	fadein_index = event_index
+	#fadein_index = event_index
 
 func setup():
 	var file = FileAccess.open(GameManager.beatmap_path, FileAccess.READ)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxiqtn7ptwvgb"]
+[gd_scene load_steps=6 format=3 uid="uid://dxiqtn7ptwvgb"]
 
 [ext_resource type="Script" uid="uid://ouwi82iutg1" path="res://Targets/target.gd" id="1_wbg1h"]
+[ext_resource type="Texture2D" uid="uid://pvvaga3yycuk" path="res://Assets/Image/circle.png" id="2_j5n8r"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_7f73g"]
 
@@ -21,3 +22,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vq1qf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_ls7vh")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+pixel_size = 0.0067
+texture = ExtResource("2_j5n8r")

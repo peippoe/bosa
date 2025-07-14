@@ -30,16 +30,20 @@ func get_control_local_position(control):
 
 
 @onready var fd = get_node_or_null_in_scene("%FileDialog")
-func _ready():
-	if fd:
-		fd.connect("file_selected", func disconnect_all(_path):
-			await get_tree().physics_frame
-			var connections = fd.get_signal_connection_list("file_selected")
-			for conn in connections: fd.disconnect("file_selected", conn.callable)
-		)
+#func _ready():
+	#if fd:
+		#fd.connect("file_selected", func disconnect_all(_path):
+			#await get_tree().physics_frame
+			#var connections = fd.get_signal_connection_list("file_selected")
+			#for conn in connections: fd.disconnect("file_selected", conn.callable)
+		#)
 
 
 func open_file_dialog(file_location : String, file_mode : FileDialog.FileMode, file_selected_callable : Callable, filters : PackedStringArray = []):
+	#disconnect all signals bruh
+	var connections = fd.get_signal_connection_list("file_selected")
+	for conn in connections: fd.disconnect("file_selected", conn.callable)
+	
 	file_location = ProjectSettings.globalize_path(file_location)
 	ensure_dir_exists(file_location)
 	
@@ -117,7 +121,8 @@ const TARGETS = [
 func spawn_target(target_data):
 	return spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data["global_position"])
 
-func pop_target(target : Node):
+func pop_target(target):
+	if not target: return
 	target.queue_free()
 	AudioPlayer.play_audio("res://Assets/Audio/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
 

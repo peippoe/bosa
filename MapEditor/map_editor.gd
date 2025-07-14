@@ -15,6 +15,8 @@ var drag_delta := Vector3.ZERO
 var marker_dragged : Control = null
 var marker_drag_offset := 0.0
 
+var save_path := ""
+
 
 
 
@@ -39,6 +41,13 @@ func set_song(path):
 
 
 
+var save_file_selected = func save_file_selected(path : String):
+	save_path = path
+	save_map(path)
+
+func map_save_as():
+	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_SAVE_FILE, save_file_selected, PackedStringArray(["*.json"]))
+
 
 
 
@@ -57,7 +66,20 @@ func _ready():
 	
 	%Settings.pressed.connect(func settings(): %SettingsDropdown.visible = !%SettingsDropdown.visible; %FileDropdown.hide())
 	%UserFiles.pressed.connect(func file(): OS.shell_open(ProjectSettings.globalize_path("user://")))
-	%Save.pressed.connect(save_map.bind("user://beatmaps/beatmap.json"))
+	
+	
+	
+	
+	%SaveAs.pressed.connect(map_save_as)
+	%Save.pressed.connect(
+		func save():
+			print("SAVE PATH:")
+			print(save_path)
+			if save_path != "":
+				save_map(save_path)
+			else:
+				map_save_as()
+	)
 	%Load.pressed.connect(load_map)
 	%Play.pressed.connect(func play(): GameManager.play_map("user://beatmaps/beatmap.json"))
 	%SpawnTarget.pressed.connect(

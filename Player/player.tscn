@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=8 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
-[ext_resource type="Script" uid="uid://c3npvnfvy1c5m" path="res://Player/ui.gd" id="3_btcbx"]
 [ext_resource type="AudioStream" uid="uid://do5u0i4tioxpg" path="res://Assets/Audio/Jump.wav" id="4_gwnis"]
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/slideloop.wav" id="5_k53q1"]
 
@@ -41,20 +40,6 @@ unique_name_in_owner = true
 shape = SubResource("CapsuleShape3D_sh265")
 
 [node name="UI" parent="." instance=ExtResource("2_cvnsp")]
-script = ExtResource("3_btcbx")
-
-[node name="Debug" type="Control" parent="UI"]
-unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="UI/Debug"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "vel"
 
 [node name="Audio" type="Node" parent="."]
 

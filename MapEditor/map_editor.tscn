@@ -287,6 +287,12 @@ layout_mode = 2
 focus_mode = 0
 text = "save"
 
+[node name="SaveAs" type="Button" parent="EditorUI/HBoxContainer/File/FileDropdown"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+text = "save as"
+
 [node name="Load" type="Button" parent="EditorUI/HBoxContainer/File/FileDropdown"]
 unique_name_in_owner = true
 layout_mode = 2

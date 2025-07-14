@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbv72bxs15p17"]
+
+[ext_resource type="Texture2D" uid="uid://r2fw3vhc4bi4" path="res://Assets/Image/bosa.png" id="1_06t4h"]
+
+[node name="MainMenu" type="Node3D"]
+
+[node name="MainMenuUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenuUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Bosa" type="Sprite2D" parent="MainMenuUI"]
+position = Vector2(158, 115)
+texture = ExtResource("1_06t4h")
+
+[node name="ver" type="RichTextLabel" parent="MainMenuUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 45.0
+grow_vertical = 0
+text = "v0.1.0"
+fit_content = true
