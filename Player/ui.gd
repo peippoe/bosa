@@ -1,6 +1,10 @@
 extends Control
 
 
+func _ready():
+	$PauseMenu/MarginContainer/VBoxContainer/BackToEditor.pressed.connect(func back_to_editor():
+		GameManager.back_to_editor()
+	)
 
 func _unhandled_input(event):
 	if event is InputEventKey:

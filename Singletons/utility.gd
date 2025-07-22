@@ -29,7 +29,6 @@ func get_control_local_position(control):
 	return control.global_position - control.get_parent().global_position
 
 
-@onready var fd = get_node_or_null_in_scene("%FileDialog")
 #func _ready():
 	#if fd:
 		#fd.connect("file_selected", func disconnect_all(_path):
@@ -41,6 +40,7 @@ func get_control_local_position(control):
 
 func open_file_dialog(file_location : String, file_mode : FileDialog.FileMode, file_selected_callable : Callable, filters : PackedStringArray = []):
 	# disconnect all signals bruh
+	var fd = get_node_or_null_in_scene("%FileDialog")
 	var connections = fd.get_signal_connection_list("file_selected")
 	for conn in connections: fd.disconnect("file_selected", conn.callable)
 	
@@ -128,7 +128,7 @@ func pop_target(target):
 	if not target: return
 	if not target.has_method("pop"): return
 	target.pop()
-	#AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
 
 func get_pop_timing(pop_time):
 	var diff = absf(Playback.playhead - pop_time)

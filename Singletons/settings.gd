@@ -6,10 +6,10 @@ var fadein_time := 0.6
 
 # hidden settings
 const POP_TIMING_WINDOWS = [
-	0.002, #perfect 0-1
-	0.040, #sick 1-20
-	0.080, #good 20-50
-	0.160, #ok 50-100
+	0.002, #perfect 0-2
+	0.040, #sick 2-40
+	0.080, #good 40-80
+	0.160, #ok 80-160
 ]
 
 func _ready():

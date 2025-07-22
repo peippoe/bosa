@@ -85,7 +85,7 @@ func _ready():
 		if save_path:
 			GameManager.play_map(save_path)
 		else:
-			map_save_as()
+			map_save_as() # fix this ong
 	)
 	%SpawnTarget.pressed.connect(
 		func spawn():

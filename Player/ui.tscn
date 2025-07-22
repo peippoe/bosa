@@ -173,4 +173,8 @@ fit_content = true
 layout_mode = 2
 text = "back"
 
+[node name="BackToEditor" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "back to editor"
+
 [node name="MusicPulseComponent" parent="PauseMenu/MarginContainer" instance=ExtResource("2_d6uvt")]

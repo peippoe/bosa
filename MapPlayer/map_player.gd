@@ -1,5 +1,7 @@
 extends Node3D
 
+
+
 func _ready():
 	Playback.setup()
 	Playback.playhead = 0.0
