@@ -12,8 +12,6 @@ func _ready():
 
 func update_in_editor():
 	in_editor = get_tree().current_scene.name == "MapEditor"
-	print("IN EDITORRRRRRRRRRRRRRRRRRRRR")
-	print(in_editor)
 
 func change_scene(path : String):
 	get_tree().change_scene_to_file(path)
@@ -33,6 +31,7 @@ func update_target_parent():
 	if not target_parent: print("ERROR GETTING TARGET PARENT")
 
 func play_map(path):
-	beatmap_path = path
+	if path:
+		beatmap_path = path
 	
 	change_scene("res://MapPlayer/map_player.tscn")

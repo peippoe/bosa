@@ -9,12 +9,22 @@ func _unhandled_input(event):
 				%PauseMenu.show()
 				get_tree().paused = true
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				%AnimationPlayer.play("pause")
 			else:
 				%PauseMenu.hide()
 				get_tree().paused = false
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+				%PauseMusic.stop()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _input(event):
+	if not %PauseMenu.visible: return
+	#if event is InputEventMouseMotion:
+		
+		#var offset = (event.position - get_viewport().size/2.0) / 100
+		#print(offset)
+		#$PauseMenu/MarginContainer.global_position = Vector2.ZERO + offset
+
+
 func _process(delta):
 	var player = $".."
 	var vel = player.velocity

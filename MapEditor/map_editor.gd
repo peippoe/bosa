@@ -81,7 +81,12 @@ func _ready():
 				map_save_as()
 	)
 	%Load.pressed.connect(load_map)
-	%Play.pressed.connect(func play(): GameManager.play_map("user://beatmaps/beatmap.json"))
+	%Play.pressed.connect(func play():
+		if save_path:
+			GameManager.play_map(save_path)
+		else:
+			map_save_as()
+	)
 	%SpawnTarget.pressed.connect(
 		func spawn():
 			var cam = get_viewport().get_camera_3d()
@@ -275,7 +280,7 @@ func load_map():
 	var load_map_file_selected = func load_map_file_selected(path : String):
 		for i in map.get_children(): Utility.delete_gizmo(i)
 		
-		
+		save_path = path
 		print(path)
 		
 		var file = FileAccess.open(path, FileAccess.READ)

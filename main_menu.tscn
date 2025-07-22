@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dbv72bxs15p17"]
 
-[ext_resource type="Texture2D" uid="uid://r2fw3vhc4bi4" path="res://Assets/Image/bosa.png" id="1_06t4h"]
+[ext_resource type="Texture2D" uid="uid://r2fw3vhc4bi4" path="res://Assets/Image/UI/bosa.png" id="1_06t4h"]
 
 [node name="MainMenu" type="Node3D"]
 

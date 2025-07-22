@@ -35,16 +35,16 @@ func shoot():
 
 
 
-const GRAV := 10.0
+const GRAV := 12.0
 const FALL_GRAV := 15.0
 const SKYDIVE_GRAV_BOOST := 15.0
-const JUMP_VELOCITY := 4.0
+const JUMP_VELOCITY := 6.0
 
 const MAX_SPEED := 8.0
 var acceleration := 0.0
-const GROUND_ACCELERATION := 45.0
-const AIR_ACCELERATION := 38.0
-const GROUND_FRICTION := 45.0
+const FLOOR_ACCELERATION := 60.0
+const AIR_ACCELERATION := 50.0
+const FLOOR_FRICTION := 100.0
 
 var input_dir := Vector2.ZERO
 var move_dir := Vector3.ZERO
@@ -57,6 +57,7 @@ const SLIDE_LIMIT := 8.0
 const SLIDE_DOWNHILL_BOOST := 1.7
 
 var on_floor := false
+var was_on_floor := false
 
 var vel_buffer := []
 const VEL_BUFFER_SIZE := 4
@@ -67,6 +68,8 @@ func _physics_process(delta):
 	slide()
 	movement(delta)
 	update_variables()
+	
+	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/kick.ogg", null, Vector2(0.8, 1.2))
 	
 	if on_floor: %CoyoteTime.start()
 	
@@ -83,10 +86,11 @@ func _physics_process(delta):
 		%JumpBuffer.stop()
 		var hvel = velocity - Vector3.UP*velocity.y
 		velocity.y = max(velocity.y, 0)# + JUMP_VELOCITY
-		velocity += velocity * 0.1 + get_floor_normal() * JUMP_VELOCITY
-		AudioPlayer.play_audio("res://Assets/Audio/Jump.wav", null, Vector2(0.8, 1.2))
+		velocity += velocity * 0.1 + Vector3.UP * JUMP_VELOCITY
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/Jump.wav", null, Vector2(0.8, 1.2))
 
 func update_variables():
+	was_on_floor = on_floor
 	on_floor = is_on_floor()
 	
 	vel_buffer.push_front(velocity)
@@ -143,7 +147,7 @@ func movement(delta):
 	#if target == Vector3.ZERO and not on_floor: target = hvel
 	#
 	#if not on_floor or move_dir.dot(hvel) > 0:
-		#acceleration = GROUND_ACCELERATION
+		#acceleration = FLOOR_ACCELERATION
 	#else:
 		#acceleration = GROUND_DECELERATION
 	#
@@ -159,7 +163,7 @@ func movement(delta):
 	if add_speed > 0:
 		var accel = AIR_ACCELERATION
 		if sliding: accel = SLIDE_ACCELERATION
-		elif on_floor: accel = GROUND_ACCELERATION
+		elif on_floor: accel = FLOOR_ACCELERATION
 		accel *= delta
 		accel = min(accel, add_speed)
 		velocity += wish_dir * accel
@@ -187,7 +191,7 @@ func friction(hvel, wish_dir, delta):
 	if sliding:
 		friction_mult = SLIDE_FRICTION
 	elif on_floor: # friction
-		friction_mult = GROUND_FRICTION
+		friction_mult = FLOOR_FRICTION
 	
 	velocity += friction_vec * friction_mult * slowdown * delta
 
@@ -221,3 +225,13 @@ func _float(delta):
 	const DOWN_DRIVER := 200.0
 	const UP_DRIVER := 50.0
 	velocity.y += (diff * DOWN_DRIVER - (velocity.y * UP_DRIVER)) * delta
+
+
+
+func _process(delta):
+	if velocity.length() > 25:
+		%Wind.volume_linear = remap(velocity.length(), 25, 50, 0, .4)
+		%Wind.pitch_scale = remap(velocity.length(), 25, 50, 0.8, 1.4)
+		if not %Wind.playing: %Wind.play()
+	else:
+		if %Wind.playing: %Wind.stop()

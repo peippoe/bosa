@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjarepplh7h4d"]
+
+[ext_resource type="Script" uid="uid://tb8d2k58ioms" path="res://Components/music_pulse_component.gd" id="1_v4p6h"]
+
+[node name="MusicPulseComponent" type="Node"]
+script = ExtResource("1_v4p6h")

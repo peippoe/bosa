@@ -45,13 +45,12 @@ var playback_speed := 0.0:
 			else: seek(playhead)
 
 var event_index = 0
-var fadein_time := 0.6
 
 var pop_times = []
 var targets = []
 
 func auto_pop(new_target):
-	await get_tree().create_timer(fadein_time).timeout
+	await get_tree().create_timer(Settings.fadein_time).timeout
 	Utility.pop_target(new_target)
 
 func _process(delta):
@@ -62,17 +61,16 @@ func _process(delta):
 	
 	var beatmap = beatmap_data["beatmap"]
 	
-	if event_index < beatmap.size() and playhead > beatmap[event_index]["pop_time"] - fadein_time:
+	if event_index < beatmap.size() and playhead > beatmap[event_index]["pop_time"] - Settings.fadein_time:
 		var new_target = Utility.spawn_target(beatmap[event_index])
 		event_index += 1
 		if GameManager.in_editor:
-			call_deferred("auto_pop", new_target)
-			
+			auto_pop.call_deferred(new_target)
 		
-	#elif fadein_index < beatmap.size() and playhead > beatmap[fadein_index]["pop_time"] - fadein_time:
+	#elif fadein_index < beatmap.size() and playhead > beatmap[fadein_index]["pop_time"] - Settings.fadein_time:
 		#var new_fadein = Utility.spawn_entity("res://MapPlayer/fadein_target.tscn", null, beatmap[fadein_index]["global_position"])
 		#new_fadein.set_meta("start", playhead)
-		#new_fadein.set_meta("end", playhead + fadein_time)
+		#new_fadein.set_meta("end", playhead + Settings.fadein_time)
 		#fadein_index += 1
 		#fadeins.append(new_fadein)
 	#
@@ -108,4 +106,5 @@ func setup():
 	var file = FileAccess.open(GameManager.beatmap_path, FileAccess.READ)
 	var parsed = JSON.parse_string(file.get_as_text())
 	if not parsed: return
+	print("SETUP SUCCESSFUL - beatmap_path: %s" % GameManager.beatmap_path)
 	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])

@@ -1,6 +1,69 @@
-[gd_scene load_steps=2 format=3 uid="uid://deccvoewfo1bl"]
+[gd_scene load_steps=7 format=3 uid="uid://deccvoewfo1bl"]
 
 [ext_resource type="Script" uid="uid://c3npvnfvy1c5m" path="res://Player/ui.gd" id="1_4qruw"]
+[ext_resource type="AudioStream" uid="uid://cxrhmpyqrw0a8" path="res://Assets/Audio/Music/pause.wav" id="2_bxrt6"]
+[ext_resource type="PackedScene" uid="uid://bjarepplh7h4d" path="res://Components/music_pulse_component.tscn" id="2_d6uvt"]
+
+[sub_resource type="Animation" id="Animation_d6uvt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%PauseMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%PauseMusic:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_bxrt6"]
+resource_name = "pause"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%PauseMusic:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%PauseMusic:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3hae7"]
+_data = {
+&"RESET": SubResource("Animation_d6uvt"),
+&"pause": SubResource("Animation_bxrt6")
+}
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -26,6 +89,19 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Crosshair2" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Debug" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
@@ -48,6 +124,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_3hae7")
+}
+
+[node name="PauseMusic" type="AudioStreamPlayer" parent="PauseMenu"]
+unique_name_in_owner = true
+stream = ExtResource("2_bxrt6")
+bus = &"Music"
 
 [node name="Panel" type="Panel" parent="PauseMenu"]
 layout_mode = 1
@@ -85,3 +172,5 @@ fit_content = true
 [node name="Button" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "back"
+
+[node name="MusicPulseComponent" parent="PauseMenu/MarginContainer" instance=ExtResource("2_d6uvt")]

@@ -40,7 +40,7 @@ func get_control_local_position(control):
 
 
 func open_file_dialog(file_location : String, file_mode : FileDialog.FileMode, file_selected_callable : Callable, filters : PackedStringArray = []):
-	#disconnect all signals bruh
+	# disconnect all signals bruh
 	var connections = fd.get_signal_connection_list("file_selected")
 	for conn in connections: fd.disconnect("file_selected", conn.callable)
 	
@@ -119,12 +119,29 @@ const TARGETS = [
 	"res://Targets/target.tscn",
 ]
 func spawn_target(target_data):
-	return spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data["global_position"])
+	var new_target = spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data["global_position"])
+	new_target.pop_time = target_data["pop_time"]
+	print("AAAAAAAAAAAAAAA")
+	return new_target
 
 func pop_target(target):
 	if not target: return
-	target.queue_free()
-	AudioPlayer.play_audio("res://Assets/Audio/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
+	if not target.has_method("pop"): return
+	target.pop()
+	#AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
+
+func get_pop_timing(pop_time):
+	var diff = absf(Playback.playhead - pop_time)
+	print(diff)
+	var pop_timing = 0
+	for i in Settings.POP_TIMING_WINDOWS.size():
+		if diff > Settings.POP_TIMING_WINDOWS[i]:
+			continue
+		else:
+			pop_timing = Settings.POP_TIMING_WINDOWS[i]
+			break
+	
+	return pop_timing
 
 
 func spawn_marker(target : Node):
