@@ -84,6 +84,20 @@ func spawn_entity(entity := "", parent : Node = null, pos := Vector3.ZERO, rando
 	
 	return new_entity
 
+func make_materials_unique(mesh_instance : MeshInstance3D):
+	var mesh := mesh_instance.mesh
+	if not mesh: return
+	
+	var unique_mesh : Mesh = mesh.duplicate()
+	mesh_instance.mesh = unique_mesh
+	
+	for surface in unique_mesh.get_surface_count():
+		var material := unique_mesh.surface_get_material(surface)
+		if material:
+			var unique_material := material.duplicate()
+			unique_mesh.surface_set_material(surface, unique_material)
+			print(unique_mesh)
+
 
 
 func get_entity_properties(entity : Node):
@@ -121,7 +135,6 @@ const TARGETS = [
 func spawn_target(target_data):
 	var new_target = spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data["global_position"])
 	new_target.pop_time = target_data["pop_time"]
-	print("AAAAAAAAAAAAAAA")
 	return new_target
 
 func pop_target(target):
@@ -131,18 +144,43 @@ func pop_target(target):
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
 
 func get_pop_timing(pop_time):
-	var diff = absf(Playback.playhead - pop_time)
-	print(diff)
+	var delta = pop_time - Playback.playhead
+	print(delta)
+	var abs_delta = absf(delta)
 	var pop_timing = 0
-	for i in Settings.POP_TIMING_WINDOWS.size():
-		if diff > Settings.POP_TIMING_WINDOWS[i]:
-			continue
-		else:
-			pop_timing = Settings.POP_TIMING_WINDOWS[i]
-			break
-	
+	if abs_delta > Settings.POP_TIMING_WINDOWS[Settings.POP_TIMING_WINDOWS.size()-1]: pop_timing = -1
+	else:
+		for i in Settings.POP_TIMING_WINDOWS.size():
+			if abs_delta > Settings.POP_TIMING_WINDOWS[i]:
+				continue
+			else:
+				pop_timing = i
+				break
 	return pop_timing
 
+func spawn_gizmo(target_data = null):
+	
+	if not GameManager.in_editor: push_error("NOT IN EDITOR"); return
+	
+	var map = get_tree().current_scene.get_node("%Map")
+	var pos
+	var pop_time
+	if target_data:
+		pos = target_data["global_position"]
+		pop_time = target_data["pop_time"]
+	else:
+		var cam = get_viewport().get_camera_3d()
+		pos = cam.global_position + -cam.global_basis.z * 2.0
+		pop_time = Playback.playhead
+	
+	var new_gizmo = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", map, pos)
+	new_gizmo.pop_time = pop_time
+	
+	var new_marker = Utility.spawn_marker(new_gizmo)
+	
+	make_materials_unique(new_gizmo)
+	
+	return [new_gizmo, new_marker]
 
 func spawn_marker(target : Node):
 	var new_marker = load("res://MapEditor/marker.tscn").instantiate()

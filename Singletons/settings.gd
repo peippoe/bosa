@@ -2,14 +2,14 @@ extends Node
 
 var hit_sound_path := ""
 
-var fadein_time := 0.6
+var fadein_time := 1.0
 
 # hidden settings
 const POP_TIMING_WINDOWS = [
-	0.002, #perfect 0-2
-	0.040, #sick 2-40
-	0.080, #good 40-80
-	0.160, #ok 80-160
+	0.010, #perfect
+	0.050, #sick
+	0.100, #good
+	0.150, #ok
 ]
 
 func _ready():

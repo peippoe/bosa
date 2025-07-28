@@ -44,6 +44,7 @@ func change_scene(scene_path : String):
 	
 	update_in_editor()
 	if not in_editor and was_in_editor: editor_packed_scene = current_scene
+	
 	update_target_parent()
 
 func update_target_parent():

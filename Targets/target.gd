@@ -11,7 +11,8 @@ func pop():
 	print("POP TIMING: %d" % Utility.get_pop_timing(pop_time))
 	$AnimationPlayer.play("pop")
 	freeze = true
-	$waterbloon.visible = false
+	$waterbloon.hide()
+	$Ring2.hide()
 	$CollisionShape3D.disabled = true
 	await $AnimationPlayer.animation_finished
 	queue_free()

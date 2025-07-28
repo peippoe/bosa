@@ -3,14 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/gizmo_hitbox.tscn" id="1_hvoow"]
 [ext_resource type="Script" uid="uid://dgb0cvx4wwv33" path="res://MapEditor/gizmo_target.gd" id="1_rffix"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_7f73g"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vq1qf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rffix"]
+transparency = 1
 albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7f73g"]
+material = SubResource("StandardMaterial3D_rffix")
 
 [node name="GizmoTarget" type="MeshInstance3D" groups=["gizmo_single_select"]]
 mesh = SubResource("SphereMesh_7f73g")
-surface_material_override/0 = SubResource("StandardMaterial3D_vq1qf")
 script = ExtResource("1_rffix")
 metadata/pop_time = 0.0
 

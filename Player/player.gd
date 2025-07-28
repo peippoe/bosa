@@ -85,9 +85,21 @@ func _physics_process(delta):
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
 		var hvel = velocity - Vector3.UP*velocity.y
+		print(get_real_velocity())
 		velocity.y = max(velocity.y, 0)# + JUMP_VELOCITY
 		velocity += velocity * 0.1 + Vector3.UP * JUMP_VELOCITY
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/Jump.wav", null, Vector2(0.8, 1.2))
+		
+		var a = func a():
+			await get_tree().physics_frame
+			await get_tree().physics_frame
+			print(get_real_velocity())
+		
+		a.call_deferred()
+		
+
+func print_vel():
+	print(get_real_velocity())
 
 func update_variables():
 	was_on_floor = on_floor

@@ -89,13 +89,8 @@ func _ready():
 	)
 	%SpawnTarget.pressed.connect(
 		func spawn():
-			var cam = get_viewport().get_camera_3d()
-			var pos = cam.global_position + -cam.global_basis.z * 2
-			var new_target = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", map, pos)
-			new_target.pop_time = Playback.playhead
-			
-			var new_marker = Utility.spawn_marker(new_target)
-			connect_marker_signals(new_marker)
+			var spawn_gizmo_return = Utility.spawn_gizmo()
+			connect_marker_signals(spawn_gizmo_return[1])
 	)
 	%Timeline.scrolling.connect(
 		func _on_timeline_scrolling():
@@ -216,7 +211,20 @@ func start_drag(event, coll):
 func _process(delta):
 	handle_gizmos()
 	handle_dragging()
+	fade_gizmos()
 	%TimeLabel.text = str(Playback.playhead).pad_decimals(2)# + " -- " + str(%Timeline.value - Playback.playhead).pad_decimals(2)
+
+
+func fade_gizmos():
+	for i in %Map.get_children().size():
+		var target_gizmo : MeshInstance3D = %Map.get_child(i)
+		var start = target_gizmo.pop_time - Settings.fadein_time
+		var playhead_relative = maxf(Playback.playhead - start, 0)
+		
+		var alpha = 0
+		if playhead_relative > 0 and playhead_relative < Settings.fadein_time:
+			alpha = playhead_relative / Settings.fadein_time
+		target_gizmo.get_active_material(0).albedo_color.a = alpha
 
 func handle_gizmos():
 	if not selected:
@@ -297,18 +305,9 @@ func load_map():
 		
 		for i in Playback.beatmap_data["beatmap"].size():
 			
-			var new_target
-			
 			var target_data = Playback.beatmap_data["beatmap"][i]
-			
-			match target_data["type"]:
-				0: new_target = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", %Map, Playback.beatmap_data["beatmap"][i]["global_position"])
-				_: print("UNSUPPORTED TARGET TYPE")
-			
-			new_target.pop_time = target_data["pop_time"]
-			
-			var new_marker = Utility.spawn_marker(new_target)
-			connect_marker_signals(new_marker)
+			var spawn_gizmo_return = Utility.spawn_gizmo(target_data)
+			connect_marker_signals(spawn_gizmo_return[1])
 	
 	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_OPEN_FILE, load_map_file_selected, PackedStringArray(["*.json"]))
 

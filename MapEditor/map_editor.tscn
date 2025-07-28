@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://4uvg1b2unkyd"]
+[gd_scene load_steps=18 format=3 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/map_editor.gd" id="1_ohqx4"]
 [ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/gizmo_position.tscn" id="2_3amqy"]
@@ -51,6 +51,9 @@ shader_parameter/in_dashed_count_y = 6.0
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
 points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3oym"]
+bg_color = Color(0.32, 0.32, 0.32, 1)
 
 [sub_resource type="Animation" id="Animation_kqkv5"]
 length = 0.001
@@ -241,6 +244,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 10.0
+theme_override_styles/scroll = SubResource("StyleBoxFlat_p3oym")
 step = 0.01
 script = ExtResource("5_3amqy")
 
