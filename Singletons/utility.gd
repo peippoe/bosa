@@ -12,21 +12,36 @@ func get_node_or_null_in_scene(node_path : String):
 	return get_tree().current_scene.get_node_or_null(node_path)
 
 
-func get_scrollbar_value_from_position(pos, scrollbar : ScrollBar, axis := 0):
+func get_slider_value_from_position(pos, slider : Control, axis := 0):
+	if slider is not ScrollBar and slider is not Slider: return
 	if axis == 0:
 		pos = pos.x
-		var length = scrollbar.size.x
-		var grabber_size = scrollbar.get_theme_stylebox("grabber").get_minimum_size().x
-		var click_ratio = clamp((pos - grabber_size * 0.5) / (length - grabber_size), 0.0, 1.0)
-		var value = lerp(scrollbar.min_value, scrollbar.max_value, click_ratio)
+		var grabber_size = slider.get_theme_stylebox("grabber").get_minimum_size().x * 2.0
+		var value = remap(pos - grabber_size * 0.5, 0, slider.size.x - grabber_size, slider.min_value, slider.max_value)
 		return value
 	else:
-		print("Y axis unsupported")
+		push_error("Y axis unsupported")
 
 
+func get_encompassing_rect(control : Control):
+	var rect := Rect2()
+	var first := true
+	
+	var children := control.find_children("*", "Control", true, false)
+	children.append(control)
+	
+	for child in children:
+		if child is not Control or not child.visible: continue
+		
+		var child_rect = child.get_global_rect()
+		if first:
+			rect = child_rect
+			first = false
+		else:
+			rect = rect.merge(child_rect)
+	
+	return rect
 
-func get_control_local_position(control):
-	return control.global_position - control.get_parent().global_position
 
 
 #func _ready():
@@ -101,7 +116,7 @@ func make_materials_unique(mesh_instance : MeshInstance3D):
 
 
 func get_entity_properties(entity : Node):
-	if not entity: print("NULL ENTITY"); return
+	if not entity: push_error("NULL ENTITY"); return
 	
 	var properties = {}
 	# Get script properties
@@ -184,17 +199,31 @@ func spawn_gizmo(target_data = null):
 
 func spawn_marker(target : Node):
 	var new_marker = load("res://MapEditor/marker.tscn").instantiate()
-	var timeline = Utility.get_node_or_null_in_scene("%Timeline")
+	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 	timeline.add_child(new_marker)
 	target.marker = new_marker
 	new_marker.set_meta("gizmo", target)
 	new_marker.position.x = remap(target.pop_time, 0, timeline.max_value, 0, timeline.size.x)
+	new_marker.position.y = 36
 	return new_marker
 
 func delete_gizmo(gizmo):
 	gizmo.marker.queue_free()
 	gizmo.queue_free()
 	get_tree().current_scene.set_selected(null)
+
+
+func spawn_bpm_guide(bpm : float):
+	var new_bpm_guide = load("res://MapEditor/bpm_guide.tscn").instantiate()
+	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
+	timeline.add_child(new_bpm_guide)
+	new_bpm_guide.set_meta("start_time", 0.0)
+	new_bpm_guide.set_meta("end_time", 1.0)
+	new_bpm_guide.set_meta("bpm", bpm)
+	new_bpm_guide.position.x = remap(Playback.playhead, 0, timeline.max_value, 0, timeline.size.x)
+	new_bpm_guide.position.y = 50
+	return new_bpm_guide
+
 
 
 

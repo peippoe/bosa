@@ -1,8 +1,9 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://crk4nvf5s0bqn"]
 
 [ext_resource type="FontFile" uid="uid://tf3e664pkot6" path="res://Assets/Font/BOREDSB.TTF" id="1_4w8ak"]
-[ext_resource type="StyleBox" uid="uid://cdkhno3igpkyg" path="res://Assets/UI/grabber.tres" id="2_ye651"]
 [ext_resource type="FontFile" uid="uid://bqeei4ay71ebk" path="res://Assets/Font/comicsans/comici.ttf" id="3_najkf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4w8ak"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j03tf"]
 bg_color = Color(1, 0.980392, 0.941176, 1)
@@ -13,9 +14,7 @@ Button/constants/outline_size = 5
 FancyLabel/base_type = &"RichTextLabel"
 FancyLabel/constants/outline_size = 0
 FancyLabel/fonts/normal_font = ExtResource("1_4w8ak")
-HScrollBar/styles/grabber = ExtResource("2_ye651")
-HScrollBar/styles/grabber_highlight = ExtResource("2_ye651")
-HScrollBar/styles/grabber_pressed = ExtResource("2_ye651")
+HSlider/styles/slider = SubResource("StyleBoxEmpty_4w8ak")
 Label/constants/outline_size = 5
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_j03tf")
 RichTextLabel/constants/outline_size = 5

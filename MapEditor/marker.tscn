@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jhvfvdjqdap3"]
 
-[ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Image/icon.svg" id="1_mj173"]
+[ext_resource type="Texture2D" uid="uid://pvvaga3yycuk" path="res://Assets/Image/Effect/circle.png" id="1_mj173"]
 
 [node name="Marker" type="Control"]
 layout_mode = 3
@@ -8,9 +8,17 @@ anchors_preset = 0
 
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 texture_normal = ExtResource("1_mj173")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="ColorRect" type="ColorRect" parent="TextureButton"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -2.0
+offset_right = 11.0
+offset_bottom = 22.0

@@ -14,6 +14,12 @@ var drag_delta := Vector3.ZERO
 
 var marker_dragged : Control = null
 var marker_drag_offset := 0.0
+const TIMELINE_GRABBER_SIZE := 8.0
+
+
+var tap_buffer := []
+const MAX_TAPS := 8
+
 
 var save_path := ""
 
@@ -73,8 +79,7 @@ func _ready():
 	%SaveAs.pressed.connect(map_save_as)
 	%Save.pressed.connect(
 		func save():
-			print("SAVE PATH:")
-			print(save_path)
+			print("SAVE PATH: %s" % save_path)
 			if save_path != "":
 				save_map(save_path)
 			else:
@@ -92,15 +97,46 @@ func _ready():
 			var spawn_gizmo_return = Utility.spawn_gizmo()
 			connect_marker_signals(spawn_gizmo_return[1])
 	)
-	%Timeline.scrolling.connect(
-		func _on_timeline_scrolling():
-			var new_step = 0.01
-			if Input.is_action_pressed("ctrl"):
-				new_step = 1
-			elif Input.is_action_pressed("shift"):
-				new_step = 0.1
-			%Timeline.step = new_step
-			Playback.playhead = %Timeline.value
+	
+	
+	%SpawnBPMGuide.pressed.connect(
+		func spawn():
+			%BPMCalculator.show()
+			get_node("%BPMCalculator/%CurrentBPM").text = ""
+	)
+	get_node("%BPMCalculator/%Tap").pressed.connect(
+		func tap():
+			if tap_buffer.size() == MAX_TAPS: tap_buffer.pop_front()
+			
+			tap_buffer.append(Time.get_ticks_msec()/1000.0)
+			
+			if tap_buffer.size() < 2: return
+			
+			var interval_sum := 0.0
+			var prev_tap := 0.0
+			for i in tap_buffer.size():
+				var current_tap = tap_buffer[i]
+				if i != 0: interval_sum += current_tap - prev_tap
+				prev_tap = current_tap
+			
+			var avg_interval = interval_sum / (tap_buffer.size() - 1)
+			var new_bpm = roundf(60.0 / avg_interval)
+			get_node("%BPMCalculator/%CurrentBPM").text = str(new_bpm)
+	)
+	get_node("%BPMCalculator/%Clear").pressed.connect(
+		func clear():
+			tap_buffer = []
+			get_node("%BPMCalculator/%CurrentBPM").text = ""
+	)
+	get_node("%BPMCalculator/%Confirm").pressed.connect(
+		func confirm():
+			%BPMCalculator.hide()
+			print("confirm")
+			var bpm = float(get_node("%BPMCalculator/%CurrentBPM").text)
+			var new_bpm_guide = Utility.spawn_bpm_guide(bpm)
+			print(bpm)
+			new_bpm_guide.set_meta("bpm", bpm)
+			connect_marker_signals(new_bpm_guide)
 	)
 
 func connect_marker_signals(marker):
@@ -114,10 +150,16 @@ func connect_marker_signals(marker):
 	marker.get_child(0).button_up.connect(
 		func end_drag_marker():
 			marker_dragged = null
+			
+			var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
+			if marker.has_meta("gizmo"):
+				marker.get_meta("gizmo").pop_time = Utility.get_slider_value_from_position(marker.position, timeline)
+			if marker.has_meta("bpm"):
+				marker.set_meta("start_time", Utility.get_slider_value_from_position(marker.position, timeline))
 	)
 	marker.get_child(0).pressed.connect(
 		func pressed_marker():
-			set_selected(marker.get_meta("gizmo"))
+			if marker.has_meta("gizmo"): set_selected(marker.get_meta("gizmo"))
 	)
 
 
@@ -125,10 +167,9 @@ func connect_marker_signals(marker):
 func _input(event):
 	if event is InputEventMouseMotion and marker_dragged:
 		var mouse = get_viewport().get_mouse_position()
-		var min = %Timeline.global_position.x
-		var max = min + %Timeline.size.x
-		marker_dragged.global_position.x = clamp(mouse.x + marker_drag_offset, min, max)
-		#print(marker_dragged.global_position.x)
+		var min = %TimelineSlider.global_position.x + TIMELINE_GRABBER_SIZE
+		var max = %TimelineSlider.global_position.x + %TimelineSlider.size.x - TIMELINE_GRABBER_SIZE
+		marker_dragged.global_position.x = clampf(mouse.x + marker_drag_offset, min, max)
 
 
 
@@ -204,7 +245,7 @@ func start_drag(event, coll):
 		"X": drag_axis = Vector3.RIGHT
 		"Y": drag_axis = Vector3.UP
 		"Z": drag_axis = Vector3.BACK
-		_: print("SOMETHING WONG")
+		_: push_error("SOMETHING WONG")
 
 
 
@@ -333,7 +374,7 @@ func write_to_json(data, path):
 		file.close()
 		print("Saved successfully to " + path)
 	else:
-		print("Failed to write to JSON")
+		push_error("Failed to write to JSON")
 
 
 

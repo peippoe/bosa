@@ -4,9 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/gizmo_position.tscn" id="2_3amqy"]
 [ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Player/ghost_cam.gd" id="3_p3oym"]
 [ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_4j6mt"]
-[ext_resource type="Script" uid="uid://bv6etpelrcaqk" path="res://MapEditor/jump_on_click.gd" id="5_3amqy"]
+[ext_resource type="Script" uid="uid://0pssxrtug78c" path="res://MapEditor/timeline.gd" id="5_4j6mt"]
 [ext_resource type="Script" uid="uid://rhyjgow2pmwl" path="res://MapEditor/selection_properties.gd" id="5_ohqx4"]
 [ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Image/icon.svg" id="6_p3oym"]
+[ext_resource type="PackedScene" uid="uid://8tt6gsuipabo" path="res://MapEditor/bpm_calculator.tscn" id="8_4j6mt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7xmfy"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -52,9 +53,6 @@ shader_parameter/in_dashed_count_y = 6.0
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
 points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3oym"]
-bg_color = Color(0.32, 0.32, 0.32, 1)
-
 [sub_resource type="Animation" id="Animation_kqkv5"]
 length = 0.001
 tracks/0/type = "value"
@@ -72,7 +70,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_43ajp"]
 resource_name = "new_animation"
-length = 100.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -195,70 +192,125 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "spawn target"
 
-[node name="SpawnTarget2" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="SpawnBPMGuide" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "spawn target"
+text = "spawn bpm guide"
 
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel"]
 layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+[node name="Label" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[indent]Timeline"
 
-[node name="Play" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+[node name="Play" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "▷"
 
-[node name="Pause" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+[node name="Pause" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 focus_mode = 0
 text = "||"
 
-[node name="TimeLabel" type="Label" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+[node name="TimeLabel" type="Label" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.00"
 horizontal_alignment = 1
 
-[node name="Timeline" type="HScrollBar" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="TimelineSubViewportContainer" type="SubViewportContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 10.0
-theme_override_styles/scroll = SubResource("StyleBoxFlat_p3oym")
-step = 0.01
-script = ExtResource("5_3amqy")
+size_flags_vertical = 3
+stretch = true
+script = ExtResource("5_4j6mt")
 
-[node name="TextureButton" type="TextureButton" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer/Timeline"]
+[node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(803, 46)
+render_target_update_mode = 4
+
+[node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Icon" type="TextureRect" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport/Timeline"]
 visible = false
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_p3oym")
+expand_mode = 2
+
+[node name="TimelineSlider" type="HSlider" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport/Timeline"]
+unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = -1
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-pivot_offset = Vector2(20, 20)
-texture_normal = ExtResource("6_p3oym")
-ignore_texture_size = true
-stretch_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.348
+offset_top = -4.0
+offset_bottom = -4.008
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 10.0
+theme_override_constants/grabber_offset = 8
+step = 0.01
+scrollable = false
+tick_count = 100
+ticks_on_borders = true
+
+[node name="TimelineScrollbar" type="HScrollBar" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+page = 10.0
+
+[node name="LengthEdit" type="LineEdit" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+virtual_keyboard_type = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EditorUI"]
 layout_mode = 2
@@ -347,10 +399,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -25.0
-offset_right = 200.0
-offset_bottom = 128.0
+offset_left = 106.0
+offset_top = -45.0
+offset_right = 307.0
+offset_bottom = 97.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_ohqx4")
@@ -424,6 +476,22 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 
+[node name="BPMCalculator" parent="EditorUI" instance=ExtResource("8_4j6mt")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -148.0
+offset_right = 74.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Map" type="Node3D" parent="."]
 unique_name_in_owner = true
 
@@ -435,5 +503,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_kqkv5")
 }
 
-[connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/MarginContainer/HBoxContainer/Pause" to="." method="_on_pause_pressed"]
+[connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Pause" to="." method="_on_pause_pressed"]
+
+[editable path="EditorUI/BPMCalculator"]

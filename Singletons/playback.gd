@@ -17,7 +17,7 @@ var playhead := 0.0:
 		
 		if not GameManager.in_editor: return
 		
-		var timeline = Utility.get_node_or_null_in_scene("%Timeline")
+		var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 		if timeline: timeline.value = playhead
 		
 		if playback_speed == 0: # Paused Scrubbing
