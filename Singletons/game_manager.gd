@@ -7,6 +7,7 @@ var target_parent : Node
 var in_editor := false
 var editor_packed_scene : PackedScene = null
 
+
 func _ready():
 	update_in_editor()
 	update_target_parent()

@@ -15,7 +15,7 @@ radius = 0.2
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 radius = 0.3
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 floor_max_angle = 1.0472
 floor_snap_length = 0.5
 script = ExtResource("1_v0iea")
@@ -41,6 +41,7 @@ unique_name_in_owner = true
 shape = SubResource("CapsuleShape3D_sh265")
 
 [node name="UI" parent="." instance=ExtResource("2_cvnsp")]
+unique_name_in_owner = true
 
 [node name="Audio" type="Node" parent="."]
 

@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://8tt6gsuipabo"]
+[gd_scene format=3 uid="uid://bsp6vjhspm843"]
 
-[node name="BPMCalculator" type="PanelContainer"]
-offset_right = 226.0
-offset_bottom = 248.0
+[node name="InputDelayCalculator" type="PanelContainer"]
+offset_right = 331.0
+offset_bottom = 343.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -20,7 +20,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/line_separation = 1
 bbcode_enabled = true
-text = "[font_size=20][color=turquoise][tornado radius=7]BPM Calculator[/tornado]
+text = "[font_size=20][color=turquoise][tornado radius=7]Input Delay Calculator[/tornado]
 [font_size=15]	[wave amp=5][color=yellow]tap on beat"
 fit_content = true
 
@@ -37,7 +37,7 @@ theme_override_constants/separation = 5
 [node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "current BPM:"
+text = "current input delay:"
 fit_content = true
 vertical_alignment = 2
 
@@ -45,7 +45,7 @@ vertical_alignment = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CurrentBPM" type="LineEdit" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CurrentInputDelay" type="LineEdit" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -70,30 +70,3 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.6
 focus_mode = 0
 text = "confirm"
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Delete" type="Button" parent="Control"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -56.0
-offset_bottom = 31.0
-grow_horizontal = 0
-text = "delete"
-
-[node name="Cancel" type="Button" parent="Control"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -56.0
-offset_top = 43.0
-offset_bottom = 74.0
-grow_horizontal = 0
-text = "cancel"

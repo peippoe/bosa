@@ -8,7 +8,6 @@ func _ready():
 	#queue_free()
 
 func pop():
-	print("POP TIMING: %d" % Utility.get_pop_timing(pop_time))
 	$AnimationPlayer.play("pop")
 	freeze = true
 	$waterbloon.hide()

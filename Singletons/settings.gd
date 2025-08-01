@@ -8,9 +8,13 @@ var fadein_time := 1.0
 const POP_TIMING_WINDOWS = [
 	0.010, #perfect
 	0.050, #sick
-	0.100, #good
+	0.100, #great
 	0.150, #ok
 ]
+
+var input_delay := 0.0
+
+
 
 func _ready():
 	pass

@@ -1,43 +1,98 @@
 extends Control
 
 var dragging := false
-var ticks := []
+var ticks_to_erase := []
+var ticks := []:
+	set(value):
+		var editor = get_tree().current_scene
+		
+		for i in ticks_to_erase.size():
+			editor.snap_points.erase(ticks_to_erase[i])
+		
+		ticks = value
+		
+		var offset = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").global_position.x + self.global_position.x
+		
+		var new_value = value.duplicate()
+		if new_value != []:
+			for i in new_value.size():
+				new_value[i] = new_value[i] * Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second + offset
+			
+			editor.snap_points += new_value
+			ticks_to_erase = new_value
+			#print(editor.snap_points)
+
 
 func _gui_input(event):
+	queue_redraw()
+	%MarkerButton.size.x = %EdgeMarker.position.x
+	return
 	if event is InputEventMouseButton:
-		dragging = event.pressed
+		#dragging = event.pressed
 		
 		if dragging:
+			#SignalBus.marker_drag_start.emit(%EdgeMarker)
 			ticks = []
 			queue_redraw()
 		
 		elif not dragging:
-			set_meta("end_time", Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size/2 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second + Utility.get_slider_value_from_position($TextureButton2.global_position, Utility.get_node_or_null_in_scene("%TimelineSlider")))
-			
-			ticks = []
-			var length = get_meta("end_time") - get_meta("start_time")# + 6 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
-			var number_of_beats = length / 60.0 * get_meta("bpm")
-			for i in range(number_of_beats+1):
-				if i == 0: continue
-				ticks.append(i / get_meta("bpm") * 60.0)
+			#SignalBus.marker_drag_end.emit(%EdgeMarker)
+			end_drag()
 			
 			queue_redraw()
 	
 	if dragging and event is InputEventMouseMotion:
 		var x = get_global_mouse_position().x - position.x
-		$TextureButton2.position.x = x
-		$TextureButton.size.x = x
+		%EdgeMarker.position.x = x
+		%MarkerButton.size.x = x
+
+func end_drag():
+	update_end_time()
+	
+	ticks = []
+	var length = get_meta("end_time") - get_meta("start_time")# + 6 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
+	var number_of_beats = length / 60.0 * get_meta("bpm")
+	for i in range(number_of_beats+1):
+		ticks.append(i / get_meta("bpm") * 60.0)
+	
+	update_ticks()
+
+func update_ticks():
+	ticks = ticks
+
+func update_end_time():
+	set_meta("end_time", Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size/2 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second + Utility.get_slider_value_from_position(%EdgeMarker.global_position, Utility.get_node_or_null_in_scene("%TimelineSlider")))
 
 func _draw():
 	for i in ticks.size():
+		if i == 0: continue
 		var start = Vector2(ticks[i], 0.0) * Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
 		var end = start + Vector2(0.0, -10.0)
 		draw_line(start, end, Color.WHITE)
 
 func _ready():
-	$TextureButton2.gui_input.connect(_gui_input)
+	%EdgeMarker.button_up.connect(
+		func up():
+			update_ticks()
+	)
 	
-	$TextureButton.resized.connect(
+	%MarkerButton.button_up.connect(
+		func up():
+			update_ticks()
+	)
+	
+	
+	
+	%MarkerButton.pressed.connect(
+		func pressed():
+			print("PRESSSSSSSSSSSSSSSSSSSSSSSSSSSSSED")
+			get_tree().current_scene.set_selected_control(self)
+			Utility.get_node_or_null_in_scene("%BPMCalculator").show()
+	)
+	
+	%EdgeMarker.gui_input.connect(_gui_input)
+	
+	%MarkerButton.resized.connect(
 		func a():
 			queue_redraw()
 	)

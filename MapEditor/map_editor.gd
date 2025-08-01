@@ -4,7 +4,8 @@ extends Node3D
 @onready var gizmo_position = %gizmo_position
 @onready var map = %Map
 
-var selected : Node = null
+var selected : Node3D = null
+var selected_control : Control = null
 
 var dragging := false
 var drag_start_pos := Vector3.ZERO
@@ -13,9 +14,10 @@ var drag_axis := Vector3.ZERO
 var drag_delta := Vector3.ZERO
 
 var marker_dragged : Control = null
-var marker_drag_offset := 0.0
 const TIMELINE_GRABBER_SIZE := 8.0
 
+var snap_points := []
+var snap_threshold := 10.0
 
 var tap_buffer := []
 const MAX_TAPS := 8
@@ -99,10 +101,20 @@ func _ready():
 	)
 	
 	
+	
 	%SpawnBPMGuide.pressed.connect(
 		func spawn():
-			%BPMCalculator.show()
-			get_node("%BPMCalculator/%CurrentBPM").text = ""
+			var new_bpm_guide = Utility.spawn_bpm_guide(60)
+			connect_marker_signals(new_bpm_guide)
+	)
+	get_node("%BPMCalculator/%Confirm").pressed.connect(
+		
+		func confirm():
+			%BPMCalculator.hide()
+			var bpm = float(get_node("%BPMCalculator/%CurrentBPM").text)
+			print("SELECTED CONTROLLLLLL: %s" % selected_control)
+			selected_control.set_meta("bpm", bpm)
+			selected_control.get_node("%BPMLabel").text = "[font_size=10]bpm: %.2f" % bpm
 	)
 	get_node("%BPMCalculator/%Tap").pressed.connect(
 		func tap():
@@ -128,27 +140,35 @@ func _ready():
 			tap_buffer = []
 			get_node("%BPMCalculator/%CurrentBPM").text = ""
 	)
-	get_node("%BPMCalculator/%Confirm").pressed.connect(
-		func confirm():
+	get_node("%BPMCalculator/%Delete").pressed.connect(
+		func delete():
 			%BPMCalculator.hide()
-			print("confirm")
-			var bpm = float(get_node("%BPMCalculator/%CurrentBPM").text)
-			var new_bpm_guide = Utility.spawn_bpm_guide(bpm)
-			print(bpm)
-			new_bpm_guide.set_meta("bpm", bpm)
-			connect_marker_signals(new_bpm_guide)
+			if not selected_control: return
+			selected_control.queue_free()
+			set_selected(null)
+	)
+	get_node("%BPMCalculator/%Cancel").pressed.connect(
+		func cancel():
+			%BPMCalculator.hide()
 	)
 
 func connect_marker_signals(marker):
-	marker.get_child(0).button_down.connect(
+	var marker_button = marker.get_node("%MarkerButton")
+	if marker.name == "EdgeMarker":
+		marker_button = marker
+	
+	marker_button.button_down.connect(
 		func start_drag_marker():
+			SignalBus.marker_drag_start.emit(marker)
 			marker_dragged = marker
-			var mouse_x = get_viewport().get_mouse_position().x
-			var x = marker_dragged.global_position.x
-			marker_drag_offset = x - mouse_x
+			
+			if marker.name == "EdgeMarker":
+				marker.get_parent().ticks = []
+				marker.get_parent().queue_redraw()
 	)
-	marker.get_child(0).button_up.connect(
+	marker_button.button_up.connect(
 		func end_drag_marker():
+			SignalBus.marker_drag_end.emit(marker)
 			marker_dragged = null
 			
 			var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
@@ -156,21 +176,54 @@ func connect_marker_signals(marker):
 				marker.get_meta("gizmo").pop_time = Utility.get_slider_value_from_position(marker.position, timeline)
 			if marker.has_meta("bpm"):
 				marker.set_meta("start_time", Utility.get_slider_value_from_position(marker.position, timeline))
+				marker_button.get_parent().update_end_time()
+			if marker.name == "EdgeMarker":
+				marker.get_parent().end_drag()
 	)
-	marker.get_child(0).pressed.connect(
+	marker_button.pressed.connect(
 		func pressed_marker():
 			if marker.has_meta("gizmo"): set_selected(marker.get_meta("gizmo"))
 	)
+	var edge_marker = marker.get_node_or_null("%EdgeMarker")
+	if edge_marker and marker.name != "EdgeMarker":
+		connect_marker_signals(edge_marker)
+		#edge_marker.button_down.connect(
+			#func edge_marker_button_down():
+				#print("start_drag")
+				#
+		#)
 
 
 
 func _input(event):
 	if event is InputEventMouseMotion and marker_dragged:
-		var mouse = get_viewport().get_mouse_position()
+		var mouse_x = event.global_position.x
 		var min = %TimelineSlider.global_position.x + TIMELINE_GRABBER_SIZE
 		var max = %TimelineSlider.global_position.x + %TimelineSlider.size.x - TIMELINE_GRABBER_SIZE
-		marker_dragged.global_position.x = clampf(mouse.x + marker_drag_offset, min, max)
+		if snap_points and Input.is_action_pressed("ctrl"):
+			mouse_x = get_snapped_x(mouse_x)
+		marker_dragged.global_position.x = clampf(mouse_x - %TimelineSubViewportContainer.global_position.x, min, max)
 
+func get_snapped_x(pos : float):
+	if snap_points == []: return pos
+	
+	var closest : float
+	var closest_distance := 999.0
+	for i in snap_points.size():
+		var distance = absf(snap_points[i] - pos)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest = snap_points[i]
+	
+	if not closest: push_error("ERROR GETTING CLOSEST"); return pos
+	
+	var distance_to_closest = absf(closest - pos)
+	if distance_to_closest < snap_threshold:
+		#print("CLOSESTTTTTTTTTTT: %f" % closest)
+		return closest
+	else:
+		#print("DISTANCE TO CLOSEST NOT CLOSE ENOUGH: %f" % distance_to_closest)
+		return pos
 
 
 func _unhandled_input(event):
@@ -221,7 +274,8 @@ func set_selected(new_selected):
 	else:
 		%SelectionProperties.show()
 
-
+func set_selected_control(new_selected_control):
+	selected_control = new_selected_control
 
 
 

@@ -157,9 +157,15 @@ func pop_target(target):
 	if not target.has_method("pop"): return
 	target.pop()
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
+	
+	#var pop_timing = Utility.get_pop_timing(target.pop_time)
+	var player = get_tree().get_first_node_in_group("player")
+	var timing_indicator = player.get_node("%UI/%TimingIndicator")
+	var delta = Playback.playhead - target.pop_time
+	timing_indicator.display_point_on_indicator(delta)
 
 func get_pop_timing(pop_time):
-	var delta = pop_time - Playback.playhead
+	var delta = Playback.playhead - pop_time
 	print(delta)
 	var abs_delta = absf(delta)
 	var pop_timing = 0

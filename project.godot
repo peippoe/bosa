@@ -23,6 +23,7 @@ Settings="*res://Singletons/settings.gd"
 GameManager="*res://Singletons/game_manager.gd"
 Playback="*res://Singletons/playback.tscn"
 Utility="*res://Singletons/utility.gd"
+SignalBus="*res://Singletons/signal_bus.gd"
 
 [display]
 
@@ -37,6 +38,7 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 [global_group]
 
 gizmo_single_select=""
+player=""
 
 [gui]
 

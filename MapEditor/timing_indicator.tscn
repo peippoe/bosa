@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp87hswnvokx4"]
+
+[ext_resource type="Script" uid="uid://csx5qdy5pspe4" path="res://MapEditor/timing_indicator.gd" id="1_ebdfu"]
+
+[node name="TimingIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 208.0
+offset_bottom = 16.0
+script = ExtResource("1_ebdfu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 104.0
+offset_top = 11.0
+offset_right = 104.0
+offset_bottom = 11.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+offset_left = 104.0
+offset_top = 11.0
+offset_right = 104.0
+offset_bottom = 11.0
+
+[node name="Ok" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 0, 1)
+
+[node name="Great" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Sick" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 1, 1)

@@ -29,8 +29,9 @@ var pixels_per_second := 10.0:
 				var x = remap(i.get_meta("start_time"), %TimelineSlider.min_value, %TimelineSlider.max_value, timeline_grabber_size, %Timeline.size.x - timeline_grabber_size)
 				i.position.x = x
 				var x2 = remap(i.get_meta("end_time"), %TimelineSlider.min_value, %TimelineSlider.max_value, timeline_grabber_size, %Timeline.size.x - timeline_grabber_size) - timeline_grabber_size * 0.5
-				i.get_node("TextureButton2").global_position.x = x2
-				i.get_node("TextureButton").size.x = x2 - x
+				i.get_node("%EdgeMarker").global_position.x = x2
+				i.get_node("%MarkerButton").size.x = x2 - x
+				i.update_ticks()
 
 var zoom_step := 2.0
 var zoom_min_max := [2.0, 100.0]
@@ -89,10 +90,9 @@ func _process(delta):
 	%Timeline.size.x = max_value * pixels_per_second + 2.0 * timeline_grabber_size
 
 func _update():
-	var a = Utility.get_encompassing_rect(%TimelineSlider)
-	%TimelineScrollbar.max_value = a.size.x
+	%TimelineScrollbar.max_value = Utility.get_encompassing_rect(%TimelineSlider).size.x
 	%TimelineScrollbar.page = self.size.x
-	print(a)
+	
 	if %TimelineScrollbar.page == %TimelineScrollbar.max_value: %TimelineScrollbar.hide(); %Timeline.position.x = 0.0
 	elif not %TimelineScrollbar.visible: %TimelineScrollbar.show()
 	
