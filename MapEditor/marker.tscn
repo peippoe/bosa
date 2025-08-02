@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jhvfvdjqdap3"]
 
-[ext_resource type="Texture2D" uid="uid://pvvaga3yycuk" path="res://Assets/Image/Effect/circle.png" id="1_mj173"]
+[ext_resource type="Texture2D" uid="uid://pvvaga3yycuk" path="res://Assets/Image/Effect/ringbad.png" id="1_mj173"]
 
 [node name="Marker" type="Control"]
 layout_mode = 3
