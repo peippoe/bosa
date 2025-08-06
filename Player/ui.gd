@@ -2,7 +2,13 @@ extends Control
 
 
 func _ready():
-	$PauseMenu/MarginContainer/VBoxContainer/BackToEditor.pressed.connect(func back_to_editor():
+	%MainMenu.pressed.connect(func main_menu():
+		get_tree().paused = false
+		GameManager.change_scene("res://Scenes/main_menu.tscn")
+		
+		)
+	
+	%BackToEditor.pressed.connect(func back_to_editor():
 		GameManager.back_to_editor()
 	)
 

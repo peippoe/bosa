@@ -1,9 +1,9 @@
 [gd_scene load_steps=14 format=4 uid="uid://cv5d87efy2njo"]
 
-[ext_resource type="Material" uid="uid://dengmp1i2scib" path="res://MapEditor/gizmo_x.tres" id="1_wl8o3"]
-[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/gizmo_hitbox.tscn" id="2_s51r3"]
-[ext_resource type="Material" uid="uid://dlvdeunv5wo7s" path="res://MapEditor/gizmo_y.tres" id="2_yimsw"]
-[ext_resource type="Material" uid="uid://cddlyud4q7qm7" path="res://MapEditor/gizmo_z.tres" id="3_o34ob"]
+[ext_resource type="Material" uid="uid://dengmp1i2scib" path="res://MapEditor/GizmoManipulation/gizmo_x.tres" id="1_wl8o3"]
+[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/GizmoManipulation/gizmo_hitbox.tscn" id="2_s51r3"]
+[ext_resource type="Material" uid="uid://dlvdeunv5wo7s" path="res://MapEditor/GizmoManipulation/gizmo_y.tres" id="2_yimsw"]
+[ext_resource type="Material" uid="uid://cddlyud4q7qm7" path="res://MapEditor/GizmoManipulation/gizmo_z.tres" id="3_o34ob"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gxkjp"]
 _surfaces = [{

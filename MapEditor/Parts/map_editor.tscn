@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=3 uid="uid://4uvg1b2unkyd"]
 
-[ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/map_editor.gd" id="1_ohqx4"]
-[ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/gizmo_position.tscn" id="2_3amqy"]
-[ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Player/ghost_cam.gd" id="3_p3oym"]
-[ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_4j6mt"]
-[ext_resource type="Script" uid="uid://0pssxrtug78c" path="res://MapEditor/timeline.gd" id="5_4j6mt"]
-[ext_resource type="Script" uid="uid://rhyjgow2pmwl" path="res://MapEditor/selection_properties.gd" id="5_ohqx4"]
-[ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Image/icon.svg" id="6_p3oym"]
-[ext_resource type="PackedScene" uid="uid://8tt6gsuipabo" path="res://MapEditor/bpm_calculator.tscn" id="8_4j6mt"]
+[ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/Parts/map_editor.gd" id="1_prvuo"]
+[ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/GizmoManipulation/gizmo_position.tscn" id="2_q4pck"]
+[ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Player/ghost_cam.gd" id="3_jrwax"]
+[ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_ov5y3"]
+[ext_resource type="Script" uid="uid://0pssxrtug78c" path="res://MapEditor/Parts/timeline.gd" id="5_lf0yh"]
+[ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Image/icon.svg" id="6_wjw6d"]
+[ext_resource type="Script" uid="uid://rhyjgow2pmwl" path="res://MapEditor/Parts/selection_properties.gd" id="7_smuu6"]
+[ext_resource type="PackedScene" uid="uid://8tt6gsuipabo" path="res://MapEditor/Parts/bpm_calculator.tscn" id="8_2wpdj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7xmfy"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -28,7 +28,7 @@ orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_43ajp"]
 render_priority = 0
-shader = ExtResource("4_4j6mt")
+shader = ExtResource("4_ov5y3")
 shader_parameter/subdivisions = 10.0
 shader_parameter/grid_width = 0.01
 shader_parameter/background_color = Color(0.2, 0.2, 0.2, 0.4)
@@ -90,7 +90,7 @@ _data = {
 }
 
 [node name="MapEditor" type="Node3D"]
-script = ExtResource("1_ohqx4")
+script = ExtResource("1_prvuo")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_kqkv5")
@@ -99,14 +99,14 @@ environment = SubResource("Environment_kqkv5")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="gizmo_position" parent="." instance=ExtResource("2_3amqy")]
+[node name="gizmo_position" parent="." instance=ExtResource("2_q4pck")]
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.319575, 1, 0)
 visible = false
 
 [node name="GhostCam" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("3_p3oym")
+script = ExtResource("3_jrwax")
 
 [node name="Cam" type="Camera3D" parent="GhostCam"]
 unique_name_in_owner = true
@@ -197,6 +197,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "spawn bpm guide"
 
+[node name="SpawnGoal" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "spawn goal"
+
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -256,7 +261,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
-script = ExtResource("5_4j6mt")
+script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
@@ -280,7 +285,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_p3oym")
+texture = ExtResource("6_wjw6d")
 expand_mode = 2
 
 [node name="TimelineSlider" type="HSlider" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport/Timeline"]
@@ -385,11 +390,11 @@ layout_mode = 2
 focus_mode = 0
 text = "choose song"
 
-[node name="Play" type="Button" parent="EditorUI/HBoxContainer"]
+[node name="Playtest" type="Button" parent="EditorUI/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
-text = "play"
+text = "playtest"
 
 [node name="SelectionProperties" type="PanelContainer" parent="EditorUI"]
 unique_name_in_owner = true
@@ -405,12 +410,12 @@ offset_right = 307.0
 offset_bottom = 97.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5_ohqx4")
+script = ExtResource("7_smuu6")
 
 [node name="MarginContainer" type="MarginContainer" parent="EditorUI/SelectionProperties"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
@@ -476,7 +481,7 @@ file_mode = 0
 access = 2
 use_native_dialog = true
 
-[node name="BPMCalculator" parent="EditorUI" instance=ExtResource("8_4j6mt")]
+[node name="BPMCalculator" parent="EditorUI" instance=ExtResource("8_2wpdj")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

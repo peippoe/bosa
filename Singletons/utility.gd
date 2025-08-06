@@ -22,6 +22,11 @@ func get_slider_value_from_position(pos, slider : Control, axis := 0):
 	else:
 		push_error("Y axis unsupported")
 
+func get_position_on_timeline_from_value(value):
+	var timeline_grabber_size = get_tree().current_scene.TIMELINE_GRABBER_SIZE
+	var timeline_slider = get_node_or_null_in_scene("%TimelineSlider")
+	var timeline = get_node_or_null_in_scene("%Timeline")
+	return remap(value, timeline_slider.min_value, timeline_slider.max_value, timeline_grabber_size, timeline.size.x - timeline_grabber_size)
 
 func get_encompassing_rect(control : Control):
 	var rect := Rect2()
@@ -84,20 +89,20 @@ func ensure_dir_exists(absolute_path : String):
 
 # Entity utility
 
-func spawn_entity(entity := "", parent : Node = null, pos := Vector3.ZERO, randomness := 0.0):
+func spawn_entity(entity := "",  parent : Node = null, data = null):
 	if not parent: parent = get_tree().current_scene
 	
 	var new_entity = load(entity).instantiate()
 	parent.add_child(new_entity)
 	
-	var x = Vector3(
-		randf_range(-randomness, randomness),
-		randf_range(-randomness, randomness),
-		randf_range(-randomness, randomness)
-	)
-	new_entity.global_position = pos + x
+	if data: apply_data(new_entity, data)
 	
 	return new_entity
+
+func apply_data(entity, data):
+	for key in data:
+		if key in entity:
+			entity.set(key, data[key])
 
 func make_materials_unique(mesh_instance : MeshInstance3D):
 	var mesh := mesh_instance.mesh
@@ -120,15 +125,15 @@ func get_entity_properties(entity : Node):
 	
 	var properties = {}
 	# Get script properties
-	if entity.get_script():
-		for property in entity.get_script().get_script_property_list():
-			if not (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE): continue
-			if property.name == "node_properties": continue
-			properties[property.name] = entity.get(property.name)
+	#if entity.get_script():
+		#for property in entity.get_script().get_script_property_list():
+			#if not (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE): continue
+			#if property.name == "node_properties" or property.name == "script_properties": continue
+			#properties[property.name] = entity.get(property.name)
 	
 	# Get specified node properties
-	if "node_properties" in entity:
-		for key in entity.node_properties:
+	if "ENTITY_PROPERTIES" in entity:
+		for key in entity.ENTITY_PROPERTIES:
 			if key in entity:
 				properties[key] = entity.get(key)
 	
@@ -142,14 +147,13 @@ func get_entity_properties(entity : Node):
 
 
 
-# Targets utility
+# Prop utility
 
 const TARGETS = [
-	"res://Targets/target.tscn",
+	"res://MapPlayer/Props/Targets/target.tscn",
 ]
 func spawn_target(target_data):
-	var new_target = spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data["global_position"])
-	new_target.pop_time = target_data["pop_time"]
+	var new_target = spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data)
 	return new_target
 
 func pop_target(target):
@@ -180,37 +184,39 @@ func get_pop_timing(pop_time):
 				break
 	return pop_timing
 
-func spawn_gizmo(target_data = null):
-	
+func spawn_gizmo(type, data = null):
 	if not GameManager.in_editor: push_error("NOT IN EDITOR"); return
 	
-	var map = get_tree().current_scene.get_node("%Map")
-	var pos
-	var pop_time
-	if target_data:
-		pos = target_data["global_position"]
-		pop_time = target_data["pop_time"]
-	else:
-		var cam = get_viewport().get_camera_3d()
-		pos = cam.global_position + -cam.global_basis.z * 2.0
-		pop_time = Playback.playhead
+	var gizmo_scene_path
+	match type:
+		Enums.GizmoType.TARGET_TAP:
+			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_target.tscn"
+		Enums.GizmoType.GOAL:
+			print("goal")
+			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_goal.tscn"
 	
-	var new_gizmo = Utility.spawn_entity("res://MapEditor/gizmo_target.tscn", map, pos)
-	new_gizmo.pop_time = pop_time
+	var new_gizmo = Utility.spawn_entity(gizmo_scene_path, get_tree().current_scene.get_node("%Map"), data)
+	
+	if not data:
+		var cam = get_viewport().get_camera_3d()
+		new_gizmo.global_position = cam.global_position + -cam.global_basis.z * 2.0
+		new_gizmo.pop_time = Playback.playhead
+	
 	
 	var new_marker = Utility.spawn_marker(new_gizmo)
 	
 	make_materials_unique(new_gizmo)
 	
-	return [new_gizmo, new_marker]
+	get_tree().current_scene.connect_marker_signals(new_marker)
+
 
 func spawn_marker(target : Node):
-	var new_marker = load("res://MapEditor/marker.tscn").instantiate()
+	var new_marker = load("res://MapEditor/Markers/marker.tscn").instantiate()
 	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 	timeline.add_child(new_marker)
 	target.marker = new_marker
 	new_marker.set_meta("gizmo", target)
-	new_marker.position.x = remap(target.pop_time, 0, timeline.max_value, 0, timeline.size.x)
+	new_marker.position.x = Utility.get_position_on_timeline_from_value(target.pop_time)
 	new_marker.position.y = 36
 	return new_marker
 
@@ -220,15 +226,25 @@ func delete_gizmo(gizmo):
 	get_tree().current_scene.set_selected(null)
 
 
-func spawn_bpm_guide(bpm : float):
-	var new_bpm_guide = load("res://MapEditor/bpm_guide.tscn").instantiate()
+func spawn_gizmo_goal(goal_data = null):
+	if not GameManager.in_editor: push_error("NOT IN EDITOR"); return
+	
+
+
+func spawn_bpm_guide(data = null):
+	var new_bpm_guide = load("res://MapEditor/Markers/bpm_guide.tscn").instantiate()
 	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 	timeline.add_child(new_bpm_guide)
-	new_bpm_guide.set_meta("start_time", 0.0)
-	new_bpm_guide.set_meta("end_time", 1.0)
-	new_bpm_guide.set_meta("bpm", bpm)
-	new_bpm_guide.position.x = remap(Playback.playhead, 0, timeline.max_value, 0, timeline.size.x)
+	
+	new_bpm_guide.start_time = Playback.playhead
+	new_bpm_guide.end_time = new_bpm_guide.start_time + 1.0
+	new_bpm_guide.bpm = 60.0
+	
+	if data: apply_data(new_bpm_guide, data)
+	
+	new_bpm_guide.position.x = Utility.get_position_on_timeline_from_value(new_bpm_guide.start_time)
 	new_bpm_guide.position.y = 50
+	get_tree().current_scene.connect_marker_signals(new_bpm_guide)
 	return new_bpm_guide
 
 
@@ -254,15 +270,3 @@ func convert_ints(data):
 		for key in target_data:
 			if key == "type": target_data[key] = int(target_data[key])
 	return data
-
-
-
-
-
-
-# Enums
-
-enum TargetType {
-	TAP,
-	HOLD,
-}

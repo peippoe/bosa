@@ -13,12 +13,12 @@ ground_horizon_color = Color(0.280466, 0.554351, 1, 1)
 ground_curve = 0.485029
 sun_curve = 0.0568394
 
-[sub_resource type="Sky" id="Sky_bo1nx"]
+[sub_resource type="Sky" id="Sky_p7b2h"]
 sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
 
 [sub_resource type="Environment" id="Environment_8gbba"]
 background_mode = 2
-sky = SubResource("Sky_bo1nx")
+sky = SubResource("Sky_p7b2h")
 tonemap_mode = 2
 glow_enabled = true
 

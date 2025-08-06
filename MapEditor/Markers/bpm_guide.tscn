@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://vwakonv48hct"]
 
-[ext_resource type="Script" uid="uid://beqa1ej7jam6n" path="res://MapEditor/bpm_guide.gd" id="1_ckwqc"]
+[ext_resource type="Script" uid="uid://beqa1ej7jam6n" path="res://MapEditor/Markers/bpm_guide.gd" id="1_ckwqc"]
 [ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Image/icon.svg" id="1_pdff6"]
 
 [node name="BPMGuide" type="Control"]

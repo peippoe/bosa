@@ -22,6 +22,14 @@ var ticks := []:
 			ticks_to_erase = new_value
 			#print(editor.snap_points)
 
+var bpm := 0.0
+var start_time := 0.0
+var end_time := 0.0
+
+const ENTITY_PROPERTIES = [
+	"bpm", "start_time", "end_time"
+	]
+
 
 func _gui_input(event):
 	queue_redraw()
@@ -38,8 +46,6 @@ func _gui_input(event):
 		elif not dragging:
 			#SignalBus.marker_drag_end.emit(%EdgeMarker)
 			end_drag()
-			
-			queue_redraw()
 	
 	if dragging and event is InputEventMouseMotion:
 		var x = get_global_mouse_position().x - position.x
@@ -50,18 +56,20 @@ func end_drag():
 	update_end_time()
 	
 	ticks = []
-	var length = get_meta("end_time") - get_meta("start_time")# + 6 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
-	var number_of_beats = length / 60.0 * get_meta("bpm")
+	var length = end_time - start_time# + 6 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
+	var number_of_beats = length / 60.0 * bpm
 	for i in range(number_of_beats+1):
-		ticks.append(i / get_meta("bpm") * 60.0)
+		ticks.append(i / bpm * 60.0)
 	
 	update_ticks()
+	
+	queue_redraw()
 
 func update_ticks():
 	ticks = ticks
 
 func update_end_time():
-	set_meta("end_time", Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size/2 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second + Utility.get_slider_value_from_position(%EdgeMarker.global_position, Utility.get_node_or_null_in_scene("%TimelineSlider")))
+	end_time = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size/2 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second + Utility.get_slider_value_from_position(%EdgeMarker.global_position, Utility.get_node_or_null_in_scene("%TimelineSlider"))
 
 func _draw():
 	for i in ticks.size():
@@ -81,8 +89,6 @@ func _ready():
 			update_ticks()
 	)
 	
-	
-	
 	%MarkerButton.pressed.connect(
 		func pressed():
 			print("PRESSSSSSSSSSSSSSSSSSSSSSSSSSSSSED")
@@ -96,6 +102,10 @@ func _ready():
 		func a():
 			queue_redraw()
 	)
+	
+	await get_tree().process_frame
+	
+	end_drag()
 
 
 

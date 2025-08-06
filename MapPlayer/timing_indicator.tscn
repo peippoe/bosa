@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cp87hswnvokx4"]
 
-[ext_resource type="Script" uid="uid://csx5qdy5pspe4" path="res://MapEditor/timing_indicator.gd" id="1_ebdfu"]
+[ext_resource type="Script" uid="uid://csx5qdy5pspe4" path="res://MapPlayer/timing_indicator.gd" id="1_ebdfu"]
 
 [node name="TimingIndicator" type="Control"]
 layout_mode = 3

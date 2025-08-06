@@ -1,6 +1,6 @@
 [gd_scene load_steps=58 format=4 uid="uid://dxiqtn7ptwvgb"]
 
-[ext_resource type="Script" uid="uid://ouwi82iutg1" path="res://Targets/target.gd" id="1_wbg1h"]
+[ext_resource type="Script" uid="uid://ouwi82iutg1" path="res://MapPlayer/Props/Targets/target.gd" id="1_wbg1h"]
 [ext_resource type="Texture2D" uid="uid://pvvaga3yycuk" path="res://Assets/Image/Effect/ringbad.png" id="2_j5n8r"]
 [ext_resource type="PackedScene" uid="uid://cmq6i71umhwgl" path="res://Blender/waterbloon.blend" id="3_bxfnh"]
 [ext_resource type="Texture2D" uid="uid://csjfnqp1t1nlj" path="res://Assets/Image/Effect/PNG (Transparent)/star_07.png" id="4_j2086"]
@@ -438,7 +438,7 @@ tracks/3/keys = {
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
-tracks/4/enabled = true
+tracks/4/enabled = false
 tracks/4/path = NodePath("ConstantRing:surface_material_override/0:shader_parameter/circle_width")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
@@ -678,7 +678,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vlwt"]
 render_priority = 1
 shader = SubResource("Shader_bj6ud")
-shader_parameter/albedo = Color(1, 1, 0, 1)
+shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/albedo_texture_size = Vector2i(0, 0)
 shader_parameter/point_size = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)

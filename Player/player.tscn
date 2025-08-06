@@ -37,6 +37,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 [node name="Cam" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
 
+[node name="EdgeRaycast" type="RayCast3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, -1)
+enabled = false
+target_position = Vector3(0, -1.5, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")
 
@@ -59,12 +65,12 @@ stream = ExtResource("5_k53q1")
 
 [node name="JumpBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.1
+wait_time = 0.12
 one_shot = true
 
 [node name="CoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.3
+wait_time = 0.2
 one_shot = true
 
 [node name="SlideBuffer" type="Timer" parent="."]

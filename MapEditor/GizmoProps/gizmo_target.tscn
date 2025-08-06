@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7qjodp44hgqf"]
 
-[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/gizmo_hitbox.tscn" id="1_hvoow"]
-[ext_resource type="Script" uid="uid://dgb0cvx4wwv33" path="res://MapEditor/gizmo_target.gd" id="1_rffix"]
+[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/GizmoManipulation/gizmo_hitbox.tscn" id="1_hvoow"]
+[ext_resource type="Script" uid="uid://dgb0cvx4wwv33" path="res://MapEditor/GizmoProps/gizmo_target.gd" id="1_rffix"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rffix"]
 transparency = 1

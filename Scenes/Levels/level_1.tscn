@@ -1,0 +1,153 @@
+[gd_scene load_steps=8 format=3 uid="uid://da7fhvgrlfvxa"]
+
+[ext_resource type="Shader" uid="uid://ddbuiblxbr7q4" path="res://Assets/Shader/black_background.gdshader" id="1_3mqfk"]
+[ext_resource type="AudioStream" uid="uid://c2fwiltbv57" path="res://Assets/Audio/Effect/qrnl.ogg" id="2_iixi8"]
+[ext_resource type="Script" uid="uid://7wufarbdcn7n" path="res://Components/typewriter_sound_component.gd" id="3_cyadu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dilhk"]
+shader = ExtResource("1_3mqfk")
+shader_parameter/spin_rotation_speed = -0.295
+shader_parameter/move_speed = 4.485
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/colour_1 = Color(0.052904, 0.053845, 0.109616, 1)
+shader_parameter/colour_2 = Color(0, 0, 0, 1)
+shader_parameter/colour_3 = Color(0, 0.0130881, 0.0593176, 1)
+shader_parameter/contrast = 3.5
+shader_parameter/lighting = -0.09
+shader_parameter/spin_amount = 0.215
+shader_parameter/pixel_filter = 500.0
+shader_parameter/is_rotating = true
+
+[sub_resource type="Animation" id="Animation_rf6l5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+
+[sub_resource type="Animation" id="Animation_3mhv4"]
+resource_name = "intro"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.1, 3.56667, 4.4, 4.7, 5.8, 6, 6.3273, 6.66667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0, 0.0, 0.194775, 0.194775, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.83333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.06667, 4.83333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["[font=res://Assets/Font/pixeloid_sans/PixeloidSans.ttf][tornado radius=2 freq=2][pulse freq=0.4 color=#ffffff80]hey you", "[font=res://Assets/Font/pixeloid_sans/PixeloidSans.ttf]wake up"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_syshm"]
+_data = {
+&"RESET": SubResource("Animation_rf6l5"),
+&"intro": SubResource("Animation_3mhv4")
+}
+
+[node name="Level1" type="Node3D"]
+
+[node name="Intro" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Intro"]
+material = SubResource("ShaderMaterial_dilhk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Intro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TypewriterSoundComponent" type="AudioStreamPlayer" parent="Intro/RichTextLabel"]
+stream = ExtResource("2_iixi8")
+script = ExtResource("3_cyadu")
+
+[node name="ColorRect2" type="ColorRect" parent="Intro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Intro"]
+libraries = {
+&"": SubResource("AnimationLibrary_syshm")
+}
+autoplay = "intro"

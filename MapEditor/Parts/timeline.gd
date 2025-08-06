@@ -21,14 +21,13 @@ var pixels_per_second := 10.0:
 		
 		for i in %TimelineSlider.get_children():
 			if i.has_meta("gizmo"):
-				var x = remap(i.get_meta("gizmo").pop_time, %TimelineSlider.min_value, %TimelineSlider.max_value, timeline_grabber_size, %Timeline.size.x - timeline_grabber_size)
+				var x = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").pop_time)
 				i.position.x = x
 				print(x)
-			elif i.has_meta("bpm"):
-				#print(i.get_meta("start_time"))
-				var x = remap(i.get_meta("start_time"), %TimelineSlider.min_value, %TimelineSlider.max_value, timeline_grabber_size, %Timeline.size.x - timeline_grabber_size)
+			elif "bpm" in i:
+				var x = Utility.get_position_on_timeline_from_value(i.start_time)
 				i.position.x = x
-				var x2 = remap(i.get_meta("end_time"), %TimelineSlider.min_value, %TimelineSlider.max_value, timeline_grabber_size, %Timeline.size.x - timeline_grabber_size) - timeline_grabber_size * 0.5
+				var x2 = Utility.get_position_on_timeline_from_value(i.end_time) - timeline_grabber_size * 0.5
 				i.get_node("%EdgeMarker").global_position.x = x2
 				i.get_node("%MarkerButton").size.x = x2 - x
 				i.update_ticks()

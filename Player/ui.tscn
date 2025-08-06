@@ -1,9 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://deccvoewfo1bl"]
+[gd_scene load_steps=9 format=3 uid="uid://deccvoewfo1bl"]
 
 [ext_resource type="Script" uid="uid://c3npvnfvy1c5m" path="res://Player/ui.gd" id="1_4qruw"]
 [ext_resource type="AudioStream" uid="uid://cxrhmpyqrw0a8" path="res://Assets/Audio/Music/pause.wav" id="2_bxrt6"]
 [ext_resource type="PackedScene" uid="uid://bjarepplh7h4d" path="res://Components/music_pulse_component.tscn" id="2_d6uvt"]
-[ext_resource type="PackedScene" uid="uid://cp87hswnvokx4" path="res://MapEditor/timing_indicator.tscn" id="4_3hae7"]
+[ext_resource type="PackedScene" uid="uid://cp87hswnvokx4" path="res://MapPlayer/timing_indicator.tscn" id="4_3hae7"]
 
 [sub_resource type="Animation" id="Animation_d6uvt"]
 length = 0.001
@@ -65,6 +65,9 @@ _data = {
 &"RESET": SubResource("Animation_d6uvt"),
 &"pause": SubResource("Animation_bxrt6")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hae7"]
+bg_color = Color(0.132885, 0.138147, 0.138147, 0.654902)
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -161,7 +164,6 @@ text = "vel"
 
 [node name="PauseMenu" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -187,6 +189,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hae7")
 
 [node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
 layout_mode = 1
@@ -213,11 +216,13 @@ layout_mode = 2
 text = "uhh"
 fit_content = true
 
-[node name="Button" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+[node name="MainMenu" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "back"
+text = "main menu"
 
 [node name="BackToEditor" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "back to editor"
 

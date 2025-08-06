@@ -1,14 +1,17 @@
 extends AudioStreamPlayer
 
+const CURRENT_BEATMAP_VERSION := 1
+
 var beatmap_data = {
 	"config": {
 		"name": null,
 		"creator": null,
 		"song": null,
-		"version": 0.1
+		"version": CURRENT_BEATMAP_VERSION
 	},
 	"events": [],
 	"beatmap": [],
+	"editor": [],
 }
 
 var playhead := 0.0:
@@ -24,10 +27,10 @@ var playhead := 0.0:
 			play(playhead)
 			await get_tree().create_timer(.2).timeout
 			if playback_speed == 0: stop()
-		else:
-			if not playing or abs(playhead - get_playback_position()) > 0.05: # Scrubbing/Jumping during playback
-				seek(playhead)
-				recalculate_event_index()
+		#else:
+			#if not playing or abs(playhead - get_playback_position()) > 0.05: # Scrubbing/Jumping during playback
+				#seek(playhead)
+				#recalculate_event_index()
 
 
 var playback_speed := 0.0:
@@ -49,10 +52,6 @@ var event_index = 0
 var pop_times = []
 var targets = []
 
-func auto_pop(new_target):
-	await get_tree().create_timer(Settings.fadein_time).timeout
-	Utility.pop_target(new_target)
-
 func _process(delta):
 	if playback_speed == 0.0: return
 	
@@ -66,18 +65,10 @@ func _process(delta):
 		event_index += 1
 		if GameManager.in_editor:
 			auto_pop.call_deferred(new_target)
-		
-	#elif fadein_index < beatmap.size() and playhead > beatmap[fadein_index]["pop_time"] - Settings.fadein_time:
-		#var new_fadein = Utility.spawn_entity("res://MapPlayer/fadein_target.tscn", null, beatmap[fadein_index]["global_position"])
-		#new_fadein.set_meta("start", playhead)
-		#new_fadein.set_meta("end", playhead + Settings.fadein_time)
-		#fadein_index += 1
-		#fadeins.append(new_fadein)
-	#
-	#for i in fadeins:
-		#var alpha = remap(playhead, i.get_meta("start"), i.get_meta("end"), 0, 1)
-		#i.scale = Vector3.ONE * alpha
-		#if alpha > 1: i.queue_free(); fadeins.remove_at(0)
+
+func auto_pop(new_target):
+	await get_tree().create_timer(new_target.pop_time - playhead).timeout
+	Utility.pop_target(new_target)
 
 func sort_beatmap_data():
 	beatmap_data["beatmap"].sort_custom(func(a, b):
@@ -100,7 +91,6 @@ func get_event_index():
 
 func recalculate_event_index():
 	event_index = get_event_index()
-	#fadein_index = event_index
 
 func setup():
 	var file = FileAccess.open(GameManager.beatmap_path, FileAccess.READ)

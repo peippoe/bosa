@@ -17,6 +17,14 @@ func _input(event):
 	
 	elif event is InputEventMouseButton:
 		if event.pressed: shoot()
+	
+	if event is InputEventKey:
+		
+		if Input.is_action_just_pressed("space"): %JumpBuffer.start()
+		if Input.is_action_just_released("space"):
+			if velocity.y > 0:
+				var extra = velocity.y
+				velocity.y -= extra / JUMP_CUTOFF
 
 func shoot():
 	var from = cam.global_position
@@ -38,11 +46,13 @@ func shoot():
 const GRAV := 12.0
 const FALL_GRAV := 15.0
 const SKYDIVE_GRAV_BOOST := 15.0
-const JUMP_VELOCITY := 6.0
+const JUMP_VELOCITY := 7.0
+const JUMP_BOOST := 0.1
+const JUMP_CUTOFF := 3.1
 
 const MAX_SPEED := 8.0
 var acceleration := 0.0
-const FLOOR_ACCELERATION := 60.0
+const FLOOR_ACCELERATION := 80.0
 const AIR_ACCELERATION := 50.0
 const FLOOR_FRICTION := 100.0
 
@@ -85,21 +95,26 @@ func _physics_process(delta):
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
 		var hvel = velocity - Vector3.UP*velocity.y
-		print(get_real_velocity())
-		velocity.y = max(velocity.y, 0)# + JUMP_VELOCITY
-		velocity += velocity * 0.1 + Vector3.UP * JUMP_VELOCITY
+		
+		
+		
+		%EdgeRaycast.force_raycast_update()
+		if not %EdgeRaycast.is_colliding():
+			velocity += velocity * JUMP_BOOST
+		velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/Jump.wav", null, Vector2(0.8, 1.2))
 		
+		
+		
 		var a = func a():
+			print(get_real_velocity())
 			await get_tree().physics_frame
 			await get_tree().physics_frame
 			print(get_real_velocity())
 		
 		a.call_deferred()
-		
 
-func print_vel():
-	print(get_real_velocity())
+
 
 func update_variables():
 	was_on_floor = on_floor
@@ -139,8 +154,6 @@ func movement(delta):
 		if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
 		velocity.y += -grav * delta
 		if global_position.y < -20: global_position = Vector3.UP*4; velocity.y = 0.0
-	
-	if Input.is_action_just_pressed("space"): %JumpBuffer.start()
 	
 	input_dir = Input.get_vector("a", "d", "w", "s")
 	move_dir = (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()

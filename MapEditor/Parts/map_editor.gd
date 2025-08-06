@@ -50,7 +50,6 @@ func set_song(path):
 
 
 var save_file_selected = func save_file_selected(path : String):
-	save_path = path
 	save_map(path)
 
 func map_save_as():
@@ -88,7 +87,7 @@ func _ready():
 				map_save_as()
 	)
 	%Load.pressed.connect(load_map)
-	%Play.pressed.connect(func play():
+	%Playtest.pressed.connect(func play():
 		if save_path:
 			GameManager.play_map(save_path)
 		else:
@@ -96,16 +95,18 @@ func _ready():
 	)
 	%SpawnTarget.pressed.connect(
 		func spawn():
-			var spawn_gizmo_return = Utility.spawn_gizmo()
-			connect_marker_signals(spawn_gizmo_return[1])
+			Utility.spawn_gizmo(0)
 	)
 	
+	%SpawnGoal.pressed.connect(
+		func spawn():
+			Utility.spawn_gizmo(1)
+	)
 	
 	
 	%SpawnBPMGuide.pressed.connect(
 		func spawn():
-			var new_bpm_guide = Utility.spawn_bpm_guide(60)
-			connect_marker_signals(new_bpm_guide)
+			Utility.spawn_bpm_guide()
 	)
 	get_node("%BPMCalculator/%Confirm").pressed.connect(
 		
@@ -113,7 +114,7 @@ func _ready():
 			%BPMCalculator.hide()
 			var bpm = float(get_node("%BPMCalculator/%CurrentBPM").text)
 			print("SELECTED CONTROLLLLLL: %s" % selected_control)
-			selected_control.set_meta("bpm", bpm)
+			selected_control.bpm = bpm
 			selected_control.get_node("%BPMLabel").text = "[font_size=10]bpm: %.2f" % bpm
 	)
 	get_node("%BPMCalculator/%Tap").pressed.connect(
@@ -174,8 +175,8 @@ func connect_marker_signals(marker):
 			var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 			if marker.has_meta("gizmo"):
 				marker.get_meta("gizmo").pop_time = Utility.get_slider_value_from_position(marker.position, timeline)
-			if marker.has_meta("bpm"):
-				marker.set_meta("start_time", Utility.get_slider_value_from_position(marker.position, timeline))
+			if "bpm" in marker:
+				marker.start_time = Utility.get_slider_value_from_position(marker.position, timeline)
 				marker_button.get_parent().update_end_time()
 			if marker.name == "EdgeMarker":
 				marker.get_parent().end_drag()
@@ -320,6 +321,12 @@ func fade_gizmos():
 		if playhead_relative > 0 and playhead_relative < Settings.fadein_time:
 			alpha = playhead_relative / Settings.fadein_time
 		target_gizmo.get_active_material(0).albedo_color.a = alpha
+		
+		var coll : CollisionShape3D = target_gizmo.get_node("GizmoHitbox").get_child(0)
+		if alpha == 0:
+			if not coll.disabled: coll.disabled = true
+		else:
+			if coll.disabled: coll.disabled = false
 
 func handle_gizmos():
 	if not selected:
@@ -382,13 +389,14 @@ func load_map():
 	
 	var load_map_file_selected = func load_map_file_selected(path : String):
 		for i in map.get_children(): Utility.delete_gizmo(i)
+		for i in Utility.get_node_or_null_in_scene("%TimelineSlider").get_children(): i.queue_free()
 		
 		save_path = path
 		print(path)
 		
 		var file = FileAccess.open(path, FileAccess.READ)
 		var parsed = JSON.parse_string(file.get_as_text())
-		if not parsed: return
+		if not parsed: push_error("PARSE FAILED"); return
 		parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
 		parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
 		
@@ -401,30 +409,42 @@ func load_map():
 		for i in Playback.beatmap_data["beatmap"].size():
 			
 			var target_data = Playback.beatmap_data["beatmap"][i]
-			var spawn_gizmo_return = Utility.spawn_gizmo(target_data)
-			connect_marker_signals(spawn_gizmo_return[1])
+			Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP, target_data)
+		
+		for i in Playback.beatmap_data["editor"].size():
+			var data = Playback.beatmap_data["editor"][i]
+			Utility.spawn_bpm_guide(data)
+	
 	
 	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_OPEN_FILE, load_map_file_selected, PackedStringArray(["*.json"]))
 
 
-func save_map(path):
+func compile_map():
 	Playback.beatmap_data["beatmap"] = []
 	for i in map.get_children():
 		Playback.beatmap_data["beatmap"].append(Utility.get_entity_properties(i))
+	Playback.sort_beatmap_data()
 	
-	Playback.beatmap_data["beatmap"].sort_custom(func(a, b):
-		return a["pop_time"] < b["pop_time"]
-	)
+	Playback.beatmap_data["editor"] = []
+	for i in %TimelineSlider.get_children():
+		if i.has_meta("gizmo"): continue
+		print(i)
+		Playback.beatmap_data["editor"].append(Utility.get_entity_properties(i))
+	
+
+func save_map(path):
+	save_path = path
+	
+	compile_map()
 	
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists("beatmaps"): dir.make_dir("beatmaps")
 	
-	write_to_json(Playback.beatmap_data, path)
-
-func write_to_json(data, path):
+	Playback.beatmap_data["config"]["version"] = Playback.CURRENT_BEATMAP_VERSION
+	
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
-		file.store_string(JSON.stringify(data, "\t"))
+		file.store_string(JSON.stringify(Playback.beatmap_data, "\t"))
 		file.close()
 		print("Saved successfully to " + path)
 	else:
@@ -439,6 +459,8 @@ func write_to_json(data, path):
 func _on_play_pressed():
 	# save objects as beatmap_data
 	# playback the beatmap_data
+	
+	compile_map()
 	
 	Playback.playback_speed = 1
 	%Map.hide()

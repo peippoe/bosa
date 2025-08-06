@@ -1,6 +1,6 @@
 extends Control
 
-const TIMING_INDICATOR_POINT = preload("res://MapEditor/timing_indicator_point.tscn")
+const TIMING_INDICATOR_POINT = preload("res://MapPlayer/timing_indicator_point.tscn")
 
 func _ready():
 	var max_value = Settings.POP_TIMING_WINDOWS[3]
