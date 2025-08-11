@@ -2,11 +2,15 @@ extends Control
 
 
 func _ready():
-	%MainMenu.pressed.connect(func main_menu():
-		get_tree().paused = false
-		GameManager.change_scene("res://Scenes/main_menu.tscn")
-		Playback.playback_speed = 0.0
-		)
+	%MainMenu.pressed.connect(
+		func main_menu():
+			GameManager.change_scene("res://Scenes/main_menu.tscn")
+	)
+	
+	%Retry.pressed.connect(
+		func retry():
+			GameManager.change_scene(get_tree().current_scene.scene_file_path)
+	)
 	
 	%BackToEditor.pressed.connect(func back_to_editor():
 		GameManager.back_to_editor()

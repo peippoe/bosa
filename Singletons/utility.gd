@@ -9,6 +9,7 @@ func round_float(value : float, rounding : int):
 	return round(value * r) / r
 
 func get_node_or_null_in_scene(node_path : String):
+	if not get_tree().current_scene: return null
 	return get_tree().current_scene.get_node_or_null(node_path)
 
 
