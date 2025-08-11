@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://be04md6gv2qvu"]
+
+[ext_resource type="Script" uid="uid://ds8gnnnbu75hh" path="res://MapPlayer/enemy_sprite.gd" id="1_8gk6a"]
+[ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Images/icon.svg" id="1_vacaq"]
+
+[node name="EnemySprite" type="Node3D"]
+script = ExtResource("1_8gk6a")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = ExtResource("1_vacaq")

@@ -5,7 +5,10 @@ var beatmap_path := ""
 var target_parent : Node
 
 var in_editor := false
-var editor_packed_scene : PackedScene = null
+
+var points := 0
+var combo := 0
+var health := 50
 
 
 func _ready():
@@ -17,22 +20,20 @@ func update_in_editor():
 
 
 func back_to_editor():
-	if not editor_packed_scene: push_error("NO EDITOR PACKED SCENE"); return
-	get_tree().change_scene_to_packed(editor_packed_scene)
-	editor_packed_scene = null
-	
-	get_tree().paused = false
+	Playback.playback_speed = 0
+	change_scene("res://MapEditor/Parts/map_editor.tscn")
 	
 	while not get_tree().current_scene:
 		await get_tree().process_frame
 	
-	update_in_editor()
-	update_target_parent()
+	get_tree().current_scene.load_map(beatmap_path)
 
 func change_scene(scene_path : String):
-	var was_in_editor = in_editor
-	var current_scene = PackedScene.new()
-	current_scene.pack(get_tree().current_scene)
+	get_tree().paused = false
+	
+	var back_to_editor_visible = false
+	if in_editor and scene_path == "res://MapPlayer/map_player.tscn":
+		back_to_editor_visible = true
 	
 	get_tree().change_scene_to_file(scene_path)
 	
@@ -42,10 +43,10 @@ func change_scene(scene_path : String):
 	#while get_tree().current_scene.scene_file_path != scene_path:
 		#await get_tree().process_frame
 	
+	var player = get_tree().get_first_node_in_group("player")
+	if player: player.get_node("%UI/%BackToEditor").visible = back_to_editor_visible
 	
 	update_in_editor()
-	if not in_editor and was_in_editor: editor_packed_scene = current_scene
-	
 	update_target_parent()
 
 func update_target_parent():

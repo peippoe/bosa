@@ -1,6 +1,6 @@
 extends MeshInstance3D
 
-var type := Enums.TargetType.TAP
+var type := Enums.GizmoType.TARGET_TAP
 var pop_time := 0.0
 var marker : Node
 

@@ -73,7 +73,7 @@ func _ready():
 	
 	%Settings.pressed.connect(func settings(): %SettingsDropdown.visible = !%SettingsDropdown.visible; %FileDropdown.hide())
 	%UserFiles.pressed.connect(func file(): OS.shell_open(ProjectSettings.globalize_path("user://")))
-	
+	%MainMenu.pressed.connect(func main_menu(): GameManager.change_scene("res://Scenes/main_menu.tscn"))
 	
 	
 	
@@ -86,21 +86,21 @@ func _ready():
 			else:
 				map_save_as()
 	)
-	%Load.pressed.connect(load_map)
+	%Load.pressed.connect(open_load_map_file_dialog)
 	%Playtest.pressed.connect(func play():
 		if save_path:
 			GameManager.play_map(save_path)
 		else:
-			map_save_as() # fix this ong
+			map_save_as()
 	)
 	%SpawnTarget.pressed.connect(
 		func spawn():
-			Utility.spawn_gizmo(0)
+			Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP)
 	)
 	
 	%SpawnGoal.pressed.connect(
 		func spawn():
-			Utility.spawn_gizmo(1)
+			Utility.spawn_gizmo(Enums.GizmoType.GOAL)
 	)
 	
 	
@@ -174,7 +174,7 @@ func connect_marker_signals(marker):
 			
 			var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 			if marker.has_meta("gizmo"):
-				marker.get_meta("gizmo").pop_time = Utility.get_slider_value_from_position(marker.position, timeline)
+				marker.get_meta("gizmo").Utility.get_slider_value_from_position(marker.position, timeline)
 			if "bpm" in marker:
 				marker.start_time = Utility.get_slider_value_from_position(marker.position, timeline)
 				marker_button.get_parent().update_end_time()
@@ -314,12 +314,17 @@ func _process(delta):
 func fade_gizmos():
 	for i in %Map.get_children().size():
 		var target_gizmo : MeshInstance3D = %Map.get_child(i)
-		var start = target_gizmo.pop_time - Settings.fadein_time
+		
+		var fadein = Settings.fadein_time
+		if "start_time" in target_gizmo:
+			fadein = target_gizmo.pop_time - target_gizmo.start_time
+		
+		var start = target_gizmo.pop_time - fadein
 		var playhead_relative = maxf(Playback.playhead - start, 0)
 		
 		var alpha = 0
-		if playhead_relative > 0 and playhead_relative < Settings.fadein_time:
-			alpha = playhead_relative / Settings.fadein_time
+		if playhead_relative > 0 and playhead_relative < fadein:
+			alpha = playhead_relative / fadein
 		target_gizmo.get_active_material(0).albedo_color.a = alpha
 		
 		var coll : CollisionShape3D = target_gizmo.get_node("GizmoHitbox").get_child(0)
@@ -385,38 +390,44 @@ func get_mouse_position_on_plane(mouse_pos, plane) -> Vector3:
 
 
 
-func load_map():
-	
+func open_load_map_file_dialog():
 	var load_map_file_selected = func load_map_file_selected(path : String):
-		for i in map.get_children(): Utility.delete_gizmo(i)
-		for i in Utility.get_node_or_null_in_scene("%TimelineSlider").get_children(): i.queue_free()
-		
-		save_path = path
-		print(path)
-		
-		var file = FileAccess.open(path, FileAccess.READ)
-		var parsed = JSON.parse_string(file.get_as_text())
-		if not parsed: push_error("PARSE FAILED"); return
-		parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
-		parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
-		
-		Playback.beatmap_data = parsed
-		
-		if Playback.beatmap_data["config"]["song"]: set_song("user://songs/" + Playback.beatmap_data["config"]["song"])
-		
-		
-		
-		for i in Playback.beatmap_data["beatmap"].size():
-			
-			var target_data = Playback.beatmap_data["beatmap"][i]
-			Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP, target_data)
-		
-		for i in Playback.beatmap_data["editor"].size():
-			var data = Playback.beatmap_data["editor"][i]
-			Utility.spawn_bpm_guide(data)
-	
+		load_map(path)
 	
 	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_OPEN_FILE, load_map_file_selected, PackedStringArray(["*.json"]))
+
+func load_map(path):
+	for i in map.get_children(): Utility.delete_gizmo(i)
+	for i in Utility.get_node_or_null_in_scene("%TimelineSlider").get_children(): i.queue_free()
+	
+	save_path = path
+	print(path)
+	
+	var file = FileAccess.open(path, FileAccess.READ)
+	var parsed = JSON.parse_string(file.get_as_text())
+	if not parsed: push_error("PARSE FAILED"); return
+	parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
+	parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
+	
+	Playback.beatmap_data = parsed
+	
+	if Playback.beatmap_data["config"]["song"]: set_song("user://songs/" + Playback.beatmap_data["config"]["song"])
+	
+	
+	
+	for i in Playback.beatmap_data["beatmap"].size():
+		
+		var gizmo_data = Playback.beatmap_data["beatmap"][i]
+		match gizmo_data["type"]:
+			Enums.GizmoType.TARGET_TAP:
+				Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP, gizmo_data)
+			Enums.GizmoType.GOAL:
+				Utility.spawn_gizmo(Enums.GizmoType.GOAL, gizmo_data)
+		
+	
+	for i in Playback.beatmap_data["editor"].size():
+		var data = Playback.beatmap_data["editor"][i]
+		Utility.spawn_bpm_guide(data)
 
 
 func compile_map():

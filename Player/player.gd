@@ -19,12 +19,12 @@ func _input(event):
 		if event.pressed: shoot()
 	
 	if event is InputEventKey:
-		
 		if Input.is_action_just_pressed("space"): %JumpBuffer.start()
-		if Input.is_action_just_released("space"):
-			if velocity.y > 0:
-				var extra = velocity.y
-				velocity.y -= extra / JUMP_CUTOFF
+		
+		#if Input.is_action_just_released("space"):
+			#if velocity.y > 0:
+				#var extra = velocity.y
+				#velocity.y -= extra / JUMP_CUTOFF
 
 func shoot():
 	var from = cam.global_position
@@ -43,18 +43,22 @@ func shoot():
 
 
 
-const GRAV := 12.0
-const FALL_GRAV := 15.0
+const GRAV := 15.0
+const FALL_GRAV := 18.0
 const SKYDIVE_GRAV_BOOST := 15.0
-const JUMP_VELOCITY := 7.0
+const JUMP_VELOCITY := 6.0
 const JUMP_BOOST := 0.1
 const JUMP_CUTOFF := 3.1
+const JUMP_EXTEND := 5.0
 
 const MAX_SPEED := 8.0
+const WISH_DIR_COMPENSATION_LIMIT := MAX_SPEED + 40.0
+const AIR_MAX_SPEED := 20.0
 var acceleration := 0.0
-const FLOOR_ACCELERATION := 80.0
-const AIR_ACCELERATION := 50.0
-const FLOOR_FRICTION := 100.0
+const FLOOR_ACCELERATION := 140.0
+const AIR_ACCELERATION := 70.0
+const FLOOR_FRICTION := 120.0
+const AIR_FRICTION := 15.0
 
 var input_dir := Vector2.ZERO
 var move_dir := Vector3.ZERO
@@ -74,12 +78,21 @@ const VEL_BUFFER_SIZE := 4
 
 var prev_y := 0.0
 
+@export var jump_extend_curve : Curve
+
 func _physics_process(delta):
 	slide()
 	movement(delta)
 	update_variables()
 	
-	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/kick.ogg", null, Vector2(0.8, 1.2))
+	
+	if Input.is_action_pressed("space") and not %JumpExtendTime.is_stopped():
+		var x = jump_extend_curve.sample_baked(1.0 - %JumpExtendTime.time_left / %JumpExtendTime.wait_time)
+		velocity.y += JUMP_EXTEND * delta * x
+	
+	
+	
+	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(0.8, 1.2))
 	
 	if on_floor: %CoyoteTime.start()
 	
@@ -94,6 +107,7 @@ func _physics_process(delta):
 		%DoubleJumpDebounce.start()
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
+		%JumpExtendTime.start()
 		var hvel = velocity - Vector3.UP*velocity.y
 		
 		
@@ -102,7 +116,7 @@ func _physics_process(delta):
 		if not %EdgeRaycast.is_colliding():
 			velocity += velocity * JUMP_BOOST
 		velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/Jump.wav", null, Vector2(0.8, 1.2))
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
 		
 		
 		
@@ -150,7 +164,7 @@ func stop_sliding():
 func movement(delta):
 	if not on_floor:
 		var grav = GRAV
-		if velocity.y < 0: grav = FALL_GRAV
+		if not Input.is_action_pressed("space"): grav = FALL_GRAV
 		if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
 		velocity.y += -grav * delta
 		if global_position.y < -20: global_position = Vector3.UP*4; velocity.y = 0.0
@@ -209,16 +223,27 @@ func movement(delta):
 		if y_diff < 0.0:
 			velocity += velocity.normalized() * -y_diff * SLIDE_DOWNHILL_BOOST
 
-func friction(hvel, wish_dir, delta):
-	var slowdown : float = min(hvel.length(), 1.0)
-	var friction_vec : Vector3 = -hvel.normalized() + wish_dir
-	var friction_mult := 0.0
-	if sliding:
-		friction_mult = SLIDE_FRICTION
-	elif on_floor: # friction
-		friction_mult = FLOOR_FRICTION
+func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 	
-	velocity += friction_vec * friction_mult * slowdown * delta
+	var wish_dir_compensation = clampf(remap(hvel.length(), MAX_SPEED, WISH_DIR_COMPENSATION_LIMIT, 1, 0), 0, 1)
+	#print("wish_dir_compensation: %.2f" % wish_dir_compensation)
+	var friction_vec : Vector3 = -hvel.normalized() + wish_dir * wish_dir_compensation
+	var friction_amount := 0.0
+	
+	if not on_floor:
+		if hvel.length() > AIR_MAX_SPEED:
+			var mult = remap(hvel.length(), AIR_MAX_SPEED, AIR_MAX_SPEED + 20, 0, 1)
+			friction_amount = AIR_FRICTION * mult
+			#print("friction mult: %.2f" % mult)
+	elif sliding:
+		friction_amount = SLIDE_FRICTION
+	else:
+		friction_amount = FLOOR_FRICTION
+	
+	
+	var jitter_fix_max = 2.0
+	var too_much_friction_jitter_fix : float = clampf(remap(hvel.length(), 0.0, jitter_fix_max, 0.0, 1.0), 0.0, 1.0)
+	velocity += friction_vec * friction_amount * delta * too_much_friction_jitter_fix
 
 
 

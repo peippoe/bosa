@@ -131,7 +131,7 @@ offset_right = 1.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 1, 1, 1)
+color = Color(1, 1, 0, 1)
 
 [node name="Crosshair" type="ColorRect" parent="Control"]
 layout_mode = 1
@@ -146,7 +146,43 @@ offset_right = 5.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 1, 1, 1)
+color = Color(1, 1, 0, 1)
+
+[node name="Control2" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 169.0
+grow_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control2"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -53.0
+offset_right = 116.0
+grow_vertical = 0
+bbcode_enabled = true
+text = "points: 0
+combo: 0"
+
+[node name="ColorRect" type="ColorRect" parent="Control2"]
+layout_mode = 0
+offset_right = 119.0
+offset_bottom = 12.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="Control2/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Debug" type="Control" parent="."]
 unique_name_in_owner = true
@@ -164,6 +200,7 @@ text = "vel"
 
 [node name="PauseMenu" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -223,6 +260,7 @@ text = "main menu"
 
 [node name="BackToEditor" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "back to editor"
 

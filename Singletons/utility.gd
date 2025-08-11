@@ -154,20 +154,46 @@ const TARGETS = [
 ]
 func spawn_target(target_data):
 	var new_target = spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data)
+	
+	var mesh_instance = new_target.get_node("waterbloon/Icosphere")
+	make_materials_unique(mesh_instance)
+	mesh_instance.mesh.surface_get_material(0).albedo_color = Settings.target_color_palette[Settings.target_color_palette_index]
+	Settings.target_color_palette_index += 1
+	if Settings.target_color_palette_index == Settings.target_color_palette.size(): Settings.target_color_palette_index = 0
+	
 	return new_target
 
 func pop_target(target):
 	if not target: return
 	if not target.has_method("pop"): return
+	
+	var delta = Playback.playhead - target.pop_time
+	
+	if delta < -Settings.POP_TIMING_WINDOWS[3]:
+		Utility.on_miss(target.global_position)
+		target.queue_free()
+		return
+	
 	target.pop()
-	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", target.global_position, Vector2(0.9, 1.1))
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/hitsound.wav", null, Vector2(0.6, 1.4))
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/splash.wav", target.global_position, Vector2(1.5, 2.5))
+	
 	
 	var player = get_tree().get_first_node_in_group("player")
 	if not player: return
 	
 	var timing_indicator = player.get_node("%UI/%TimingIndicator")
-	var delta = Playback.playhead - target.pop_time
 	timing_indicator.display_point_on_indicator(delta)
+	
+	GameManager.health += 5
+	GameManager.combo += 1
+	GameManager.points += Settings.POINTS_REWARDS[get_pop_timing(target.pop_time)]
+
+func on_miss(pos):
+	GameManager.health -= 10
+	GameManager.combo = 0
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/miss.wav", pos, Vector2(0.9, 1.1))
+
 
 func get_pop_timing(pop_time):
 	var delta = Playback.playhead - pop_time
@@ -184,40 +210,57 @@ func get_pop_timing(pop_time):
 				break
 	return pop_timing
 
-func spawn_gizmo(type, data = null):
+func spawn_gizmo(type, data := {}):
 	if not GameManager.in_editor: push_error("NOT IN EDITOR"); return
+	var spawned_without_data := data == {}
 	
 	var gizmo_scene_path
+	var new_marker_func : Callable
+	var new_gizmo
 	match type:
 		Enums.GizmoType.TARGET_TAP:
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_target.tscn"
+			new_marker_func = Utility.spawn_marker
 		Enums.GizmoType.GOAL:
-			print("goal")
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_goal.tscn"
+			new_marker_func = Utility.spawn_start_end_markers
 	
-	var new_gizmo = Utility.spawn_entity(gizmo_scene_path, get_tree().current_scene.get_node("%Map"), data)
-	
-	if not data:
+	new_gizmo = Utility.spawn_entity(gizmo_scene_path, get_tree().current_scene.get_node("%Map"), data)
+	if spawned_without_data:
 		var cam = get_viewport().get_camera_3d()
 		new_gizmo.global_position = cam.global_position + -cam.global_basis.z * 2.0
-		new_gizmo.pop_time = Playback.playhead
+		
+		if "start_time" in new_gizmo:
+			new_gizmo.start_time = Playback.playhead
+			new_gizmo.pop_time = Playback.playhead + 1.0
+		else:
+			new_gizmo.pop_time = Playback.playhead
 	
 	
-	var new_marker = Utility.spawn_marker(new_gizmo)
+	var new_marker = new_marker_func.bind(new_gizmo).call()
+	
 	
 	make_materials_unique(new_gizmo)
-	
-	get_tree().current_scene.connect_marker_signals(new_marker)
 
 
-func spawn_marker(target : Node):
-	var new_marker = load("res://MapEditor/Markers/marker.tscn").instantiate()
+func spawn_marker(gizmo : Node):
 	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
+	var new_marker = load("res://MapEditor/Markers/marker.tscn").instantiate()
 	timeline.add_child(new_marker)
-	target.marker = new_marker
-	new_marker.set_meta("gizmo", target)
-	new_marker.position.x = Utility.get_position_on_timeline_from_value(target.pop_time)
+	gizmo.marker = new_marker
+	new_marker.set_meta("gizmo", gizmo)
+	new_marker.position.x = Utility.get_position_on_timeline_from_value(gizmo.pop_time)
 	new_marker.position.y = 36
+	get_tree().current_scene.connect_marker_signals(new_marker)
+	return new_marker
+
+func spawn_start_end_markers(gizmo : Node):
+	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
+	var new_marker = load("res://MapEditor/Markers/start_end_markers.tscn").instantiate()
+	timeline.add_child(new_marker)
+	gizmo.marker = new_marker
+	#get_tree().current_scene.connect_marker_signals(new_marker.get_child(0))
+	#get_tree().current_scene.connect_marker_signals(new_marker.get_child(1))
 	return new_marker
 
 func delete_gizmo(gizmo):
@@ -232,8 +275,8 @@ func spawn_gizmo_goal(goal_data = null):
 
 
 func spawn_bpm_guide(data = null):
-	var new_bpm_guide = load("res://MapEditor/Markers/bpm_guide.tscn").instantiate()
 	var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
+	var new_bpm_guide = load("res://MapEditor/Markers/bpm_guide.tscn").instantiate()
 	timeline.add_child(new_bpm_guide)
 	
 	new_bpm_guide.start_time = Playback.playhead

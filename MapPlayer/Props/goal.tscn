@@ -1,11 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnm4sdqrdfwye"]
+[gd_scene load_steps=6 format=3 uid="uid://dnm4sdqrdfwye"]
+
+[ext_resource type="Script" uid="uid://0u0kobq56mi0" path="res://MapPlayer/Props/goal.gd" id="1_sga52"]
+[ext_resource type="Texture2D" uid="uid://cpyyjqtsmpxc6" path="res://Assets/Images/General/grid2.png" id="2_sga52"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0h11s"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sga52"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+blend_mode = 1
+cull_mode = 1
+albedo_color = Color(0, 1, 0.658824, 0.682353)
+albedo_texture = ExtResource("2_sga52")
+uv1_scale = Vector3(20, 20, 20)
+uv1_triplanar = true
+distance_fade_mode = 2
+distance_fade_min_distance = 4.05
+distance_fade_max_distance = 15.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_grn5j"]
+material = SubResource("StandardMaterial3D_sga52")
+
 [node name="Goal" type="Area3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 collision_layer = 0
 input_ray_pickable = false
 monitorable = false
+script = ExtResource("1_sga52")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_0h11s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_grn5j")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(0.207843, 1, 0.741176, 1)
+light_energy = 1.587
+omni_range = 91.525
+omni_attenuation = 0.342

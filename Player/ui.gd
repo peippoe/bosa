@@ -5,7 +5,7 @@ func _ready():
 	%MainMenu.pressed.connect(func main_menu():
 		get_tree().paused = false
 		GameManager.change_scene("res://Scenes/main_menu.tscn")
-		
+		Playback.playback_speed = 0.0
 		)
 	
 	%BackToEditor.pressed.connect(func back_to_editor():
@@ -38,7 +38,13 @@ func _input(event):
 func _process(delta):
 	var player = $".."
 	var vel = player.velocity
-	var debug_text = "vel: %.2s \n" % str(vel)
+	var hvel = (vel - Vector3.UP * vel.y).length()
+	var vvel = vel.y
+	var debug_text = "hvel: %.2f \n" % hvel
+	debug_text += "vvel: %.2f \n" % vvel
 	debug_text += "sliding: %s" % player.sliding
 	%DebugLabel.text = debug_text
 	
+	$Control2/ColorRect/ColorRect.size.x = $Control2/ColorRect.size.x * (1.0 - GameManager.health / 100.0)
+	
+	$Control2/RichTextLabel.text = "points: %d\ncombo: %d" % [GameManager.points, GameManager.combo]

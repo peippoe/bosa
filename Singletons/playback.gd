@@ -60,11 +60,30 @@ func _process(delta):
 	
 	var beatmap = beatmap_data["beatmap"]
 	
-	if event_index < beatmap.size() and playhead > beatmap[event_index]["pop_time"] - Settings.fadein_time:
-		var new_target = Utility.spawn_target(beatmap[event_index])
-		event_index += 1
-		if GameManager.in_editor:
-			auto_pop.call_deferred(new_target)
+	
+	if event_index >= beatmap.size(): return
+	
+	
+	var spawn_time = beatmap[event_index].pop_time - Settings.fadein_time
+	if "start_time" in beatmap[event_index]: spawn_time = beatmap[event_index].start_time
+	
+	
+	if playhead > spawn_time:
+		if "type" in beatmap[event_index]:
+			
+			var new_prop
+			print(event_index)
+			match beatmap[event_index]["type"]:
+				Enums.GizmoType.TARGET_TAP:
+					new_prop = Utility.spawn_target(beatmap[event_index])
+					print("TARGET SPAAWNEDDDDDDDD")
+					if GameManager.in_editor:
+						auto_pop.call_deferred(new_prop)
+				Enums.GizmoType.GOAL:
+					print("GOALLLLL SPAWNEDDDDDDDD")
+					new_prop = Utility.spawn_entity("res://MapPlayer/Props/goal.tscn", GameManager.target_parent, beatmap[event_index])
+			
+			event_index += 1
 
 func auto_pop(new_target):
 	await get_tree().create_timer(new_target.pop_time - playhead).timeout
@@ -98,3 +117,4 @@ func setup():
 	if not parsed: return
 	print("SETUP SUCCESSFUL - beatmap_path: %s" % GameManager.beatmap_path)
 	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
+	beatmap_data["beatmap"] = Utility.convert_ints(parsed["beatmap"])

@@ -12,9 +12,9 @@ config_version=5
 
 config/name="bosa"
 config/tags=PackedStringArray("official")
-run/main_scene="uid://sast1hlg37nk"
+run/main_scene="uid://dbv72bxs15p17"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://Assets/Image/icon.svg"
+config/icon="res://Assets/Images/icon.svg"
 
 [autoload]
 

@@ -11,6 +11,16 @@ var pop_time := 0.0:
 		$AnimationPlayer.seek($AnimationPlayer.current_animation_position + pop_time_diff)
 		
 		#print("pop_time: %f, \t true pop time: %f" % [pop_time, Playback.playhead + 1.0 - $AnimationPlayer.current_animation_position])
+		
+		var timeout = pop_time - Playback.playhead + Settings.POP_TIMING_WINDOWS[3]
+		
+		#await get_tree().create_timer(timeout).timeout
+		%Timeout.start(timeout)
+		await %Timeout.timeout
+		
+		if $waterbloon.visible:
+			Utility.on_miss(self.global_position)
+			self.queue_free()
 
 func _ready():
 	var mat1 = $ShrinkingRing.get_active_material(0).duplicate()
@@ -25,7 +35,6 @@ func pop():
 	$AnimationPlayer.play("pop")
 	freeze = true
 	$waterbloon.hide()
-	$Ring2.hide()
 	$ShrinkingRing.hide()
 	$ConstantRing.hide()
 	$CollisionShape3D.disabled = true

@@ -2,11 +2,13 @@ extends Node3D
 
 var highlighted
 
+
 func _ready():
-	%Play.pressed.connect(func play(): )
-	%Exit.pressed.connect(func exit(): get_tree().quit())
-
-
+	await get_tree().process_frame
+	$Mainmenuu.play()
+	#await get_tree().create_timer(.5).timeout
+	await get_tree().create_timer(.05).timeout
+	$AnimationPlayer.play("loop")
 
 func raycast_result(event):
 	var from = %Camera3D.project_ray_origin(event.position)
@@ -37,6 +39,9 @@ func _input(event):
 	
 	
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
-		print(highlighted)
+		if not highlighted: return
 		match highlighted.name:
 			"Play": GameManager.change_scene("res://Scenes/Levels/level_1.tscn")
+			"MapEditor": GameManager.change_scene("res://MapEditor/Parts/map_editor.tscn")
+			"Exit": get_tree().quit()
+			"Test": GameManager.change_scene("res://Scenes/test_scene.tscn")
