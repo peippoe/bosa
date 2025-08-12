@@ -5,4 +5,4 @@
 still very early in development<br>
 demo: [https://peippodev.itch.io/bosa](https://peippodev.itch.io/bosa)
 
-![logo](Assets/Images/Capture.jpg)
+![logo](Assets/Images/Capture.JPG)
