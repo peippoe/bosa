@@ -146,12 +146,11 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
+size_flags_stretch_ratio = 1.7
 
 [node name="EditPanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.5
 
 [node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel"]
 layout_mode = 2
@@ -204,6 +203,7 @@ text = "spawn goal"
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel"]
 layout_mode = 2
@@ -264,7 +264,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(803, 46)
+size = Vector2i(803, 62)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]

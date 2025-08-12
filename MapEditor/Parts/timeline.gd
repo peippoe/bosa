@@ -31,12 +31,7 @@ var pixels_per_second := 10.0:
 					i.get_child(0).position.x = a
 					i.get_child(1).position.x = b
 			elif "bpm" in i:
-				var x = Utility.get_position_on_timeline_from_value(i.start_time)
-				i.position.x = x
-				var x2 = Utility.get_position_on_timeline_from_value(i.end_time) - timeline_grabber_size * 0.5
-				i.get_node("%EdgeMarker").global_position.x = x2
-				i.get_node("%MarkerButton").size.x = x2 - x
-				i.update_ticks()
+				i.zoom_update()
 
 var zoom_step := 2.0
 var zoom_min_max := [2.0, 100.0]
@@ -44,9 +39,10 @@ var zoom_min_max := [2.0, 100.0]
 func _ready():
 	%LengthEdit.text_submitted.connect(
 		func _on_length_edit_text_submitted(new_text):
-			var x = int(new_text)
+			var x = float(new_text)
 			max_value = x
 			%LengthEdit.text = str(x)
+			print("SUBMITEEDDDDDDDDDD")
 	)
 	%TimelineScrollbar.scrolling.connect(
 		func scroll():

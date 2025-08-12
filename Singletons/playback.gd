@@ -1,13 +1,12 @@
 extends AudioStreamPlayer
 
-const CURRENT_BEATMAP_VERSION := 1
-
 var beatmap_data = {
 	"config": {
 		"name": null,
 		"creator": null,
 		"song": null,
-		"version": CURRENT_BEATMAP_VERSION
+		"duration": 0.0,
+		"version": 1
 	},
 	"events": [],
 	"beatmap": [],
@@ -18,7 +17,16 @@ var playhead := 0.0:
 	set(value):
 		playhead = value
 		
-		if not GameManager.in_editor: return
+		if not GameManager.in_editor:
+			if playhead >= beatmap_data["config"]["duration"]:
+				#print(beatmap_data)
+				playback_speed = 0
+				get_tree().paused = true
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				var player = get_tree().get_first_node_in_group("player")
+				var end_screen = player.get_node("%UI/%EndScreen")
+				end_screen.get_node("AnimationPlayer").play("end")
+			return
 		
 		var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 		if timeline: timeline.value = playhead
@@ -72,16 +80,13 @@ func _process(delta):
 		if "type" in beatmap[event_index]:
 			
 			var new_prop
-			print(event_index)
 			match beatmap[event_index]["type"]:
 				Enums.GizmoType.TARGET_TAP:
 					new_prop = Utility.spawn_target(beatmap[event_index])
-					print("TARGET SPAAWNEDDDDDDDD")
 					if GameManager.in_editor:
 						auto_pop.call_deferred(new_prop)
 				Enums.GizmoType.GOAL:
-					print("GOALLLLL SPAWNEDDDDDDDD")
-					new_prop = Utility.spawn_entity("res://MapPlayer/Props/goal.tscn", GameManager.target_parent, beatmap[event_index])
+					new_prop = Utility.spawn_entity(Utility.PROPS[1], GameManager.target_parent, beatmap[event_index])
 			
 			event_index += 1
 
@@ -113,8 +118,51 @@ func recalculate_event_index():
 
 func setup():
 	var file = FileAccess.open(GameManager.beatmap_path, FileAccess.READ)
+	if not file: push_error("INVALID BEATMAP PATH"); return
 	var parsed = JSON.parse_string(file.get_as_text())
 	if not parsed: return
 	print("SETUP SUCCESSFUL - beatmap_path: %s" % GameManager.beatmap_path)
+	
+	beatmap_data = parsed
 	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
 	beatmap_data["beatmap"] = Utility.convert_ints(parsed["beatmap"])
+	
+	set_song(beatmap_data["config"]["song"])
+	
+	#await get_tree().process_frame
+	
+	GameManager.combo = 0
+	GameManager.points = 0
+	GameManager.health = 50
+	
+	playhead = 0.0
+	playback_speed = 1.0
+	
+	if GameManager.beatmap_path == "res://Scenes/Beatmaps/tutorial.json":
+		get_tree().get_first_node_in_group("player").get_node("%UI/%TempTutorialText/AnimationPlayer").play("tutorial_text")
+	
+	#print(get_playback_position())
+	#print(playhead)
+	#seek(playhead)
+
+
+
+func set_song(song_path):
+	if GameManager.in_editor: Utility.get_node_or_null_in_scene("%SongLabel").text = song_path.get_file()
+	
+	if not FileAccess.file_exists(song_path): song_path = "res://Assets/Audio/Music/" + song_path.get_file()
+	var extension = song_path.get_extension()
+	var file = FileAccess.open(song_path, FileAccess.READ)
+	if not file: push_error("INVALID SONG PATH"); return
+	var stream
+	match extension:
+		"ogg":
+			stream = AudioStreamOggVorbis.load_from_file(song_path)
+		"wav":
+			stream = AudioStreamWAV.load_from_file(song_path)
+		"mp3":
+			stream = AudioStreamMP3.load_from_file(song_path)
+		_:
+			push_error("INVALID AUDIO FILE")
+	
+	Playback.stream = stream

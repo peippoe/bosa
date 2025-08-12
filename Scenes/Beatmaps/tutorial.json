@@ -1,0 +1,61 @@
+{
+	"beatmap": [
+		{
+			"global_position": "(0.0, 1.0, -2.555902)",
+			"global_rotation": "(0.0, 0.0, 0.0)",
+			"marker": "Marker:<Control#598627845747>",
+			"pop_time": 10.0,
+			"type": 0
+		},
+		{
+			"global_position": "(0.0, 1.016546, -2.384283)",
+			"global_rotation": "(0.0, 0.0, 0.0)",
+			"marker": "@Control@116:<Control#599231825531>",
+			"pop_time": 12.5,
+			"type": 0
+		},
+		{
+			"global_position": "(0.446971, 1.022096, -2.655084)",
+			"global_rotation": "(0.0, 0.0, 0.0)",
+			"marker": "@Control@118:<Control#599835805164>",
+			"pop_time": 15.0,
+			"type": 0
+		},
+		{
+			"global_position": "(0.446971, 1.022096, -2.689126)",
+			"global_rotation": "(0.0, 0.0, 0.0)",
+			"marker": "@Control@120:<Control#600439784946>",
+			"pop_time": 17.5,
+			"type": 0
+		},
+		{
+			"global_position": "(-0.22577, 2.583174, -4.147648)",
+			"global_rotation": "(0.0, 0.0, 0.0)",
+			"marker": "@Control@122:<Control#601043764733>",
+			"pop_time": 20.0,
+			"type": 0
+		},
+		{
+			"global_position": "(0.341385, 0.537119, -3.629782)",
+			"global_rotation": "(0.0, 0.0, 0.0)",
+			"marker": "@Control@124:<Control#601647744497>",
+			"pop_time": 22.5,
+			"type": 0
+		}
+	],
+	"config": {
+		"creator": null,
+		"duration": 29.5,
+		"name": null,
+		"song": "tutorial.wav",
+		"version": 1.0
+	},
+	"editor": [
+		{
+			"bpm": 96.0,
+			"end_time": 27.2302001953125,
+			"start_time": 0.0
+		}
+	],
+	"events": []
+}

@@ -51,4 +51,4 @@ func _process(delta):
 	
 	$Control2/ColorRect/ColorRect.size.x = $Control2/ColorRect.size.x * (1.0 - GameManager.health / 100.0)
 	
-	$Control2/RichTextLabel.text = "points: %d\ncombo: %d" % [GameManager.points, GameManager.combo]
+	$Control2/RichTextLabel.text = "%dpts\n[font_size=25]%dx" % [GameManager.points, GameManager.combo]

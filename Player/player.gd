@@ -120,13 +120,13 @@ func _physics_process(delta):
 		
 		
 		
-		var a = func a():
-			print(get_real_velocity())
-			await get_tree().physics_frame
-			await get_tree().physics_frame
-			print(get_real_velocity())
-		
-		a.call_deferred()
+		#var a = func a():
+			#print(get_real_velocity())
+			#await get_tree().physics_frame
+			#await get_tree().physics_frame
+			#print(get_real_velocity())
+		#
+		#a.call_deferred()
 
 
 

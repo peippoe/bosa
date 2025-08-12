@@ -22,6 +22,21 @@ distance_fade_max_distance = 12.0
 [sub_resource type="SphereMesh" id="SphereMesh_grn5j"]
 material = SubResource("StandardMaterial3D_sga52")
 
+[sub_resource type="Animation" id="Animation_grn5j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_sga52"]
 resource_name = "fadein"
 length = 0.5
@@ -36,21 +51,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_grn5j"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2pv15"]
@@ -70,7 +70,7 @@ script = ExtResource("1_sga52")
 shape = SubResource("SphereShape3D_0h11s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.757365, 0.253411, 0.601815, -0.317305, 0.948324, 0, -0.570715, -0.190959, 0.798636, 0, 0, 0)
+transform = Transform3D(0.757365, 0.253411, 0.601815, -0.317305, 0.948324, 2.02617e-07, -0.570715, -0.190959, 0.798636, 0, 0, 0)
 mesh = SubResource("SphereMesh_grn5j")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]

@@ -27,28 +27,6 @@ var save_path := ""
 
 
 
-
-func set_song(path):
-	%SongLabel.text = path.get_file()
-	print(path)
-	var extension = path.get_extension()
-	var file = FileAccess.open(path, FileAccess.READ)
-	if not file: return
-	var stream
-	match extension:
-		"ogg":
-			stream = AudioStreamOggVorbis.load_from_file(path)
-		"wav":
-			stream = AudioStreamWAV.load_from_file(path)
-		"mp3":
-			stream = AudioStreamMP3.load_from_file(path)
-		_:
-			push_error("INVALID AUDIO FILE")
-	
-	Playback.stream = stream
-
-
-
 var save_file_selected = func save_file_selected(path : String):
 	save_map(path)
 
@@ -63,7 +41,7 @@ func _ready():
 	
 	var song_file_selected = func song_file_selected(path : String):
 		Playback.beatmap_data["config"]["song"] = path.get_file()
-		set_song(path)
+		Playback.set_song(path)
 	
 	%ChooseSong.pressed.connect(func choose_song():
 		Utility.open_file_dialog("user://songs", FileDialog.FILE_MODE_OPEN_FILE, song_file_selected, PackedStringArray(["*.mp3", "*.ogg", "*.wav"]))
@@ -174,7 +152,8 @@ func connect_marker_signals(marker):
 			
 			var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
 			if marker.has_meta("gizmo"):
-				marker.get_meta("gizmo").Utility.get_slider_value_from_position(marker.position, timeline)
+				var gizmo = marker.get_meta("gizmo")
+				gizmo.pop_time = Utility.get_slider_value_from_position(marker.position, timeline)
 			if "bpm" in marker:
 				marker.start_time = Utility.get_slider_value_from_position(marker.position, timeline)
 				marker_button.get_parent().update_end_time()
@@ -411,8 +390,9 @@ func load_map(path):
 	
 	Playback.beatmap_data = parsed
 	
-	if Playback.beatmap_data["config"]["song"]: set_song("user://songs/" + Playback.beatmap_data["config"]["song"])
-	
+	if Playback.beatmap_data["config"]["song"]: Playback.set_song("user://songs/" + Playback.beatmap_data["config"]["song"])
+	var length_edit : LineEdit = Utility.get_node_or_null_in_scene("%LengthEdit")
+	length_edit.text_submitted.emit(str(Playback.beatmap_data["config"]["duration"]))
 	
 	
 	for i in Playback.beatmap_data["beatmap"].size():
@@ -451,7 +431,7 @@ func save_map(path):
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists("beatmaps"): dir.make_dir("beatmaps")
 	
-	Playback.beatmap_data["config"]["version"] = Playback.CURRENT_BEATMAP_VERSION
+	Playback.beatmap_data["config"]["duration"] = float(Utility.get_node_or_null_in_scene("%LengthEdit").text)
 	
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:

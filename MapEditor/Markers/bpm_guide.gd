@@ -12,7 +12,7 @@ var ticks := []:
 		ticks = value
 		
 		var offset = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").global_position.x + self.global_position.x
-		
+		print(offset)
 		var new_value = value.duplicate()
 		if new_value != []:
 			for i in new_value.size():
@@ -34,29 +34,30 @@ const ENTITY_PROPERTIES = [
 func _gui_input(event):
 	queue_redraw()
 	%MarkerButton.size.x = %EdgeMarker.position.x
-	return
-	if event is InputEventMouseButton:
-		#dragging = event.pressed
-		
-		if dragging:
-			#SignalBus.marker_drag_start.emit(%EdgeMarker)
-			ticks = []
-			queue_redraw()
-		
-		elif not dragging:
-			#SignalBus.marker_drag_end.emit(%EdgeMarker)
-			end_drag()
+	self.size.x = %MarkerButton.size.x
 	
-	if dragging and event is InputEventMouseMotion:
-		var x = get_global_mouse_position().x - position.x
-		%EdgeMarker.position.x = x
-		%MarkerButton.size.x = x
+	#if event is InputEventMouseButton:
+		##dragging = event.pressed
+		#
+		#if dragging:
+			##SignalBus.marker_drag_start.emit(%EdgeMarker)
+			#ticks = []
+			#queue_redraw()
+		#
+		#elif not dragging:
+			##SignalBus.marker_drag_end.emit(%EdgeMarker)
+			#end_drag()
+	#
+	#if dragging and event is InputEventMouseMotion:
+		#var x = get_global_mouse_position().x - position.x
+		#%EdgeMarker.position.x = x
+		#%MarkerButton.size.x = x
 
 func end_drag():
 	update_end_time()
 	
 	ticks = []
-	var length = end_time - start_time# + 6 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
+	var length = end_time - start_time
 	var number_of_beats = length / 60.0 * bpm
 	for i in range(number_of_beats+1):
 		ticks.append(i / bpm * 60.0)
@@ -69,7 +70,8 @@ func update_ticks():
 	ticks = ticks
 
 func update_end_time():
-	end_time = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size/2 / Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second + Utility.get_slider_value_from_position(%EdgeMarker.global_position, Utility.get_node_or_null_in_scene("%TimelineSlider"))
+	var pixels_per_second = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
+	end_time = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size/2 / pixels_per_second + Utility.get_slider_value_from_position(%EdgeMarker.position + self.position, Utility.get_node_or_null_in_scene("%TimelineSlider"))
 
 func _draw():
 	for i in ticks.size():
@@ -108,6 +110,13 @@ func _ready():
 	end_drag()
 
 
+func zoom_update():
+	var x = Utility.get_position_on_timeline_from_value(start_time)
+	self.position.x = x
+	var x2 = Utility.get_position_on_timeline_from_value(end_time) - Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size * 0.5
+	get_node("%EdgeMarker").global_position.x = x2
+	get_node("%MarkerButton").size.x = x2 - x
+	update_ticks()
 
 
 func _on_property_list_changed():

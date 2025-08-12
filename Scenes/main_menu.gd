@@ -41,7 +41,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 		if not highlighted: return
 		match highlighted.name:
-			"Play": GameManager.change_scene("res://Scenes/Levels/level_1.tscn")
+			"Play": GameManager.play_map("res://Scenes/Beatmaps/tutorial.json")#GameManager.change_scene("res://Scenes/Levels/level_1.tscn")
 			"MapEditor": GameManager.change_scene("res://MapEditor/Parts/map_editor.tscn")
 			"Exit": get_tree().quit()
 			"Test": GameManager.change_scene("res://Scenes/test_scene.tscn")

@@ -22,11 +22,20 @@ var health := 50:
 
 
 func _ready():
-	update_in_editor()
+	update_in_editor(get_tree().current_scene)
 	update_target_parent()
 
-func update_in_editor():
-	in_editor = get_tree().current_scene.name == "MapEditor"
+func update_in_editor(scene):
+	var scene_name
+	if scene is String:
+		scene_name = scene.get_file()
+	else:
+		scene_name = scene.name
+	
+	print(scene_name)
+	
+	in_editor = bool(scene_name == "MapEditor" or scene_name == "map_editor.tscn")
+	print(in_editor)
 
 
 func back_to_editor():
@@ -48,7 +57,7 @@ func change_scene(scene_path : String):
 	if scene_path == get_tree().current_scene.scene_file_path and get_tree().get_first_node_in_group("player").get_node("%UI/%BackToEditor").visible:
 		back_to_editor_visible = true
 	
-	
+	update_in_editor(scene_path)
 	get_tree().change_scene_to_file(scene_path)
 	
 	while not get_tree().current_scene:
@@ -60,7 +69,6 @@ func change_scene(scene_path : String):
 	var player = get_tree().get_first_node_in_group("player")
 	if player: player.get_node("%UI/%BackToEditor").visible = back_to_editor_visible
 	
-	update_in_editor()
 	update_target_parent()
 
 func update_target_parent():
@@ -68,8 +76,7 @@ func update_target_parent():
 	else: target_parent = Utility.get_node_or_null_in_scene("%Map")
 	if not target_parent: push_error("ERROR GETTING TARGET PARENT")
 
-func play_map(path):
-	if path:
-		beatmap_path = path
+func play_map(path : String):
+	if path: beatmap_path = path
 	
 	change_scene("res://MapPlayer/map_player.tscn")

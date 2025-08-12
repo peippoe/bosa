@@ -90,10 +90,20 @@ func ensure_dir_exists(absolute_path : String):
 
 # Entity utility
 
-func spawn_entity(entity := "",  parent : Node = null, data = null):
+const PROPS = [
+	preload("res://MapPlayer/Props/Targets/target.tscn"),
+	preload("res://MapPlayer/Props/goal.tscn"),
+]
+
+func spawn_entity(entity,  parent : Node = null, data = null):
 	if not parent: parent = get_tree().current_scene
 	
-	var new_entity = load(entity).instantiate()
+	var new_entity
+	if entity is String:
+		new_entity = load(entity).instantiate()
+	else:
+		new_entity = entity.instantiate()
+	
 	parent.add_child(new_entity)
 	
 	if data: apply_data(new_entity, data)
@@ -117,7 +127,6 @@ func make_materials_unique(mesh_instance : MeshInstance3D):
 		if material:
 			var unique_material := material.duplicate()
 			unique_mesh.surface_set_material(surface, unique_material)
-			print(unique_mesh)
 
 
 
@@ -150,11 +159,8 @@ func get_entity_properties(entity : Node):
 
 # Prop utility
 
-const TARGETS = [
-	"res://MapPlayer/Props/Targets/target.tscn",
-]
 func spawn_target(target_data):
-	var new_target = spawn_entity(TARGETS[target_data["type"]], GameManager.target_parent, target_data)
+	var new_target = spawn_entity(Utility.PROPS[target_data["type"]], GameManager.target_parent, target_data)
 	
 	var mesh_instance = new_target.get_node("waterbloon/Icosphere")
 	make_materials_unique(mesh_instance)
@@ -280,13 +286,15 @@ func spawn_bpm_guide(data = null):
 	var new_bpm_guide = load("res://MapEditor/Markers/bpm_guide.tscn").instantiate()
 	timeline.add_child(new_bpm_guide)
 	
-	new_bpm_guide.start_time = Playback.playhead
-	new_bpm_guide.end_time = new_bpm_guide.start_time + 1.0
-	new_bpm_guide.bpm = 60.0
+	if data:
+		apply_data(new_bpm_guide, data)
+	else:
+		new_bpm_guide.start_time = Playback.playhead
+		new_bpm_guide.end_time = new_bpm_guide.start_time + 4.0
+		new_bpm_guide.bpm = 60.0
 	
-	if data: apply_data(new_bpm_guide, data)
-	
-	new_bpm_guide.position.x = Utility.get_position_on_timeline_from_value(new_bpm_guide.start_time)
+	#new_bpm_guide.position.x = Utility.get_position_on_timeline_from_value(new_bpm_guide.start_time)
+	new_bpm_guide.zoom_update()
 	new_bpm_guide.position.y = 50
 	get_tree().current_scene.connect_marker_signals(new_bpm_guide)
 	return new_bpm_guide

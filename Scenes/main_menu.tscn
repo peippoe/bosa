@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dbv72bxs15p17"]
+[gd_scene load_steps=39 format=3 uid="uid://dbv72bxs15p17"]
 
 [ext_resource type="Script" uid="uid://c18t20fa3csw8" path="res://Scenes/main_menu.gd" id="1_48xlc"]
 [ext_resource type="Shader" uid="uid://b7kngkyjvq1pu" path="res://Assets/Shader/main_menu.gdshader" id="2_1ehe0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://btxpoy0ykjqy6" path="res://Assets/Images/UI/logo.png" id="4_ce3w2"]
 [ext_resource type="AudioStream" uid="uid://b4v0m3bimmcy0" path="res://Assets/Audio/Music/mainemnu.wav" id="5_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://bntilmoae4y0i" path="res://Assets/Images/UI/logobg.png" id="6_opfnp"]
+[ext_resource type="Texture2D" uid="uid://wxxqp2yd0ols" path="res://Assets/Images/UI/beachview.png" id="8_yhxw7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ehe0"]
 sky_top_color = Color(0.200345, 0.356139, 1, 1)
@@ -756,3 +757,10 @@ shape = SubResource("BoxShape3D_n45e2")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Test"]
 mesh = SubResource("TextMesh_trj04")
 skeleton = NodePath("../..")
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform3D(0.986989, 0.0444855, 0.154509, -0.0688977, 0.985282, 0.156434, -0.145275, -0.165044, 0.975528, 1.24, -1.86, -27.666)
+modulate = Color(0.81, 0.841667, 1, 0.607843)
+pixel_size = 0.065
+shaded = true
+texture = ExtResource("8_yhxw7")
