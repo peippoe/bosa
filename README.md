@@ -4,3 +4,5 @@
 ![Badge label](https://img.shields.io/badge/i_am-tired-red)<br>
 still very early in development<br>
 demo: [https://peippodev.itch.io/bosa](https://peippodev.itch.io/bosa)
+
+![logo](Assets/Images/Capture.jpg)
