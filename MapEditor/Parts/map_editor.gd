@@ -39,9 +39,19 @@ func map_save_as():
 func _ready():
 	%File.pressed.connect(func file(): %FileDropdown.visible = !%FileDropdown.visible; %SettingsDropdown.hide())
 	
-	var song_file_selected = func song_file_selected(path : String):
-		Playback.beatmap_data["config"]["song"] = path.get_file()
-		Playback.set_song(path)
+	var song_file_selected = func song_file_selected(global_path : String):
+		
+		var user_path = ProjectSettings.globalize_path("user://")
+		var res_path = ProjectSettings.globalize_path("res://")
+		if global_path.begins_with(user_path):
+			global_path = "user://" + global_path.substr(user_path.length())
+		elif global_path.begins_with(res_path):
+			global_path = "res://" + global_path.substr(res_path.length())
+		else:
+			push_error("BAD PATH"); return
+		
+		Playback.beatmap_data["config"]["song"] = global_path
+		Playback.set_song(global_path)
 	
 	%ChooseSong.pressed.connect(func choose_song():
 		Utility.open_file_dialog("user://songs", FileDialog.FILE_MODE_OPEN_FILE, song_file_selected, PackedStringArray(["*.mp3", "*.ogg", "*.wav"]))
@@ -390,7 +400,7 @@ func load_map(path):
 	
 	Playback.beatmap_data = parsed
 	
-	if Playback.beatmap_data["config"]["song"]: Playback.set_song("user://songs/" + Playback.beatmap_data["config"]["song"])
+	if Playback.beatmap_data["config"]["song"]: Playback.set_song(Playback.beatmap_data["config"]["song"])
 	var length_edit : LineEdit = Utility.get_node_or_null_in_scene("%LengthEdit")
 	length_edit.text_submitted.emit(str(Playback.beatmap_data["config"]["duration"]))
 	

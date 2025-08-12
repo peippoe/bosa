@@ -379,6 +379,7 @@ text = "settings"
 
 [node name="SettingsDropdown" type="VBoxContainer" parent="EditorUI/HBoxContainer/Settings"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 0
 offset_top = 44.0
 offset_right = 179.0

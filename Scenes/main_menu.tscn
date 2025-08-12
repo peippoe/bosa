@@ -660,13 +660,31 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Control" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ver2" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -69.0
+offset_right = 305.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+bbcode_enabled = true
+text = "[font_size=15]this is an early build
+everything is subject to change"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="ver" type="RichTextLabel" parent="Control"]
 layout_mode = 1

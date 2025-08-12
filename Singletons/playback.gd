@@ -147,22 +147,29 @@ func setup():
 
 
 
-func set_song(song_path):
-	if GameManager.in_editor: Utility.get_node_or_null_in_scene("%SongLabel").text = song_path.get_file()
-	
-	if not FileAccess.file_exists(song_path): song_path = "res://Assets/Audio/Music/" + song_path.get_file()
-	var extension = song_path.get_extension()
-	var file = FileAccess.open(song_path, FileAccess.READ)
-	if not file: push_error("INVALID SONG PATH"); return
+func set_song(song_path : String):
 	var stream
-	match extension:
-		"ogg":
-			stream = AudioStreamOggVorbis.load_from_file(song_path)
-		"wav":
-			stream = AudioStreamWAV.load_from_file(song_path)
-		"mp3":
-			stream = AudioStreamMP3.load_from_file(song_path)
-		_:
-			push_error("INVALID AUDIO FILE")
+	print(song_path)
+	if song_path.begins_with("res://"):
+		
+		stream = ResourceLoader.load(song_path)
+		if not stream: push_error("FAILED TO LOAD SONG"); return
+		
+	elif song_path.begins_with("user://"):
+		
+		var file = FileAccess.open(song_path, FileAccess.READ)
+		if not file: push_error("INVALID SONG PATH"); return
+		match song_path.get_extension():
+			"ogg":
+				stream = AudioStreamOggVorbis.load_from_file(song_path)
+			"wav":
+				stream = AudioStreamWAV.load_from_file(song_path)
+			"mp3":
+				stream = AudioStreamMP3.load_from_file(song_path)
+			_:
+				push_error("INVALID AUDIO FILE"); return
+	else:
+		push_error("UNSUPPORTED FILE PATH"); return
 	
+	if GameManager.in_editor: Utility.get_node_or_null_in_scene("%SongLabel").text = song_path.get_file()
 	Playback.stream = stream
