@@ -1,3 +1,3 @@
 # bosa
 
-a short rhythm game inspired by osu
+3d rhythm game inspired by osu! and Roblox Parkour Legacy
