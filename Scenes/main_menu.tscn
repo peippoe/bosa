@@ -433,12 +433,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1152, 648)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="HolderHolder" type="Node3D" parent="SubViewportContainer/SubViewport"]
@@ -466,26 +467,6 @@ environment = SubResource("Environment_ce3w2")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0.402442, -0.306947, 0.862453, -0.296717, 0.847516, 0.440085, 0, 0, 0)
 light_color = Color(1, 0.971277, 0.74013, 1)
 shadow_enabled = true
-
-[node name="Control2" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ver2" type="RichTextLabel" parent="Control2"]
-layout_mode = 1
-offset_left = 244.0
-offset_top = 160.0
-offset_right = 783.0
-offset_bottom = 205.0
-rotation = -0.0610865
-bbcode_enabled = true
-text = "[wave][rainbow freq=0.4 sat=0.2 val=1]super early build"
-fit_content = true
 
 [node name="MainMenuUI" type="Control" parent="."]
 visible = false

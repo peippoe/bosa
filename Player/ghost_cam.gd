@@ -13,6 +13,7 @@ func _physics_process(delta):
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	if Input.is_action_pressed("ctrl"): return
 	var input_dir = Input.get_vector("a", "d", "w", "s")
 	var speed = 2
 	if Input.is_action_pressed("shift"): speed = 4

@@ -11,13 +11,14 @@ alpha_hash_scale = 0.24
 alpha_antialiasing_mode = 0
 blend_mode = 1
 cull_mode = 1
-albedo_color = Color(0, 1, 1, 0.262745)
+albedo_color = Color(0.483333, 1, 0, 0.611765)
 albedo_texture = ExtResource("2_sga52")
-uv1_scale = Vector3(8, 8, 8)
+uv1_scale = Vector3(6, 6, 6)
 uv1_triplanar = true
+uv1_triplanar_sharpness = 1e-05
 distance_fade_mode = 2
-distance_fade_min_distance = 4.5
-distance_fade_max_distance = 12.0
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 15.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_grn5j"]
 material = SubResource("StandardMaterial3D_sga52")
@@ -36,6 +37,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_sga52"]
 resource_name = "fadein"
@@ -47,10 +60,22 @@ tracks/0/path = NodePath("MeshInstance3D:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.5),
+"times": PackedFloat32Array(0, 0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.5, 0.5, 0.5), Vector3(1, 1, 1)]
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(1.06, 1.06, 1.06), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2pv15"]
@@ -60,7 +85,7 @@ _data = {
 }
 
 [node name="Goal" type="Area3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 collision_layer = 0
 input_ray_pickable = false
 monitorable = false
@@ -70,11 +95,10 @@ script = ExtResource("1_sga52")
 shape = SubResource("SphereShape3D_0h11s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.757365, 0.253411, 0.601815, -0.317305, 0.948324, 2.02617e-07, -0.570715, -0.190959, 0.798636, 0, 0, 0)
 mesh = SubResource("SphereMesh_grn5j")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-light_color = Color(0.207843, 1, 0.968627, 1)
+light_color = Color(0.537833, 1, 0.41, 1)
 light_energy = 0.52
 omni_range = 52.567
 omni_attenuation = 0.609

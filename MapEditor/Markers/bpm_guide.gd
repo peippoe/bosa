@@ -33,7 +33,7 @@ const ENTITY_PROPERTIES = [
 
 func _gui_input(event):
 	queue_redraw()
-	%MarkerButton.size.x = %EdgeMarker.position.x
+	%MarkerButton.size.x = %EdgeMarker.position.x + %EdgeMarker.size.x / 2.0
 	self.size.x = %MarkerButton.size.x
 	
 	#if event is InputEventMouseButton:
@@ -114,8 +114,8 @@ func zoom_update():
 	var x = Utility.get_position_on_timeline_from_value(start_time)
 	self.position.x = x
 	var x2 = Utility.get_position_on_timeline_from_value(end_time) - Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").timeline_grabber_size * 0.5
-	get_node("%EdgeMarker").global_position.x = x2
-	get_node("%MarkerButton").size.x = x2 - x
+	%EdgeMarker.position.x = x2 - x
+	%MarkerButton.size.x = x2 - x + %EdgeMarker.size.x / 2.0
 	update_ticks()
 
 

@@ -146,7 +146,7 @@ mouse_filter = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 1.7
+size_flags_stretch_ratio = 1.4
 
 [node name="EditPanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -203,7 +203,6 @@ text = "spawn goal"
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel"]
 layout_mode = 2
@@ -229,18 +228,47 @@ size_flags_vertical = 3
 [node name="Label" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 bbcode_enabled = true
 text = "[indent]Timeline"
 
 [node name="Play" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
-text = "▷"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Play"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[font_size=3
+0]▷"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Pause" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 focus_mode = 0
-text = "||"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "[font_size=2
+0]||"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TimeLabel" type="Label" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -264,7 +292,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(803, 62)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
@@ -311,10 +339,30 @@ unique_name_in_owner = true
 layout_mode = 2
 page = 10.0
 
-[node name="LengthEdit" type="LineEdit" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="LengthEdit" type="LineEdit" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 virtual_keyboard_type = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+bbcode_enabled = true
+text = "duration"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EditorUI"]
 layout_mode = 2

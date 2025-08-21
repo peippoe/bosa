@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://vwakonv48hct"]
+[gd_scene load_steps=5 format=3 uid="uid://vwakonv48hct"]
 
 [ext_resource type="Script" uid="uid://beqa1ej7jam6n" path="res://MapEditor/Markers/bpm_guide.gd" id="1_ckwqc"]
 [ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Images/icon.svg" id="1_pdff6"]
+
+[sub_resource type="Gradient" id="Gradient_nwuh7"]
+offsets = PackedFloat32Array(0.028169, 1)
+colors = PackedColorArray(0.63, 1, 0.938333, 1, 0.41, 0.587, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_djhsn"]
+gradient = SubResource("Gradient_nwuh7")
+fill_to = Vector2(0, 1)
 
 [node name="BPMGuide" type="Control"]
 layout_mode = 3
@@ -14,9 +22,10 @@ script = ExtResource("1_ckwqc")
 
 [node name="MarkerButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
+layout_mode = 0
 offset_right = 100.0
 offset_bottom = 12.0
-texture_normal = ExtResource("1_pdff6")
+texture_normal = SubResource("GradientTexture2D_djhsn")
 ignore_texture_size = true
 stretch_mode = 0
 

@@ -89,6 +89,38 @@ func _process(delta):
 					new_prop = Utility.spawn_entity(Utility.PROPS[1], GameManager.target_parent, beatmap[event_index])
 			
 			event_index += 1
+			
+			
+			if event_index >= beatmap.size(): return
+			
+			if beatmap[event_index]["type"] == Enums.GizmoType.TARGET_TAP and beatmap[event_index-1]["type"] == Enums.GizmoType.TARGET_TAP:
+				spawn_flow_line.call_deferred(event_index)
+
+
+const FLOW_LINE = preload("res://MapPlayer/flow_line.tscn")
+
+func spawn_flow_line(event_index):
+	
+	var pos1 = beatmap_data["beatmap"][event_index-1]["global_position"]
+	var pos2 = beatmap_data["beatmap"][event_index]["global_position"]
+	var pos_diff = pos2 - pos1
+	
+	
+	var t1 = beatmap_data["beatmap"][event_index-1]["pop_time"]
+	var t2 = beatmap_data["beatmap"][event_index]["pop_time"]
+	var start_diff = t1 - playhead
+	var end_diff = t2 - t1
+	
+	await get_tree().create_timer(start_diff).timeout
+	
+	var new_flow_line : Node3D = FLOW_LINE.instantiate()
+	get_tree().current_scene.add_child(new_flow_line)
+	new_flow_line.get_node("AnimationPlayer").speed_scale = 1.0 / end_diff
+	print(end_diff)
+	
+	new_flow_line.look_at_from_position(pos1 + pos_diff * 0.5, pos2)
+	new_flow_line.scale = Vector3(1, 1, pos_diff.length())
+	print("flow line #%d" % event_index)
 
 func auto_pop(new_target):
 	await get_tree().create_timer(new_target.pop_time - playhead).timeout

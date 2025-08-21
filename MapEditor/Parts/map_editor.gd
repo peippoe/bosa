@@ -33,7 +33,12 @@ var save_file_selected = func save_file_selected(path : String):
 func map_save_as():
 	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_SAVE_FILE, save_file_selected, PackedStringArray(["*.json"]))
 
-
+func save_pressed():
+	print("SAVE PATH: %s" % save_path)
+	if save_path != "":
+		save_map(save_path)
+	else:
+		map_save_as()
 
 
 func _ready():
@@ -66,14 +71,7 @@ func _ready():
 	
 	
 	%SaveAs.pressed.connect(map_save_as)
-	%Save.pressed.connect(
-		func save():
-			print("SAVE PATH: %s" % save_path)
-			if save_path != "":
-				save_map(save_path)
-			else:
-				map_save_as()
-	)
+	%Save.pressed.connect(save_pressed)
 	%Load.pressed.connect(open_load_map_file_dialog)
 	%Playtest.pressed.connect(func play():
 		if save_path:
@@ -225,6 +223,10 @@ func _unhandled_input(event):
 				click(event)
 			else:
 				dragging = false
+	
+	if event is InputEventKey:
+		if event.pressed and event.keycode == 83 and event.ctrl_pressed:
+			save_pressed()
 
 
 func click(event):
