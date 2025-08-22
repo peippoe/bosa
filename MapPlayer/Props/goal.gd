@@ -9,14 +9,14 @@ var pop_time := 0.0:
 		await get_tree().create_timer(pop_time - Playback.playhead).timeout
 		
 		var player_inside := false
-		for i in get_overlapping_bodies():
-			if i.is_in_group("player"):
-				player_inside = true
-				break
+		if GameManager.in_editor:
+			player_inside = true
+		else:
+			for i in get_overlapping_bodies():
+				if i.is_in_group("player"):
+					player_inside = true
+					break
 		
-		print("PLAYER INSIDE? %s" % player_inside)
-		
-		if GameManager.in_editor: player_inside = true
 		
 		if not player_inside:
 			Utility.on_miss(self.global_position)

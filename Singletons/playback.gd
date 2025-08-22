@@ -11,7 +11,10 @@ var beatmap_data = {
 	"events": [],
 	"beatmap": [],
 	"editor": [],
-}
+}:
+	set(value):
+		beatmap_data = value
+		print(beatmap_data)
 
 var playhead := 0.0:
 	set(value):

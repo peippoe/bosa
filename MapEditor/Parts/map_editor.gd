@@ -225,8 +225,13 @@ func _unhandled_input(event):
 				dragging = false
 	
 	if event is InputEventKey:
-		if event.pressed and event.keycode == 83 and event.ctrl_pressed:
+		if not event.pressed: return
+		
+		if event.keycode == KEY_S and event.ctrl_pressed:
 			save_pressed()
+		
+		if event.keycode == KEY_Z and event.ctrl_pressed:
+			undo()
 
 
 func click(event):
@@ -243,7 +248,6 @@ func click(event):
 	var result = space_state.intersect_ray(query)
 	
 	if not result:
-		
 		set_selected(null)
 		return
 	
@@ -285,13 +289,13 @@ func toggle_node_process(node : Node):
 
 func start_drag(event, coll):
 	dragging = true
+	record(selected, "global_position", selected.global_position)
 	drag_start_pos = coll.global_position
 	drag_start_mouse_pos = event.position
 	match coll.name:
 		"X": drag_axis = Vector3.RIGHT
 		"Y": drag_axis = Vector3.UP
 		"Z": drag_axis = Vector3.BACK
-		_: push_error("SOMETHING WONG")
 
 
 
@@ -471,3 +475,31 @@ func _on_play_pressed():
 func _on_pause_pressed():
 	Playback.playback_speed = 0
 	%Map.show()
+
+
+
+
+var recorded = null
+
+func set_and_record(node : Node, property : String, value):
+	
+	record(node, property, value)
+	
+	node.set(property, value)
+	#update_visuals
+
+func record(node : Node, property : String, value):
+	recorded = {
+		"node": node,
+		"property": property,
+		"value": node.get(property)
+	}
+
+
+func undo():
+	print("RECORDEDDDDDDDDDDDDDDDDD")
+	print(recorded)
+	if not recorded: return
+	
+	set_and_record(recorded["node"], recorded["property"], recorded["value"])
+	#recorded["node"].set(recorded["property"], recorded["value"])
