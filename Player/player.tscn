@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=30 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
@@ -28,6 +28,9 @@ shader = ExtResource("2_vtle1")
 shader_parameter/dither_scale = 4.0
 shader_parameter/levels = 30.0
 shader_parameter/dither_intensity = 2.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtle1"]
+size = Vector3(0.05, 2, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 radius = 0.3
@@ -458,6 +461,20 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, -1)
 enabled = false
 target_position = Vector3(0, -1.5, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="WallFinderShapecast" type="ShapeCast3D" parent="Head"]
+unique_name_in_owner = true
+enabled = false
+shape = SubResource("BoxShape3D_vtle1")
+target_position = Vector3(0, 0, -1)
+
+[node name="LedgeRaycast" type="RayCast3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
+top_level = true
+enabled = false
+hit_back_faces = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")

@@ -36,10 +36,14 @@ func init():
 	
 	
 	start_marker_button.button_down.connect(
-		func button_down(): get_tree().current_scene.marker_dragged = start_marker
+		func button_down():
+			get_tree().current_scene.marker_dragged = start_marker
+			SignalBus.marker_drag_start.emit(start_marker)
 	)
 	end_marker_button.button_down.connect(
-		func button_down(): get_tree().current_scene.marker_dragged = end_marker
+		func button_down():
+			get_tree().current_scene.marker_dragged = end_marker
+			SignalBus.marker_drag_start.emit(end_marker)
 	)
 	
 	var button_up = func button_up():

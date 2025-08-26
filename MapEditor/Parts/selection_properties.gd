@@ -28,6 +28,7 @@ func _ready():
 	)
 	%Delete.pressed.connect(
 		func delete():
+			get_tree().current_scene.record(editor.selected)
 			Utility.delete_gizmo(editor.selected)
 	)
 

@@ -141,6 +141,7 @@ func _ready():
 
 func connect_marker_signals(marker):
 	var marker_button = marker.get_node("%MarkerButton")
+	print(marker)
 	if marker.name == "EdgeMarker":
 		marker_button = marker
 	
@@ -148,6 +149,8 @@ func connect_marker_signals(marker):
 		func start_drag_marker():
 			SignalBus.marker_drag_start.emit(marker)
 			marker_dragged = marker
+			
+			#record(marker_dragged.get_meta("gizmo"), "pop_time", marker_dragged.get_meta("gizmo").pop_time)
 			
 			if marker.name == "EdgeMarker":
 				marker.get_parent().ticks = []
@@ -175,11 +178,6 @@ func connect_marker_signals(marker):
 	var edge_marker = marker.get_node_or_null("%EdgeMarker")
 	if edge_marker and marker.name != "EdgeMarker":
 		connect_marker_signals(edge_marker)
-		#edge_marker.button_down.connect(
-			#func edge_marker_button_down():
-				#print("start_drag")
-				#
-		#)
 
 
 
@@ -488,18 +486,38 @@ func set_and_record(node : Node, property : String, value):
 	node.set(property, value)
 	#update_visuals
 
-func record(node : Node, property : String, value):
-	recorded = {
-		"node": node,
-		"property": property,
-		"value": node.get(property)
-	}
+func record(node : Node, property : String = "", value = null):
+	if not property and not value:
+		recorded = Utility.get_entity_properties(node)
+		print(recorded)
+	else:
+		recorded = {
+			"node": node,
+			"property": property,
+			"value": node.get(property)
+		}
+	print("RECORD, RECORDED: %s" % recorded)
 
 
 func undo():
-	print("RECORDEDDDDDDDDDDDDDDDDD")
-	print(recorded)
+	print("UNDO, RECORDED: %s" % recorded)
 	if not recorded: return
 	
+	
+	if recorded.has("type"):
+		var recorded_instance = Utility.spawn_gizmo(recorded["type"], recorded)
+		recorded = null
+		return
+	
+	
 	set_and_record(recorded["node"], recorded["property"], recorded["value"])
-	#recorded["node"].set(recorded["property"], recorded["value"])
+	
+	match recorded["property"]:
+		"pop_time":
+			if "start_time" in recorded["node"]:
+				recorded["node"].marker.get_child(1).position.x = Utility.get_position_on_timeline_from_value(recorded["node"].pop_time)
+			else:
+				recorded["node"].marker.position.x = Utility.get_position_on_timeline_from_value(recorded["node"].pop_time)
+		"start_time":
+			if "pop_time" in recorded["node"]:
+				recorded["node"].marker.get_child(0).position.x = Utility.get_position_on_timeline_from_value(recorded["node"].start_time)

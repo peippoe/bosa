@@ -12,8 +12,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Marker" parent="." instance=ExtResource("1_45odw")]
+[node name="Start" parent="." instance=ExtResource("1_45odw")]
 
-[node name="Marker2" parent="." instance=ExtResource("1_45odw")]
+[node name="End" parent="." instance=ExtResource("1_45odw")]
 offset_left = 50.0
 offset_right = 50.0
