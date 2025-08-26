@@ -225,7 +225,6 @@ color = Color(0, 1, 0.435294, 1)
 
 [node name="Debug" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

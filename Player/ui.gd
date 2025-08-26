@@ -44,9 +44,11 @@ func _process(delta):
 	var vel = player.velocity
 	var hvel = (vel - Vector3.UP * vel.y).length()
 	var vvel = vel.y
-	var debug_text = "hvel: %.2f \n" % hvel
-	debug_text += "vvel: %.2f \n" % vvel
-	debug_text += "sliding: %s" % player.sliding
+	var debug_text = "h_vel: %.2f \n" % hvel
+	debug_text += "v_vel: %.2f \n" % vvel
+	debug_text += "sliding: %s\n" % player.sliding
+	debug_text += "on_floor: %s\n" % player.on_floor
+	debug_text += "coyote: %s\n" % player.get_node("%CoyoteTime").time_left
 	%DebugLabel.text = debug_text
 	
 	$Control2/ColorRect/ColorRect.size.x = $Control2/ColorRect.size.x * GameManager.health / 100.0

@@ -5,7 +5,6 @@ extends CharacterBody3D
 
 
 
-
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -21,6 +20,61 @@ func _input(event):
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("space"): %JumpBuffer.start()
 		
+		if Input.is_action_just_pressed("vault"):
+			print("vault")
+			%WallFinderShapecast.force_shapecast_update()
+			
+			if %WallFinderShapecast.is_colliding():
+				
+				var idx = -1
+				for i in %WallFinderShapecast.get_collision_count():
+					if %WallFinderShapecast.get_collider(i).is_in_group("player"):
+						continue
+					idx = i
+				
+				if idx == -1: return
+				
+				
+				print(%WallFinderShapecast.get_collider(idx))
+				
+				var point = %WallFinderShapecast.get_collision_point(idx)
+				
+				var start = cam.global_position - Vector3.UP*cam.global_position.y
+				var end = point - Vector3.UP*point.y
+				var dist = end.distance_to(start)
+				
+				
+				#var angle = 90 * -cam.global_basis.z.dot(-cam.global_basis.z - Vector3.UP*(-cam.global_basis.z.y))
+				var angle = cam.rotation.x
+				print(angle)
+				
+				var x_dist = dist / cos(angle) + 0.05
+				
+				var x = cam.global_position + -cam.global_basis.z * x_dist
+				
+				
+				
+				
+				%LedgeRaycast.global_position = x
+				var height = -sqrt(pow(x_dist, 2.0) - pow(dist, 2.0)) - 0.5
+				print(height)
+				%LedgeRaycast.target_position.y = height
+				%LedgeRaycast.force_raycast_update()
+				
+				if %LedgeRaycast.is_colliding():
+					vault_point = %LedgeRaycast.get_collision_point() + Vector3.UP * 1.0
+					vault_stored_velocity = velocity
+					
+					var vault_dist = vault_point.distance_to(global_position)
+					
+					var to_point = (vault_point - global_position).normalized()
+					var vel_to_point = velocity.dot(to_point)
+					vel_to_point = max(vel_to_point, 1.0)
+					var vault_efficiency = max(vel_to_point / vault_dist * 10.0, 5.0)
+					vault_speed = remap(vault_efficiency, 5.0, 30.0, 10.0, 15.0)
+					
+					print("vault distance: %f\n vel_to_point: %f\n vault efficiency: %f\n vault_speed: %f" % [vault_dist, vel_to_point, vault_efficiency, vault_speed])
+			
 		#if Input.is_action_just_released("space"):
 			#if velocity.y > 0:
 				#var extra = velocity.y
@@ -78,9 +132,27 @@ const VEL_BUFFER_SIZE := 4
 
 var prev_y := 0.0
 
+var vault_point = null
+var vault_stored_velocity
+var vault_speed
+
 @export var jump_extend_curve : Curve
 
 func _physics_process(delta):
+	
+	if vault_point:
+		
+		global_position = lerp(global_position, vault_point, delta*vault_speed)
+		
+		if global_position.distance_to(vault_point) < 0.2:
+			global_position = vault_point
+			velocity = vault_stored_velocity
+			vault_point = null
+			%CoyoteTime.start()
+		
+		return
+	
+	
 	slide()
 	movement(delta)
 	update_variables()
@@ -97,10 +169,10 @@ func _physics_process(delta):
 	if on_floor: %CoyoteTime.start()
 	
 	var can_jump := false
-	if not %DoubleJumpDebounce.is_stopped():
-		can_jump = on_floor
-	else:
-		can_jump = not %CoyoteTime.is_stopped()
+	#if not %DoubleJumpDebounce.is_stopped():
+		#can_jump = on_floor
+	#else:
+	can_jump = not %CoyoteTime.is_stopped()
 	
 	if can_jump and not %JumpBuffer.is_stopped():
 		
@@ -109,7 +181,7 @@ func _physics_process(delta):
 			stop_sliding()
 			velocity = (move_dir+hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
 		
-		%DoubleJumpDebounce.start()
+		#%DoubleJumpDebounce.start()
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
 		%JumpExtendTime.start()
