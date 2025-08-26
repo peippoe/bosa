@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=29 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
+[ext_resource type="Shader" uid="uid://cfcb0fup7aldj" path="res://Assets/Shader/style.gdshader" id="2_vtle1"]
 [ext_resource type="AudioStream" uid="uid://bjamvokn8wuwu" path="res://Assets/Audio/Effect/windloop.ogg" id="3_k53q1"]
-[ext_resource type="AudioStream" uid="uid://bg1idkmsqy5a" path="res://Assets/Audio/Effect/Jump.wav" id="4_gwnis"]
+[ext_resource type="AudioStream" uid="uid://bg1idkmsqy5a" path="res://Assets/Audio/Effect/jump.wav" id="4_gwnis"]
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/Effect/slideloop.wav" id="5_k53q1"]
+[ext_resource type="Shader" uid="uid://dgjh5fvbqqctp" path="res://Assets/Shader/crt.gdshader" id="6_fhl08"]
 
 [sub_resource type="Curve" id="Curve_k53q1"]
 _data = [Vector2(0, 0), 0.0, 2.77594, 0, 0, Vector2(0.26, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.32193, 0.0, 0, 0]
@@ -16,8 +18,409 @@ radius = 0.3
 [sub_resource type="SphereShape3D" id="SphereShape3D_fhl08"]
 radius = 0.2
 
+[sub_resource type="QuadMesh" id="QuadMesh_od3ui"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apopc"]
+render_priority = 0
+shader = ExtResource("2_vtle1")
+shader_parameter/dither_scale = 4.0
+shader_parameter/levels = 30.0
+shader_parameter/dither_intensity = 2.0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 radius = 0.3
+
+[sub_resource type="Shader" id="Shader_e7kh4"]
+code = "shader_type canvas_item;
+
+// Purp's N64 Soft/Blurry Post-Process V2
+
+// ============================================================================
+// SHADER UNIFORMS - User-configurable parameters
+// ============================================================================
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, repeat_disable, filter_nearest;
+
+/** The resolution of your subviewport */
+uniform vec2 virtual_resolution = vec2(320.0, 240.0);
+
+/** You can set the bitdepth value for all 3 color components. (Ex: 555 = 15 BitRGB) */
+uniform int color_bitdepth : hint_range(1, 8) = 5;
+
+/** Controls the strength of the dithering effect */
+uniform float dither_strength : hint_range(0.0, 1.0) = 1.0;
+
+/** Toggle between standard Bayer matrix and magic matrix */
+uniform bool use_magic_matrix = false;
+
+/** Enable/disable dedithering effect */
+uniform bool enable_dedithering = false;
+
+/** Controls the strength of the dedithering effect */
+uniform float dedither_strength : hint_range(0.0, 1.0) = 1.0;
+
+/** Enables the a quick \"480i upscale\" to add an horizontal blur */
+uniform bool enable_480i_upscale = true;
+
+/** Simple Scanline */
+uniform float scanline_intensity : hint_range(0.0, 1.0) = 0.1;
+
+// ============================================================================
+// DITHERING MATRICES - Predefined patterns for dithering
+// ============================================================================
+
+// Standard 4x4 Bayer matrix - creates ordered dithering pattern
+const mat4 bayer_matrix = mat4(
+    vec4( 0.0,  4.0,  1.0,  5.0),
+    vec4( 4.0,  0.0,  5.0,  1.0),
+    vec4( 3.0,  7.0,  2.0,  6.0),
+    vec4( 7.0,  3.0,  6.0,  2.0)
+);
+
+// Alternative \"magic\" 4x4 matrix - creates different dithering pattern
+const mat4 magic_matrix = mat4(
+    vec4( 0.0,  6.0,  1.0,  7.0),
+    vec4( 4.0,  2.0,  5.0,  3.0),
+    vec4( 3.0,  5.0,  2.0,  4.0),
+    vec4( 7.0,  1.0,  6.0,  0.0)
+);
+
+
+// ============================================================================
+// CORE DITHERING / DE-DITHERING FUNCTIONS
+// ============================================================================
+
+float get_bayer_threshold(vec2 screen_pos) {
+    int x = int(floor(screen_pos.x)) % 4;
+    int y = int(floor(screen_pos.y)) % 4;
+
+    mat4 selected_matrix = use_magic_matrix ? magic_matrix : bayer_matrix;
+
+    return selected_matrix[y][x] / 7.0;
+}
+
+float quantize_channel(float value, int bits, float threshold) {
+    if (bits <= 0) return 0.0;
+    if (bits >= 8) return value;
+
+    float max_value = float((1 << bits) - 1);
+    float dither_amount = (threshold - 0.5) * dither_strength / max_value;
+    float dithered_value = clamp(value + dither_amount, 0.0, 1.0);
+
+    return round(dithered_value * max_value) / max_value;
+}
+
+vec3 get_dithered_color_at_uv(sampler2D tex, vec2 uv) {
+    vec4 color = texture(tex, uv);
+
+    vec2 virtual_pixel_coords = uv * virtual_resolution;
+    float bayer_threshold = get_bayer_threshold(virtual_pixel_coords);
+
+    vec3 quantized_color;
+    quantized_color.r = quantize_channel(color.r, color_bitdepth, bayer_threshold);
+    quantized_color.g = quantize_channel(color.g, color_bitdepth, bayer_threshold);
+    quantized_color.b = quantize_channel(color.b, color_bitdepth, bayer_threshold);
+
+    return quantized_color;
+}
+
+vec3 reconstruct_color_optimized(vec3 center_color, vec3 neighbors[8], int bits, float strength) {
+    float max_value = float((1 << bits) - 1);
+    vec3 reconstructed = vec3(0.0);
+
+    float level_tolerance = mix(0.5, 2.0, strength);
+
+    for (int channel = 0; channel < 3; channel++) {
+        // Extract current channel value
+        float center_val = (channel == 0) ? center_color.r :
+                          (channel == 1) ? center_color.g : center_color.b;
+
+        float sum = center_val;
+        float count = 1.0;
+
+        for (int i = 0; i < 8; i++) {
+            float neighbor_val = (channel == 0) ? neighbors[i].r :
+                                (channel == 1) ? neighbors[i].g : neighbors[i].b;
+
+            // Calculate quantization levels
+            float center_level = floor(center_val * max_value);
+            float neighbor_level = floor(neighbor_val * max_value);
+
+            if (abs(center_level - neighbor_level) <= level_tolerance) {
+                sum += neighbor_val * strength;
+                count += strength;
+            }
+        }
+
+        float averaged = sum / count;
+
+        if (channel == 0) reconstructed.r = averaged;
+        else if (channel == 1) reconstructed.g = averaged;
+        else reconstructed.b = averaged;
+    }
+
+    return mix(center_color, reconstructed, strength);
+}
+
+vec3 get_processed_color_at_uv_optimized(sampler2D tex, vec2 uv, vec2 texel_size) {
+	
+    vec3 dithered_color = get_dithered_color_at_uv(tex, uv);
+
+    if (!enable_dedithering) {
+        return dithered_color;
+    }
+	
+    vec2 neighbor_offsets[8] = vec2[](
+        vec2(-1.0, -1.0), vec2(0.0, -1.0), vec2(1.0, -1.0),
+        vec2(-1.0,  0.0),                   vec2(1.0,  0.0),
+        vec2(-1.0,  1.0), vec2(0.0,  1.0), vec2(1.0,  1.0) 
+    );
+
+    vec3 neighbors[8];
+    for (int i = 0; i < 8; i++) {
+        vec2 neighbor_uv = uv + neighbor_offsets[i] * texel_size;
+		
+        if (all(greaterThanEqual(neighbor_uv, vec2(0.0))) && all(lessThanEqual(neighbor_uv, vec2(1.0)))) {
+            neighbors[i] = get_dithered_color_at_uv(tex, neighbor_uv);
+        } else {
+            neighbors[i] = dithered_color;
+        }
+    }
+	
+    vec3 dedithered_color = reconstruct_color_optimized(dithered_color, neighbors, color_bitdepth, dedither_strength);
+    return clamp(dedithered_color, 0.0, 1.0);
+}
+
+// ============================================================================
+// 480i Upscale
+// ============================================================================
+
+// Fast 3-tap horizontal blur using precalculated weights
+// Precalculate blur weights and offsets
+
+const vec3 blur_weights = vec3(0.27901, 0.44198, 0.27901);
+
+vec3 apply_n64_upscale(sampler2D tex, vec3 color, vec2 uv, vec2 texel_size) {
+	if (!enable_480i_upscale) return color;
+		float pixel_y = uv.y * virtual_resolution.y;
+	
+		vec3 blur_color = color * blur_weights.y;
+	
+		vec2 offset = vec2(texel_size.x, 0.0);
+		
+		if (uv.x >= texel_size.x && uv.x <= 1.0 - texel_size.x) {
+    		blur_color += get_processed_color_at_uv_optimized(tex, uv - offset, texel_size) * blur_weights.x + get_processed_color_at_uv_optimized(tex, uv + offset, texel_size) * blur_weights.z;
+		} 
+		else {
+    		blur_color += color * (blur_weights.x + blur_weights.z);
+		}
+		
+	float scanline_darkening = 1.0 - (0.2 * scanline_intensity * float(int(pixel_y) & 1));
+	
+	return blur_color * scanline_darkening;
+}
+
+// ============================================================================
+// MAIN FRAGMENT SHADER
+// ============================================================================
+
+void fragment() {
+    vec4 original_color = texture(SCREEN_TEXTURE, UV);
+    vec2 texel_size = 1.0 / virtual_resolution;
+
+    vec3 final_color = get_processed_color_at_uv_optimized(SCREEN_TEXTURE, UV, texel_size);
+    
+    // Apply N64 upscaling effects with texture parameter
+    final_color = apply_n64_upscale(SCREEN_TEXTURE, final_color, UV, texel_size);
+
+    COLOR = vec4(final_color, original_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtle1"]
+shader = SubResource("Shader_e7kh4")
+shader_parameter/virtual_resolution = Vector2(320, 240)
+shader_parameter/color_bitdepth = 5
+shader_parameter/dither_strength = 1.0
+shader_parameter/use_magic_matrix = false
+shader_parameter/enable_dedithering = false
+shader_parameter/dedither_strength = 1.0
+shader_parameter/enable_480i_upscale = true
+shader_parameter/scanline_intensity = 0.3
+
+[sub_resource type="Shader" id="Shader_f0smv"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform bool enable_dither_filter = true;
+uniform bool enable_horizontal_blur = true;
+
+const vec3 LUMINANCE_VECTOR = vec3(0.299, 0.587, 0.114);
+const float QUANTIZATION_FACTOR = 32.0;
+const float COLOR_SCALE = 255.0;
+const float INV_COLOR_SCALE = 1.0 / 255.0;
+const float BLUR_MIX = 0.65;
+const float BRIGHTNESS_FALLOFF = 0.5;
+const float BRIGHTEN_FACTOR = 0.4;
+
+ivec3 quantize_color(vec3 color) {
+    return ivec3(clamp(color * QUANTIZATION_FACTOR - 0.0001, 0.0, 31.0));
+}
+
+vec3 get_restore_adjustment(ivec3 center_quantized, vec3 neighbor_color) {
+    return vec3(sign(quantize_color(neighbor_color) - center_quantized));
+}
+
+vec3 restore_filter(vec2 uv, vec2 pixel_size) {
+    vec3 center = texture(screen_texture, uv).rgb;
+    if (!enable_dither_filter) {
+        return center;
+    }
+
+    vec2 offsets[8];
+    offsets[0] = uv + vec2(-pixel_size.x, -pixel_size.y);
+    offsets[1] = uv + vec2( 0.0,         -pixel_size.y);
+    offsets[2] = uv + vec2( pixel_size.x, -pixel_size.y);
+    offsets[3] = uv + vec2(-pixel_size.x,  0.0);
+    offsets[4] = uv + vec2( pixel_size.x,  0.0);
+    offsets[5] = uv + vec2(-pixel_size.x,  pixel_size.y);
+    offsets[6] = uv + vec2( 0.0,          pixel_size.y);
+    offsets[7] = uv + vec2( pixel_size.x,  pixel_size.y);
+
+    ivec3 center_quantized = quantize_color(center);
+    vec3 total_adjustment = vec3(0.0);
+
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[0]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[1]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[2]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[3]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[4]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[5]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[6]).rgb);
+    total_adjustment += get_restore_adjustment(center_quantized, texture(screen_texture, offsets[7]).rgb);
+
+    return (center * COLOR_SCALE + total_adjustment) * INV_COLOR_SCALE;
+}
+
+vec3 apply_horizontal_blur(vec3 base_color, vec2 uv, vec2 pixel_size) {
+    if (!enable_horizontal_blur) {
+        return base_color;
+    }
+
+    vec2 right_uv = uv + vec2(pixel_size.x, 0.0);
+    vec3 right_color = restore_filter(right_uv, pixel_size);
+
+    float base_lum = dot(base_color, LUMINANCE_VECTOR);
+    float right_lum = dot(right_color, LUMINANCE_VECTOR);
+
+    if (base_lum < right_lum) {
+        vec3 blur_target = mix(base_color, right_color, BLUR_MIX);
+        vec3 brighten = max(blur_target - base_color, vec3(0.0));
+        return base_color + brighten * BRIGHTEN_FACTOR; // Stronger brightening
+    } else {
+        vec3 dark_smear = mix(base_color, right_color, BLUR_MIX);
+        return mix(dark_smear, base_color, BRIGHTNESS_FALLOFF);
+    }
+}
+
+void fragment() {
+    vec2 pixel_size = 1.0 / vec2(textureSize(screen_texture, 0));
+
+    vec3 restored_color = restore_filter(SCREEN_UV, pixel_size);
+    vec3 final_color = apply_horizontal_blur(restored_color, SCREEN_UV, pixel_size);
+
+    COLOR = vec4(final_color, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_od3ui"]
+shader = SubResource("Shader_f0smv")
+shader_parameter/enable_dither_filter = true
+shader_parameter/enable_horizontal_blur = true
+
+[sub_resource type="Gradient" id="Gradient_od3ui"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_00tjw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x3vf3"]
+color_ramp = SubResource("Gradient_od3ui")
+noise = SubResource("FastNoiseLite_00tjw")
+
+[sub_resource type="Gradient" id="Gradient_fhl08"]
+offsets = PackedFloat32Array(0, 0.343284)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vtle1"]
+gradient = SubResource("Gradient_fhl08")
+
+[sub_resource type="Gradient" id="Gradient_vtle1"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.11194, 0.223881, 0.350746, 0.477612, 0.589552, 0.701493, 0.835821)
+colors = PackedColorArray(0, 0, 1, 1, 0, 0.282353, 1, 1, 0, 0.592157, 1, 1, 0, 0.803922, 1, 1, 0, 0.74902, 1, 1, 0, 0.596078, 1, 1, 0, 0.756863, 1, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_od3ui"]
+gradient = SubResource("Gradient_vtle1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00tjw"]
+shader = ExtResource("6_fhl08")
+shader_parameter/quantize_groups = 4
+shader_parameter/gradient_tex = SubResource("GradientTexture1D_vtle1")
+shader_parameter/posterize_tex = SubResource("GradientTexture1D_od3ui")
+shader_parameter/dither_size = 2
+shader_parameter/dither_mult = 1.0
+
+[sub_resource type="Shader" id="Shader_vtle1"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
+
+const mat4 bayer_matrix_4x4 = mat4(
+    vec4(    -0.5,       0.0,  -0.375,   0.125 ),
+    vec4(    0.25,   -0.25,   0.375, - 0.125 ),
+    vec4( -0.3125,  0.1875, -0.4375,  0.0625 ),
+    vec4(  0.4375, -0.0625,  0.3125, -0.1875 )
+);
+
+uniform float dither_scale = 1.0;
+uniform float levels = 16.0; // how many color steps per channel
+uniform float dither_intensity = 1.0;
+
+
+void fragment() {
+	vec2 frag_coord = FRAGCOORD.xy / dither_scale;
+	int xi = int(mod(frag_coord.x, 4.0));
+	int yi = int(mod(frag_coord.y, 4.0));
+	float dither_shift = bayer_matrix_4x4[xi][yi];
+	
+	vec3 col = texture(screen_texture, SCREEN_UV).rgb;
+	
+	vec2 center = vec2(0.5);
+	float dist = distance(center, UV);
+	float edge_factor = smoothstep(0.0, 1.4, dist);
+	
+	col = col * (levels - 1.0) + dither_shift * dither_intensity * edge_factor; // add shift
+	col = floor(col);                          // quantize
+	col = col / (levels - 1.0);                // normalize back
+	
+	COLOR.rgb = col;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5htga"]
+shader = SubResource("Shader_vtle1")
+shader_parameter/dither_scale = 4.0
+shader_parameter/levels = 30.0
+shader_parameter/dither_intensity = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3vf3"]
+shader = SubResource("Shader_e7kh4")
+shader_parameter/virtual_resolution = Vector2(640, 480)
+shader_parameter/color_bitdepth = 5
+shader_parameter/dither_strength = 0.5
+shader_parameter/use_magic_matrix = true
+shader_parameter/enable_dedithering = false
+shader_parameter/dedither_strength = 1.0
+shader_parameter/enable_480i_upscale = false
+shader_parameter/scanline_intensity = 0.1
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 floor_max_angle = 1.0472
@@ -27,7 +430,6 @@ jump_extend_curve = SubResource("Curve_k53q1")
 
 [node name="GroundCast" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
-visible = false
 shape = SubResource("SphereShape3D_k53q1")
 target_position = Vector3(0, -0.5, 0)
 
@@ -41,6 +443,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="Cam" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
+fov = 90.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Cam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -1)
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_od3ui")
+skeleton = NodePath("../../../Control3/ColorRect")
+surface_material_override/0 = SubResource("ShaderMaterial_apopc")
 
 [node name="EdgeRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
@@ -50,6 +461,85 @@ target_position = Vector3(0, -1.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")
+
+[node name="Control3" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Control3"]
+visible = false
+material = SubResource("ShaderMaterial_vtle1")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Control3"]
+visible = false
+copy_mode = 2
+
+[node name="ColorRect3" type="ColorRect" parent="Control3"]
+visible = false
+material = SubResource("ShaderMaterial_od3ui")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control3"]
+visible = false
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+texture = SubResource("NoiseTexture2D_x3vf3")
+
+[node name="TextureRect2" type="TextureRect" parent="Control3"]
+visible = false
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="ColorRect" type="ColorRect" parent="Control3"]
+visible = false
+material = SubResource("ShaderMaterial_00tjw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="final?" type="ColorRect" parent="Control3"]
+material = SubResource("ShaderMaterial_5htga")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SubViewportContainer" type="ColorRect" parent="Control3"]
+visible = false
+material = SubResource("ShaderMaterial_x3vf3")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="UI" parent="." instance=ExtResource("2_cvnsp")]
 unique_name_in_owner = true

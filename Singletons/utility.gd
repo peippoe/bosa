@@ -322,3 +322,9 @@ func convert_ints(data):
 		for key in target_data:
 			if key == "type": target_data[key] = int(target_data[key])
 	return data
+
+
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_0:
+		get_window().size -= Vector2i(16, 9) * 4
+		get_window().move_to_center()

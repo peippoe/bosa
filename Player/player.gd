@@ -103,12 +103,16 @@ func _physics_process(delta):
 		can_jump = not %CoyoteTime.is_stopped()
 	
 	if can_jump and not %JumpBuffer.is_stopped():
-		if sliding: stop_sliding()
+		
+		var hvel = velocity - Vector3.UP*velocity.y
+		if sliding:
+			stop_sliding()
+			velocity = (move_dir+hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
+		
 		%DoubleJumpDebounce.start()
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
 		%JumpExtendTime.start()
-		var hvel = velocity - Vector3.UP*velocity.y
 		
 		
 		

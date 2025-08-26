@@ -11,6 +11,8 @@ radius = 0.65
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxfnh"]
 resource_name = "Material.001"
 cull_mode = 2
+diffuse_mode = 3
+specular_mode = 1
 albedo_color = Color(0, 1, 0.666667, 1)
 metallic_specular = 0.71
 roughness = 0.0

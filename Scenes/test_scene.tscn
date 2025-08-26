@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://sast1hlg37nk"]
+[gd_scene load_steps=16 format=3 uid="uid://sast1hlg37nk"]
 
 [ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scenes/target_spawner.gd" id="1_50ct6"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_hb2xm"]
@@ -32,6 +32,23 @@ vertex_color_use_as_albedo = true
 [sub_resource type="QuadMesh" id="QuadMesh_dre17"]
 material = SubResource("StandardMaterial3D_3pxtl")
 
+[sub_resource type="QuadMesh" id="QuadMesh_50ct6"]
+
+[sub_resource type="Gradient" id="Gradient_hb2xm"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ak5v8"]
+gradient = SubResource("Gradient_hb2xm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x033f"]
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture1D_ak5v8")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_50ct6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hb2xm"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.639216)
+
 [node name="Main" type="Node3D"]
 
 [node name="TargetSpawner" type="Node3D" parent="."]
@@ -55,3 +72,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.8297, 9.30476)
 process_material = SubResource("ParticleProcessMaterial_p7b2h")
 draw_pass_1 = SubResource("QuadMesh_dre17")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 0, 1, 8)
+mesh = SubResource("QuadMesh_50ct6")
+surface_material_override/0 = SubResource("StandardMaterial3D_x033f")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 1.4796, 1, 8)
+mesh = SubResource("CylinderMesh_50ct6")
+surface_material_override/0 = SubResource("StandardMaterial3D_hb2xm")

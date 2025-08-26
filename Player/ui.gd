@@ -49,6 +49,6 @@ func _process(delta):
 	debug_text += "sliding: %s" % player.sliding
 	%DebugLabel.text = debug_text
 	
-	$Control2/ColorRect/ColorRect.size.x = $Control2/ColorRect.size.x * (1.0 - GameManager.health / 100.0)
+	$Control2/ColorRect/ColorRect.size.x = $Control2/ColorRect.size.x * GameManager.health / 100.0
 	
 	$Control2/RichTextLabel.text = "%dpts\n[font_size=25]%dx" % [GameManager.points, GameManager.combo]

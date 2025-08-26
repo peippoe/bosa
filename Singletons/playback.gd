@@ -11,10 +11,7 @@ var beatmap_data = {
 	"events": [],
 	"beatmap": [],
 	"editor": [],
-}:
-	set(value):
-		beatmap_data = value
-		print(beatmap_data)
+}
 
 var playhead := 0.0:
 	set(value):
@@ -75,9 +72,7 @@ func _process(delta):
 	if event_index >= beatmap.size(): return
 	
 	
-	var spawn_time = beatmap[event_index].pop_time - Settings.fadein_time
-	if "start_time" in beatmap[event_index]: spawn_time = beatmap[event_index].start_time
-	
+	var spawn_time = get_spawn_time(beatmap[event_index])
 	
 	if playhead > spawn_time:
 		if "type" in beatmap[event_index]:
@@ -98,6 +93,19 @@ func _process(delta):
 			
 			if beatmap[event_index]["type"] == Enums.GizmoType.TARGET_TAP and beatmap[event_index-1]["type"] == Enums.GizmoType.TARGET_TAP:
 				spawn_flow_line.call_deferred(event_index)
+
+func get_spawn_time(entity):
+	var spawn_time = -1.0
+	
+	match entity["type"]:
+		Enums.GizmoType.TARGET_TAP:
+			spawn_time = entity["pop_time"] - Settings.fadein_time
+		Enums.GizmoType.GOAL:
+			spawn_time = entity["start_time"]
+	
+	return spawn_time
+
+
 
 
 const FLOW_LINE = preload("res://MapPlayer/flow_line.tscn")
@@ -131,7 +139,7 @@ func auto_pop(new_target):
 
 func sort_beatmap_data():
 	beatmap_data["beatmap"].sort_custom(func(a, b):
-		return a["pop_time"] < b["pop_time"]
+		return Playback.get_spawn_time(a) < Playback.get_spawn_time(b)
 	)
 
 func precompute_pop_times():

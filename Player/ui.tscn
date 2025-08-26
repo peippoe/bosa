@@ -7,6 +7,21 @@
 [ext_resource type="PackedScene" uid="uid://d3gtvaqxpj834" path="res://Scenes/fail_screen.tscn" id="5_wmn8w"]
 [ext_resource type="PackedScene" uid="uid://cd3aak4r1e7rt" path="res://Scenes/end_screen.tscn" id="6_kvoao"]
 
+[sub_resource type="Animation" id="Animation_e7kh4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TempTutorialText/RichTextLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_kvoao"]
 resource_name = "tutorial_text"
 length = 8.0
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e7kh4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TempTutorialText/RichTextLabel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f0smv"]
@@ -142,7 +142,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -104.0
-offset_top = -16.0
+offset_top = -10.0
 offset_right = 104.0
 offset_bottom = 0.0
 grow_horizontal = 2
@@ -212,7 +212,7 @@ text = "0pts
 layout_mode = 0
 offset_right = 119.0
 offset_bottom = 12.0
-color = Color(0, 1, 0, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="ColorRect" type="ColorRect" parent="Control2/ColorRect"]
 layout_mode = 1
@@ -221,7 +221,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0, 1, 0.435294, 1)
 
 [node name="Debug" type="Control" parent="."]
 unique_name_in_owner = true
