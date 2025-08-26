@@ -48,6 +48,7 @@ func _process(delta):
 	debug_text += "v_vel: %.2f \n" % vvel
 	debug_text += "sliding: %s\n" % player.sliding
 	debug_text += "on_floor: %s\n" % player.on_floor
+	debug_text += "coiling: %s\n" % player.coiling
 	debug_text += "coyote: %s\n" % player.get_node("%CoyoteTime").time_left
 	%DebugLabel.text = debug_text
 	

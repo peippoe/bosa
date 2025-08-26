@@ -20,6 +20,8 @@ func _input(event):
 	if event is InputEventKey:
 		if Input.is_action_just_pressed("space"): %JumpBuffer.start()
 		
+		if Input.is_action_just_pressed("shift"): %SlideBuffer.start()
+		
 		if Input.is_action_just_pressed("vault"):
 			print("vault")
 			%WallFinderShapecast.force_shapecast_update()
@@ -48,7 +50,7 @@ func _input(event):
 				var angle = cam.rotation.x
 				print(angle)
 				
-				var x_dist = dist / cos(angle) + 0.05
+				var x_dist = dist / cos(angle) + 0.1
 				
 				var x = cam.global_position + -cam.global_basis.z * x_dist
 				
@@ -56,7 +58,7 @@ func _input(event):
 				
 				
 				%LedgeRaycast.global_position = x
-				var height = -sqrt(pow(x_dist, 2.0) - pow(dist, 2.0)) - 0.5
+				var height = -sqrt(pow(x_dist, 2.0) - pow(dist, 2.0)) - 1.5
 				print(height)
 				%LedgeRaycast.target_position.y = height
 				%LedgeRaycast.force_raycast_update()
@@ -97,20 +99,20 @@ func shoot():
 
 
 
-const GRAV := 15.0
-const FALL_GRAV := 18.0
+const GRAV := 15.25
+const FAST_FALL_BOOST := 3.0
 const SKYDIVE_GRAV_BOOST := 15.0
 const JUMP_VELOCITY := 6.0
 const JUMP_BOOST := 0.1
 const JUMP_CUTOFF := 3.1
-const JUMP_EXTEND := 5.0
+const JUMP_EXTEND := 6.0
 
 const MAX_SPEED := 8.0
 const WISH_DIR_COMPENSATION_LIMIT := MAX_SPEED + 40.0
 const AIR_MAX_SPEED := 20.0
 var acceleration := 0.0
 const FLOOR_ACCELERATION := 140.0
-const AIR_ACCELERATION := 70.0
+const AIR_ACCELERATION := 60.0
 const FLOOR_FRICTION := 120.0
 const AIR_FRICTION := 15.0
 
@@ -127,16 +129,19 @@ const SLIDE_DOWNHILL_BOOST := 1.7
 var on_floor := false
 var was_on_floor := false
 
-var vel_buffer := []
-const VEL_BUFFER_SIZE := 4
+#var vel_buffer := []
+#const VEL_BUFFER_SIZE := 4
 
 var prev_y := 0.0
+
+var coiling := false
 
 var vault_point = null
 var vault_stored_velocity
 var vault_speed
 
 @export var jump_extend_curve : Curve
+@export var fast_fall_curve : Curve
 
 func _physics_process(delta):
 	
@@ -148,13 +153,18 @@ func _physics_process(delta):
 			global_position = vault_point
 			velocity = vault_stored_velocity
 			vault_point = null
-			%CoyoteTime.start()
+			on_floor = true
 		
 		return
 	
 	
 	slide()
 	movement(delta)
+	
+	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(0.8, 1.2))
+	
+	if on_floor: %CoyoteTime.start()
+	
 	update_variables()
 	
 	
@@ -162,17 +172,11 @@ func _physics_process(delta):
 		var x = jump_extend_curve.sample_baked(1.0 - %JumpExtendTime.time_left / %JumpExtendTime.wait_time)
 		velocity.y += JUMP_EXTEND * delta * x
 	
-	
-	
-	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(0.8, 1.2))
-	
-	if on_floor: %CoyoteTime.start()
-	
 	var can_jump := false
-	#if not %DoubleJumpDebounce.is_stopped():
-		#can_jump = on_floor
-	#else:
-	can_jump = not %CoyoteTime.is_stopped()
+	if not %DoubleJumpDebounce.is_stopped():
+		can_jump = on_floor
+	else:
+		can_jump = not %CoyoteTime.is_stopped()
 	
 	if can_jump and not %JumpBuffer.is_stopped():
 		
@@ -181,7 +185,7 @@ func _physics_process(delta):
 			stop_sliding()
 			velocity = (move_dir+hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
 		
-		#%DoubleJumpDebounce.start()
+		%DoubleJumpDebounce.start()
 		%CoyoteTime.stop()
 		%JumpBuffer.stop()
 		%JumpExtendTime.start()
@@ -210,14 +214,15 @@ func update_variables():
 	was_on_floor = on_floor
 	on_floor = is_on_floor()
 	
-	vel_buffer.push_front(velocity)
-	if vel_buffer.size() > VEL_BUFFER_SIZE:
-		vel_buffer.pop_back()
+	coiling = Input.is_action_pressed("shift") and not on_floor
+	
+	#vel_buffer.push_front(velocity)
+	#if vel_buffer.size() > VEL_BUFFER_SIZE:
+		#vel_buffer.pop_back()
 	
 	prev_y = global_position.y
 
 func slide():
-	if Input.is_action_just_pressed("shift"): %SlideBuffer.start()
 	if not %SlideBuffer.is_stopped() and on_floor:
 		%SlideBuffer.stop()
 		%Sliding.play()
@@ -239,11 +244,15 @@ func stop_sliding():
 
 func movement(delta):
 	if not on_floor:
+		if was_on_floor: %FastFallTime.start()
+		
 		var grav = GRAV
-		if not Input.is_action_pressed("space"): grav = FALL_GRAV
+		if not Input.is_action_pressed("space"):
+			var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
+			print(x)
+			grav += FAST_FALL_BOOST * x
 		if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
 		velocity.y += -grav * delta
-		if global_position.y < -20: global_position = Vector3.UP*4; velocity.y = 0.0
 	
 	input_dir = Input.get_vector("a", "d", "w", "s")
 	move_dir = (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -276,9 +285,16 @@ func movement(delta):
 	var add_speed = MAX_SPEED - current_speed
 	
 	if add_speed > 0:
-		var accel = AIR_ACCELERATION
-		if sliding: accel = SLIDE_ACCELERATION
-		elif on_floor: accel = FLOOR_ACCELERATION
+		var accel := 0.0
+		if sliding:
+			accel = SLIDE_ACCELERATION
+		elif on_floor:
+			accel = FLOOR_ACCELERATION
+		else:
+			var air_slowdown_assist = 1.0 + 0.5 * max(-hvel.normalized().dot(wish_dir), 0.0)
+			#print(air_slowdown_assist)
+			accel = AIR_ACCELERATION * air_slowdown_assist
+		
 		accel *= delta
 		accel = min(accel, add_speed)
 		velocity += wish_dir * accel
@@ -325,39 +341,13 @@ func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 
 
 
-
-
-
-@onready var float_shapecast = %FloatCast
-@onready var ground_shapecast = %GroundCast
-var float_distance := 0.0
-func _float(delta):
-	on_floor = float_shapecast.is_colliding()
-	
-	#if velocity.y > 1.0:
-		#return
-	
-	if not on_floor:
-		return
-	
-	var point = float_shapecast.get_collision_point(0)
-	var dist = abs(float_shapecast.global_position.y - point.y)
-	
-	if not sliding: float_distance = 0.5
-	else: float_distance = 0.0
-	var diff = (float_distance - dist)
-	
-	
-	const DOWN_DRIVER := 200.0
-	const UP_DRIVER := 50.0
-	velocity.y += (diff * DOWN_DRIVER - (velocity.y * UP_DRIVER)) * delta
-
-
-
 func _process(delta):
+	
 	if velocity.length() > 25:
 		%Wind.volume_linear = remap(velocity.length(), 25, 50, 0, .4)
 		%Wind.pitch_scale = remap(velocity.length(), 25, 50, 0.8, 1.4)
 		if not %Wind.playing: %Wind.play()
 	else:
 		if %Wind.playing: %Wind.stop()
+	
+	if global_position.y < -20: global_position = Vector3.UP*4; velocity.y = 0.0
