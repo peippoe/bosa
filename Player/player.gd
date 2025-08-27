@@ -66,10 +66,6 @@ func vault():
 		
 		
 		var height = -sqrt(pow(x_dist, 2.0) - pow(dist, 2.0)) - 1.5
-		print("heig %f" % height)
-		
-		if abs(height) > 3.8: return
-		
 		
 		%LedgeRaycast.global_position = x
 		%LedgeRaycast.target_position.y = height
@@ -83,9 +79,14 @@ func vault():
 		var vault_y = vault_point.y - 1.0
 		print("vault_y %f\t floor_y %f" % [vault_y, floor_y])
 		
-		if vault_y <= floor_y:
+		#if abs(height) > 3.8: return
+		
+		if vault_y <= floor_y or vault_y - floor_y > 3.0:
 			vault_point = null
 			return
+		
+		
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(2, 3))
 		
 		print("STIPPPPPPPPPPPPP")
 		stop_sliding()
@@ -169,13 +170,17 @@ func _physics_process(delta):
 	
 	if vault_point:
 		
-		global_position = lerp(global_position, vault_point, delta*vault_speed)
+		#global_position = lerp(global_position, vault_point, delta*vault_speed)
+		$CollisionShape3D.disabled = true
+		
+		global_position = global_position.move_toward(vault_point, delta*vault_speed*1.5)
 		
 		if global_position.distance_to(vault_point) < 0.2:
 			global_position = vault_point
 			velocity = vault_stored_velocity
 			vault_point = null
 			on_floor = true
+			$CollisionShape3D.disabled = false
 		
 		return
 	
@@ -320,6 +325,7 @@ func movement(delta):
 	
 	if sliding and floor_normal != Vector3.UP and y_diff > 0.0:
 		velocity = velocity.slide(floor_normal)
+		#print("SLIDE %d" % Time.get_ticks_msec())
 	
 	
 	if sliding:

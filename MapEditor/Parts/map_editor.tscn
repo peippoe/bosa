@@ -303,7 +303,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1347, 76)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
@@ -315,8 +315,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Icon" type="TextureRect" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport/Timeline"]
-visible = false
+[node name="Waveform" type="TextureRect" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport/Timeline"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

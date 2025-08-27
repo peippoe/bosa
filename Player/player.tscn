@@ -32,7 +32,7 @@ shader_parameter/dither_intensity = 2.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_vtle1"]
 height = 0.04
-radius = 0.7
+radius = 0.8
 
 [sub_resource type="SphereMesh" id="SphereMesh_vtle1"]
 radius = 0.05
@@ -437,8 +437,8 @@ shader_parameter/enable_480i_upscale = false
 shader_parameter/scanline_intensity = 0.1
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
-floor_max_angle = 1.0472
-floor_snap_length = 0.5
+floor_max_angle = 1.13446
+floor_snap_length = 0.7
 script = ExtResource("1_v0iea")
 jump_extend_curve = SubResource("Curve_k53q1")
 fast_fall_curve = SubResource("Curve_vtle1")
@@ -475,7 +475,7 @@ debug_shape_custom_color = Color(0, 1, 0, 1)
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.75, 0)
 shape = SubResource("CylinderShape3D_vtle1")
-target_position = Vector3(0, 0, -2.5)
+target_position = Vector3(0, 0, -2)
 
 [node name="LedgeRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
@@ -486,6 +486,7 @@ hit_back_faces = false
 debug_shape_custom_color = Color(0, 0, 1, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/LedgeRaycast"]
+visible = false
 mesh = SubResource("SphereMesh_vtle1")
 surface_material_override/0 = SubResource("StandardMaterial3D_vtle1")
 

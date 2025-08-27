@@ -6,7 +6,7 @@ uniform float sin_frequency = 1.0;
 
 void fragment() {
 	vec2 uv = UV;
-	
+
 	vec2 scroll = vec2(0, sin(TIME * sin_frequency)) + vec2(TIME, 0);
 	uv += scroll * scroll_amplitude;
 	uv = fract(uv);
