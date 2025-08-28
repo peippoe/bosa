@@ -191,7 +191,7 @@ func setup():
 
 
 func set_song(song_path : String):
-	var stream
+	var stream : AudioStream
 	print(song_path)
 	if song_path.begins_with("res://"):
 		
@@ -216,3 +216,59 @@ func set_song(song_path : String):
 	
 	if GameManager.in_editor: Utility.get_node_or_null_in_scene("%SongLabel").text = song_path.get_file()
 	Playback.stream = stream
+	
+	
+	
+	return
+	
+	
+	
+	if stream is not AudioStreamWAV: return
+	
+	# generate waveform
+	var waveform_display : TextureRect = Utility.get_node_or_null_in_scene("%Waveform")
+	
+	waveform_display.size.y = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").size.y
+	waveform_display.size.x = stream.get_length() * Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
+	
+	var width := waveform_display.size.x
+	var height := waveform_display.size.y
+	
+	
+	var samples : PackedByteArray = stream.data
+	
+	var step := samples.size() / width
+	
+	
+	var img := Image.create(width, 100, false, Image.FORMAT_RGBA8)
+	img.fill(Color(0, 0, 0, 0))
+	
+	for x in range(width):
+		var start := int(x * step)
+		var end := int((x+1) * step)
+		
+		#var min_val := 100000
+		var max_val := -100000
+		
+		for i in range(start, end):
+			var v = samples[i] / 255.0
+			#if v < min_val: min_val = v
+			if v > max_val: max_val = v
+		
+		#print(min_val)
+		print(max_val)
+		
+		
+		
+		#var y1 = int((1 - (max_val + 1) / 2) * height)
+		#var y2 = int((1 - (min_val + 1) / 2) * height)
+		
+		
+		#img.fill_rect(Rect2(x, mid_y - bar_height, 1, bar_height), Color(0.2, 0.8, 1))
+		var y = (1.0 - max_val) * height
+		var h = height - y
+		img.fill_rect(Rect2i(x, y, 1, h), Color(0.2, 0.8, 1, 0.5))
+		
+		await get_tree().create_timer(.01).timeout
+		
+		waveform_display.texture = ImageTexture.create_from_image(img)
