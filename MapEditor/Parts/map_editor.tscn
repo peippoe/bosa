@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Images/icon.svg" id="6_wjw6d"]
 [ext_resource type="Script" uid="uid://rhyjgow2pmwl" path="res://MapEditor/Parts/selection_properties.gd" id="7_smuu6"]
 [ext_resource type="PackedScene" uid="uid://8tt6gsuipabo" path="res://MapEditor/Parts/bpm_calculator.tscn" id="8_2wpdj"]
+[ext_resource type="Script" uid="uid://xyknsaapsmkb" path="res://MapEditor/Parts/floating_text_manager.gd" id="11_ov5y3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7xmfy"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -50,9 +51,6 @@ shader_parameter/in_dashed_scale_x = 0.3
 shader_parameter/in_dashed_scale_y = 0.3
 shader_parameter/in_dashed_count_x = 6.0
 shader_parameter/in_dashed_count_y = 6.0
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cy2dn"]
-points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
 
 [sub_resource type="Animation" id="Animation_kqkv5"]
 length = 0.001
@@ -102,6 +100,7 @@ shadow_enabled = true
 
 [node name="gizmo_position" parent="." instance=ExtResource("2_q4pck")]
 unique_name_in_owner = true
+process_mode = 4
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.319575, 1, 0)
 visible = false
 
@@ -115,11 +114,6 @@ unique_name_in_owner = true
 [node name="Grid" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_7xmfy")
 surface_material_override/0 = SubResource("ShaderMaterial_43ajp")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Grid"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/StaticBody3D"]
-shape = SubResource("ConvexPolygonShape3D_cy2dn")
 
 [node name="EditorUI" type="Control" parent="."]
 layout_mode = 3
@@ -189,17 +183,27 @@ theme_override_constants/separation = 35
 [node name="SpawnTarget" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "spawn target"
-
-[node name="SpawnBPMGuide" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "spawn bpm guide"
+text = "target"
 
 [node name="SpawnGoal" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "spawn goal"
+text = "goal"
+
+[node name="SpawnBPMGuide" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "bpm guide"
+
+[node name="SpawnBlock" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "block"
+
+[node name="SpawnRamp" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ramp"
 
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -303,7 +307,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1347, 76)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
@@ -317,6 +321,7 @@ grow_vertical = 2
 
 [node name="Waveform" type="TextureRect" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport/Timeline"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_right = 175.0
 offset_bottom = 76.0
@@ -584,10 +589,29 @@ offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Map" type="Node3D" parent="."]
+[node name="FloatingTextManager" type="Control" parent="EditorUI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -332.0
+offset_top = -353.0
+offset_right = 339.0
+offset_bottom = -285.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("11_ov5y3")
+
+[node name="GizmoBeatmap" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Preview" type="Node" parent="."]
+[node name="Geometry" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Beatmap" type="Node3D" parent="."]
 unique_name_in_owner = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

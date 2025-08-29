@@ -11,6 +11,7 @@ var beatmap_data = {
 	"events": [],
 	"beatmap": [],
 	"editor": [],
+	"geometry": [],
 }
 
 var playhead := 0.0:
@@ -169,8 +170,13 @@ func setup():
 	beatmap_data = parsed
 	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
 	beatmap_data["beatmap"] = Utility.convert_ints(parsed["beatmap"])
+	beatmap_data["geometry"] = Utility.convert_vec3s(parsed["geometry"])
 	
-	set_song(beatmap_data["config"]["song"])
+	for i in beatmap_data["geometry"].size():
+		var geometry_data = beatmap_data["geometry"][i]
+		Utility.spawn_geometry(geometry_data)
+	
+	if beatmap_data["config"]["song"]: set_song(beatmap_data["config"]["song"])
 	
 	#await get_tree().process_frame
 	
@@ -218,13 +224,15 @@ func set_song(song_path : String):
 	Playback.stream = stream
 	
 	
-	
+	if stream != AudioStreamWAV: return
 	
 	if stream.format != AudioStreamWAV.FORMAT_16_BITS: push_error("NOT 16-BIT"); return
 	
 	
 	# generate waveform
 	var waveform_display : TextureRect = Utility.get_node_or_null_in_scene("%Waveform")
+	
+	waveform_display.show()
 	
 	var timeline = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer")
 	waveform_display.size.y = timeline.size.y

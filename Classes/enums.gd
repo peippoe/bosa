@@ -9,3 +9,8 @@ enum GizmoType {
 	TARGET_TAP,
 	GOAL,
 }
+
+enum GeometryType {
+	BLOCK,
+	RAMP
+}

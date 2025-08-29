@@ -72,8 +72,7 @@ func change_scene(scene_path : String):
 	update_target_parent()
 
 func update_target_parent():
-	if in_editor: target_parent = Utility.get_node_or_null_in_scene("%Preview")
-	else: target_parent = Utility.get_node_or_null_in_scene("%Map")
+	target_parent = Utility.get_node_or_null_in_scene("%Beatmap")
 	if not target_parent: push_error("ERROR GETTING TARGET PARENT")
 
 func play_map(path : String):

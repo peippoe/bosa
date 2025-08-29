@@ -52,6 +52,16 @@ func _process(delta):
 	debug_text += "coyote: %s\n" % player.get_node("%CoyoteTime").time_left
 	%DebugLabel.text = debug_text
 	
-	$Control2/ColorRect/ColorRect.size.x = $Control2/ColorRect.size.x * GameManager.health / 100.0
+	%Health.size.x = %HealthBar.size.x * GameManager.health / 100.0
 	
-	$Control2/RichTextLabel.text = "%dpts\n[font_size=25]%dx" % [GameManager.points, GameManager.combo]
+	%Stats.text = "%dpts\n[font_size=25]%dx" % [GameManager.points, GameManager.combo]
+	
+	
+	
+	var inertia_vec : Vector3 = -player.velocity * player.get_node("%Cam").global_basis / 2.0
+	
+	%DynamicUI.scale = Vector2.ONE + Vector2.ONE * inertia_vec.z / 1200.0
+	%DynamicUI.pivot_offset = size / 2.0
+	%DynamicUI.position.x = inertia_vec.x
+	%DynamicUI.position.y = -inertia_vec.y
+	#print($DynamicUI.position)

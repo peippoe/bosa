@@ -10,7 +10,7 @@ albedo_color = Color(1, 0, 1, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_7f73g"]
 material = SubResource("StandardMaterial3D_rffix")
 
-[node name="GizmoTarget" type="MeshInstance3D" groups=["gizmo_single_select"]]
+[node name="GizmoTarget" type="MeshInstance3D"]
 mesh = SubResource("SphereMesh_7f73g")
 script = ExtResource("1_rffix")
 metadata/pop_time = 0.0

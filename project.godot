@@ -39,7 +39,6 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 
 [global_group]
 
-gizmo_single_select=""
 player=""
 map_editor=""
 

@@ -8,7 +8,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wam6h"]
 transparency = 1
 
-[node name="GizmoGoal" type="MeshInstance3D" groups=["gizmo_single_select"]]
+[node name="GizmoGoal" type="MeshInstance3D"]
 mesh = SubResource("SphereMesh_ydmca")
 surface_material_override/0 = SubResource("StandardMaterial3D_wam6h")
 script = ExtResource("1_ydmca")

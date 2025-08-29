@@ -12,7 +12,7 @@ var max_value := 30.0
 var pixels_per_second := 10.0:
 	set(value):
 		if pixels_per_second == value: return
-		#if value == -1: value = 10.0
+		if value == -1: value = 10.0
 		
 		var edge_x = %WaveformEdge.global_position.x
 		var edge_value = Utility.get_slider_value_from_position(Vector2(edge_x, 0), %TimelineSlider)

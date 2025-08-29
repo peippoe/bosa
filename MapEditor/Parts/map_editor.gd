@@ -2,7 +2,7 @@ extends Node3D
 
 @onready var cam = %Cam
 @onready var gizmo_position = %gizmo_position
-@onready var map = %Map
+@onready var gizmo_beatmap = %GizmoBeatmap
 
 var selected : Node3D = null
 var selected_control : Control = null
@@ -80,20 +80,24 @@ func _ready():
 			map_save_as()
 	)
 	%SpawnTarget.pressed.connect(
-		func spawn():
-			Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP)
-	)
-	
+		func spawn(): Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP))
 	%SpawnGoal.pressed.connect(
-		func spawn():
-			Utility.spawn_gizmo(Enums.GizmoType.GOAL)
-	)
-	
-	
+		func spawn(): Utility.spawn_gizmo(Enums.GizmoType.GOAL))
 	%SpawnBPMGuide.pressed.connect(
-		func spawn():
-			Utility.spawn_bpm_guide()
-	)
+		func spawn(): Utility.spawn_bpm_guide())
+	%SpawnBlock.pressed.connect(
+		func spawn(): Utility.spawn_geometry(
+			{
+				"type": Enums.GeometryType.BLOCK
+			}
+		))
+	%SpawnRamp.pressed.connect(
+		func spawn(): Utility.spawn_geometry(
+			{
+				"type": Enums.GeometryType.RAMP
+			}
+		))
+	
 	get_node("%BPMCalculator/%Confirm").pressed.connect(
 		
 		func confirm():
@@ -141,7 +145,6 @@ func _ready():
 
 func connect_marker_signals(marker):
 	var marker_button = marker.get_node("%MarkerButton")
-	print(marker)
 	if marker.name == "EdgeMarker":
 		marker_button = marker
 	
@@ -150,7 +153,7 @@ func connect_marker_signals(marker):
 			SignalBus.marker_drag_start.emit(marker)
 			marker_dragged = marker
 			
-			#record(marker_dragged.get_meta("gizmo"), "pop_time", marker_dragged.get_meta("gizmo").pop_time)
+			record(marker_dragged.get_meta("gizmo"), "pop_time", marker_dragged.get_meta("gizmo").pop_time)
 			
 			if marker.name == "EdgeMarker":
 				marker.get_parent().ticks = []
@@ -184,11 +187,11 @@ func connect_marker_signals(marker):
 func _input(event):
 	if event is InputEventMouseMotion and marker_dragged:
 		var mouse_x = event.global_position.x
-		var min = %TimelineSlider.global_position.x + TIMELINE_GRABBER_SIZE
-		var max = %TimelineSlider.global_position.x + %TimelineSlider.size.x - TIMELINE_GRABBER_SIZE
+		var min_value = %TimelineSlider.global_position.x + TIMELINE_GRABBER_SIZE
+		var max_value = %TimelineSlider.global_position.x + %TimelineSlider.size.x - TIMELINE_GRABBER_SIZE
 		if snap_points and Input.is_action_pressed("ctrl"):
 			mouse_x = get_snapped_x(mouse_x)
-		marker_dragged.global_position.x = clampf(mouse_x - %TimelineSubViewportContainer.global_position.x, min, max)
+		marker_dragged.global_position.x = clampf(mouse_x - %TimelineSubViewportContainer.global_position.x, min_value, max_value)
 
 func get_snapped_x(pos : float):
 	if snap_points == []: return pos
@@ -240,7 +243,7 @@ func click(event):
 	var mousepos = get_viewport().get_mouse_position()
 	
 	var query = PhysicsRayQueryParameters3D.create(from, to)
-	query.collide_with_bodies = false
+	query.collide_with_bodies = true
 	query.collide_with_areas = true
 	
 	var result = space_state.intersect_ray(query)
@@ -259,13 +262,15 @@ func click(event):
 
 
 func set_selected(new_selected):
-	if selected: toggle_node_process(selected)
-	toggle_node_process(new_selected)
+	if selected: selected.process_mode = Node.PROCESS_MODE_INHERIT
+	if new_selected: new_selected.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	selected = new_selected
 	if not selected:
+		%gizmo_position.process_mode = Node.PROCESS_MODE_DISABLED
 		%SelectionProperties.hide()
 	else:
+		%gizmo_position.process_mode = Node.PROCESS_MODE_INHERIT
 		%SelectionProperties.show()
 
 func set_selected_control(new_selected_control):
@@ -273,20 +278,9 @@ func set_selected_control(new_selected_control):
 
 
 
-
-func toggle_node_process(node : Node):
-	if not node: return
-	if not node.is_in_group("gizmo_single_select"): return
-	
-	if node.process_mode == Node.PROCESS_MODE_DISABLED:
-		node.process_mode = Node.PROCESS_MODE_INHERIT
-	else:
-		node.process_mode = Node.PROCESS_MODE_DISABLED
-
-
-
 func start_drag(event, coll):
 	dragging = true
+	print("STARTTTTTTTTT DARAG")
 	record(selected, "global_position", selected.global_position)
 	drag_start_pos = coll.global_position
 	drag_start_mouse_pos = event.position
@@ -305,8 +299,8 @@ func _process(delta):
 
 
 func fade_gizmos():
-	for i in %Map.get_children().size():
-		var target_gizmo : MeshInstance3D = %Map.get_child(i)
+	for i in gizmo_beatmap.get_children().size():
+		var target_gizmo : MeshInstance3D = gizmo_beatmap.get_child(i)
 		
 		var fadein = Settings.fadein_time
 		if "start_time" in target_gizmo:
@@ -390,7 +384,8 @@ func open_load_map_file_dialog():
 	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_OPEN_FILE, load_map_file_selected, PackedStringArray(["*.json"]))
 
 func load_map(path):
-	for i in map.get_children(): Utility.delete_gizmo(i)
+	for i in gizmo_beatmap.get_children(): Utility.delete_gizmo(i)
+	for i in %Geometry.get_children(): i.queue_free()
 	for i in Utility.get_node_or_null_in_scene("%TimelineSlider").get_children(): i.queue_free()
 	
 	save_path = path
@@ -401,6 +396,7 @@ func load_map(path):
 	if not parsed: push_error("PARSE FAILED"); return
 	parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
 	parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
+	parsed["geometry"] = Utility.convert_vec3s(parsed["geometry"])
 	
 	Playback.beatmap_data = parsed
 	
@@ -412,28 +408,50 @@ func load_map(path):
 	for i in Playback.beatmap_data["beatmap"].size():
 		
 		var gizmo_data = Playback.beatmap_data["beatmap"][i]
-		match gizmo_data["type"]:
-			Enums.GizmoType.TARGET_TAP:
-				Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP, gizmo_data)
-			Enums.GizmoType.GOAL:
-				Utility.spawn_gizmo(Enums.GizmoType.GOAL, gizmo_data)
-		
+		Utility.spawn_gizmo(gizmo_data["type"], gizmo_data)
+	
+	
+	for i in Playback.beatmap_data["geometry"].size():
+		var geometry_data = Playback.beatmap_data["geometry"][i]
+		Utility.spawn_geometry(geometry_data)
+	
 	
 	for i in Playback.beatmap_data["editor"].size():
 		var data = Playback.beatmap_data["editor"][i]
 		Utility.spawn_bpm_guide(data)
+	
+	await get_tree().process_frame
+	
+	%TimelineSubViewportContainer.pixels_per_second = -1
 
 
 func compile_map():
 	Playback.beatmap_data["beatmap"] = []
-	for i in map.get_children():
+	for i in gizmo_beatmap.get_children():
 		Playback.beatmap_data["beatmap"].append(Utility.get_entity_properties(i))
 	Playback.sort_beatmap_data()
+	
+	Playback.beatmap_data["geometry"] = []
+	for i in %Geometry.get_children():
+		
+		var type = 0
+		
+		var scene_path = i.scene_file_path
+		if scene_path.ends_with("block.tscn"):
+			type = Enums.GeometryType.BLOCK
+		elif scene_path.ends_with("ramp.tscn"):
+			type = Enums.GeometryType.RAMP
+		
+		var data = {}
+		data["type"] = type
+		data["global_position"] = i.global_position
+		data["global_rotation"] = i.global_rotation
+		data["scale"] = i.scale
+		Playback.beatmap_data["geometry"].append(data)
 	
 	Playback.beatmap_data["editor"] = []
 	for i in %TimelineSlider.get_children():
 		if i.has_meta("gizmo"): continue
-		print(i)
 		Playback.beatmap_data["editor"].append(Utility.get_entity_properties(i))
 	
 
@@ -451,7 +469,7 @@ func save_map(path):
 	if file:
 		file.store_string(JSON.stringify(Playback.beatmap_data, "\t"))
 		file.close()
-		print("Saved successfully to " + path)
+		%FloatingTextManager.spawn_floating_text("Saved successfully to " + path)
 	else:
 		push_error("Failed to write to JSON")
 
@@ -468,11 +486,11 @@ func _on_play_pressed():
 	compile_map()
 	
 	Playback.playback_speed = 1
-	%Map.hide()
+	gizmo_beatmap.hide()
 
 func _on_pause_pressed():
 	Playback.playback_speed = 0
-	%Map.show()
+	gizmo_beatmap.show()
 
 
 
@@ -489,26 +507,27 @@ func set_and_record(node : Node, property : String, value):
 func record(node : Node, property : String = "", value = null):
 	if not property and not value:
 		recorded = Utility.get_entity_properties(node)
-		print(recorded)
+		#print(recorded)
 	else:
 		recorded = {
 			"node": node,
 			"property": property,
 			"value": node.get(property)
 		}
-	print("RECORD, RECORDED: %s" % recorded)
+	#print("RECORD, RECORDED: %s" % recorded)
 
 
 func undo():
-	print("UNDO, RECORDED: %s" % recorded)
 	if not recorded: return
 	
 	
 	if recorded.has("type"):
 		var recorded_instance = Utility.spawn_gizmo(recorded["type"], recorded)
+		%FloatingTextManager.spawn_floating_text("UNDO: delete gizmo")
 		recorded = null
 		return
 	
+	%FloatingTextManager.spawn_floating_text("UNDO: %s (%s)" % [recorded["property"], recorded["node"].name])
 	
 	set_and_record(recorded["node"], recorded["property"], recorded["value"])
 	

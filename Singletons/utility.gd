@@ -90,11 +90,6 @@ func ensure_dir_exists(absolute_path : String):
 
 # Entity utility
 
-const PROPS = [
-	preload("res://MapPlayer/Props/Targets/target.tscn"),
-	preload("res://MapPlayer/Props/goal.tscn"),
-]
-
 func spawn_entity(entity,  parent : Node = null, data = null):
 	if not parent: parent = get_tree().current_scene
 	
@@ -158,6 +153,19 @@ func get_entity_properties(entity : Node):
 
 
 # Prop utility
+
+const PROPS = [
+	preload("res://MapPlayer/Props/Targets/target.tscn"),
+	preload("res://MapPlayer/Props/goal.tscn"),
+]
+
+const GEOMETRY = [
+	"res://MapEditor/Geometry/block.tscn",
+	"res://MapEditor/Geometry/ramp.tscn"
+]
+
+func spawn_geometry(data):
+	spawn_entity(GEOMETRY[data["type"]], get_node_or_null_in_scene("%Geometry"), data)
 
 func spawn_target(target_data):
 	var new_target = spawn_entity(Utility.PROPS[target_data["type"]], GameManager.target_parent, target_data)
@@ -232,7 +240,7 @@ func spawn_gizmo(type, data := {}):
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_goal.tscn"
 			new_marker_func = Utility.spawn_start_end_markers
 	
-	new_gizmo = Utility.spawn_entity(gizmo_scene_path, get_tree().current_scene.get_node("%Map"), data)
+	new_gizmo = Utility.spawn_entity(gizmo_scene_path, get_node_or_null_in_scene("%GizmoBeatmap"), data)
 	if spawned_without_data:
 		var cam = get_viewport().get_camera_3d()
 		new_gizmo.global_position = cam.global_position + -cam.global_basis.z * 2.0
