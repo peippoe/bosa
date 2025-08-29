@@ -219,56 +219,57 @@ func set_song(song_path : String):
 	
 	
 	
-	return
 	
+	if stream.format != AudioStreamWAV.FORMAT_16_BITS: push_error("NOT 16-BIT"); return
 	
-	
-	if stream is not AudioStreamWAV: return
 	
 	# generate waveform
 	var waveform_display : TextureRect = Utility.get_node_or_null_in_scene("%Waveform")
 	
-	waveform_display.size.y = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").size.y
-	waveform_display.size.x = stream.get_length() * Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").pixels_per_second
+	var timeline = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer")
+	waveform_display.size.y = timeline.size.y
+	waveform_display.size.x = stream.get_length() * timeline.pixels_per_second
+	waveform_display.position.x = timeline.timeline_grabber_size
 	
 	var width := waveform_display.size.x
 	var height := waveform_display.size.y
 	
-	
-	var samples : PackedByteArray = stream.data
-	
-	var step := samples.size() / width
-	
-	
-	var img := Image.create(width, 100, false, Image.FORMAT_RGBA8)
+	var img := Image.create(width, height, false, Image.FORMAT_RGBA8)
 	img.fill(Color(0, 0, 0, 0))
 	
+	
+	var bytes = stream.get_data()
+	var samples_per_pixel = stream.mix_rate / timeline.pixels_per_second
+	
+	
 	for x in range(width):
-		var start := int(x * step)
-		var end := int((x+1) * step)
+		var start = int(x * samples_per_pixel) * 2 * (2 if stream.stereo else 1)
+		var end = int((x+1) * samples_per_pixel) * 2 * (2 if stream.stereo else 1)
+		var max_amp = 0.0
 		
-		#var min_val := 100000
-		var max_val := -100000
+		for i in range(start, end, 4 if stream.stereo else 2):
+			
+			if i >= bytes.size(): continue
+			
+			# i = start index of left sample
+			var left = bytes[i] | (bytes[i+1] << 8)
+			if left >= 32768: left -= 65536
+			left = abs(left / 32768.0)
+			
+			var right = 0.0
+			if stream.stereo:
+				right = bytes[i+2] | (bytes[i+3] << 8)
+				if right >= 32768: right -= 65536
+				right = abs(right / 32768.0)
+			
+			var amp = max(left, right) if stream.stereo else left
+			if amp > max_amp: max_amp = amp
 		
-		for i in range(start, end):
-			var v = samples[i] / 255.0
-			#if v < min_val: min_val = v
-			if v > max_val: max_val = v
+		var loudness = max_amp
 		
-		#print(min_val)
-		print(max_val)
+		var y = (1.0 - loudness) / 2.0 * height
+		var h = loudness * height
 		
-		
-		
-		#var y1 = int((1 - (max_val + 1) / 2) * height)
-		#var y2 = int((1 - (min_val + 1) / 2) * height)
-		
-		
-		#img.fill_rect(Rect2(x, mid_y - bar_height, 1, bar_height), Color(0.2, 0.8, 1))
-		var y = (1.0 - max_val) * height
-		var h = height - y
-		img.fill_rect(Rect2i(x, y, 1, h), Color(0.2, 0.8, 1, 0.5))
-		
-		await get_tree().create_timer(.01).timeout
-		
-		waveform_display.texture = ImageTexture.create_from_image(img)
+		img.fill_rect(Rect2i(x, y, 1, h), Color(0.9, 0.95, 1, .1))
+	
+	waveform_display.texture = ImageTexture.create_from_image(img)

@@ -11,13 +11,19 @@ var max_value := 30.0
 
 var pixels_per_second := 10.0:
 	set(value):
+		if pixels_per_second == value: return
+		#if value == -1: value = 10.0
+		
+		var edge_x = %WaveformEdge.global_position.x
+		var edge_value = Utility.get_slider_value_from_position(Vector2(edge_x, 0), %TimelineSlider)
+		
 		pixels_per_second = value
+		update_timeline_size()
 		
-		#%Timeline.size.x = max_value * pixels_per_second
+		%Waveform.size.x = Utility.get_position_on_timeline_from_value(edge_value) - %Waveform.global_position.x
 		
-		await get_tree().physics_frame
-		await get_tree().process_frame
-		await get_tree().physics_frame
+		
+		
 		
 		for i in %TimelineSlider.get_children():
 			if i.has_meta("gizmo"):
@@ -33,6 +39,7 @@ var pixels_per_second := 10.0:
 			elif "bpm" in i:
 				i.zoom_update()
 
+
 var zoom_step := 2.0
 var zoom_min_max := [2.0, 100.0]
 
@@ -43,6 +50,7 @@ func _ready():
 			max_value = x
 			%LengthEdit.text = str(x)
 			print("SUBMITEEDDDDDDDDDD")
+			update_timeline_size()
 	)
 	%TimelineScrollbar.scrolling.connect(
 		func scroll():
@@ -73,11 +81,17 @@ func _ready():
 				Playback.playhead = value
 				prev_value_changed_value = value
 	)
+	
+	await get_tree().process_frame
+	
+	update_timeline_size()
+
+func update_timeline_size():
+	%Timeline.size.x = max_value * pixels_per_second + 2.0 * timeline_grabber_size
 
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if !event.ctrl_pressed or !event.pressed: return
-		
 		
 		var zoom_sign := 0
 		match event.button_index:
@@ -88,7 +102,6 @@ func _gui_input(event):
 
 func _process(delta):
 	_update()
-	%Timeline.size.x = max_value * pixels_per_second + 2.0 * timeline_grabber_size
 
 func _update():
 	%TimelineScrollbar.max_value = Utility.get_encompassing_rect(%TimelineSlider).size.x
