@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var cam = %Cam
-@onready var gizmo_position = %gizmo_position
+@onready var gizmo_manipulator = %gizmo_manipulator
 @onready var gizmo_beatmap = %GizmoBeatmap
 
 var selected : Node3D = null
@@ -9,6 +9,7 @@ var selected_control : Control = null
 
 var dragging := false
 var drag_start_pos := Vector3.ZERO
+var drag_start_scale := Vector3.ONE
 var drag_start_mouse_pos := Vector2.ZERO
 var drag_axis := Vector3.ZERO
 var drag_delta := Vector3.ZERO
@@ -228,11 +229,18 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if not event.pressed: return
 		
-		if event.keycode == KEY_S and event.ctrl_pressed:
-			save_pressed()
-		
-		if event.keycode == KEY_Z and event.ctrl_pressed:
-			undo()
+		if event.ctrl_pressed:
+			match event.keycode:
+				KEY_S: save_pressed()
+				KEY_Z: undo()
+		else:
+			match event.keycode:
+				KEY_1:
+					gizmo_manipulator.get_child(0).show()
+					gizmo_manipulator.get_child(1).hide()
+				KEY_2:
+					gizmo_manipulator.get_child(0).hide()
+					gizmo_manipulator.get_child(1).show()
 
 
 func click(event):
@@ -243,22 +251,33 @@ func click(event):
 	var mousepos = get_viewport().get_mouse_position()
 	
 	var query = PhysicsRayQueryParameters3D.create(from, to)
-	query.collide_with_bodies = true
 	query.collide_with_areas = true
+	query.collision_mask = 8
+	var gizmo_manipulator_result = space_state.intersect_ray(query)
 	
+	
+	if gizmo_manipulator_result:
+		var coll = gizmo_manipulator_result.collider
+		
+		if coll.get_parent() == gizmo_manipulator:
+			if gizmo_manipulator.get_child(0).visible:
+				start_drag(event, coll)
+			elif gizmo_manipulator.get_child(1).visible:
+				start_drag(event, coll)
+		
+		return
+	
+	
+	
+	query.collide_with_bodies = true
+	query.collision_mask = 1
 	var result = space_state.intersect_ray(query)
 	
 	if not result:
 		set_selected(null)
 		return
 	
-	var coll = result.collider.get_parent()
-	
-	if coll.get_parent() == gizmo_position:
-		start_drag(event, coll)
-		return
-	
-	set_selected(coll)
+	set_selected(result.collider.get_parent())
 
 
 func set_selected(new_selected):
@@ -267,10 +286,10 @@ func set_selected(new_selected):
 	
 	selected = new_selected
 	if not selected:
-		%gizmo_position.process_mode = Node.PROCESS_MODE_DISABLED
+		gizmo_manipulator.process_mode = Node.PROCESS_MODE_DISABLED
 		%SelectionProperties.hide()
 	else:
-		%gizmo_position.process_mode = Node.PROCESS_MODE_INHERIT
+		gizmo_manipulator.process_mode = Node.PROCESS_MODE_INHERIT
 		%SelectionProperties.show()
 
 func set_selected_control(new_selected_control):
@@ -279,16 +298,22 @@ func set_selected_control(new_selected_control):
 
 
 func start_drag(event, coll):
+	
+	if gizmo_manipulator.get_child(0).visible:
+		record(selected, "global_position", selected.global_position)
+	elif gizmo_manipulator.get_child(1).visible:
+		record(selected, "scale", selected.scale)
+	
+	
 	dragging = true
-	print("STARTTTTTTTTT DARAG")
-	record(selected, "global_position", selected.global_position)
-	drag_start_pos = coll.global_position
+	drag_start_pos = coll.get_parent().global_position
+	drag_start_scale = selected.scale
 	drag_start_mouse_pos = event.position
-	match coll.name:
+	
+	match str(coll.name)[0]:
 		"X": drag_axis = Vector3.RIGHT
 		"Y": drag_axis = Vector3.UP
 		"Z": drag_axis = Vector3.BACK
-
 
 
 func _process(delta):
@@ -322,30 +347,29 @@ func fade_gizmos():
 
 func handle_gizmos():
 	if not selected:
-		gizmo_position.hide()
+		gizmo_manipulator.hide()
 		return
 	
-	gizmo_position.global_position = selected.global_position
-	gizmo_position.show()
+	gizmo_manipulator.global_position = selected.global_position
+	gizmo_manipulator.show()
 	
-	var distance = cam.global_position.distance_to(gizmo_position.global_position)
+	var distance = cam.global_position.distance_to(gizmo_manipulator.global_position)
 	var fov = cam.fov
 	var screen_height = get_viewport().get_visible_rect().size.y
 	
 	# Calculate scale so gizmo appears constant size in pixels
 	var size_factor = 2.0 * distance * tan(fov * 0.5 * deg_to_rad(1.0)) / screen_height
-	gizmo_position.scale = Vector3.ONE * 80 * size_factor
+	gizmo_manipulator.scale = Vector3.ONE * 80 * size_factor
 
 func handle_dragging():
 	if not selected or not dragging: return
 	
 	
 	var mouse_pos = get_viewport().get_mouse_position()
-	
 	var pos_delta = drag_axis
 	
 	var plane_normal = Vector3.UP
-	var drag_start_delta = selected.global_position#drag_start_pos + drag_delta
+	var drag_start_delta = selected.global_position
 	var d = drag_start_delta.y
 	if drag_axis == Vector3.UP:
 		plane_normal = Vector3(cam.global_basis.z.x, 0, cam.global_basis.z.z)
@@ -356,13 +380,25 @@ func handle_dragging():
 	var b = get_mouse_position_on_plane(drag_start_mouse_pos, plane)
 	drag_delta = (a - b) * drag_axis
 	drag_delta = drag_delta.normalized() * min(drag_delta.length(), 100)
-	var new_pos = drag_start_pos + drag_delta
 	
-	if Input.is_action_pressed("ctrl"):
-		var axis_pos = new_pos * drag_axis
-		new_pos = new_pos - axis_pos + Vector3(Vector3i(axis_pos))
 	
-	selected.global_position = new_pos
+	if gizmo_manipulator.get_child(0).visible:
+		var new_pos = drag_start_pos + drag_delta
+		
+		if Input.is_action_pressed("ctrl"):
+			var axis_pos = new_pos * drag_axis
+			new_pos = new_pos - axis_pos + Vector3(Vector3i(axis_pos))
+		
+		selected.global_position = new_pos
+	
+	elif gizmo_manipulator.get_child(1).visible:
+		var new_scale = drag_start_scale + drag_delta
+		
+		if Input.is_action_pressed("ctrl"):
+			var axis_scale = new_scale * drag_axis
+			new_scale = new_scale - axis_scale + Vector3(Vector3i(axis_scale))
+		
+		selected.scale = new_scale
 
 
 func get_mouse_position_on_plane(mouse_pos, plane) -> Vector3:
@@ -507,7 +543,6 @@ func set_and_record(node : Node, property : String, value):
 func record(node : Node, property : String = "", value = null):
 	if not property and not value:
 		recorded = Utility.get_entity_properties(node)
-		#print(recorded)
 	else:
 		recorded = {
 			"node": node,
@@ -519,7 +554,6 @@ func record(node : Node, property : String = "", value = null):
 
 func undo():
 	if not recorded: return
-	
 	
 	if recorded.has("type"):
 		var recorded_instance = Utility.spawn_gizmo(recorded["type"], recorded)

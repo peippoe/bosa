@@ -63,6 +63,7 @@ offset_bottom = 23.0
 grow_horizontal = 2
 
 [node name="Player" parent="." instance=ExtResource("2_31pch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="skybox_galaxy" parent="." instance=ExtResource("3_onouw")]
 visible = false
@@ -81,16 +82,14 @@ environment = SubResource("Environment_vqv6y")
 unique_name_in_owner = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_837eu")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 material_override = SubResource("StandardMaterial3D_pe41v")
 radius = 25.0
-height = 0.1
+height = 0.001
 
 [node name="EnemySprite" parent="." instance=ExtResource("6_wmvyd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78579, -0.36, -30.6337)

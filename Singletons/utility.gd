@@ -129,14 +129,7 @@ func get_entity_properties(entity : Node):
 	if not entity: push_error("NULL ENTITY"); return
 	
 	var properties = {}
-	# Get script properties
-	#if entity.get_script():
-		#for property in entity.get_script().get_script_property_list():
-			#if not (property.usage & PROPERTY_USAGE_SCRIPT_VARIABLE): continue
-			#if property.name == "node_properties" or property.name == "script_properties": continue
-			#properties[property.name] = entity.get(property.name)
 	
-	# Get specified node properties
 	if "ENTITY_PROPERTIES" in entity:
 		for key in entity.ENTITY_PROPERTIES:
 			if key in entity:
@@ -281,7 +274,6 @@ func spawn_start_end_markers(gizmo : Node):
 func delete_gizmo(gizmo):
 	gizmo.marker.queue_free()
 	gizmo.queue_free()
-	get_tree().current_scene.set_selected(null)
 
 
 func spawn_gizmo_goal(goal_data = null):

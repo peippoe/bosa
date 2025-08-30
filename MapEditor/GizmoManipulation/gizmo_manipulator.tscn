@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://cv5d87efy2njo"]
+
+[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/GizmoManipulation/gizmo_hitbox.tscn" id="2_s51r3"]
+[ext_resource type="PackedScene" uid="uid://ctcfynayaksr" path="res://Blender/gizmo_scale.blend" id="5_1qtcl"]
+[ext_resource type="PackedScene" uid="uid://rt8r3exenktp" path="res://Blender/gizmo_position.blend" id="5_hci3e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qtcl"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(1, 0, 0.352941, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hd24a"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0, 1, 0.215686, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xu6w"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0, 0.615686, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7ikvp"]
+radius = 0.3
+
+[node name="gizmo_manipulator" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="gizmo_position" parent="." instance=ExtResource("5_hci3e")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0, 0, 0)
+
+[node name="X" parent="gizmo_position" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1qtcl")
+
+[node name="Y" parent="gizmo_position" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hd24a")
+
+[node name="Z" parent="gizmo_position" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6xu6w")
+
+[node name="gizmo_scale" parent="." instance=ExtResource("5_1qtcl")]
+visible = false
+
+[node name="Y" parent="gizmo_scale" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_hd24a")
+
+[node name="X" parent="gizmo_scale" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_1qtcl")
+
+[node name="Z" parent="gizmo_scale" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_6xu6w")
+
+[node name="X_GizmoHitbox" parent="." instance=ExtResource("2_s51r3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.85)
+collision_layer = 8
+
+[node name="CollisionShape3D" parent="X_GizmoHitbox" index="0"]
+shape = SubResource("SphereShape3D_7ikvp")
+
+[node name="Y_GizmoHitbox" parent="." instance=ExtResource("2_s51r3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+collision_layer = 8
+
+[node name="CollisionShape3D" parent="Y_GizmoHitbox" index="0"]
+shape = SubResource("SphereShape3D_7ikvp")
+
+[node name="Z_GizmoHitbox" parent="." instance=ExtResource("2_s51r3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0, 0)
+collision_layer = 8
+
+[node name="CollisionShape3D" parent="Z_GizmoHitbox" index="0"]
+shape = SubResource("SphereShape3D_7ikvp")
+
+[editable path="gizmo_position"]
+[editable path="gizmo_scale"]
+[editable path="X_GizmoHitbox"]
+[editable path="Y_GizmoHitbox"]
+[editable path="Z_GizmoHitbox"]

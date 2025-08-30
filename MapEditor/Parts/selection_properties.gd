@@ -28,8 +28,16 @@ func _ready():
 	)
 	%Delete.pressed.connect(
 		func delete():
+			if not editor.selected: return
+			
 			get_tree().current_scene.record(editor.selected)
-			Utility.delete_gizmo(editor.selected)
+			
+			if editor.selected.get_child(0) is StaticBody3D:
+				editor.selected.queue_free()
+			else:
+				Utility.delete_gizmo(editor.selected)
+			
+			get_tree().current_scene.set_selected(null)
 	)
 
 

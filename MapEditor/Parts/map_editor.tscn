@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/Parts/map_editor.gd" id="1_prvuo"]
-[ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/GizmoManipulation/gizmo_position.tscn" id="2_q4pck"]
+[ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/GizmoManipulation/gizmo_manipulator.tscn" id="2_q4pck"]
 [ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Player/ghost_cam.gd" id="3_jrwax"]
 [ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_ov5y3"]
 [ext_resource type="Texture2D" uid="uid://bodg331amvxxf" path="res://Assets/Images/UI/play.png" id="5_jrwax"]
@@ -98,7 +98,7 @@ environment = SubResource("Environment_kqkv5")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="gizmo_position" parent="." instance=ExtResource("2_q4pck")]
+[node name="gizmo_manipulator" parent="." instance=ExtResource("2_q4pck")]
 unique_name_in_owner = true
 process_mode = 4
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.319575, 1, 0)
@@ -307,7 +307,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1347, 76)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
