@@ -468,7 +468,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_apopc")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, -1)
 enabled = false
-target_position = Vector3(0, -1.5, 0)
+target_position = Vector3(0, -1.1, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
 
 [node name="WallFinderShapecast" type="ShapeCast3D" parent="Head"]
@@ -489,6 +489,18 @@ debug_shape_custom_color = Color(0, 0, 1, 1)
 visible = false
 mesh = SubResource("SphereMesh_vtle1")
 surface_material_override/0 = SubResource("StandardMaterial3D_vtle1")
+
+[node name="LeftWallRaycast" type="RayCast3D" parent="Head"]
+unique_name_in_owner = true
+enabled = false
+target_position = Vector3(-1, 0, 0)
+hit_back_faces = false
+
+[node name="RightWallRaycast" type="RayCast3D" parent="Head"]
+unique_name_in_owner = true
+enabled = false
+target_position = Vector3(1, 0, 0)
+hit_back_faces = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")
@@ -606,7 +618,6 @@ one_shot = true
 
 [node name="DoubleJumpDebounce" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.25
 one_shot = true
 
 [node name="SlideOffFloorTimer" type="Timer" parent="."]

@@ -18,17 +18,22 @@ func _input(event):
 		if event.pressed: shoot()
 	
 	if event is InputEventKey:
-		if Input.is_action_just_pressed("space"): %JumpBuffer.start()
+		if Input.is_action_just_pressed("space"):
+			start_wallrun()
+			%JumpBuffer.start()
 		
 		if Input.is_action_just_pressed("shift"): %SlideBuffer.start()
 		
 		if Input.is_action_just_pressed("vault"):
 			vault()
 		
+		
+		
 		#if Input.is_action_just_released("space"):
 			#if velocity.y > 0:
 				#var extra = velocity.y
 				#velocity.y -= extra / JUMP_CUTOFF
+	
 
 
 func vault():
@@ -125,6 +130,7 @@ func shoot():
 const GRAV := 15.25
 const FAST_FALL_BOOST := 3.0
 const SKYDIVE_GRAV_BOOST := 15.0
+const WALLRUN_GRAV := 6.0
 const JUMP_VELOCITY := 6.0
 const JUMP_BOOST := 0.1
 const JUMP_CUTOFF := 3.1
@@ -163,6 +169,10 @@ var vault_point = null
 var vault_stored_velocity
 var vault_speed
 
+var wallrunning := 0
+var can_wallrun_left := true
+var can_wallrun_right := true
+
 @export var jump_extend_curve : Curve
 @export var fast_fall_curve : Curve
 
@@ -193,48 +203,97 @@ func _physics_process(delta):
 	if on_floor: %CoyoteTime.start()
 	
 	update_variables()
+	jump_extend(delta)
+	can_jump()
 	
-	
+	wallrun()
+
+
+func jump_extend(delta):
 	if Input.is_action_pressed("space") and not %JumpExtendTime.is_stopped():
 		var x = jump_extend_curve.sample_baked(1.0 - %JumpExtendTime.time_left / %JumpExtendTime.wait_time)
 		velocity.y += JUMP_EXTEND * delta * x
 	
+func can_jump():
 	var can_jump := false
-	if not %DoubleJumpDebounce.is_stopped():
+	
+	if sliding:
+		can_jump = true
+	elif not %DoubleJumpDebounce.is_stopped():
 		can_jump = on_floor
 	else:
 		can_jump = not %CoyoteTime.is_stopped()
 	
 	if can_jump and not %JumpBuffer.is_stopped():
-		
-		var hvel = velocity - Vector3.UP*velocity.y
-		if sliding:
-			stop_sliding()
-			velocity = (move_dir + hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
-		
-		%DoubleJumpDebounce.start()
-		%CoyoteTime.stop()
-		%JumpBuffer.stop()
-		%JumpExtendTime.start()
-		
-		
-		
-		%EdgeRaycast.force_raycast_update()
-		if not %EdgeRaycast.is_colliding():
-			velocity += velocity * JUMP_BOOST
-		velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
-		
-		
-		
-		#var a = func a():
-			#print(get_real_velocity())
-			#await get_tree().physics_frame
-			#await get_tree().physics_frame
-			#print(get_real_velocity())
-		#
-		#a.call_deferred()
+		jump()
 
+func jump():
+	var hvel = velocity - Vector3.UP*velocity.y
+	if sliding:
+		stop_sliding()
+		velocity = (move_dir + hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
+	
+	%DoubleJumpDebounce.start(%CoyoteTime.wait_time + 0.01)
+	%CoyoteTime.stop()
+	%JumpBuffer.stop()
+	%JumpExtendTime.start()
+	
+	%EdgeRaycast.force_raycast_update()
+	if not %EdgeRaycast.is_colliding():
+		velocity += velocity * JUMP_BOOST
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3))
+	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
+	
+	#var a = func a():
+		#print(get_real_velocity())
+		#await get_tree().physics_frame
+		#await get_tree().physics_frame
+		#print(get_real_velocity())
+	#
+	#a.call_deferred()
+
+func wallrun():
+	if wallrunning:
+		if on_floor:
+			stop_wallrunning()
+		if not Input.is_action_pressed("space"):
+			stop_wallrunning()
+			jump()
+	
+	if wallrunning == 1:
+		%RightWallRaycast.force_raycast_update()
+		if not %RightWallRaycast.is_colliding(): stop_wallrunning()
+	elif wallrunning == -1:
+		%LeftWallRaycast.force_raycast_update()
+		if not %LeftWallRaycast.is_colliding(): stop_wallrunning()
+
+
+func start_wallrun():
+	
+	var coll
+	if can_wallrun_right:
+		%RightWallRaycast.force_raycast_update()
+		if %RightWallRaycast.is_colliding():
+			coll = %RightWallRaycast.get_collider()
+			wallrunning = 1
+			can_wallrun_right = false
+	
+	if can_wallrun_left and not coll:
+		%LeftWallRaycast.force_raycast_update()
+		if %LeftWallRaycast.is_colliding():
+			coll = %LeftWallRaycast.get_collider()
+			wallrunning = -1
+			can_wallrun_left = false
+	
+	if wallrunning:
+		%Sliding.play()
+
+func stop_wallrunning():
+	if not wallrunning: return
+	
+	wallrunning = 0
+	%Sliding.stop()
 
 
 func update_variables():
@@ -242,6 +301,10 @@ func update_variables():
 	on_floor = is_on_floor()
 	
 	coiling = Input.is_action_pressed("shift") and not on_floor
+	
+	if on_floor:
+		can_wallrun_right = true
+		can_wallrun_left = true
 	
 	#vel_buffer.push_front(velocity)
 	#if vel_buffer.size() > VEL_BUFFER_SIZE:
@@ -276,10 +339,13 @@ func movement(delta):
 		if was_on_floor: %FastFallTime.start()
 		
 		var grav = GRAV
-		if not Input.is_action_pressed("space"):
-			var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
-			grav += FAST_FALL_BOOST * x
-		if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
+		if wallrunning:
+			grav = WALLRUN_GRAV
+		else:
+			if not Input.is_action_pressed("space"):
+				var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
+				grav += FAST_FALL_BOOST * x
+			if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
 		velocity.y += -grav * delta
 	
 	input_dir = Input.get_vector("a", "d", "w", "s")

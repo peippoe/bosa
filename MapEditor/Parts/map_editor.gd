@@ -420,7 +420,7 @@ func load_map(path):
 		var data = Playback.beatmap_data["editor"][i]
 		Utility.spawn_bpm_guide(data)
 	
-	await get_tree().process_frame
+	await get_tree().create_timer(.1).timeout
 	
 	%TimelineSubViewportContainer.pixels_per_second = -1
 
