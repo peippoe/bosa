@@ -30,9 +30,8 @@ shader_parameter/dither_scale = 4.0
 shader_parameter/levels = 30.0
 shader_parameter/dither_intensity = 2.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_vtle1"]
-height = 0.04
-radius = 0.8
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtle1"]
+size = Vector3(0.02, 2.7, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_vtle1"]
 radius = 0.05
@@ -473,9 +472,8 @@ debug_shape_custom_color = Color(0, 1, 0, 1)
 
 [node name="WallFinderShapecast" type="ShapeCast3D" parent="Head"]
 unique_name_in_owner = true
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.75, 0)
-shape = SubResource("CylinderShape3D_vtle1")
-target_position = Vector3(0, 0, -2)
+shape = SubResource("BoxShape3D_vtle1")
+target_position = Vector3(0, 0, -1.5)
 
 [node name="LedgeRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true

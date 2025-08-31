@@ -151,7 +151,7 @@ var move_dir := Vector3.ZERO
 var sliding := false
 const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
-const SLIDE_BOOST := 1.2
+const SLIDE_BOOST := 1.1
 const SLIDE_LIMIT := 8.0
 const SLIDE_DOWNHILL_BOOST := 1.7
 
@@ -233,7 +233,7 @@ func jump():
 		stop_sliding()
 		velocity = (move_dir + hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
 	
-	%DoubleJumpDebounce.start(%CoyoteTime.wait_time + 0.01)
+	%DoubleJumpDebounce.start(%CoyoteTime.wait_time + 0.05)
 	%CoyoteTime.stop()
 	%JumpBuffer.stop()
 	%JumpExtendTime.start()
@@ -319,7 +319,9 @@ func slide():
 		sliding = true
 		$CollisionShape3D.shape.height = .2
 		position.y -= 1
-		velocity = get_real_velocity() * SLIDE_BOOST
+		var vel = get_real_velocity()
+		var dir = vel.slide(get_floor_normal()).normalized()
+		velocity = dir * vel.length() * SLIDE_BOOST
 	
 	if sliding and on_floor: %SlideOffFloorTimer.start()
 	if (Input.is_action_just_released("shift") or velocity.length() < SLIDE_LIMIT or %SlideOffFloorTimer.is_stopped()) and sliding:
