@@ -22,7 +22,7 @@ func _input(event):
 			start_wallrun()
 			%JumpBuffer.start()
 		
-		if Input.is_action_just_pressed("shift"): %SlideBuffer.start()
+		if Input.is_action_just_pressed("shift") and %SlideCooldown.is_stopped(): %SlideBuffer.start()
 		
 		if Input.is_action_just_pressed("vault"):
 			vault()
@@ -152,7 +152,7 @@ var sliding := false
 const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
 const SLIDE_BOOST := 1.1
-const SLIDE_LIMIT := 8.0
+const SLIDE_LIMIT := 1.0
 const SLIDE_DOWNHILL_BOOST := 1.7
 
 var on_floor := false
@@ -314,6 +314,7 @@ func update_variables():
 
 func slide():
 	if not %SlideBuffer.is_stopped() and on_floor:
+		%SlideCooldown.start()
 		%SlideBuffer.stop()
 		%Sliding.play()
 		sliding = true
