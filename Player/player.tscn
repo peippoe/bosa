@@ -455,12 +455,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 unique_name_in_owner = true
 fov = 90.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Cam"]
+[node name="GoodShader" type="MeshInstance3D" parent="Head/Cam"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -1)
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_od3ui")
-skeleton = NodePath("../../../Control3/ColorRect")
+skeleton = NodePath("../../../Shaders/ColorRect")
 surface_material_override/0 = SubResource("ShaderMaterial_apopc")
 
 [node name="EdgeRaycast" type="RayCast3D" parent="Head"]
@@ -484,7 +484,6 @@ hit_back_faces = false
 debug_shape_custom_color = Color(0, 0, 1, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/LedgeRaycast"]
-visible = false
 mesh = SubResource("SphereMesh_vtle1")
 surface_material_override/0 = SubResource("StandardMaterial3D_vtle1")
 
@@ -503,7 +502,8 @@ hit_back_faces = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")
 
-[node name="Control3" type="Control" parent="."]
+[node name="Shaders" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -512,7 +512,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect2" type="ColorRect" parent="Control3"]
+[node name="ColorRect2" type="ColorRect" parent="Shaders"]
 visible = false
 material = SubResource("ShaderMaterial_vtle1")
 layout_mode = 1
@@ -523,11 +523,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="Control3"]
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Shaders"]
 visible = false
 copy_mode = 2
 
-[node name="ColorRect3" type="ColorRect" parent="Control3"]
+[node name="ColorRect3" type="ColorRect" parent="Shaders"]
 visible = false
 material = SubResource("ShaderMaterial_od3ui")
 layout_mode = 1
@@ -538,20 +538,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control3"]
+[node name="TextureRect" type="TextureRect" parent="Shaders"]
 visible = false
 layout_mode = 0
 offset_right = 512.0
 offset_bottom = 512.0
 texture = SubResource("NoiseTexture2D_x3vf3")
 
-[node name="TextureRect2" type="TextureRect" parent="Control3"]
+[node name="TextureRect2" type="TextureRect" parent="Shaders"]
 visible = false
 layout_mode = 0
 offset_right = 512.0
 offset_bottom = 512.0
 
-[node name="ColorRect" type="ColorRect" parent="Control3"]
+[node name="ColorRect" type="ColorRect" parent="Shaders"]
 visible = false
 material = SubResource("ShaderMaterial_00tjw")
 layout_mode = 1
@@ -562,7 +562,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="final?" type="ColorRect" parent="Control3"]
+[node name="final?" type="ColorRect" parent="Shaders"]
 material = SubResource("ShaderMaterial_5htga")
 layout_mode = 1
 anchors_preset = 15
@@ -572,7 +572,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SubViewportContainer" type="ColorRect" parent="Control3"]
+[node name="SubViewportContainer" type="ColorRect" parent="Shaders"]
 visible = false
 material = SubResource("ShaderMaterial_x3vf3")
 layout_mode = 1

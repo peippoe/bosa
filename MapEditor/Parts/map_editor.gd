@@ -387,7 +387,16 @@ func handle_dragging():
 		
 		if Input.is_action_pressed("ctrl"):
 			var axis_pos = new_pos * drag_axis
-			new_pos = new_pos - axis_pos + Vector3(Vector3i(axis_pos))
+			
+			var axis_pos_snapped = axis_pos.floor()
+			
+			
+			
+			
+			new_pos = new_pos - axis_pos + axis_pos_snapped
+			
+			if Input.is_action_pressed("shift"):
+				new_pos += (axis_pos * 10).floor() / 10 - axis_pos_snapped
 		
 		selected.global_position = new_pos
 	
@@ -396,7 +405,7 @@ func handle_dragging():
 		
 		if Input.is_action_pressed("ctrl"):
 			var axis_scale = new_scale * drag_axis
-			new_scale = new_scale - axis_scale + Vector3(Vector3i(axis_scale))
+			new_scale = new_scale - axis_scale + axis_scale.floor()
 		
 		selected.scale = new_scale
 

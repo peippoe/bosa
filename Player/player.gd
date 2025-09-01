@@ -60,14 +60,9 @@ func vault():
 		var dist = end.distance_to(start)
 		
 		var angle = cam.rotation.x
-		print("angleo %f" % angle)
 		
 		var x_dist = dist / cos(angle) + 0.1
-		
 		var x = cam.global_position + -cam.global_basis.z * x_dist
-		
-		
-		
 		
 		
 		var height = -sqrt(pow(x_dist, 2.0) - pow(dist, 2.0)) - 1.5
