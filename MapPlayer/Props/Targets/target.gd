@@ -18,7 +18,7 @@ var pop_time := 0.0:
 		%Timeout.start(timeout)
 		await %Timeout.timeout
 		
-		if $waterbloon.visible:
+		if $Mesh.visible:
 			Utility.on_miss(self.global_position)
 			self.queue_free()
 
@@ -34,7 +34,8 @@ func _ready():
 func pop():
 	$AnimationPlayer.play("pop")
 	freeze = true
-	$waterbloon.hide()
+	
+	$Mesh.hide()
 	$ShrinkingRing.hide()
 	$ConstantRing.hide()
 	$CollisionShape3D.disabled = true

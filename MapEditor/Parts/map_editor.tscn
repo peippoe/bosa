@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://4uvg1b2unkyd"]
+[gd_scene load_steps=33 format=4 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/Parts/map_editor.gd" id="1_prvuo"]
 [ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/GizmoManipulation/gizmo_manipulator.tscn" id="2_q4pck"]
@@ -25,28 +25,28 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_7xmfy"]
-size = Vector2(10, 10)
+size = Vector2(16, 16)
 orientation = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_43ajp"]
 render_priority = 0
 shader = ExtResource("4_ov5y3")
-shader_parameter/subdivisions = 10.0
-shader_parameter/grid_width = 0.01
-shader_parameter/background_color = Color(0.2, 0.2, 0.2, 0.4)
-shader_parameter/background_color_two = Color(0.101961, 0.101961, 0.101961, 0.580392)
-shader_parameter/grid_color = Color(1, 1, 1, 0.388235)
-shader_parameter/dashed_scale_x = 0.2
-shader_parameter/dashed_scale_y = 0.2
-shader_parameter/dashed_count_x = 2.0
-shader_parameter/dashed_count_y = 2.0
-shader_parameter/point_width = 0.021
+shader_parameter/subdivisions = 16.0
+shader_parameter/grid_width = 0.04
+shader_parameter/background_color = Color(0.576471, 0.576471, 0.576471, 0.0588235)
+shader_parameter/background_color_two = Color(0.368627, 0.368627, 0.368627, 0.133333)
+shader_parameter/grid_color = Color(0.858824, 0.858824, 0.858824, 0.513726)
+shader_parameter/dashed_scale_x = 0.02
+shader_parameter/dashed_scale_y = 0.02
+shader_parameter/dashed_count_x = 1.0
+shader_parameter/dashed_count_y = 1.0
+shader_parameter/point_width = 0.0
 shader_parameter/point_color = Color(0, 0, 0, 1)
 shader_parameter/point_scale_x = 0.05
 shader_parameter/point_scale_y = 0.05
-shader_parameter/inside_width = 0.01
-shader_parameter/inside_subdivisions = 6.0
-shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/inside_width = 0.06
+shader_parameter/inside_subdivisions = 4.0
+shader_parameter/inside_color = Color(0.4, 0.4, 0.4, 0.478431)
 shader_parameter/in_dashed_scale_x = 0.3
 shader_parameter/in_dashed_scale_y = 0.3
 shader_parameter/in_dashed_count_x = 6.0
@@ -163,6 +163,20 @@ _data = {
 &"RESET": SubResource("Animation_kqkv5"),
 &"new_animation": SubResource("Animation_43ajp")
 }
+
+[sub_resource type="SphereMesh" id="SphereMesh_ov5y3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjw6d"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0.352941, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smuu6"]
+shading_mode = 0
+albedo_color = Color(0, 1, 0.215686, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wpdj"]
+shading_mode = 0
+albedo_color = Color(0, 0.615686, 1, 1)
 
 [node name="MapEditor" type="Node3D" groups=["map_editor"]]
 script = ExtResource("1_prvuo")
@@ -395,7 +409,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1347, 76)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
@@ -439,8 +453,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.348
-offset_top = -4.0
-offset_bottom = -4.008
+offset_top = -12.0
+offset_bottom = -12.008
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -706,6 +720,23 @@ unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_kqkv5")
 }
+
+[node name="x_axis" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_ov5y3")
+surface_material_override/0 = SubResource("StandardMaterial3D_wjw6d")
+
+[node name="y_axis" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_ov5y3")
+surface_material_override/0 = SubResource("StandardMaterial3D_smuu6")
+
+[node name="z_axis" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_ov5y3")
+surface_material_override/0 = SubResource("StandardMaterial3D_2wpdj")
 
 [connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Pause" to="." method="_on_pause_pressed"]

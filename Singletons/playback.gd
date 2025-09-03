@@ -61,6 +61,10 @@ var event_index = 0
 var pop_times = []
 var targets = []
 
+func print_color(target):
+	await get_tree().create_timer(.1).timeout
+	print("COLOR: %s" % str(target.get_node("Mesh/MeshInstance3D").material_override.albedo_color))
+
 func _process(delta):
 	if playback_speed == 0.0: return
 	
@@ -82,12 +86,15 @@ func _process(delta):
 			match beatmap[event_index]["type"]:
 				Enums.GizmoType.TARGET_TAP:
 					new_prop = Utility.spawn_target(beatmap[event_index])
+					print_color.call_deferred(new_prop)
+					
 					if GameManager.in_editor:
 						auto_pop.call_deferred(new_prop)
 				Enums.GizmoType.GOAL:
 					new_prop = Utility.spawn_entity(Utility.PROPS[1], GameManager.target_parent, beatmap[event_index])
 			
 			event_index += 1
+			
 			
 			
 			if event_index >= beatmap.size(): return
@@ -128,7 +135,7 @@ func spawn_flow_line(event_index):
 	var new_flow_line : Node3D = FLOW_LINE.instantiate()
 	get_tree().current_scene.add_child(new_flow_line)
 	new_flow_line.get_node("AnimationPlayer").speed_scale = 1.0 / end_diff
-	print(end_diff)
+	#print(end_diff)
 	
 	new_flow_line.look_at_from_position(pos1 + pos_diff * 0.5, pos2)
 	new_flow_line.scale = Vector3(1, 1, pos_diff.length())
@@ -165,7 +172,7 @@ func setup():
 	if not file: push_error("INVALID BEATMAP PATH"); return
 	var parsed = JSON.parse_string(file.get_as_text())
 	if not parsed: return
-	print("SETUP SUCCESSFUL - beatmap_path: %s" % GameManager.beatmap_path)
+	#print("SETUP SUCCESSFUL - beatmap_path: %s" % GameManager.beatmap_path)
 	
 	beatmap_data = parsed
 	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])

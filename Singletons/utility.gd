@@ -110,18 +110,24 @@ func apply_data(entity, data):
 		if key in entity:
 			entity.set(key, data[key])
 
-func make_materials_unique(mesh_instance : MeshInstance3D):
+func make_mesh_unique(mesh_instance : MeshInstance3D):
 	var mesh := mesh_instance.mesh
 	if not mesh: return
 	
 	var unique_mesh : Mesh = mesh.duplicate()
 	mesh_instance.mesh = unique_mesh
+
+func make_surface_materials_unique(mesh_instance : MeshInstance3D):
 	
-	for surface in unique_mesh.get_surface_count():
-		var material := unique_mesh.surface_get_material(surface)
+	make_mesh_unique(mesh_instance)
+	
+	var mesh = mesh_instance.mesh
+	
+	for surface in mesh.get_surface_count():
+		var material := mesh.surface_get_material(surface)
 		if material:
 			var unique_material := material.duplicate()
-			unique_mesh.surface_set_material(surface, unique_material)
+			mesh.surface_set_material(surface, unique_material)
 
 
 
@@ -162,14 +168,42 @@ func spawn_geometry(data):
 
 func spawn_target(target_data):
 	var new_target = spawn_entity(Utility.PROPS[target_data["type"]], GameManager.target_parent, target_data)
+	print("SPAWNED TARGET")
+	var mesh_instance : MeshInstance3D = new_target.get_node("Mesh/MeshInstance3D")
+	#make_mesh_unique(mesh_instance)
+	mesh_instance.material_override = mesh_instance.material_override.duplicate()
 	
-	var mesh_instance = new_target.get_node("waterbloon/Icosphere")
-	make_materials_unique(mesh_instance)
-	mesh_instance.mesh.surface_get_material(0).albedo_color = Settings.target_color_palette[Settings.target_color_palette_index]
+	mesh_instance.material_override.albedo_color = Settings.target_color_palette[Settings.target_color_palette_index]
 	Settings.target_color_palette_index += 1
-	if Settings.target_color_palette_index == Settings.target_color_palette.size(): Settings.target_color_palette_index = 0
+	
+	var scale = target_data["scale"]
+	if scale.x != scale.y or scale.x != scale.z or scale.y != scale.z:
+		
+		new_target.scale = Vector3.ONE
+		
+		var original_mesh : SphereMesh = mesh_instance.mesh
+		var shape = ConvexPolygonShape3D.new()
+		var points: PackedVector3Array = PackedVector3Array()
+		var radius = original_mesh.radius
+		var height_segments = original_mesh.rings
+		var radial_segments = original_mesh.radial_segments
+		
+		for i in range(height_segments + 1):
+			var theta = float(i) / height_segments * PI
+			for j in range(radial_segments):
+				var phi = float(j) / radial_segments * TAU
+				var x = radius * sin(theta) * cos(phi)
+				var y = radius * cos(theta)
+				var z = radius * sin(theta) * sin(phi)
+				points.append(Vector3(x, y, z) * target_data["scale"])
+		
+		shape.points = points
+		new_target.get_child(0).shape = shape
+		mesh_instance.scale = target_data["scale"]
 	
 	return new_target
+
+
 
 func pop_target(target):
 	if not target: return
@@ -177,14 +211,15 @@ func pop_target(target):
 	
 	var delta = Playback.playhead - target.pop_time
 	
-	if delta < -Settings.POP_TIMING_WINDOWS[3]:
+	print("DELTA: %f" % delta)
+	if absf(delta) > Settings.POP_TIMING_WINDOWS[3]:
 		Utility.on_miss(target.global_position)
 		target.queue_free()
 		return
 	
 	target.pop()
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/hitsound.wav", null, Vector2(0.6, 1.4))
-	AudioPlayer.play_audio("res://Assets/Audio/Effect/splash.wav", target.global_position, Vector2(1.5, 2.5))
+	#AudioPlayer.play_audio("res://Assets/Audio/Effect/splash.wav", target.global_position, Vector2(1.5, 2.5))
 	
 	
 	var player = get_tree().get_first_node_in_group("player")
@@ -193,9 +228,37 @@ func pop_target(target):
 	var timing_indicator = player.get_node("%UI/%TimingIndicator")
 	timing_indicator.display_point_on_indicator(delta)
 	
+	var new_pop_up := Label3D.new()
+	get_tree().current_scene.add_child(new_pop_up)
+	new_pop_up.text = "%dms" % int(delta * 1000)
+	#new_pop_up.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	new_pop_up.look_at_from_position(target.global_position + Vector3.UP*.5, player.global_position, Vector3.UP, true)
+	new_pop_up.rotation.z = randf_range(-1,1)
+	new_pop_up.scale = Vector3.ONE * 0.1
+	new_pop_up.no_depth_test = true
+	new_pop_up.double_sided = false
+	var tween = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
+	
+	var tween2 = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(new_pop_up, "scale", Vector3.ONE * 1.0, .1).set_trans(Tween.TRANS_BOUNCE)
+	
+	tween.tween_property(new_pop_up, "position", new_pop_up.position + Vector3(0, .2, 0), .5)
+	tween.set_parallel(true)
+	#tween.tween_property(new_pop_up, "modulate", Color(1, 1, 1, 0), .5)
+	tween.tween_property(new_pop_up, "scale", Vector3.ZERO, .5)
+	tween.tween_property(new_pop_up, "rotation", new_pop_up.rotation + Vector3.FORWARD * randf_range(-1,1), .5).set_trans(Tween.TRANS_BOUNCE)
+	tween.set_parallel(false)
+	tween.tween_callback(new_pop_up.queue_free)
+	
 	GameManager.health += 5
 	GameManager.combo += 1
 	GameManager.points += Settings.POINTS_REWARDS[get_pop_timing(target.pop_time)]
+	
+	var pop_timing = get_pop_timing(target.pop_time)
+	if pop_timing <= 1:
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/sick.wav", null, Vector2(1, 1.4))
+		target.get_node("Effect").show()
+	print("POP_TIMING %d" % pop_timing)
 
 func on_miss(pos):
 	GameManager.health -= 10
@@ -205,7 +268,6 @@ func on_miss(pos):
 
 func get_pop_timing(pop_time):
 	var delta = Playback.playhead - pop_time
-	print(delta)
 	var abs_delta = absf(delta)
 	var pop_timing = 0
 	if abs_delta > Settings.POP_TIMING_WINDOWS[Settings.POP_TIMING_WINDOWS.size()-1]: pop_timing = -1
@@ -248,7 +310,7 @@ func spawn_gizmo(type, data := {}):
 	var new_marker = new_marker_func.bind(new_gizmo).call()
 	
 	
-	make_materials_unique(new_gizmo)
+	make_surface_materials_unique(new_gizmo)
 
 
 func spawn_marker(gizmo : Node):
@@ -258,7 +320,7 @@ func spawn_marker(gizmo : Node):
 	gizmo.marker = new_marker
 	new_marker.set_meta("gizmo", gizmo)
 	new_marker.position.x = Utility.get_position_on_timeline_from_value(gizmo.pop_time)
-	new_marker.position.y = 36
+	new_marker.position.y = 34
 	get_tree().current_scene.connect_marker_signals(new_marker)
 	return new_marker
 
@@ -295,7 +357,7 @@ func spawn_bpm_guide(data = null):
 	
 	#new_bpm_guide.position.x = Utility.get_position_on_timeline_from_value(new_bpm_guide.start_time)
 	new_bpm_guide.zoom_update()
-	new_bpm_guide.position.y = 50
+	new_bpm_guide.position.y = 64
 	get_tree().current_scene.connect_marker_signals(new_bpm_guide)
 	return new_bpm_guide
 

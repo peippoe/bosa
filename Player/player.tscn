@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=33 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://bg1idkmsqy5a" path="res://Assets/Audio/Effect/jump.wav" id="4_gwnis"]
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/Effect/slideloop.wav" id="5_k53q1"]
 [ext_resource type="Shader" uid="uid://dgjh5fvbqqctp" path="res://Assets/Shader/crt.gdshader" id="6_fhl08"]
+[ext_resource type="AudioStream" uid="uid://duobajbsufun7" path="res://Assets/Audio/Effect/roll.wav" id="8_od3ui"]
 
 [sub_resource type="Curve" id="Curve_k53q1"]
 _data = [Vector2(0, 0), 0.0, 0.167701, 0, 0, Vector2(0.295, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.32193, 0.0, 0, 0]
@@ -404,17 +405,17 @@ void fragment() {
 	int xi = int(mod(frag_coord.x, 4.0));
 	int yi = int(mod(frag_coord.y, 4.0));
 	float dither_shift = bayer_matrix_4x4[xi][yi];
-	
+
 	vec3 col = texture(screen_texture, SCREEN_UV).rgb;
-	
+
 	vec2 center = vec2(0.5);
 	float dist = distance(center, UV);
 	float edge_factor = smoothstep(0.0, 1.4, dist);
-	
+
 	col = col * (levels - 1.0) + dither_shift * dither_intensity * edge_factor; // add shift
 	col = floor(col);                          // quantize
 	col = col / (levels - 1.0);                // normalize back
-	
+
 	COLOR.rgb = col;
 }"
 
@@ -467,7 +468,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_apopc")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, -1)
 enabled = false
-target_position = Vector3(0, -1.1, 0)
+target_position = Vector3(0, -1.005, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
 
 [node name="WallFinderShapecast" type="ShapeCast3D" parent="Head"]
@@ -599,6 +600,10 @@ stream = ExtResource("4_gwnis")
 unique_name_in_owner = true
 stream = ExtResource("5_k53q1")
 
+[node name="Slide" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("8_od3ui")
+
 [node name="JumpBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.12
@@ -634,5 +639,5 @@ one_shot = true
 
 [node name="SlideCooldown" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.15
+wait_time = 0.1
 one_shot = true

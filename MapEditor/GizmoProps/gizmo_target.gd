@@ -6,5 +6,5 @@ var marker : Node
 
 const ENTITY_PROPERTIES = [
 	"type", "pop_time", "marker",
-	"global_position", "global_rotation"
+	"global_position", "global_rotation", "scale"
 	]

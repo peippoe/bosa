@@ -30,7 +30,6 @@ var pixels_per_second := 10.0:
 				if i.get_child(0) is TextureButton:
 					var x = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").pop_time)
 					i.position.x = x
-					print(i)
 				else:
 					var a = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").start_time)
 					var b = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").pop_time)
@@ -49,7 +48,6 @@ func _ready():
 			var x = float(new_text)
 			max_value = x
 			%LengthEdit.text = str(x)
-			print("SUBMITEEDDDDDDDDDD")
 			update_timeline_size()
 	)
 	%TimelineScrollbar.scrolling.connect(

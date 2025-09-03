@@ -35,7 +35,6 @@ func map_save_as():
 	Utility.open_file_dialog("user://beatmaps", FileDialog.FILE_MODE_SAVE_FILE, save_file_selected, PackedStringArray(["*.json"]))
 
 func save_pressed():
-	print("SAVE PATH: %s" % save_path)
 	if save_path != "":
 		save_map(save_path)
 	else:
@@ -43,6 +42,20 @@ func save_pressed():
 
 
 func _ready():
+	var axis_mesh = ImmediateMesh.new()
+	axis_mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+	axis_mesh.surface_add_vertex(Vector3.FORWARD * 100)
+	axis_mesh.surface_add_vertex(Vector3.FORWARD * -100)
+	axis_mesh.surface_end()
+	
+	$x_axis.mesh = axis_mesh
+	$x_axis.show()
+	$y_axis.mesh = axis_mesh
+	$y_axis.show()
+	$z_axis.mesh = axis_mesh
+	$z_axis.show()
+	
+
 	%File.pressed.connect(func file(): %FileDropdown.visible = !%FileDropdown.visible; %SettingsDropdown.hide())
 	
 	var song_file_selected = func song_file_selected(global_path : String):
@@ -104,7 +117,7 @@ func _ready():
 		func confirm():
 			%BPMCalculator.hide()
 			var bpm = float(get_node("%BPMCalculator/%CurrentBPM").text)
-			print("SELECTED CONTROLLLLLL: %s" % selected_control)
+			#print("SELECTED CONTROLLLLLL: %s" % selected_control)
 			selected_control.bpm = bpm
 			selected_control.get_node("%BPMLabel").text = "[font_size=10]bpm: %.2f" % bpm
 	)
@@ -387,12 +400,7 @@ func handle_dragging():
 		
 		if Input.is_action_pressed("ctrl"):
 			var axis_pos = new_pos * drag_axis
-			
 			var axis_pos_snapped = axis_pos.floor()
-			
-			
-			
-			
 			new_pos = new_pos - axis_pos + axis_pos_snapped
 			
 			if Input.is_action_pressed("shift"):
@@ -405,7 +413,11 @@ func handle_dragging():
 		
 		if Input.is_action_pressed("ctrl"):
 			var axis_scale = new_scale * drag_axis
-			new_scale = new_scale - axis_scale + axis_scale.floor()
+			var axis_scale_snapped = axis_scale.floor()
+			new_scale = new_scale - axis_scale + axis_scale_snapped
+			
+			if Input.is_action_pressed("shift"):
+				new_scale += (axis_scale * 10).floor() / 10 - axis_scale_snapped
 		
 		selected.scale = new_scale
 
@@ -432,6 +444,7 @@ func load_map(path):
 	for i in gizmo_beatmap.get_children(): Utility.delete_gizmo(i)
 	for i in %Geometry.get_children(): i.queue_free()
 	for i in Utility.get_node_or_null_in_scene("%TimelineSlider").get_children(): i.queue_free()
+	snap_points = []
 	
 	save_path = path
 	print(path)

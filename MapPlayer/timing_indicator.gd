@@ -19,4 +19,4 @@ func display_point_on_indicator(timing):
 	add_child(new_point)
 	new_point.position.x = remap(timing, -Settings.POP_TIMING_WINDOWS[3], Settings.POP_TIMING_WINDOWS[3], 0.0, self.size.x)
 	
-	print("POINT DISPLAYED AT %f" % new_point.position.x)
+	#print("POINT DISPLAYED AT %f" % new_point.position.x)

@@ -15,7 +15,7 @@ func init():
 	marker.set_meta("gizmo", self)
 	
 	marker.position.x = 0
-	marker.position.y = 40
+	marker.position.y = 50
 	
 	start_marker = marker.get_child(0)
 	var start_marker_button = start_marker.get_node("%MarkerButton")

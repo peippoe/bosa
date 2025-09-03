@@ -25,7 +25,10 @@ var target_color_palette := [
 	Color.html("0350e7"),
 	Color.html("36ffc3"),
 ]
-var target_color_palette_index := 0
+var target_color_palette_index := 0:
+	set(value):
+		if value == target_color_palette.size(): value = 0
+		target_color_palette_index = value
 
 
 func _ready():

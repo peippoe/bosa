@@ -37,7 +37,6 @@ func _input(event):
 
 
 func vault():
-	print("vault")
 	%WallFinderShapecast.force_shapecast_update()
 	
 	if %WallFinderShapecast.is_colliding():
@@ -88,7 +87,7 @@ func vault():
 		
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(2, 3))
 		
-		print("STIPPPPPPPPPPPPP")
+		#print("STIPPPPPPPPPPPPP")
 		stop_sliding()
 		
 		vault_stored_velocity = velocity
@@ -238,6 +237,7 @@ func jump():
 		velocity += velocity * JUMP_BOOST
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3))
 	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
+	if wallrunning: velocity.y -= 2
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
 	
 	#var a = func a():
@@ -253,8 +253,8 @@ func wallrun():
 		if on_floor:
 			stop_wallrunning()
 		if not Input.is_action_pressed("space"):
-			stop_wallrunning()
 			jump()
+			stop_wallrunning()
 	
 	if wallrunning == 1:
 		%RightWallRaycast.force_raycast_update()
@@ -265,6 +265,7 @@ func wallrun():
 
 
 func start_wallrun():
+	if on_floor: return
 	
 	var coll
 	if can_wallrun_right:
@@ -309,15 +310,20 @@ func update_variables():
 
 func slide():
 	if not %SlideBuffer.is_stopped() and on_floor:
+		
 		%SlideCooldown.start()
 		%SlideBuffer.stop()
-		%Sliding.play()
+		
 		sliding = true
 		$CollisionShape3D.shape.height = .2
-		position.y -= 1
+		position.y -= 0.31
 		var vel = get_real_velocity()
-		var dir = vel.slide(get_floor_normal()).normalized()
+		var dir = move_dir
 		velocity = dir * vel.length() * SLIDE_BOOST
+		
+		%Slide.pitch_scale = clampf(remap(velocity.length(), 0, 50, 0.8, 1.6), 0.8, 1.6)
+		%Slide.play()
+		%Sliding.play()
 	
 	if sliding and on_floor: %SlideOffFloorTimer.start()
 	if (Input.is_action_just_released("shift") or velocity.length() < SLIDE_LIMIT or %SlideOffFloorTimer.is_stopped()) and sliding:

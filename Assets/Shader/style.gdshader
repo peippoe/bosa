@@ -23,25 +23,25 @@ void fragment() {
 	int xi = int(mod(frag_coord.x, 4.0));
 	int yi = int(mod(frag_coord.y, 4.0));
 	float dither_shift = bayer_matrix_4x4[xi][yi];
-	
+
 	vec3 col = texture(screen_texture, SCREEN_UV).rgb;
-	
+
 	vec2 center = vec2(0.5);
 	float dist = distance(center, UV);
 	float edge_factor = smoothstep(0.0, 2.0, dist) + 0.05;
-	
+
 	col = col * (levels - 1.0) + dither_shift * dither_intensity * edge_factor; // add shift
 	col = floor(col);                          // quantize
 	col = col / (levels - 1.0);                // normalize back
-	
+
 	ALBEDO = col;
-	
+
 	//ALBEDO.r = edge_factor;
 	//ALBEDO.gb = vec2(0.0);
-	
-	
+
+
 	//ALBEDO = original_color.rgb + dither_shift;
-	
+
 	// Raw depth
 	//ALBEDO.rgb = vec3(depth_raw);// + tex.rgb;
 	// Linear depth

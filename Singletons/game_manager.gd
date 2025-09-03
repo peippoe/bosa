@@ -10,15 +10,17 @@ var points := 0
 var combo := 0
 var health := 50:
 	set(value):
+		if GameManager.in_editor: return
+		
 		health = clampi(value, 0, 100)
 		
-		if value == 0:
-			print("dead")
-			get_tree().paused = true
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			var player = get_tree().get_first_node_in_group("player")
-			var fail_screen = player.get_node("%UI/%FailScreen")
-			fail_screen.get_node("AnimationPlayer").play("failed")
+		if value > 0: return
+		
+		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		var player = get_tree().get_first_node_in_group("player")
+		var fail_screen = player.get_node("%UI/%FailScreen")
+		fail_screen.get_node("AnimationPlayer").play("failed")
 
 
 func _ready():

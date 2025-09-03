@@ -96,12 +96,12 @@ void fragment() {
 
 	//Grid
 	float mainGrid = dashed_grid(
-			uv , vec2(grid_width), vec2(dashed_scale_x, dashed_scale_y),
+			uv , vec2(grid_width / 10.0), vec2(dashed_scale_x, dashed_scale_y),
 			vec2(dashed_count_x, dashed_count_y), 0.5);
 
 	//Inside Grid
 	float insideGrid = dashed_grid(
-			uv * inside_subdivisions, vec2(inside_width),
+			uv * inside_subdivisions, vec2(inside_width / 10.0),
 			vec2(in_dashed_scale_x, in_dashed_scale_y),
 			vec2(in_dashed_count_x, in_dashed_count_y), 0.5);
 

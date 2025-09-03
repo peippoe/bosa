@@ -12,7 +12,7 @@ var ticks := []:
 		ticks = value
 		
 		var offset = Utility.get_node_or_null_in_scene("%TimelineSubViewportContainer").global_position.x + self.global_position.x
-		print(offset)
+		
 		var new_value = value.duplicate()
 		if new_value != []:
 			for i in new_value.size():
@@ -93,7 +93,6 @@ func _ready():
 	
 	%MarkerButton.pressed.connect(
 		func pressed():
-			print("PRESSSSSSSSSSSSSSSSSSSSSSSSSSSSSED")
 			get_tree().current_scene.set_selected_control(self)
 			Utility.get_node_or_null_in_scene("%BPMCalculator").show()
 	)
