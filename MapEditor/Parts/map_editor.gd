@@ -94,21 +94,21 @@ func _ready():
 			map_save_as()
 	)
 	%SpawnTarget.pressed.connect(
-		func spawn(): Utility.spawn_gizmo(Enums.GizmoType.TARGET_TAP))
+		func spawn(): Utility.editor_spawn_entity(Enums.EntityID.TARGET_TAP))
 	%SpawnGoal.pressed.connect(
-		func spawn(): Utility.spawn_gizmo(Enums.GizmoType.GOAL))
+		func spawn(): Utility.editor_spawn_entity(Enums.EntityID.GOAL))
 	%SpawnBPMGuide.pressed.connect(
 		func spawn(): Utility.spawn_bpm_guide())
 	%SpawnBlock.pressed.connect(
-		func spawn(): Utility.spawn_geometry(
+		func spawn(): Utility.editor_spawn_entity(
 			{
-				"type": Enums.GeometryType.BLOCK
+				"id": Enums.EntityID.BLOCK
 			}
 		))
 	%SpawnRamp.pressed.connect(
-		func spawn(): Utility.spawn_geometry(
+		func spawn(): Utility.editor_spawn_entity(
 			{
-				"type": Enums.GeometryType.RAMP
+				"id": Enums.EntityID.RAMP
 			}
 		))
 	
@@ -246,6 +246,8 @@ func _unhandled_input(event):
 			match event.keycode:
 				KEY_S: save_pressed()
 				KEY_Z: undo()
+				KEY_C: copy()
+				KEY_V: paste()
 		else:
 			match event.keycode:
 				KEY_1:
@@ -445,6 +447,7 @@ func load_map(path):
 	for i in %Geometry.get_children(): i.queue_free()
 	for i in Utility.get_node_or_null_in_scene("%TimelineSlider").get_children(): i.queue_free()
 	snap_points = []
+	recorded = null
 	
 	save_path = path
 	print(path)
@@ -455,6 +458,7 @@ func load_map(path):
 	parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
 	parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
 	parsed["geometry"] = Utility.convert_vec3s(parsed["geometry"])
+	parsed["geometry"] = Utility.convert_ints(parsed["geometry"])
 	
 	Playback.beatmap_data = parsed
 	
@@ -464,14 +468,13 @@ func load_map(path):
 	
 	
 	for i in Playback.beatmap_data["beatmap"].size():
-		
 		var gizmo_data = Playback.beatmap_data["beatmap"][i]
-		Utility.spawn_gizmo(gizmo_data["type"], gizmo_data)
+		Utility.editor_spawn_entity(gizmo_data)
 	
 	
 	for i in Playback.beatmap_data["geometry"].size():
 		var geometry_data = Playback.beatmap_data["geometry"][i]
-		Utility.spawn_geometry(geometry_data)
+		Utility.editor_spawn_entity(geometry_data)
 	
 	
 	for i in Playback.beatmap_data["editor"].size():
@@ -491,21 +494,23 @@ func compile_map():
 	
 	Playback.beatmap_data["geometry"] = []
 	for i in %Geometry.get_children():
-		
-		var type = 0
-		
-		var scene_path = i.scene_file_path
-		if scene_path.ends_with("block.tscn"):
-			type = Enums.GeometryType.BLOCK
-		elif scene_path.ends_with("ramp.tscn"):
-			type = Enums.GeometryType.RAMP
-		
-		var data = {}
-		data["type"] = type
-		data["global_position"] = i.global_position
-		data["global_rotation"] = i.global_rotation
-		data["scale"] = i.scale
-		Playback.beatmap_data["geometry"].append(data)
+		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i))
+	#for i in %Geometry.get_children():
+		#
+		#var id = 0
+		###########################BOOKMARK
+		#var scene_path = i.scene_file_path
+		#if scene_path.ends_with("block.tscn"):
+			#id = Enums.EntityID.BLOCK
+		#elif scene_path.ends_with("ramp.tscn"):
+			#id = Enums.EntityID.RAMP
+		#
+		#var data = {}
+		#data["id"] = id
+		#data["global_position"] = i.global_position
+		#data["global_rotation"] = i.global_rotation
+		#data["scale"] = i.scale
+		#Playback.beatmap_data["geometry"].append(data)
 	
 	Playback.beatmap_data["editor"] = []
 	for i in %TimelineSlider.get_children():
@@ -571,15 +576,26 @@ func record(node : Node, property : String = "", value = null):
 			"property": property,
 			"value": node.get(property)
 		}
+	
+	print(recorded)
 	#print("RECORD, RECORDED: %s" % recorded)
 
+
+var copied
+
+func copy():
+	copied = Utility.get_entity_properties(selected)
+
+func paste():
+	Utility.editor_spawn_entity(copied)
 
 func undo():
 	if not recorded: return
 	
-	if recorded.has("type"):
-		var recorded_instance = Utility.spawn_gizmo(recorded["type"], recorded)
-		%FloatingTextManager.spawn_floating_text("UNDO: delete gizmo")
+	if recorded.has("id"):
+		Utility.editor_spawn_entity(recorded)
+		
+		%FloatingTextManager.spawn_floating_text("UNDO: delete")
 		recorded = null
 		return
 	

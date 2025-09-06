@@ -2,7 +2,7 @@ extends MeshInstance3D
 
 var start_time := 0.0
 var pop_time := 1.0
-var type := Enums.GizmoType.GOAL
+var id := Enums.EntityID.GOAL
 var marker : Node:
 	set(value):
 		marker = value
@@ -58,6 +58,6 @@ func update_markers():
 	pop_time = Utility.get_slider_value_from_position(end_marker.global_position - timeline.global_position, timeline)
 
 const ENTITY_PROPERTIES = [
-	"start_time", "pop_time", "marker", "type",
+	"start_time", "pop_time", "marker", "id",
 	"global_position", "global_rotation"
 	]

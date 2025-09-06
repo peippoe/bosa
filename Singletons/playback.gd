@@ -80,17 +80,17 @@ func _process(delta):
 	var spawn_time = get_spawn_time(beatmap[event_index])
 	
 	if playhead > spawn_time:
-		if "type" in beatmap[event_index]:
+		if "id" in beatmap[event_index]:
 			
 			var new_prop
-			match beatmap[event_index]["type"]:
-				Enums.GizmoType.TARGET_TAP:
+			match beatmap[event_index]["id"]:
+				Enums.EntityID.TARGET_TAP:
 					new_prop = Utility.spawn_target(beatmap[event_index])
 					print_color.call_deferred(new_prop)
 					
 					if GameManager.in_editor:
 						auto_pop.call_deferred(new_prop)
-				Enums.GizmoType.GOAL:
+				Enums.EntityID.GOAL:
 					new_prop = Utility.spawn_entity(Utility.PROPS[1], GameManager.target_parent, beatmap[event_index])
 			
 			event_index += 1
@@ -99,16 +99,16 @@ func _process(delta):
 			
 			if event_index >= beatmap.size(): return
 			
-			if beatmap[event_index]["type"] == Enums.GizmoType.TARGET_TAP and beatmap[event_index-1]["type"] == Enums.GizmoType.TARGET_TAP:
+			if beatmap[event_index]["id"] == Enums.EntityID.TARGET_TAP and beatmap[event_index-1]["id"] == Enums.EntityID.TARGET_TAP:
 				spawn_flow_line.call_deferred(event_index)
 
 func get_spawn_time(entity):
 	var spawn_time = -1.0
 	
-	match entity["type"]:
-		Enums.GizmoType.TARGET_TAP:
+	match entity["id"]:
+		Enums.EntityID.TARGET_TAP:
 			spawn_time = entity["pop_time"] - Settings.fadein_time
-		Enums.GizmoType.GOAL:
+		Enums.EntityID.GOAL:
 			spawn_time = entity["start_time"]
 	
 	return spawn_time
@@ -178,10 +178,11 @@ func setup():
 	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
 	beatmap_data["beatmap"] = Utility.convert_ints(parsed["beatmap"])
 	beatmap_data["geometry"] = Utility.convert_vec3s(parsed["geometry"])
+	beatmap_data["geometry"] = Utility.convert_ints(parsed["geometry"])
 	
 	for i in beatmap_data["geometry"].size():
 		var geometry_data = beatmap_data["geometry"][i]
-		Utility.spawn_geometry(geometry_data)
+		Utility.editor_spawn_entity(geometry_data)
 	
 	if beatmap_data["config"]["song"]: set_song(beatmap_data["config"]["song"])
 	

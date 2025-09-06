@@ -29,10 +29,8 @@ func _input(event):
 		
 		
 		
-		#if Input.is_action_just_released("space"):
-			#if velocity.y > 0:
-				#var extra = velocity.y
-				#velocity.y -= extra / JUMP_CUTOFF
+		if Input.is_action_just_released("space"):
+			jump_cutoff()
 	
 
 
@@ -122,20 +120,22 @@ func shoot():
 
 
 const GRAV := 15.25
-const FAST_FALL_BOOST := 3.0
+const FAST_FALL_BOOST := 1#3.0
 const SKYDIVE_GRAV_BOOST := 15.0
 const WALLRUN_GRAV := 6.0
-const JUMP_VELOCITY := 6.0
+const JUMP_VELOCITY := 6.9
 const JUMP_BOOST := 0.1
-const JUMP_CUTOFF := 3.1
-const JUMP_EXTEND := 6.0
+const JUMP_CUTOFF := 0.4
+var jump_cutoff_applied := false
+const JUMP_EXTEND := 0#6.0
 
 const MAX_SPEED := 8.0
 const WISH_DIR_COMPENSATION_LIMIT := MAX_SPEED + 40.0
-const AIR_MAX_SPEED := 20.0
+const AIR_MAX_SPEED := 40.0
 var acceleration := 0.0
 const FLOOR_ACCELERATION := 140.0
-const AIR_ACCELERATION := 60.0
+const AIR_ACCELERATION := 50.0
+const AIR_SLOWDOWN_ASSIST := 0.4
 const FLOOR_FRICTION := 120.0
 const AIR_FRICTION := 15.0
 
@@ -223,22 +223,36 @@ func can_jump():
 
 func jump():
 	var hvel = velocity - Vector3.UP*velocity.y
-	if sliding:
-		stop_sliding()
-		velocity = (move_dir + hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
 	
 	%DoubleJumpDebounce.start(%CoyoteTime.wait_time + 0.05)
 	%CoyoteTime.stop()
 	%JumpBuffer.stop()
 	%JumpExtendTime.start()
 	
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
+	
+	
+	if wallrunning:
+		velocity.y -= 0
+		hvel = velocity - Vector3.UP*velocity.y
+		var dot = hvel.normalized().dot(move_dir)
+		print(dot)
+		velocity = move_dir * hvel.length() + Vector3.UP * velocity.y
+		return
+	
+	if sliding:
+		stop_sliding()
+		velocity = (move_dir + hvel.normalized()).normalized() * hvel.length() + Vector3.UP * velocity.y
+	
 	%EdgeRaycast.force_raycast_update()
 	if not %EdgeRaycast.is_colliding():
 		velocity += velocity * JUMP_BOOST
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3))
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3), 10)
 	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
-	if wallrunning: velocity.y -= 2
-	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
+	
+	
+	jump_cutoff_applied = false
+	if not Input.is_action_pressed("space"): jump_cutoff()
 	
 	#var a = func a():
 		#print(get_real_velocity())
@@ -247,6 +261,17 @@ func jump():
 		#print(get_real_velocity())
 	#
 	#a.call_deferred()
+
+func jump_cutoff():
+	if jump_cutoff_applied: return
+	
+	print("CUTOFFFFFFFFFFFFFF FR")
+	
+	if velocity.y > 0:
+		var extra = velocity.y
+		velocity.y -= extra * JUMP_CUTOFF
+	
+	jump_cutoff_applied = true
 
 func wallrun():
 	if wallrunning:
@@ -309,7 +334,7 @@ func update_variables():
 	prev_y = global_position.y
 
 func slide():
-	if not %SlideBuffer.is_stopped() and on_floor:
+	if not %SlideBuffer.is_stopped() and was_on_floor:
 		
 		%SlideCooldown.start()
 		%SlideBuffer.stop()
@@ -319,6 +344,7 @@ func slide():
 		position.y -= 0.31
 		var vel = get_real_velocity()
 		var dir = move_dir
+		if not dir: dir = -head.global_basis.z
 		velocity = dir * vel.length() * SLIDE_BOOST
 		
 		%Slide.pitch_scale = clampf(remap(velocity.length(), 0, 50, 0.8, 1.6), 0.8, 1.6)
@@ -346,9 +372,10 @@ func movement(delta):
 		if wallrunning:
 			grav = WALLRUN_GRAV
 		else:
-			if not Input.is_action_pressed("space"):
-				var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
-				grav += FAST_FALL_BOOST * x
+			#if not Input.is_action_pressed("space"):
+				#var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
+				#grav += FAST_FALL_BOOST * x
+			if velocity.y < 0.0: grav += FAST_FALL_BOOST
 			if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
 		velocity.y += -grav * delta
 	
@@ -377,8 +404,7 @@ func movement(delta):
 		elif on_floor:
 			accel = FLOOR_ACCELERATION
 		else:
-			var air_slowdown_assist = 1.0 + 0.5 * max(-hvel.normalized().dot(wish_dir), 0.0)
-			#print(air_slowdown_assist)
+			var air_slowdown_assist = 1.0 + AIR_SLOWDOWN_ASSIST * max(-hvel.normalized().dot(wish_dir), 0.0)
 			accel = AIR_ACCELERATION * air_slowdown_assist
 		
 		accel *= delta

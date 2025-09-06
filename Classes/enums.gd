@@ -14,3 +14,10 @@ enum GeometryType {
 	BLOCK,
 	RAMP
 }
+
+enum EntityID {
+	TARGET_TAP,
+	GOAL,
+	BLOCK,
+	RAMP,
+}

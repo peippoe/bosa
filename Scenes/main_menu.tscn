@@ -683,6 +683,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24114, 0, -2.75388)
 stream = ExtResource("5_cp0ys")
 volume_db = -20.64
 unit_size = 20.0
+bus = &"Music"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 unique_name_in_owner = true

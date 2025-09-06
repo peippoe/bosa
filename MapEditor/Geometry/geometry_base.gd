@@ -1,10 +1,8 @@
 extends MeshInstance3D
 
-var id := Enums.EntityID.TARGET_TAP
-var pop_time := 0.0
-var marker : Node
+@export var id : int
 
 const ENTITY_PROPERTIES = [
-	"id", "pop_time", "marker",
+	"id",
 	"global_position", "global_rotation", "scale"
 	]

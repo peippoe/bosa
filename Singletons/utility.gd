@@ -156,18 +156,25 @@ func get_entity_properties(entity : Node):
 const PROPS = [
 	preload("res://MapPlayer/Props/Targets/target.tscn"),
 	preload("res://MapPlayer/Props/goal.tscn"),
+	"res://MapEditor/Geometry/block.tscn",
+	"res://MapEditor/Geometry/ramp.tscn",
 ]
 
-const GEOMETRY = [
-	"res://MapEditor/Geometry/block.tscn",
-	"res://MapEditor/Geometry/ramp.tscn"
-]
+func editor_spawn_entity(data):
+	var new_editor_entity
+	match data.id:
+		0, 1:
+			new_editor_entity = Utility.spawn_gizmo(data["id"], data)
+		2, 3:
+			new_editor_entity = Utility.spawn_geometry(data)
+	
+	return new_editor_entity
 
 func spawn_geometry(data):
-	spawn_entity(GEOMETRY[data["type"]], get_node_or_null_in_scene("%Geometry"), data)
+	spawn_entity(load(PROPS[data["id"]]), get_node_or_null_in_scene("%Geometry"), data)
 
 func spawn_target(target_data):
-	var new_target = spawn_entity(Utility.PROPS[target_data["type"]], GameManager.target_parent, target_data)
+	var new_target = spawn_entity(Utility.PROPS[target_data["id"]], GameManager.target_parent, target_data)
 	print("SPAWNED TARGET")
 	var mesh_instance : MeshInstance3D = new_target.get_node("Mesh/MeshInstance3D")
 	#make_mesh_unique(mesh_instance)
@@ -280,18 +287,18 @@ func get_pop_timing(pop_time):
 				break
 	return pop_timing
 
-func spawn_gizmo(type, data := {}):
+func spawn_gizmo(id, data := {}):
 	if not GameManager.in_editor: push_error("NOT IN EDITOR"); return
 	var spawned_without_data := data == {}
 	
 	var gizmo_scene_path
 	var new_marker_func : Callable
 	var new_gizmo
-	match type:
-		Enums.GizmoType.TARGET_TAP:
+	match id:
+		Enums.EntityID.TARGET_TAP:
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_target.tscn"
 			new_marker_func = Utility.spawn_marker
-		Enums.GizmoType.GOAL:
+		Enums.EntityID.GOAL:
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_goal.tscn"
 			new_marker_func = Utility.spawn_start_end_markers
 	
@@ -382,7 +389,7 @@ func convert_vec3s(data):
 func convert_ints(data):
 	for target_data in data:
 		for key in target_data:
-			if key == "type": target_data[key] = int(target_data[key])
+			if key == "id": target_data[key] = int(target_data[key]); print("ID CONVERTED TO %d" % target_data[key])
 	return data
 
 

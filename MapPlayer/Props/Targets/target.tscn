@@ -749,8 +749,8 @@ shader_parameter/circle_radius = 0.2
 shader_parameter/circle_width = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4p5p"]
+shading_mode = 0
 albedo_color = Color(0, 1, 1, 1)
-emission = Color(0, 1, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ic8vo"]
 

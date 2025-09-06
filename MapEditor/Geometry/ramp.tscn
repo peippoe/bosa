@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://rfo530c3hveh"]
+[gd_scene load_steps=4 format=3 uid="uid://rfo530c3hveh"]
+
+[ext_resource type="Script" uid="uid://bduavc3ybkyeg" path="res://MapEditor/Geometry/geometry_base.gd" id="1_y37ch"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_jnxu6"]
 left_to_right = 1.0
@@ -8,6 +10,8 @@ points = PackedVector3Array(0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.
 
 [node name="Ramp" type="MeshInstance3D"]
 mesh = SubResource("PrismMesh_jnxu6")
+script = ExtResource("1_y37ch")
+id = 3
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
