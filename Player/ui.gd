@@ -15,6 +15,11 @@ func _ready():
 	%BackToEditor.pressed.connect(func back_to_editor():
 		GameManager.back_to_editor()
 	)
+	
+	%Settings.pressed.connect(func settings():
+		Settings.show()
+		Settings.move_to_front()
+	)
 
 func _unhandled_input(event):
 	if event is InputEventKey:

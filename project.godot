@@ -19,7 +19,7 @@ config/icon="res://Assets/Images/icon.svg"
 [autoload]
 
 AudioPlayer="*res://Singletons/audio_player.gd"
-Settings="*res://Singletons/settings.gd"
+Settings="*res://Singletons/settings.tscn"
 GameManager="*res://Singletons/game_manager.gd"
 Playback="*res://Singletons/playback.tscn"
 Utility="*res://Singletons/utility.gd"

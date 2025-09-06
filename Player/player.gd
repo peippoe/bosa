@@ -10,8 +10,8 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		head.rotate_y(-event.relative.x * 0.001)
-		cam.rotate_x(-event.relative.y * 0.001)
+		head.rotate_y(-event.relative.x * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0)
+		cam.rotate_x(-event.relative.y * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0)
 		cam.rotation.x = clampf(cam.rotation.x, -PI/2, PI/2)
 	
 	elif event is InputEventMouseButton:
@@ -35,6 +35,7 @@ func _input(event):
 
 
 func vault():
+	
 	%WallFinderShapecast.force_shapecast_update()
 	
 	if %WallFinderShapecast.is_colliding():
