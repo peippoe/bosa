@@ -474,7 +474,7 @@ debug_shape_custom_color = Color(0, 1, 0, 1)
 [node name="WallFinderShapecast" type="ShapeCast3D" parent="Head"]
 unique_name_in_owner = true
 shape = SubResource("BoxShape3D_vtle1")
-target_position = Vector3(0, 0, -1.5)
+target_position = Vector3(0, 0, -2)
 
 [node name="LedgeRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true

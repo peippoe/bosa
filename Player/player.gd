@@ -7,12 +7,16 @@ extends CharacterBody3D
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.use_accumulated_input = false
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		head.rotate_y(-event.relative.x * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0)
-		cam.rotate_x(-event.relative.y * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0)
-		cam.rotation.x = clampf(cam.rotation.x, -PI/2, PI/2)
+		var relative = -event.screen_relative * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0
+		head.rotate_y(relative.x)
+		head.orthonormalize()
+		cam.rotate_x(relative.y)
+		cam.rotation.x = clampf(cam.rotation.x, -PI/2.0, PI/2.0)
+		cam.orthonormalize()
 	
 	elif event is InputEventMouseButton:
 		if event.pressed: shoot()
@@ -31,7 +35,6 @@ func _input(event):
 		
 		if Input.is_action_just_released("space"):
 			jump_cutoff()
-	
 
 
 func vault():
@@ -126,7 +129,7 @@ const SKYDIVE_GRAV_BOOST := 15.0
 const WALLRUN_GRAV := 6.0
 const JUMP_VELOCITY := 6.9
 const JUMP_BOOST := 0.1
-const JUMP_CUTOFF := 0.4
+const JUMP_CUTOFF := 0.3
 var jump_cutoff_applied := false
 const JUMP_EXTEND := 0#6.0
 
@@ -232,12 +235,13 @@ func jump():
 	
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
 	
+	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
 	
 	if wallrunning:
-		velocity.y -= 0
+		velocity.y -= 2
 		hvel = velocity - Vector3.UP*velocity.y
 		var dot = hvel.normalized().dot(move_dir)
-		print(dot)
+		#print(dot)
 		velocity = move_dir * hvel.length() + Vector3.UP * velocity.y
 		return
 	
@@ -249,11 +253,10 @@ func jump():
 	if not %EdgeRaycast.is_colliding():
 		velocity += velocity * JUMP_BOOST
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3), 10)
-	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
 	
 	
 	jump_cutoff_applied = false
-	if not Input.is_action_pressed("space"): jump_cutoff()
+	#if not Input.is_action_pressed("space"): jump_cutoff()
 	
 	#var a = func a():
 		#print(get_real_velocity())

@@ -62,23 +62,69 @@ func _unhandled_input(event):
 func _ready():
 	hide()
 	
-	%Apply.pressed.connect(update_config)
+	%Apply.pressed.connect(config_update)
 	%Close.pressed.connect(func close(): hide())
 	
-	# load
+	config_load()
 
-func update_config():
-	for child in %Settings.get_children():
-		if child.name.begins_with("/"): continue
-		
-		var line_edit = child.get_node("LineEdit")
-		var value = line_edit.text
-		
-		match line_edit.get_meta("data_type"):
-			"float": value = float(value)
-			_: push_error("UNDEFINED LINE EDIT DATA TYPE")
-		
-		config["gameplay"][child.name] = value
+func config_load():
+	var config_file = ConfigFile.new()
+	var err = config_file.load("user://config.cfg")
+	
+	if err != OK: push_error("CONFIG LOAD ERROR"); return
+	
+	
+	for section in config.keys():
+		for setting in config[section].keys():
+			
+			var value = config_file.get_value(section, setting)
+			config[section][setting] = value
+			
+			var value_holder = %Settings.get_node(section).get_node(setting).get_node("ValueHolder")
+			set_value(value_holder, value)
+	
+	print(config)
+
+
+func set_value(value_holder : Node, value):
+	match value_holder.get_class():
+		"LineEdit":
+			value_holder.text = str(value)
+		_: push_error("UNDEFINED DATA TYPE ERROR #1")
+
+func get_value(value_holder : Node):
+	var value = -1
+	
+	match value_holder.get_class():
+		"LineEdit":
+			value = value_holder.text
+	
+	match value_holder.get_meta("data_type"):
+		"float": value = float(value)
+		_: push_error("UNDEFINED DATA TYPE ERROR #2")
+	
+	print(value)
+	
+	return value
+
+
+
+func config_update():
+	#for child in %Settings.get_children():
+		#if child.name.begins_with("/"): continue
+		#
+		#var value_holder = child.get_node("ValueHolder")
+		#var value = get_value(value_holder)
+		#
+		#config["gameplay"][child.name] = value
+	
+	for section in config.keys():
+		for setting in config[section].keys():
+			
+			var value_holder = %Settings.get_node(section).get_node(setting).get_node("ValueHolder")
+			var value = get_value(value_holder)
+			print(value_holder)
+			config[section][setting] = value
 	
 	print(config)
 	
@@ -87,9 +133,7 @@ func update_config():
 func config_save():
 	var config_file = ConfigFile.new()
 	
-	
 	for section in config.keys():
-		
 		var section_data = config[section]
 		
 		for key in section_data.keys():
@@ -98,6 +142,3 @@ func config_save():
 			config_file.set_value(section, key, value)
 	
 	config_file.save("user://config.cfg")
-
-func config_load():
-	pass
