@@ -75,7 +75,7 @@ func change_scene(scene_path : String):
 
 func update_target_parent():
 	target_parent = Utility.get_node_or_null_in_scene("%Beatmap")
-	if not target_parent: push_error("ERROR GETTING TARGET PARENT")
+	#if not target_parent: push_error("%Beatmap not found")
 
 func play_map(path : String):
 	if path: beatmap_path = path

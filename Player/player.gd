@@ -241,7 +241,7 @@ func jump():
 		velocity.y -= 2
 		hvel = velocity - Vector3.UP*velocity.y
 		var dot = hvel.normalized().dot(move_dir)
-		#print(dot)
+		print(dot)
 		velocity = move_dir * hvel.length() + Vector3.UP * velocity.y
 		return
 	

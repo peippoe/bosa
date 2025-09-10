@@ -1,8 +1,9 @@
-[gd_scene load_steps=65 format=4 uid="uid://dxiqtn7ptwvgb"]
+[gd_scene load_steps=66 format=4 uid="uid://dxiqtn7ptwvgb"]
 
 [ext_resource type="Script" uid="uid://ouwi82iutg1" path="res://MapPlayer/Props/Targets/target.gd" id="1_wbg1h"]
 [ext_resource type="PackedScene" uid="uid://cmq6i71umhwgl" path="res://Blender/waterbloon.blend" id="3_bxfnh"]
-[ext_resource type="Texture2D" uid="uid://csjfnqp1t1nlj" path="res://Assets/Images/Effect/PNG (Transparent)/star_07.png" id="4_j2086"]
+[ext_resource type="Texture2D" uid="uid://ci88m63aw3ktd" path="res://Assets/Images/Effect/PNG (Transparent)/star_08.png" id="3_h4p5p"]
+[ext_resource type="Texture2D" uid="uid://q85fow0vao34" path="res://Assets/Images/Effect/PNG (Transparent)/magic_03.png" id="5_h4p5p"]
 [ext_resource type="Texture2D" uid="uid://bj5nbqpttmgaf" path="res://Assets/Images/Effect/PNG (Transparent)/circle_02.png" id="5_muvpb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ls7vh"]
@@ -207,43 +208,45 @@ curve = SubResource("Curve_1vlwt")
 
 [sub_resource type="Curve" id="Curve_17oyj"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 0.123595), 0.0, 0.0727662, 0, 0, Vector2(0.235294, 0.258427), 0.0, 0.0, 0, 0, Vector2(0.433824, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, -1), 0.0, 0.0727662, 0, 0, Vector2(0.235294, 0.258427), 0.0, 0.0, 0, 0, Vector2(0.77027, 1), 4.61922, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_1vlwt"]
 curve = SubResource("Curve_17oyj")
 
 [sub_resource type="Curve" id="Curve_heo43"]
-_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.22973, 0.764045), 0.0, 0.0, 0, 0, Vector2(0.452703, 0.719101), 0.0, 0.0, 0, 0, Vector2(0.547297, 1), 0.0, -7.67502, 0, 0, Vector2(0.824324, 0), 0.0, 0.0, 0, 0]
-point_count = 5
+_data = [Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.0743243, 1), -2.83312, -2.83312, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_p6xa8"]
 curve = SubResource("Curve_heo43")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1vlwt"]
+angle_min = 1.07288e-05
+angle_max = 360.0
 direction = Vector3(0, 1, 0)
 spread = 90.0
 initial_velocity_min = 0.5
 initial_velocity_max = 1.0
 angular_velocity_min = 250.0
-angular_velocity_max = 350.0
+angular_velocity_max = 500.0
 angular_velocity_curve = SubResource("CurveTexture_1vlwt")
 gravity = Vector3(0, 0, 0)
-damping_min = 6.5
-damping_max = 7.5
+damping_min = 4.0
+damping_max = 6.0
 scale_min = 0.9
 scale_max = 1.1
 scale_curve = SubResource("CurveTexture_p6xa8")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_heo43"]
 transparency = 2
-alpha_scissor_threshold = 0.033
+alpha_scissor_threshold = 0.019
 alpha_antialiasing_mode = 0
-albedo_color = Color(1, 1, 0, 1)
-albedo_texture = ExtResource("4_j2086")
+albedo_color = Color(1, 0.91, 0.91, 1)
+albedo_texture = ExtResource("3_h4p5p")
 emission_enabled = true
-emission = Color(0.984314, 0, 0, 1)
-emission_energy_multiplier = 2.0
+emission = Color(0.98, 0.1764, 0.1764, 1)
+emission_energy_multiplier = 6.0
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -252,7 +255,7 @@ particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_p6xa8"]
 material = SubResource("StandardMaterial3D_heo43")
-size = Vector2(2, 2)
+size = Vector2(2, 1.8)
 
 [sub_resource type="Curve" id="Curve_h4p5p"]
 _data = [Vector2(0, 0.494382), 0.0, -1.30979, 0, 0, Vector2(1, 0), -0.0864956, 0.0, 0, 0]
@@ -279,7 +282,7 @@ alpha_curve = SubResource("CurveTexture_m46xs")
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("5_muvpb")
+albedo_texture = ExtResource("5_h4p5p")
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -313,8 +316,9 @@ alpha_curve = SubResource("CurveTexture_lipyj")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0f1qr"]
 transparency = 3
-alpha_hash_scale = 1.0
-alpha_antialiasing_mode = 0
+alpha_hash_scale = 0.0
+alpha_antialiasing_mode = 2
+alpha_antialiasing_edge = 0.15
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("5_muvpb")
@@ -749,10 +753,14 @@ shader_parameter/circle_radius = 0.2
 shader_parameter/circle_width = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4p5p"]
-shading_mode = 0
 albedo_color = Color(0, 1, 1, 1)
+metallic_specular = 1.0
+roughness = 0.26
+emission = Color(0.0979872, 9.62615e-08, 0.609226, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ic8vo"]
+radial_segments = 16
+rings = 6
 
 [node name="Target" type="RigidBody3D"]
 collision_layer = 7
@@ -819,7 +827,7 @@ draw_pass_1 = SubResource("RibbonTrailMesh_p6xa8")
 visible = false
 emitting = false
 amount = 1
-lifetime = 0.5
+lifetime = 0.2
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60
@@ -839,7 +847,7 @@ draw_pass_1 = SubResource("QuadMesh_rydpk")
 [node name="Ring2" type="GPUParticles3D" parent="."]
 emitting = false
 amount = 1
-lifetime = 0.2
+lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 fixed_fps = 60

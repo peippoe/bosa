@@ -10,7 +10,9 @@ func round_float(value : float, rounding : int):
 
 func get_node_or_null_in_scene(node_path : String):
 	if not get_tree().current_scene: return null
-	return get_tree().current_scene.get_node_or_null(node_path)
+	var node_or_null = get_tree().current_scene.get_node_or_null(node_path)
+	if not node_or_null: push_error("%s NOT FOUND IN SCENE" % node_path)
+	return node_or_null
 
 
 func get_slider_value_from_position(pos, slider : Control, axis := 0):
@@ -246,7 +248,6 @@ func pop_target(target):
 	new_pop_up.double_sided = false
 	var tween = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
 	
-	var tween2 = get_tree().create_tween().set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(new_pop_up, "scale", Vector3.ONE * 1.0, .1).set_trans(Tween.TRANS_BOUNCE)
 	
 	tween.tween_property(new_pop_up, "position", new_pop_up.position + Vector3(0, .2, 0), .5)
@@ -263,7 +264,7 @@ func pop_target(target):
 	
 	var pop_timing = get_pop_timing(target.pop_time)
 	if pop_timing <= 1:
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/sick.wav", null, Vector2(1, 1.4))
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", null, Vector2(2, 4), -10)
 		target.get_node("Effect").show()
 	print("POP_TIMING %d" % pop_timing)
 
