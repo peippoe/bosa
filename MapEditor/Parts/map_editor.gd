@@ -585,9 +585,12 @@ var copied
 
 func copy():
 	copied = Utility.get_entity_properties(selected)
+	%FloatingTextManager.spawn_floating_text("COPY: %s" % copied["id"])
+	
 
 func paste():
 	Utility.editor_spawn_entity(copied)
+	%FloatingTextManager.spawn_floating_text("PASTE: %s" % copied["id"])
 
 func undo():
 	if not recorded: return

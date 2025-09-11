@@ -123,7 +123,7 @@ func shoot():
 
 
 
-const GRAV := 15.25
+const GRAV := 15.5
 const FAST_FALL_BOOST := 1#3.0
 const SKYDIVE_GRAV_BOOST := 15.0
 const WALLRUN_GRAV := 6.0
