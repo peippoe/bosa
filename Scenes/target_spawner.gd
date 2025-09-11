@@ -20,4 +20,4 @@ func _ready():
 			var data = {
 				"global_position": pos
 			}
-			Utility.spawn_entity(Utility.PROPS[0], null, data)
+			Utility.spawn_entity(Utility.PROPS[10], null, data)

@@ -155,19 +155,30 @@ func get_entity_properties(entity : Node):
 
 # Prop utility
 
-const PROPS = [
-	preload("res://MapPlayer/Props/Targets/target.tscn"),
-	preload("res://MapPlayer/Props/goal.tscn"),
-	"res://MapEditor/Geometry/block.tscn",
-	"res://MapEditor/Geometry/ramp.tscn",
-]
+const EntityID : Dictionary = {
+	"TARGET_TAP": 10,
+	"GOAL": 11,
+	
+	"BLOCK": 20,
+	"RAMP": 21,
+}
+
+const PROPS : Dictionary = {
+	10: preload("res://MapPlayer/Props/Targets/target.tscn"),
+	11: preload("res://MapPlayer/Props/goal.tscn"),
+	
+	20: "res://MapEditor/Geometry/block.tscn",
+	21: "res://MapEditor/Geometry/ramp.tscn",
+}
+
 
 func editor_spawn_entity(data):
 	var new_editor_entity
-	match data.id:
-		0, 1:
+	var first_digit = int(str(data["id"])[0])
+	match first_digit:
+		1:
 			new_editor_entity = Utility.spawn_gizmo(data["id"], data)
-		2, 3:
+		2:
 			new_editor_entity = Utility.spawn_geometry(data)
 	
 	return new_editor_entity
@@ -296,10 +307,10 @@ func spawn_gizmo(id, data := {}):
 	var new_marker_func : Callable
 	var new_gizmo
 	match id:
-		Enums.EntityID.TARGET_TAP:
+		EntityID["TARGET_TAP"]:
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_target.tscn"
 			new_marker_func = Utility.spawn_marker
-		Enums.EntityID.GOAL:
+		EntityID["GOAL"]:
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_goal.tscn"
 			new_marker_func = Utility.spawn_start_end_markers
 	
@@ -392,9 +403,8 @@ func convert_ints(data):
 		for key in target_data:
 			if key == "id": target_data[key] = int(target_data[key]); print("ID CONVERTED TO %d" % target_data[key])
 	return data
-
-
 func _unhandled_input(event):
+
 	if event is InputEventKey and event.pressed and event.keycode == KEY_0:
 		get_window().size -= Vector2i(16, 9) * 4
 		get_window().move_to_center()

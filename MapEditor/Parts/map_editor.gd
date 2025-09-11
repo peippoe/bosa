@@ -94,23 +94,23 @@ func _ready():
 			map_save_as()
 	)
 	%SpawnTarget.pressed.connect(
-		func spawn(): Utility.editor_spawn_entity(Enums.EntityID.TARGET_TAP))
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["TARGET_TAP"]}
+			))
 	%SpawnGoal.pressed.connect(
-		func spawn(): Utility.editor_spawn_entity(Enums.EntityID.GOAL))
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["GOAL"]}
+			))
 	%SpawnBPMGuide.pressed.connect(
 		func spawn(): Utility.spawn_bpm_guide())
 	%SpawnBlock.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
-			{
-				"id": Enums.EntityID.BLOCK
-			}
-		))
+			{"id": Utility.EntityID["BLOCK"]}
+			))
 	%SpawnRamp.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
-			{
-				"id": Enums.EntityID.RAMP
-			}
-		))
+			{"id": Utility.EntityID["RAMP"]}
+			))
 	
 	get_node("%BPMCalculator/%Confirm").pressed.connect(
 		
@@ -501,9 +501,9 @@ func compile_map():
 		###########################BOOKMARK
 		#var scene_path = i.scene_file_path
 		#if scene_path.ends_with("block.tscn"):
-			#id = Enums.EntityID.BLOCK
+			#id = Utility.EntityID.BLOCK
 		#elif scene_path.ends_with("ramp.tscn"):
-			#id = Enums.EntityID.RAMP
+			#id = Utility.EntityID.RAMP
 		#
 		#var data = {}
 		#data["id"] = id

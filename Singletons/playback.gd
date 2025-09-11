@@ -84,14 +84,14 @@ func _process(delta):
 			
 			var new_prop
 			match beatmap[event_index]["id"]:
-				Enums.EntityID.TARGET_TAP:
+				Utility.EntityID["TARGET_TAP"]:
 					new_prop = Utility.spawn_target(beatmap[event_index])
 					print_color.call_deferred(new_prop)
 					
 					if GameManager.in_editor:
 						auto_pop.call_deferred(new_prop)
-				Enums.EntityID.GOAL:
-					new_prop = Utility.spawn_entity(Utility.PROPS[1], GameManager.target_parent, beatmap[event_index])
+				Utility.EntityID["GOAL"]:
+					new_prop = Utility.spawn_entity(Utility.PROPS[Utility.EntityID["GOAL"]], GameManager.target_parent, beatmap[event_index])
 			
 			event_index += 1
 			
@@ -99,16 +99,16 @@ func _process(delta):
 			
 			if event_index >= beatmap.size(): return
 			
-			if beatmap[event_index]["id"] == Enums.EntityID.TARGET_TAP and beatmap[event_index-1]["id"] == Enums.EntityID.TARGET_TAP:
+			if beatmap[event_index]["id"] == Utility.EntityID["TARGET_TAP"] and beatmap[event_index-1]["id"] == Utility.EntityID["TARGET_TAP"]:
 				spawn_flow_line.call_deferred(event_index)
 
 func get_spawn_time(entity):
 	var spawn_time = -1.0
 	
 	match entity["id"]:
-		Enums.EntityID.TARGET_TAP:
+		Utility.EntityID["TARGET_TAP"]:
 			spawn_time = entity["pop_time"] - Settings.fadein_time
-		Enums.EntityID.GOAL:
+		Utility.EntityID["GOAL"]:
 			spawn_time = entity["start_time"]
 	
 	return spawn_time

@@ -2,7 +2,7 @@ extends MeshInstance3D
 
 var start_time := 0.0
 var pop_time := 1.0
-var id := Enums.EntityID.GOAL
+var id := Utility.EntityID["GOAL"]
 var marker : Node:
 	set(value):
 		marker = value
