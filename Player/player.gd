@@ -123,7 +123,7 @@ func shoot():
 
 
 
-const GRAV := 15.5
+const GRAV := 16
 const FAST_FALL_BOOST := 1#3.0
 const SKYDIVE_GRAV_BOOST := 15.0
 const WALLRUN_GRAV := 6.0
@@ -185,7 +185,8 @@ func _physics_process(delta):
 		
 		if global_position.distance_to(vault_point) < 0.2:
 			global_position = vault_point
-			velocity = vault_stored_velocity
+			var new_vel = -cam.global_basis.z * vault_stored_velocity.length() * 1.1
+			velocity = new_vel
 			vault_point = null
 			on_floor = true
 			$CollisionShape3D.disabled = false

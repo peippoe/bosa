@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://sast1hlg37nk"]
+[gd_scene load_steps=45 format=4 uid="uid://sast1hlg37nk"]
 
 [ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scenes/target_spawner.gd" id="1_50ct6"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_hb2xm"]
@@ -23,14 +23,14 @@ sky_material = SubResource("ProceduralSkyMaterial_jjgbg")
 [sub_resource type="Environment" id="Environment_8gbba"]
 background_mode = 2
 sky = SubResource("Sky_p7b2h")
-tonemap_exposure = 1.85
+tonemap_exposure = 2.02
 glow_enabled = true
-glow_intensity = 0.16
+glow_intensity = 0.26
 glow_mix = 0.626
 glow_blend_mode = 1
 glow_hdr_threshold = 3.47
 adjustment_enabled = true
-adjustment_saturation = 1.2
+adjustment_saturation = 1.08
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p7b2h"]
 hue_variation_min = 0.86
@@ -63,6 +63,101 @@ albedo_color = Color(1, 1, 1, 0.639216)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3awe"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_rdbpf"]
+
+[sub_resource type="Shader" id="Shader_oho3u"]
+code = "shader_type spatial;
+
+render_mode diffuse_burley, cull_disabled, depth_prepass_alpha, shadows_disabled;
+
+uniform float snap_amount = 240.0;
+
+void vertex() {
+	// Convert to clip space
+	vec4 clip_pos = PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+	
+	clip_pos.xz = floor(clip_pos.xz * snap_amount) / snap_amount;
+	
+	POSITION = clip_pos;
+}
+
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3awe"]
+render_priority = 0
+shader = SubResource("Shader_oho3u")
+shader_parameter/snap_amount = 40.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_oho3u"]
+size = Vector3(5, 5, 1)
+
+[sub_resource type="Shader" id="Shader_d3awe"]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_schlick_ggx,unshaded;
+uniform vec4 albedo : source_color = vec4(1.0, 1.0, 1.0, 0.0);
+
+
+uniform float specular;
+
+
+varying flat vec3 norm;
+varying flat float norm_val;
+
+uniform float offset = 0.05;
+
+uniform float opacity = 0.9;
+
+
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture,filter_linear_mipmap;
+
+void vertex() {
+	norm = NORMAL;
+}
+
+
+
+
+
+
+
+
+
+
+void fragment() {
+	
+	
+	vec3 normx = NORMAL;
+	NORMAL = norm;
+	
+	
+	vec2 displacement = vec2(offset);
+	displacement.x *= -normx.x*2.0;
+	displacement.y *= -normx.y*2.0;
+	vec4 alpha = vec4(1.0);
+	alpha = texture(SCREEN_TEXTURE ,SCREEN_UV + displacement );
+	
+	
+	
+	
+	
+	
+	ALBEDO = mix(alpha.rgb,albedo.rgb,albedo.a);
+	SPECULAR = specular;
+	ALPHA = opacity;
+	
+	
+	
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yglu3"]
+render_priority = 0
+shader = SubResource("Shader_d3awe")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/specular = 0.0
+shader_parameter/offset = 0.05
+shader_parameter/opacity = 0.9
+
 [sub_resource type="SphereMesh" id="SphereMesh_x033f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oho3u"]
@@ -71,12 +166,30 @@ emission_enabled = true
 emission = Color(1, 0, 0, 1)
 emission_energy_multiplier = 16.0
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rdbpf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oho3u"]
+noise = SubResource("FastNoiseLite_rdbpf")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ak5v8"]
 render_priority = 0
 shader = ExtResource("4_ak5v8")
-shader_parameter/intensity = 0.2
-shader_parameter/steps = 3
-shader_parameter/specular_intensity = 0.0
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = SubResource("NoiseTexture2D_oho3u")
+shader_parameter/clamp_diffuse_to_max = true
+shader_parameter/cuts = 1
+shader_parameter/wrap = 0.0
+shader_parameter/steepness = 1.0
+shader_parameter/use_attenuation = true
+shader_parameter/use_specular = true
+shader_parameter/specular_strength = 1.0
+shader_parameter/specular_shininess = 16.0
+shader_parameter/use_rim = false
+shader_parameter/rim_width = 8.0
+shader_parameter/rim_color = Color(1, 1, 1, 1)
+shader_parameter/use_ramp = false
+shader_parameter/use_borders = false
+shader_parameter/border_width = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdbpf"]
 resource_name = "Sphere.001"
@@ -123,6 +236,7 @@ shadow_mesh = SubResource("ArrayMesh_7o4y7")
 size = Vector2(10, 15)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yglu3"]
+albedo_color = Color(0.21, 0.3285, 1, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_oho3u"]
 points = PackedVector3Array(5, 0, 7.5, -5, 0, 7.5, 5, 0, -7.5, -5, 0, -7.5)
@@ -222,13 +336,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 19.4148, 3.41737)
 mesh = SubResource("SphereMesh_50ct6")
 surface_material_override/0 = SubResource("StandardMaterial3D_d3awe")
 
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0236, 19.4148, 0.0403211)
+mesh = SubResource("BoxMesh_rdbpf")
+surface_material_override/0 = SubResource("ShaderMaterial_d3awe")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.0236, 18.4148, -2.60628)
+mesh = SubResource("BoxMesh_oho3u")
+surface_material_override/0 = SubResource("ShaderMaterial_yglu3")
+
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 19.4148, 1.86217)
 mesh = SubResource("SphereMesh_x033f")
 surface_material_override/0 = SubResource("StandardMaterial3D_oho3u")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0555, 19.3018, -3.81716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3421, 19.2366, -4.47607)
 mesh = SubResource("SphereMesh_50ct6")
 surface_material_override/0 = SubResource("ShaderMaterial_ak5v8")
 
@@ -242,6 +366,7 @@ mesh = SubResource("ArrayMesh_oho3u")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0124, 19.3753, 3.87281)
 visible = false
+shadow_enabled = true
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.4186, 18.072, 0.239455)

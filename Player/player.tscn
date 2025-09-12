@@ -179,30 +179,30 @@ vec3 reconstruct_color_optimized(vec3 center_color, vec3 neighbors[8], int bits,
 }
 
 vec3 get_processed_color_at_uv_optimized(sampler2D tex, vec2 uv, vec2 texel_size) {
-	
+
     vec3 dithered_color = get_dithered_color_at_uv(tex, uv);
 
     if (!enable_dedithering) {
         return dithered_color;
     }
-	
+
     vec2 neighbor_offsets[8] = vec2[](
         vec2(-1.0, -1.0), vec2(0.0, -1.0), vec2(1.0, -1.0),
         vec2(-1.0,  0.0),                   vec2(1.0,  0.0),
-        vec2(-1.0,  1.0), vec2(0.0,  1.0), vec2(1.0,  1.0) 
+        vec2(-1.0,  1.0), vec2(0.0,  1.0), vec2(1.0,  1.0)
     );
 
     vec3 neighbors[8];
     for (int i = 0; i < 8; i++) {
         vec2 neighbor_uv = uv + neighbor_offsets[i] * texel_size;
-		
+
         if (all(greaterThanEqual(neighbor_uv, vec2(0.0))) && all(lessThanEqual(neighbor_uv, vec2(1.0)))) {
             neighbors[i] = get_dithered_color_at_uv(tex, neighbor_uv);
         } else {
             neighbors[i] = dithered_color;
         }
     }
-	
+
     vec3 dedithered_color = reconstruct_color_optimized(dithered_color, neighbors, color_bitdepth, dedither_strength);
     return clamp(dedithered_color, 0.0, 1.0);
 }
@@ -219,20 +219,20 @@ const vec3 blur_weights = vec3(0.27901, 0.44198, 0.27901);
 vec3 apply_n64_upscale(sampler2D tex, vec3 color, vec2 uv, vec2 texel_size) {
 	if (!enable_480i_upscale) return color;
 		float pixel_y = uv.y * virtual_resolution.y;
-	
+
 		vec3 blur_color = color * blur_weights.y;
-	
+
 		vec2 offset = vec2(texel_size.x, 0.0);
-		
+
 		if (uv.x >= texel_size.x && uv.x <= 1.0 - texel_size.x) {
     		blur_color += get_processed_color_at_uv_optimized(tex, uv - offset, texel_size) * blur_weights.x + get_processed_color_at_uv_optimized(tex, uv + offset, texel_size) * blur_weights.z;
-		} 
+		}
 		else {
     		blur_color += color * (blur_weights.x + blur_weights.z);
 		}
-		
+
 	float scanline_darkening = 1.0 - (0.2 * scanline_intensity * float(int(pixel_y) & 1));
-	
+
 	return blur_color * scanline_darkening;
 }
 
@@ -245,7 +245,7 @@ void fragment() {
     vec2 texel_size = 1.0 / virtual_resolution;
 
     vec3 final_color = get_processed_color_at_uv_optimized(SCREEN_TEXTURE, UV, texel_size);
-    
+
     // Apply N64 upscaling effects with texture parameter
     final_color = apply_n64_upscale(SCREEN_TEXTURE, final_color, UV, texel_size);
 
