@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://qqmvef8ct46w"]
+[gd_scene load_steps=14 format=3 uid="uid://qqmvef8ct46w"]
 
 [ext_resource type="Script" uid="uid://cha57hv85d503" path="res://MapPlayer/map_player.gd" id="1_837eu"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_31pch"]
@@ -6,6 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://ckuskrvdgyoyi" path="res://Blender/skybox_galaxy.blend" id="3_onouw"]
 [ext_resource type="Texture2D" uid="uid://b0my55mt55lqf" path="res://Assets/Images/prototype_textures/Dark/texture_01.png" id="5_px0d7"]
 [ext_resource type="PackedScene" uid="uid://be04md6gv2qvu" path="res://MapPlayer/enemy_sprite.tscn" id="6_wmvyd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pe41v"]
+albedo_texture = ExtResource("5_px0d7")
+metallic = 1.0
+uv1_scale = Vector3(0.125, 0.125, 0.125)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_837eu"]
+
+[sub_resource type="Sky" id="Sky_wmvyd"]
+
+[sub_resource type="Environment" id="Environment_px0d7"]
+background_mode = 2
+sky = SubResource("Sky_wmvyd")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_onouw"]
 panorama = ExtResource("3_31pch")
@@ -20,28 +35,21 @@ sky = SubResource("Sky_0pp17")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wmvyd"]
-
-[sub_resource type="Sky" id="Sky_0dogk"]
-sky_material = SubResource("ProceduralSkyMaterial_wmvyd")
-
-[sub_resource type="Environment" id="Environment_vqv6y"]
-background_mode = 2
-sky = SubResource("Sky_0dogk")
-tonemap_mode = 2
-glow_enabled = true
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_837eu"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pe41v"]
-albedo_texture = ExtResource("5_px0d7")
-metallic = 1.0
-uv1_scale = Vector3(0.125, 0.125, 0.125)
-uv1_triplanar = true
-uv1_world_triplanar = true
-
 [node name="MapPlayer" type="Node3D"]
 script = ExtResource("1_837eu")
+
+[node name="Floor" type="Node3D" parent="."]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Floor"]
+visible = false
+material_override = SubResource("StandardMaterial3D_pe41v")
+radius = 25.0
+height = 0.001
+
+[node name="Floor" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor"]
+shape = SubResource("WorldBoundaryShape3D_837eu")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -68,29 +76,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="skybox_galaxy" parent="." instance=ExtResource("3_onouw")]
 visible = false
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_54udq")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_vqv6y")
-
 [node name="Beatmap" type="Node" parent="."]
 unique_name_in_owner = true
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_837eu")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-material_override = SubResource("StandardMaterial3D_pe41v")
-radius = 25.0
-height = 0.001
 
 [node name="EnemySprite" parent="." instance=ExtResource("6_wmvyd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78579, -0.36, -30.6337)
 visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_px0d7")
+
+[node name="Node" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Node"]
+environment = SubResource("Environment_54udq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Node/WorldEnvironment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true

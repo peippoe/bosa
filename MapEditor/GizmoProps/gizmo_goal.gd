@@ -57,7 +57,9 @@ func update_markers():
 	start_time = Utility.get_slider_value_from_position(start_marker.global_position - timeline.global_position, timeline)
 	pop_time = Utility.get_slider_value_from_position(end_marker.global_position - timeline.global_position, timeline)
 
-const ENTITY_PROPERTIES = [
-	"start_time", "pop_time", "marker", "id",
-	"global_position", "global_rotation"
-	]
+const ENTITY_PROPERTIES = {
+	"_": [
+		"start_time", "pop_time", "marker", "id",
+		"global_position", "global_rotation"
+		]
+}

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dp4spanebjwww"]
+
+[node name="Property" type="HBoxContainer"]
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "		nan"

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://etwwqdr341nx"]
+
+[node name="Section" type="VBoxContainer"]
+size_flags_vertical = 3
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 2
+text = "	nan"
+fit_content = true

@@ -337,6 +337,11 @@ func update_variables():
 		#vel_buffer.pop_back()
 	
 	prev_y = global_position.y
+	
+	if sliding:
+		cam.rotation.z = -.05
+	else:
+		cam.rotation.z = 0
 
 func slide():
 	if not %SlideBuffer.is_stopped() and was_on_floor:

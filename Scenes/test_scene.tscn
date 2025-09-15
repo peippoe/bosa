@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpyyjqtsmpxc6" path="res://Assets/Images/General/grid2.png" id="7_rdbpf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
-sky_top_color = Color(0.200345, 0.356139, 1, 1)
+sky_top_color = Color(0.162074, 0.294184, 0.999998, 1)
 sky_horizon_color = Color(0.289992, 0.552758, 1, 1)
 sky_curve = 0.252269
 ground_bottom_color = Color(0, 0.195909, 1, 1)

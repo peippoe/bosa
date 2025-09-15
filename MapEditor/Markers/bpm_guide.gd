@@ -26,9 +26,11 @@ var bpm := 0.0
 var start_time := 0.0
 var end_time := 0.0
 
-const ENTITY_PROPERTIES = [
-	"bpm", "start_time", "end_time"
+const ENTITY_PROPERTIES = {
+	"_": [
+		"bpm", "start_time", "end_time"
 	]
+}
 
 
 func _gui_input(event):

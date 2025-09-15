@@ -133,17 +133,24 @@ func make_surface_materials_unique(mesh_instance : MeshInstance3D):
 
 
 
-func get_entity_properties(entity : Node):
+func get_entity_properties(entity : Node, resource = null):
 	if not entity: push_error("NULL ENTITY"); return
+	if not "ENTITY_PROPERTIES" in entity: push_error("NO ENTITY_PROPERTIES"); return
+	if not resource: resource = entity
 	
-	var properties = {}
+	var p_dict = {}
 	
-	if "ENTITY_PROPERTIES" in entity:
-		for key in entity.ENTITY_PROPERTIES:
-			if key in entity:
-				properties[key] = entity.get(key)
+	var entity_properties = entity.ENTITY_PROPERTIES
 	
-	return properties
+	for section in entity_properties.keys():
+		
+		p_dict[section] = {}
+		
+		for property in entity_properties[section]:
+			if property in resource:
+				p_dict[section][property] = resource[property]
+	
+	return p_dict
 
 
 

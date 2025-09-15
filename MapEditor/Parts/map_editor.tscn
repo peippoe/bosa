@@ -1,28 +1,19 @@
 [gd_scene load_steps=33 format=4 uid="uid://4uvg1b2unkyd"]
 
 [ext_resource type="Script" uid="uid://e8d1qrww7kv8" path="res://MapEditor/Parts/map_editor.gd" id="1_prvuo"]
+[ext_resource type="PackedScene" uid="uid://nsf47nmm03w0" path="res://MapEditor/Environment/environment.tscn" id="2_lf0yh"]
 [ext_resource type="PackedScene" uid="uid://cv5d87efy2njo" path="res://MapEditor/GizmoManipulation/gizmo_manipulator.tscn" id="2_q4pck"]
 [ext_resource type="Script" uid="uid://w7ilsy5pi3i8" path="res://Player/ghost_cam.gd" id="3_jrwax"]
 [ext_resource type="Shader" uid="uid://d1cco51l6rfas" path="res://Assets/Shader/grid.gdshader" id="4_ov5y3"]
 [ext_resource type="Texture2D" uid="uid://bodg331amvxxf" path="res://Assets/Images/UI/play.png" id="5_jrwax"]
 [ext_resource type="Script" uid="uid://0pssxrtug78c" path="res://MapEditor/Parts/timeline.gd" id="5_lf0yh"]
 [ext_resource type="Texture2D" uid="uid://cjqa4ajld0f0b" path="res://Assets/Images/UI/pause.png" id="6_ov5y3"]
+[ext_resource type="Script" uid="uid://dhrwtpi1n0gre" path="res://MapEditor/Parts/editor_ui.gd" id="6_smuu6"]
 [ext_resource type="Texture2D" uid="uid://bpiviso7nfgfy" path="res://Assets/Images/icon.svg" id="6_wjw6d"]
+[ext_resource type="PackedScene" uid="uid://etwwqdr341nx" path="res://MapEditor/Parts/section.tscn" id="7_2wpdj"]
 [ext_resource type="Script" uid="uid://rhyjgow2pmwl" path="res://MapEditor/Parts/selection_properties.gd" id="7_smuu6"]
 [ext_resource type="PackedScene" uid="uid://8tt6gsuipabo" path="res://MapEditor/Parts/bpm_calculator.tscn" id="8_2wpdj"]
 [ext_resource type="Script" uid="uid://xyknsaapsmkb" path="res://MapEditor/Parts/floating_text_manager.gd" id="11_ov5y3"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7xmfy"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-
-[sub_resource type="Sky" id="Sky_43ajp"]
-sky_material = SubResource("ProceduralSkyMaterial_7xmfy")
-
-[sub_resource type="Environment" id="Environment_kqkv5"]
-sky = SubResource("Sky_43ajp")
-tonemap_mode = 2
-glow_enabled = true
 
 [sub_resource type="QuadMesh" id="QuadMesh_7xmfy"]
 size = Vector2(16, 16)
@@ -133,7 +124,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WorldEnvironment/DirectionalLight3D:position")
+tracks/0/path = NodePath("Environment/DirectionalLight3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -148,7 +139,7 @@ resource_name = "new_animation"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("WorldEnvironment/DirectionalLight3D:position")
+tracks/0/path = NodePath("Environment/DirectionalLight3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -181,12 +172,8 @@ albedo_color = Color(0, 0.615686, 1, 1)
 [node name="MapEditor" type="Node3D" groups=["map_editor"]]
 script = ExtResource("1_prvuo")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_kqkv5")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
+[node name="Environment" parent="." instance=ExtResource("2_lf0yh")]
+unique_name_in_owner = true
 
 [node name="gizmo_manipulator" parent="." instance=ExtResource("2_q4pck")]
 unique_name_in_owner = true
@@ -225,6 +212,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("6_smuu6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="EditorUI"]
 layout_mode = 1
@@ -234,12 +222,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="EditorUI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="Control" type="Control" parent="EditorUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 5.0
 mouse_filter = 2
+
+[node name="PropertiesPanel" type="PanelContainer" parent="EditorUI/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PropertiesList" type="VBoxContainer" parent="EditorUI/VBoxContainer/HBoxContainer/PropertiesPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Section" parent="EditorUI/VBoxContainer/HBoxContainer/PropertiesPanel/PropertiesList" instance=ExtResource("7_2wpdj")]
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="EditorUI/VBoxContainer"]
 layout_mode = 2
@@ -306,6 +311,11 @@ text = "block"
 unique_name_in_owner = true
 layout_mode = 2
 text = "ramp"
+
+[node name="EnvironmentButton" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "environment"
 
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -409,7 +419,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1347, 76)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
@@ -724,21 +734,25 @@ libraries = {
 [node name="x_axis" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 visible = false
+cast_shadow = 0
 mesh = SubResource("SphereMesh_ov5y3")
 surface_material_override/0 = SubResource("StandardMaterial3D_wjw6d")
 
 [node name="y_axis" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 visible = false
+cast_shadow = 0
 mesh = SubResource("SphereMesh_ov5y3")
 surface_material_override/0 = SubResource("StandardMaterial3D_smuu6")
 
 [node name="z_axis" type="MeshInstance3D" parent="."]
 visible = false
+cast_shadow = 0
 mesh = SubResource("SphereMesh_ov5y3")
 surface_material_override/0 = SubResource("StandardMaterial3D_2wpdj")
 
 [connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/PanelContainer/MarginContainer/HBoxContainer/Pause" to="." method="_on_pause_pressed"]
 
+[editable path="EditorUI/VBoxContainer/HBoxContainer/PropertiesPanel/PropertiesList/Section"]
 [editable path="EditorUI/BPMCalculator"]

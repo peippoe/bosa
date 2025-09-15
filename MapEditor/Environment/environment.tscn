@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://nsf47nmm03w0"]
+
+[ext_resource type="Script" uid="uid://ronb7we3ewxm" path="res://MapEditor/Environment/environment.gd" id="1_7vjaj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7vjaj"]
+
+[sub_resource type="Sky" id="Sky_6s7wx"]
+sky_material = SubResource("ProceduralSkyMaterial_7vjaj")
+
+[sub_resource type="Environment" id="Environment_7vjaj"]
+background_mode = 1
+background_color = Color(0.804251, 0.847591, 0.990506, 1)
+sky = SubResource("Sky_6s7wx")
+
+[node name="Environment" type="WorldEnvironment"]
+environment = SubResource("Environment_7vjaj")
+script = ExtResource("1_7vjaj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
