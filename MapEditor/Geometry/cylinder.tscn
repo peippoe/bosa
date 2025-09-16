@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b61cana4h6drw"]
+
+[ext_resource type="Script" uid="uid://bduavc3ybkyeg" path="res://MapEditor/Geometry/geometry_base.gd" id="1_pplrm"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pplrm"]
+height = 1.0
+radial_segments = 32
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yi06q"]
+height = 1.0
+
+[node name="Cylinder" type="MeshInstance3D"]
+mesh = SubResource("CylinderMesh_pplrm")
+script = ExtResource("1_pplrm")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_yi06q")

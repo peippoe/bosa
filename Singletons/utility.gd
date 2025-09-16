@@ -108,9 +108,18 @@ func spawn_entity(entity,  parent : Node = null, data = null):
 	return new_entity
 
 func apply_data(entity, data):
-	for key in data:
-		if key in entity:
-			entity.set(key, data[key])
+	for section in data.keys():
+		
+		var section_data = data[section]
+		
+		if section_data is not Dictionary: section_data = data # part 1
+		
+		for property in section_data.keys():
+			if property in entity:
+				print("ENTITY.SET %s = %s" % [str(property), str(section_data[property])])
+				entity.set(property, section_data[property])
+		
+		if section_data == data: break # part 2
 
 func make_mesh_unique(mesh_instance : MeshInstance3D):
 	var mesh := mesh_instance.mesh
@@ -131,6 +140,30 @@ func make_surface_materials_unique(mesh_instance : MeshInstance3D):
 			var unique_material := material.duplicate()
 			mesh.surface_set_material(surface, unique_material)
 
+func get_property_ignoring_sections(data, target_property : String):
+	for section in data.keys():
+		for property in data[section].keys():
+			if property == target_property:
+				return data[section][property]
+
+func remove_sections_from_data_array(data):
+	for i in data.size():
+		data[i] = Utility.remove_sections_from_data(data[i])
+	return data
+
+func remove_sections_from_data(data):
+	var sectionless_data = {}
+	
+	for section in data.keys():
+		if data[section] is not Dictionary:
+			return data
+		
+		for property in data[section].keys():
+			var value = data[section][property]
+			sectionless_data[property] = value
+	
+	print(sectionless_data)
+	return sectionless_data
 
 
 func get_entity_properties(entity : Node, resource = null):
@@ -168,6 +201,8 @@ const EntityID : Dictionary = {
 	
 	"BLOCK": 20,
 	"RAMP": 21,
+	"CYLINDER": 22,
+	"SPHERE": 23,
 }
 
 const PROPS : Dictionary = {
@@ -176,10 +211,14 @@ const PROPS : Dictionary = {
 	
 	20: "res://MapEditor/Geometry/block.tscn",
 	21: "res://MapEditor/Geometry/ramp.tscn",
+	22: "res://MapEditor/Geometry/cylinder.tscn",
+	23: "res://MapEditor/Geometry/sphere.tscn",
 }
 
 
 func editor_spawn_entity(data):
+	data = remove_sections_from_data(data)
+	
 	var new_editor_entity
 	var first_digit = int(str(data["id"])[0])
 	match first_digit:
@@ -397,19 +436,34 @@ func spawn_bpm_guide(data = null):
 # JSON utility
 
 func convert_vec3s(data):
-	for target_data in data:
-		for key in target_data:
-			var value = target_data[key]
+	
+	# fix for sections
+	# remove_sections_from_data_array
+	
+	for section in data.keys():
+		for property in data[section].keys():
+			var value = data[section][property]
+			
 			if value is not String: continue
 			if not value.begins_with("("): continue
-			target_data[key] = str_to_var("Vector3"+value)
+			
+			data[section][property] = str_to_var("Vector3"+value)
 	return data
 
 func convert_ints(data):
-	for target_data in data:
-		for key in target_data:
-			if key == "id": target_data[key] = int(target_data[key]); print("ID CONVERTED TO %d" % target_data[key])
+	
+	# group data
+	
+	
+	for section in data.keys():
+		if data[section] is not Dictionary: continue
+		
+		for property in data[section].keys():
+			
+			if property == "id": data[section][property] = int(data[section][property]); print("ID CONVERTED TO %d" % data[section][property])
+	
 	return data
+
 func _unhandled_input(event):
 
 	if event is InputEventKey and event.pressed and event.keycode == KEY_0:

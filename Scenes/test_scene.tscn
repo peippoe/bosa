@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=4 uid="uid://sast1hlg37nk"]
+[gd_scene load_steps=49 format=4 uid="uid://sast1hlg37nk"]
 
 [ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scenes/target_spawner.gd" id="1_50ct6"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_hb2xm"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cgs6r47ympgcx" path="res://Assets/Models/azal.glb" id="5_x033f"]
 [ext_resource type="Texture2D" uid="uid://ck84au08q5vt1" path="res://Assets/Models/azal_Sphere.png" id="6_x033f"]
 [ext_resource type="Texture2D" uid="uid://cpyyjqtsmpxc6" path="res://Assets/Images/General/grid2.png" id="7_rdbpf"]
+[ext_resource type="Texture2D" uid="uid://b855t3tpfi3pp" path="res://Blender/skybox1.png" id="8_oho3u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
 sky_top_color = Color(0.162074, 0.294184, 0.999998, 1)
@@ -287,6 +288,19 @@ emission_enabled = true
 emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 16.0
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_d3awe"]
+panorama = ExtResource("8_oho3u")
+filter = false
+
+[sub_resource type="Sky" id="Sky_0pp17"]
+sky_material = SubResource("PanoramaSkyMaterial_d3awe")
+
+[sub_resource type="Environment" id="Environment_yglu3"]
+background_mode = 2
+sky = SubResource("Sky_0pp17")
+tonemap_mode = 2
+glow_enabled = true
+
 [node name="Main" type="Node3D"]
 
 [node name="TargetSpawner" type="Node3D" parent="."]
@@ -394,5 +408,13 @@ light_color = Color(0.537833, 1, 0.41, 1)
 light_energy = 0.52
 omni_range = 2.873
 omni_attenuation = 0.609
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yglu3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment2"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
+shadow_enabled = true
 
 [editable path="azal"]

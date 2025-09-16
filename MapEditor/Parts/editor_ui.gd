@@ -6,7 +6,6 @@ func _ready():
 		display_properties(%Environment, %Environment.environment)
 		)
 
-
 func display_properties(entity, resource = null):
 	
 	for i in %PropertiesList.get_children(): i.queue_free()
@@ -21,13 +20,13 @@ func display_properties(entity, resource = null):
 		
 		if section == "Background":
 			properties[section] = {
-				"background_color": Color.WHITE
+				"background_color": resource.background_color
 			}
 		
 		for property in properties[section].keys():
 			
 			var data_type
-			if property == "color": data_type = Variant.Type.TYPE_COLOR
+			if property == "background_color": data_type = Variant.Type.TYPE_COLOR
 			
 			
 			
@@ -57,7 +56,6 @@ func display_properties(entity, resource = null):
 			var new_field
 			match data_type:
 				Variant.Type.TYPE_INT, Variant.Type.TYPE_FLOAT, Variant.Type.TYPE_VECTOR3:
-					print("line_edit")
 					new_field = LineEdit.new()
 					
 					new_field.text_submitted.connect(
@@ -75,6 +73,9 @@ func display_properties(entity, resource = null):
 							resource.set(property, value)
 							print(%Environment.environment.tonemap_mode)
 					)
+					
+					new_field.text = str(properties[section][property])
+				
 				
 				Variant.Type.TYPE_COLOR:
 					new_field = ColorPickerButton.new()
@@ -84,12 +85,10 @@ func display_properties(entity, resource = null):
 							resource.set(property, color)
 					)
 					
+					new_field.color = properties[section][property]
+					print(new_field.color)
 				
 				_: print("DATA TYPE UNSUPPORTED: %d" % data_type)
 			
 			property_inst.add_child(new_field)
 			new_field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			
-			if "text" in new_field:
-				print("IT HAS TEXT")
-				new_field.text = str(properties[section][property])

@@ -4,6 +4,7 @@ var pop_time := 0.0:
 	set(value):
 		pop_time = value
 		
+		push_error("TRIGGERED")
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/goal_spawned.wav", self.global_position, Vector2(0.9, 1.1))
 		
 		await get_tree().create_timer(pop_time - Playback.playhead).timeout

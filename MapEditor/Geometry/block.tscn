@@ -9,7 +9,6 @@
 [node name="Block" type="MeshInstance3D"]
 mesh = SubResource("BoxMesh_ag80p")
 script = ExtResource("1_8lh0s")
-id = 2
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

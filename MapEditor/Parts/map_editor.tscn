@@ -205,6 +205,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_lf0yh")
 
 [node name="EditorUI" type="Control" parent="."]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -311,6 +312,16 @@ text = "block"
 unique_name_in_owner = true
 layout_mode = 2
 text = "ramp"
+
+[node name="SpawnCylinder" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "cylinder"
+
+[node name="SpawnSphere" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "sphere"
 
 [node name="EnvironmentButton" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true

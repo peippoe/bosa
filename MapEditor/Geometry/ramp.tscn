@@ -11,7 +11,6 @@ points = PackedVector3Array(0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.
 [node name="Ramp" type="MeshInstance3D"]
 mesh = SubResource("PrismMesh_jnxu6")
 script = ExtResource("1_y37ch")
-id = 3
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

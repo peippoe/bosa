@@ -1,6 +1,6 @@
 extends MeshInstance3D
 
-@export var id : int
+var id
 
 const ENTITY_PROPERTIES = {
 	"_": [

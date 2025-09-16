@@ -111,6 +111,14 @@ func _ready():
 		func spawn(): Utility.editor_spawn_entity(
 			{"id": Utility.EntityID["RAMP"]}
 			))
+	%SpawnCylinder.pressed.connect(
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["CYLINDER"]}
+			))
+	%SpawnSphere.pressed.connect(
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["SPHERE"]}
+			))
 	
 	get_node("%BPMCalculator/%Confirm").pressed.connect(
 		
@@ -455,10 +463,18 @@ func load_map(path):
 	var file = FileAccess.open(path, FileAccess.READ)
 	var parsed = JSON.parse_string(file.get_as_text())
 	if not parsed: push_error("PARSE FAILED"); return
-	parsed["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
-	parsed["beatmap"] = Utility.convert_ints(parsed["beatmap"])
-	parsed["geometry"] = Utility.convert_vec3s(parsed["geometry"])
-	parsed["geometry"] = Utility.convert_ints(parsed["geometry"])
+	
+	
+	
+	for i in parsed["beatmap"].size():
+		parsed["beatmap"][i] = Utility.convert_vec3s(parsed["beatmap"][i])
+		parsed["beatmap"][i] = Utility.convert_ints(parsed["beatmap"][i])
+	
+	for i in parsed["geometry"].size():
+		parsed["geometry"][i] = Utility.convert_vec3s(parsed["geometry"][i])
+		parsed["geometry"][i] = Utility.convert_ints(parsed["geometry"][i])
+	
+	parsed["environment"] = Utility.convert_ints(parsed["environment"])
 	
 	Playback.beatmap_data = parsed
 	
@@ -476,6 +492,9 @@ func load_map(path):
 		var geometry_data = Playback.beatmap_data["geometry"][i]
 		Utility.editor_spawn_entity(geometry_data)
 	
+	var env_data = Playback.beatmap_data["environment"]["environment"]
+	env_data["Background"]["background_color"] = str_to_var("Color"+env_data["Background"]["background_color"])
+	Utility.apply_data(%Environment.environment, env_data)
 	
 	for i in Playback.beatmap_data["editor"].size():
 		var data = Playback.beatmap_data["editor"][i]
@@ -511,6 +530,13 @@ func compile_map():
 		#data["global_rotation"] = i.global_rotation
 		#data["scale"] = i.scale
 		#Playback.beatmap_data["geometry"].append(data)
+	
+	var env_data = Utility.get_entity_properties(%Environment, %Environment.environment)
+	env_data["Background"] = {
+		"background_color": %Environment.environment.background_color
+	}
+	Playback.beatmap_data["environment"]["environment"] = env_data
+	
 	
 	Playback.beatmap_data["editor"] = []
 	for i in %TimelineSlider.get_children():
@@ -585,15 +611,17 @@ var copied
 
 func copy():
 	copied = Utility.get_entity_properties(selected)
-	%FloatingTextManager.spawn_floating_text("COPY: %s" % copied["id"])
+	%FloatingTextManager.spawn_floating_text("COPY")
 	
 
 func paste():
 	Utility.editor_spawn_entity(copied)
-	%FloatingTextManager.spawn_floating_text("PASTE: %s" % copied["id"])
+	%FloatingTextManager.spawn_floating_text("PASTE")
 
 func undo():
 	if not recorded: return
+	
+	recorded = Utility.remove_sections_from_data(recorded)
 	
 	if recorded.has("id"):
 		Utility.editor_spawn_entity(recorded)
@@ -602,7 +630,7 @@ func undo():
 		recorded = null
 		return
 	
-	%FloatingTextManager.spawn_floating_text("UNDO: %s (%s)" % [recorded["property"], recorded["node"].name])
+	%FloatingTextManager.spawn_floating_text("UNDO")#: %s (%s)" % [recorded["property"], recorded["node"].name])
 	
 	set_and_record(recorded["node"], recorded["property"], recorded["value"])
 	

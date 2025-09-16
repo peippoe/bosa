@@ -8,6 +8,10 @@ var beatmap_data = {
 		"duration": 0.0,
 		"version": 1
 	},
+	"environment": {
+		"environment": [],
+		"directional_light": []
+	},
 	"events": [],
 	"beatmap": [],
 	"editor": [],
@@ -72,26 +76,27 @@ func _process(delta):
 	playhead += playback_delta
 	
 	var beatmap = beatmap_data["beatmap"]
-	
-	
 	if event_index >= beatmap.size(): return
 	
 	
 	var spawn_time = get_spawn_time(beatmap[event_index])
 	
 	if playhead > spawn_time:
-		if "id" in beatmap[event_index]:
+		
+		var event_data = Utility.remove_sections_from_data(beatmap[event_index])
+		
+		if "id" in event_data:
 			
 			var new_prop
-			match beatmap[event_index]["id"]:
+			match event_data["id"]:
 				Utility.EntityID["TARGET_TAP"]:
-					new_prop = Utility.spawn_target(beatmap[event_index])
+					new_prop = Utility.spawn_target(event_data)
 					print_color.call_deferred(new_prop)
 					
 					if GameManager.in_editor:
 						auto_pop.call_deferred(new_prop)
 				Utility.EntityID["GOAL"]:
-					new_prop = Utility.spawn_entity(Utility.PROPS[Utility.EntityID["GOAL"]], GameManager.target_parent, beatmap[event_index])
+					new_prop = Utility.spawn_entity(Utility.PROPS[Utility.EntityID["GOAL"]], GameManager.target_parent, event_data)
 			
 			event_index += 1
 			
@@ -99,11 +104,13 @@ func _process(delta):
 			
 			if event_index >= beatmap.size(): return
 			
-			if beatmap[event_index]["id"] == Utility.EntityID["TARGET_TAP"] and beatmap[event_index-1]["id"] == Utility.EntityID["TARGET_TAP"]:
+			if event_data["id"] == Utility.EntityID["TARGET_TAP"] and Utility.remove_sections_from_data(beatmap[event_index-1])["id"] == Utility.EntityID["TARGET_TAP"]:
 				spawn_flow_line.call_deferred(event_index)
 
 func get_spawn_time(entity):
 	var spawn_time = -1.0
+	
+	entity = Utility.remove_sections_from_data(entity)
 	
 	match entity["id"]:
 		Utility.EntityID["TARGET_TAP"]:
@@ -120,13 +127,16 @@ const FLOW_LINE = preload("res://MapPlayer/flow_line.tscn")
 
 func spawn_flow_line(event_index):
 	
-	var pos1 = beatmap_data["beatmap"][event_index-1]["global_position"]
-	var pos2 = beatmap_data["beatmap"][event_index]["global_position"]
+	var event_data_1 = Utility.remove_sections_from_data(beatmap_data["beatmap"][event_index-1])
+	var event_data_2 = Utility.remove_sections_from_data(beatmap_data["beatmap"][event_index])
+	
+	var pos1 = event_data_1["global_position"]
+	var pos2 = event_data_2["global_position"]
 	var pos_diff = pos2 - pos1
 	
 	
-	var t1 = beatmap_data["beatmap"][event_index-1]["pop_time"]
-	var t2 = beatmap_data["beatmap"][event_index]["pop_time"]
+	var t1 = event_data_1["pop_time"]
+	var t2 = event_data_2["pop_time"]
 	var start_diff = t1 - playhead
 	var end_diff = t2 - t1
 	
@@ -154,7 +164,8 @@ func precompute_pop_times():
 	sort_beatmap_data()
 	pop_times = [0]
 	for i in beatmap_data["beatmap"].size():
-		pop_times.append(beatmap_data["beatmap"][i]["pop_time"])
+		var value = Utility.get_property_ignoring_sections(beatmap_data["beatmap"][i], "pop_time")
+		pop_times.append(value)
 
 func get_event_index():
 	precompute_pop_times()
@@ -174,11 +185,25 @@ func setup():
 	if not parsed: return
 	#print("SETUP SUCCESSFUL - beatmap_path: %s" % GameManager.beatmap_path)
 	
+	for i in parsed["beatmap"].size():
+		parsed["beatmap"][i] = Utility.convert_vec3s(parsed["beatmap"][i])
+		parsed["beatmap"][i] = Utility.convert_ints(parsed["beatmap"][i])
+	
+	for i in parsed["geometry"].size():
+		parsed["geometry"][i] = Utility.convert_vec3s(parsed["geometry"][i])
+		parsed["geometry"][i] = Utility.convert_ints(parsed["geometry"][i])
+	
+	parsed["environment"] = Utility.convert_ints(parsed["environment"])
+	
+	#beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
+	#beatmap_data["beatmap"] = Utility.convert_ints(parsed["beatmap"])
+	#beatmap_data["geometry"] = Utility.convert_vec3s(parsed["geometry"])
+	#beatmap_data["geometry"] = Utility.convert_ints(parsed["geometry"])
+	#beatmap_data["environment"] = Utility.convert_ints(parsed["environment"])
+	
 	beatmap_data = parsed
-	beatmap_data["beatmap"] = Utility.convert_vec3s(parsed["beatmap"])
-	beatmap_data["beatmap"] = Utility.convert_ints(parsed["beatmap"])
-	beatmap_data["geometry"] = Utility.convert_vec3s(parsed["geometry"])
-	beatmap_data["geometry"] = Utility.convert_ints(parsed["geometry"])
+	
+	Utility.apply_data(%Environment, beatmap_data["environment"])
 	
 	for i in beatmap_data["geometry"].size():
 		var geometry_data = beatmap_data["geometry"][i]

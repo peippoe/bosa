@@ -17,7 +17,7 @@ const ENTITY_PROPERTIES = {
 }
 
 
-func _ready():
-	#print(get_property_list())
-	#print(environment.get_property_list())
-	print(Utility.get_entity_properties(self, self.environment))
+#func _ready():
+	##print(get_property_list())
+	##print(environment.get_property_list())
+	#print(Utility.get_entity_properties(self, self.environment))
