@@ -7,6 +7,7 @@ func _ready():
 		)
 
 func display_properties(entity, resource = null):
+	%PropertiesPanel.show()
 	
 	for i in %PropertiesList.get_children(): i.queue_free()
 	
@@ -14,6 +15,8 @@ func display_properties(entity, resource = null):
 	var properties = Utility.get_entity_properties(entity, resource)
 	
 	for section in properties.keys():
+		if section == "hidden": continue
+		
 		var section_inst = preload("res://MapEditor/Parts/section.tscn").instantiate()
 		%PropertiesList.add_child(section_inst)
 		section_inst.get_child(0).text = section
@@ -46,7 +49,6 @@ func display_properties(entity, resource = null):
 			
 			property_inst.get_child(0).text = property_name
 			
-			
 			if not data_type:
 				for prop in resource.get_property_list():
 					if prop.name == property:
@@ -68,10 +70,11 @@ func display_properties(entity, resource = null):
 								Variant.Type.TYPE_FLOAT:
 									value = float(new_text)
 								Variant.Type.TYPE_VECTOR3:
-									value = Vector3(new_text)
+									var string = "Vector3"+new_text
+									value = str_to_var(string)
 							
 							resource.set(property, value)
-							print(%Environment.environment.tonemap_mode)
+							print("PROP: %s, VALUE: %s" % [property, value])
 					)
 					
 					new_field.text = str(properties[section][property])
@@ -87,6 +90,10 @@ func display_properties(entity, resource = null):
 					
 					new_field.color = properties[section][property]
 					print(new_field.color)
+				
+				Variant.Type.TYPE_OBJECT:
+					property_inst.queue_free()
+					continue
 				
 				_: print("DATA TYPE UNSUPPORTED: %d" % data_type)
 			

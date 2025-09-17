@@ -1,10 +1,12 @@
 extends MeshInstance3D
 
-var id
+var id : int = 0
 
 const ENTITY_PROPERTIES = {
 	"_": [
-		"id",
 		"global_position", "global_rotation", "scale"
+	],
+	"hidden": [
+		"id",
 	]
 }

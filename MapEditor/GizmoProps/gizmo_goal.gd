@@ -59,7 +59,10 @@ func update_markers():
 
 const ENTITY_PROPERTIES = {
 	"_": [
-		"start_time", "pop_time", "marker", "id",
+		"start_time", "pop_time",
 		"global_position", "global_rotation"
-		]
+		],
+	"hidden": [
+		"marker", "id",
+	]
 }

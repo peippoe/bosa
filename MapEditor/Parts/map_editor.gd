@@ -175,7 +175,8 @@ func connect_marker_signals(marker):
 			SignalBus.marker_drag_start.emit(marker)
 			marker_dragged = marker
 			
-			record(marker_dragged.get_meta("gizmo"), "pop_time", marker_dragged.get_meta("gizmo").pop_time)
+			if marker_dragged.has_meta("gizmo"):
+				record(marker_dragged.get_meta("gizmo"), "pop_time", marker_dragged.get_meta("gizmo").pop_time)
 			
 			if marker.name == "EdgeMarker":
 				marker.get_parent().ticks = []
@@ -311,9 +312,11 @@ func set_selected(new_selected):
 	if not selected:
 		gizmo_manipulator.process_mode = Node.PROCESS_MODE_DISABLED
 		%SelectionProperties.hide()
+		%PropertiesPanel.hide()
 	else:
 		gizmo_manipulator.process_mode = Node.PROCESS_MODE_INHERIT
 		%SelectionProperties.show()
+		%EditorUI.display_properties(selected)
 
 func set_selected_control(new_selected_control):
 	selected_control = new_selected_control
