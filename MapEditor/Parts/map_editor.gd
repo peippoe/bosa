@@ -474,6 +474,7 @@ func load_map(path):
 		parsed["beatmap"][i] = Utility.convert_ints(parsed["beatmap"][i])
 	
 	for i in parsed["geometry"].size():
+		parsed["geometry"][i] = Utility.convert_colors(parsed["geometry"][i])
 		parsed["geometry"][i] = Utility.convert_vec3s(parsed["geometry"][i])
 		parsed["geometry"][i] = Utility.convert_ints(parsed["geometry"][i])
 	
@@ -516,23 +517,7 @@ func compile_map():
 	
 	Playback.beatmap_data["geometry"] = []
 	for i in %Geometry.get_children():
-		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i))
-	#for i in %Geometry.get_children():
-		#
-		#var id = 0
-		###########################BOOKMARK
-		#var scene_path = i.scene_file_path
-		#if scene_path.ends_with("block.tscn"):
-			#id = Utility.EntityID.BLOCK
-		#elif scene_path.ends_with("ramp.tscn"):
-			#id = Utility.EntityID.RAMP
-		#
-		#var data = {}
-		#data["id"] = id
-		#data["global_position"] = i.global_position
-		#data["global_rotation"] = i.global_rotation
-		#data["scale"] = i.scale
-		#Playback.beatmap_data["geometry"].append(data)
+		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i, [i, i.material_override]))
 	
 	var env_data = Utility.get_entity_properties(%Environment, %Environment.environment)
 	env_data["Background"] = {

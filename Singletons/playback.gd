@@ -190,6 +190,7 @@ func setup():
 		parsed["beatmap"][i] = Utility.convert_ints(parsed["beatmap"][i])
 	
 	for i in parsed["geometry"].size():
+		parsed["geometry"][i] = Utility.convert_colors(parsed["geometry"][i])
 		parsed["geometry"][i] = Utility.convert_vec3s(parsed["geometry"][i])
 		parsed["geometry"][i] = Utility.convert_ints(parsed["geometry"][i])
 	

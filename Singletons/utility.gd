@@ -116,7 +116,7 @@ func apply_data(entity, data):
 		
 		for property in section_data.keys():
 			if property in entity:
-				print("ENTITY.SET %s = %s" % [str(property), str(section_data[property])])
+				##print("ENTITY.SET %s = %s" % [str(property), str(section_data[property])])
 				entity.set(property, section_data[property])
 		
 		if section_data == data: break # part 2
@@ -166,22 +166,26 @@ func remove_sections_from_data(data):
 	return sectionless_data
 
 
-func get_entity_properties(entity : Node, resource = null):
+func get_entity_properties(entity : Node, resources = null):
 	if not entity: push_error("NULL ENTITY"); return
 	if not "ENTITY_PROPERTIES" in entity: push_error("NO ENTITY_PROPERTIES"); return
-	if not resource: resource = entity
+	if not resources: resources = [entity]
+	if resources is not Array: resources = [resources]
 	
 	var p_dict = {}
 	
 	var entity_properties = entity.ENTITY_PROPERTIES
 	
+	
 	for section in entity_properties.keys():
-		
 		p_dict[section] = {}
-		
-		for property in entity_properties[section]:
-			if property in resource:
-				p_dict[section][property] = resource[property]
+	
+	for res in resources:
+		for section in entity_properties.keys():
+			
+			for property in entity_properties[section]:
+				if property in res:
+					p_dict[section][property] = res[property]
 	
 	return p_dict
 
@@ -230,7 +234,11 @@ func editor_spawn_entity(data):
 	return new_editor_entity
 
 func spawn_geometry(data):
-	spawn_entity(load(PROPS[data["id"]]), get_node_or_null_in_scene("%Geometry"), data)
+	var geometry = spawn_entity(load(PROPS[data["id"]]), get_node_or_null_in_scene("%Geometry"), data)
+	var mat = StandardMaterial3D.new()
+	if "albedo_color" in data:
+		mat.albedo_color = data["albedo_color"]
+	geometry.material_override = mat
 
 func spawn_target(target_data):
 	var new_target = spawn_entity(Utility.PROPS[target_data["id"]], GameManager.target_parent, target_data)
@@ -437,9 +445,6 @@ func spawn_bpm_guide(data = null):
 
 func convert_vec3s(data):
 	
-	# fix for sections
-	# remove_sections_from_data_array
-	
 	for section in data.keys():
 		for property in data[section].keys():
 			var value = data[section][property]
@@ -454,13 +459,25 @@ func convert_ints(data):
 	
 	# group data
 	
-	
 	for section in data.keys():
 		if data[section] is not Dictionary: continue
 		
 		for property in data[section].keys():
 			
 			if property == "id": data[section][property] = int(data[section][property]); print("ID CONVERTED TO %d" % data[section][property])
+	
+	return data
+
+func convert_colors(data):
+	for section in data.keys():
+		if data[section] is not Dictionary: continue
+		
+		for property in data[section].keys():
+			
+			if property == "albedo_color":
+				var value = str_to_var("Color"+data[section][property])
+				data[section][property] = value
+				print("COLOR CONVERTED TO %s" % data[section][property])
 	
 	return data
 

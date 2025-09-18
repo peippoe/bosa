@@ -357,8 +357,8 @@ shader_parameter/enable_horizontal_blur = true
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_00tjw"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x3vf3"]
-color_ramp = SubResource("Gradient_od3ui")
 noise = SubResource("FastNoiseLite_00tjw")
+color_ramp = SubResource("Gradient_od3ui")
 
 [sub_resource type="Gradient" id="Gradient_fhl08"]
 offsets = PackedFloat32Array(0, 0.343284)
