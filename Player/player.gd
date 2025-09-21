@@ -75,6 +75,7 @@ func vault():
 		if not %LedgeRaycast.is_colliding(): return
 		
 		vault_point = %LedgeRaycast.get_collision_point() + Vector3.UP * 1.0
+		vault_start_point = global_position
 		
 		var floor_y = global_position.y - $CollisionShape3D.shape.height/2.0 + 0.1
 		var vault_y = vault_point.y - 1.0
@@ -164,8 +165,11 @@ var prev_y := 0.0
 var coiling := false
 
 var vault_point = null
+var vault_start_point : Vector3 = Vector3.ZERO
 var vault_stored_velocity
 var vault_speed
+var vault_end_dist : float = 0.1
+@export var vault_y_curve : Curve
 
 var wallrunning := 0
 var can_wallrun_left := true
@@ -178,17 +182,28 @@ func _physics_process(delta):
 	
 	if vault_point:
 		
+		var max_dist = (vault_start_point - vault_point).length() - vault_end_dist
+		var curr_dist = (global_position - vault_point).length() - vault_end_dist
+		var alpha = curr_dist/max_dist
+		print(alpha)
+		
+		
+		var start_y = vault_start_point.y + 0.75
+		var end_y = vault_point.y + 0.75
+		cam.global_position.y = lerpf(start_y, end_y, vault_y_curve.sample_baked(1.0-alpha))
+		
 		#global_position = lerp(global_position, vault_point, delta*vault_speed)
 		$CollisionShape3D.disabled = true
 		
-		global_position = global_position.move_toward(vault_point, delta*vault_speed*1.5)
+		global_position = global_position.move_toward(vault_point, delta*vault_speed*1)
 		
-		if global_position.distance_to(vault_point) < 0.2:
+		if global_position.distance_to(vault_point) < vault_end_dist:
 			global_position = vault_point
 			var new_vel = -cam.global_basis.z * vault_stored_velocity.length() * 1.1
 			velocity = new_vel
 			vault_point = null
 			on_floor = true
+			cam.position = Vector3.ZERO
 			$CollisionShape3D.disabled = false
 		
 		return

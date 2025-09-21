@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=34 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
@@ -8,6 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/Effect/slideloop.wav" id="5_k53q1"]
 [ext_resource type="Shader" uid="uid://dgjh5fvbqqctp" path="res://Assets/Shader/crt.gdshader" id="6_fhl08"]
 [ext_resource type="AudioStream" uid="uid://duobajbsufun7" path="res://Assets/Audio/Effect/roll.wav" id="8_od3ui"]
+
+[sub_resource type="Curve" id="Curve_od3ui"]
+_data = [Vector2(0, 0), 0.0, 1.1858257, 0, 0, Vector2(0.3673469, 0.73033714), 0.6882022, 0.6882022, 0, 0, Vector2(0.72448975, 0.8988764), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.15730286, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="Curve" id="Curve_k53q1"]
 _data = [Vector2(0, 0), 0.0, 0.167701, 0, 0, Vector2(0.295, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.32193, 0.0, 0, 0]
@@ -440,6 +444,7 @@ shader_parameter/scanline_intensity = 0.1
 floor_max_angle = 1.13446
 floor_snap_length = 0.7
 script = ExtResource("1_v0iea")
+vault_y_curve = SubResource("Curve_od3ui")
 jump_extend_curve = SubResource("Curve_k53q1")
 fast_fall_curve = SubResource("Curve_vtle1")
 
@@ -447,6 +452,9 @@ fast_fall_curve = SubResource("Curve_vtle1")
 unique_name_in_owner = true
 shape = SubResource("SphereShape3D_k53q1")
 target_position = Vector3(0, -0.5, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
