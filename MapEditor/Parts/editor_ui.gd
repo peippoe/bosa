@@ -5,6 +5,7 @@ func _ready():
 	%EnvironmentButton.pressed.connect(func a():
 		display_properties(%Environment, %Environment.environment)
 		)
+	%PropertiesPanel.hide()
 
 func display_properties(entity, resource = null):
 	%PropertiesPanel.show()
@@ -47,6 +48,8 @@ func display_properties(entity, resource = null):
 			properties["Material"] = {"albedo_color": resource.albedo_color}
 		
 		display_properties_subfunc(properties, section, section_inst, resource)
+		
+		
 
 
 func display_properties_subfunc(properties, section, section_inst, resource):

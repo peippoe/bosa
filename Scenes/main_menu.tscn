@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dbv72bxs15p17"]
+[gd_scene load_steps=41 format=3 uid="uid://dbv72bxs15p17"]
 
 [ext_resource type="Script" uid="uid://c18t20fa3csw8" path="res://Scenes/main_menu.gd" id="1_48xlc"]
 [ext_resource type="Shader" uid="uid://b7kngkyjvq1pu" path="res://Assets/Shader/main_menu.gdshader" id="2_1ehe0"]
@@ -133,10 +133,10 @@ colors = PackedColorArray(0, 0, 1, 0, 0, 1, 0.839216, 0.52549)
 noise_type = 5
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7vrkn"]
+noise = SubResource("FastNoiseLite_06t4h")
+color_ramp = SubResource("Gradient_06t4h")
 seamless = true
 seamless_blend_skirt = 0.295
-color_ramp = SubResource("Gradient_06t4h")
-noise = SubResource("FastNoiseLite_06t4h")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fu7sn"]
 shader = ExtResource("2_1ehe0")
@@ -400,6 +400,14 @@ font_size = 35
 material = SubResource("StandardMaterial3D_ce3w2")
 text = "pLAY"
 font_size = 50
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhxw7"]
+albedo_color = Color(0.53133345, 1, 0.24000001, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_16hvj"]
+material = SubResource("StandardMaterial3D_yhxw7")
+text = "(movement tutorial for now)"
+font_size = 20
 
 [sub_resource type="TextMesh" id="TextMesh_cp0ys"]
 material = SubResource("StandardMaterial3D_ce3w2")
@@ -675,7 +683,7 @@ anchor_bottom = 1.0
 offset_top = -23.0
 offset_right = 45.0
 grow_vertical = 0
-text = "v0.1.0"
+text = "v0.2.0"
 fit_content = true
 
 [node name="Mainmenuu" type="AudioStreamPlayer3D" parent="."]
@@ -698,7 +706,7 @@ libraries = {
 speed_scale = 0.75
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.803342, -0.378502, 0.459759, 0.385585, 0.91895, 0.0827993, -0.453835, 0.11076, 0.884175, -2.53122, 0.418046, -10.3018)
+transform = Transform3D(0.8033418, -0.3785019, 0.4597589, 0.38558495, 0.91894966, 0.08279925, -0.45383495, 0.110760026, 0.8841753, -2.53122, 0.418046, -10.3018)
 shaded = true
 texture = ExtResource("4_ce3w2")
 
@@ -720,6 +728,11 @@ shape = SubResource("BoxShape3D_n45e2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Play"]
 mesh = SubResource("TextMesh_n45e2")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Play/MeshInstance3D"]
+transform = Transform3D(0.84544975, -0.09317543, 0.5258678, -0.016110778, 0.97977066, 0.19950025, -0.5338157, -0.17713904, 0.8268414, 0.8392215, -0.0013445616, 1.1081893)
+mesh = SubResource("TextMesh_16hvj")
 skeleton = NodePath("../..")
 
 [node name="MapEditor" type="Area3D" parent="."]

@@ -494,6 +494,7 @@ hit_back_faces = false
 debug_shape_custom_color = Color(0, 0, 1, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Head/LedgeRaycast"]
+visible = false
 mesh = SubResource("SphereMesh_vtle1")
 surface_material_override/0 = SubResource("StandardMaterial3D_vtle1")
 

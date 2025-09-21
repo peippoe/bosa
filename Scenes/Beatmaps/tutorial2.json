@@ -1,0 +1,1504 @@
+{
+	"beatmap": [
+		{
+			"_": {
+				"global_position": "(-2.0, 6.0, -20.08431)",
+				"pop_time": 4.89999694824219,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)",
+				"start_time": 0.0
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "StartEndMarkers:<Control#36890816285832>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(22.0, 12.0, -41.0)",
+				"pop_time": 9.99999389648437,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)",
+				"start_time": 6.09999389648438
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@3019:<Control#36891655147213>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(40.59869, 37.5, -51.71709)",
+				"pop_time": 20.6999938964844,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)",
+				"start_time": 11.4999938964844
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@3021:<Control#36892494008100>"
+			}
+		}
+	],
+	"config": {
+		"creator": null,
+		"duration": 100.0,
+		"name": null,
+		"song": "res://Assets/Audio/Music/tutorial.wav",
+		"version": 1.0
+	},
+	"editor": [],
+	"environment": {
+		"directional_light": [],
+		"environment": {
+			"Sky": {
+				"ground_bottom_color": "(0.3462, 0.1059, 0.651, 1.0)",
+				"ground_horizon_color": "(1.0, 0.9137, 0.8039, 1.0)",
+				"sky_horizon_color": "(1.0, 0.9134, 0.8047, 1.0)",
+				"sky_top_color": "(0.4297, 0.7639, 1.0, 1.0)"
+			},
+			"Tonemap": {
+				"tonemap_exposure": 1.0,
+				"tonemap_mode": 1,
+				"tonemap_white": 0.800000011920929
+			}
+		}
+	},
+	"events": [],
+	"geometry": [
+		{
+			"Material": {
+				"albedo_color": "(0.0183, 0.2789, 0.78, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, -0.501, 0.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(180.0, 1.0, 180.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, 0.5, -8.5)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(19.0, 1.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(8.5, 0.5, 10.5)",
+				"rotation_degrees": "(0.0, 90.0, 0.0)",
+				"scale": "(2.0, 1.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-8.5, 0.5, 0.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 19.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-6.5, 0.5, 0.0)",
+				"rotation_degrees": "(0.0, -180.0, 0.0)",
+				"scale": "(2.0, 1.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4858, 0.2194, 0.1651, 1.0)"
+			},
+			"_": {
+				"global_position": "(-8.0, 1.0, -8.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 0.5, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-8.0, 3.0, -8.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 3.0, 1.0)",
+				"texture_id": 1
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5017, 0.3052, 0.196, 1.0)"
+			},
+			"_": {
+				"global_position": "(-8.0, 1.5, -8.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(0.3, 0.5, 0.3)",
+				"texture_id": 0
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(41.07483, 3.06503, -42.74603)",
+				"rotation_degrees": "(0.0, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-3.0, 2.0, -13.0)",
+				"rotation_degrees": "(20.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(3.0, 2.0, -13.0)",
+				"rotation_degrees": "(20.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0196, 0.2784, 0.7804, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, 1.4, -12.0)",
+				"rotation_degrees": "(20.0, 0.0, 0.0)",
+				"scale": "(5.0, 0.1, 7.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0196, 0.2784, 0.7804, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, 2.144785, -18.77067)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 1.0, 7.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-4.0, 4.0, -17.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 6.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, 4.0, -19.16)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 4.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(15.0, 13.0, -48.0)",
+				"rotation_degrees": "(0.0, -9.999996, 0.0)",
+				"scale": "(8.0, 5.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-3.5, 3.5, -19.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 5.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(17.0, 6.0, -48.59396)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 13.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-3.0, 5.0, -25.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 1.0, 5.992756)",
+				"texture_id": 1
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.2, 3.0, -19.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(7.0, 2.0, 5.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Text": {
+				"text": "SHIFT"
+			},
+			"_": {
+				"global_position": "(27.4, 13.44835, -42.59098)",
+				"rotation_degrees": "(0.0, -90.0, 0.0)",
+				"scale": "(1.8, 1.757383, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Text": {
+				"text": "WASD to move"
+			},
+			"_": {
+				"global_position": "(-1.689719, 2.0855, -9.256907)",
+				"rotation_degrees": "(0.0, 15.0, 0.0)",
+				"scale": "(1.634959, 1.85345, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Text": {
+				"text": "green light = good"
+			},
+			"_": {
+				"global_position": "(0.244619, 7.006302, -19.99049)",
+				"rotation_degrees": "(0.0, -20.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-2.0, 4.0, -24.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(7.0, 2.9, 9.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-4.0, 6.0, -20.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 12.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-2.0, 12.5, -20.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(8.0, 0.5, 5.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-4.0, 12.0, -20.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.3, 0.5, 1.3)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Text": {
+				"text": "SPACE"
+			},
+			"_": {
+				"global_position": "(-0.403962, 6.898805, -30.0)",
+				"rotation_degrees": "(0.0, -25.0, 0.0)",
+				"scale": "(2.0, 2.0, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-4.0, 6.0, -35.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 1.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-5.0, 6.0, -34.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 12.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-5.0, 12.0, -34.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.3, 0.5, 1.3)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-4.0, 12.5, -33.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(8.0, 0.5, 7.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-2.0, 7.0, -47.5)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 1.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(6.0, 2.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 8.0, 5.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-1.0, 6.0, -51.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 12.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-1.0, 12.0, -51.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.3, 0.5, 1.3)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-2.0, 12.5, -49.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 0.5, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(1.0, 4.0, -50.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 8.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(7.0, 8.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 5.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(5.0, 6.0, -48.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 19.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(5.0, 15.5, -48.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.3, 0.5, 1.3)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(5.0, 16.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 0.5, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(60.62594, 11.0, -58.6978)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 38.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Text": {
+				"text": "HOLD SPACE"
+			},
+			"_": {
+				"global_position": "(-4.492157, 8.535092, -41.0)",
+				"rotation_degrees": "(0.0, 20.0, 0.0)",
+				"scale": "(1.8, 1.6, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Text": {
+				"text": "+ look above edge"
+			},
+			"_": {
+				"global_position": "(4.60926, 8.0, -46.0)",
+				"rotation_degrees": "(0.0, -90.0, 0.0)",
+				"scale": "(1.8, 1.6, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Text": {
+				"text": "R when close"
+			},
+			"_": {
+				"global_position": "(4.60926, 8.535092, -46.0)",
+				"rotation_degrees": "(0.0, -90.0, 0.0)",
+				"scale": "(1.8, 1.6, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(28.0032, 19.31045, -39.97745)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 9.316507, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(42.0, 15.0, -59.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 55.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(28.0, 13.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 4.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(25.0, 10.0, -43.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 3.0, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(23.0, 6.0, -38.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 12.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(22.0, 6.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 21.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(35.0, 22.0, -47.0)",
+				"rotation_degrees": "(-15.0, 0.0, 0.0)",
+				"scale": "(20.0, 0.5, 22.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(22.0, 16.5, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.3, 0.5, 1.3)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(23.0, 17.69771, -40.09511)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 0.358704, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(24.0, 18.0, -40.0)",
+				"rotation_degrees": "(4.999998, 0.0, 0.0)",
+				"scale": "(5.0, 0.5, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(23.0, 17.79924, -41.83202)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(22.0, 17.0, -44.0)",
+				"rotation_degrees": "(-4.999998, 0.0, 0.0)",
+				"scale": "(5.0, 0.5, 11.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(60.63229, 30.0, -58.69065)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 0.5, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(30.0, 12.0, -38.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(12.0, 7.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(28.0, 14.0, -42.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 2.0, 7.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Text": {
+				"text": "HOLD SPACE to wallrun"
+			},
+			"_": {
+				"global_position": "(12.0, 12.0, -44.0)",
+				"rotation_degrees": "(0.0, -120.0, 0.0)",
+				"scale": "(1.8, 1.757383, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, 1.0, -13.0)",
+				"rotation_degrees": "(30.0, 0.0, 0.0)",
+				"scale": "(3.0, 4.0, 13.07)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(31.41356, 7.460661, -42.74603)",
+				"rotation_degrees": "(50.0, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(45.17233, 5.0, -42.74603)",
+				"rotation_degrees": "(-60.0, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(40.39317, 3.030014, -42.74603)",
+				"rotation_degrees": "(9.999996, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 9.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(41.73627, 3.17738, -42.74603)",
+				"rotation_degrees": "(-9.999995, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(67.0, 17.0, -42.74603)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 10.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(36.60991, 3.742493, -42.74603)",
+				"rotation_degrees": "(30.0, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(44.60307, 4.523171, -42.74603)",
+				"rotation_degrees": "(-45.0, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(46.85445, 4.0, -42.74603)",
+				"rotation_degrees": "(0.0, -89.99995, 180.0)",
+				"scale": "(2.0, 5.507415, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(44.33648, 4.179368, -42.74603)",
+				"rotation_degrees": "(-30.0, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(36.0, 11.0, -40.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 42.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(59.97612, 22.0, -57.80098)",
+				"rotation_degrees": "(0.0, 60.0, 0.0)",
+				"scale": "(1.0, 4.0, 7.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.7183, 0.7853, 0.8715, 1.0)"
+			},
+			"_": {
+				"global_position": "(62.82058, 14.52345, -44.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(8.0, 1.0, 4.0)",
+				"texture_id": 2
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(67.0, 11.0, -40.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 42.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(66.0, 11.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 32.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(43.0, 33.0, -60.0)",
+				"rotation_degrees": "(-4.999999, 0.0, 0.0)",
+				"scale": "(13.0, 1.0, 9.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(66.0, 11.0, -53.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 22.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(51.5411, 19.0, -56.47371)",
+				"rotation_degrees": "(0.0, 9.999996, 0.0)",
+				"scale": "(3.0, 1.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(40.97996, 25.2732, -45.38653)",
+				"rotation_degrees": "(0.0, 45.0, 0.0)",
+				"scale": "(19.10883, 0.511285, 1.921581)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(49.0, 29.0, -48.35962)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(7.0, 0.638456, 8.678978)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(64.0, 18.0, -50.0)",
+				"rotation_degrees": "(0.0, 9.999996, 0.0)",
+				"scale": "(5.0, 1.0, 7.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(33.31805, 5.901405, -42.74603)",
+				"rotation_degrees": "(39.99998, 90.0, 0.0)",
+				"scale": "(3.0, 3.0, 7.999999)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(35.0, -1.087396, -42.74603)",
+				"rotation_degrees": "(49.99998, 90.0, 0.0)",
+				"scale": "(2.0, 4.0, 29.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(41.0, 1.284369, -42.74603)",
+				"rotation_degrees": "(0.0, -89.99995, 180.0)",
+				"scale": "(2.0, 4.0, 15.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(64.0, 25.0, -50.0)",
+				"rotation_degrees": "(4.999999, 0.0, -4.999999)",
+				"scale": "(7.0, 1.0, 23.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(45.0, 15.0, -50.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 65.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(58.0, 25.0, -58.0)",
+				"rotation_degrees": "(-4.999998, 0.0, 0.0)",
+				"scale": "(14.0, 1.0, 9.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(25.0, 20.0, -38.4)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.3, 0.5, 1.3)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(25.0, 17.0, -38.4)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 6.0, 1.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(49.73885, 30.418, -50.82795)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 3.0, 2.111836)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(52.43048, 32.08298, -50.02224)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(0.472958, 9.878708, 5.806847)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(46.0, 37.0, -50.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(15.0, 1.0, 8.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(46.0, 43.0, -53.0)",
+				"rotation_degrees": "(0.0, 0.0, 4.999998)",
+				"scale": "(18.0, 1.0, 26.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(8.5, 0.5, 0.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 19.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(6.5, 0.5, 0.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(0.0, 0.5, -6.5)",
+				"rotation_degrees": "(0.0, 90.0, 0.0)",
+				"scale": "(2.0, 1.0, 3.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(-8.5, 0.5, 10.5)",
+				"rotation_degrees": "(0.0, 90.0, 0.0)",
+				"scale": "(2.0, 1.0, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(62.0, 14.0, -42.74603)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 2.0, 6.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(36.0, 32.0, -40.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 0.5, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(67.0, 32.0, -40.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 0.5, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)"
+			},
+			"_": {
+				"global_position": "(66.0, 27.0, -46.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 0.5, 2.0)",
+				"texture_id": 3
+			},
+			"hidden": {
+				"id": 20
+			}
+		}
+	]
+}

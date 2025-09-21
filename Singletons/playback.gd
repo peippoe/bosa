@@ -204,15 +204,19 @@ func setup():
 	
 	beatmap_data = parsed
 	
-	Utility.apply_data(%Environment, beatmap_data["environment"])
+	var env_data = beatmap_data["environment"]["environment"]
+	var env = Utility.get_node_or_null_in_scene("%Environment")
+	Utility.apply_data(env.environment, env_data)
+	env.environment.sky.sky_material.set("sky_top_color", str_to_var("Color"+env_data["Sky"]["sky_top_color"]))
+	env.environment.sky.sky_material.set("sky_horizon_color", str_to_var("Color"+env_data["Sky"]["sky_horizon_color"]))
+	env.environment.sky.sky_material.set("ground_bottom_color", str_to_var("Color"+env_data["Sky"]["ground_bottom_color"]))
+	env.environment.sky.sky_material.set("ground_horizon_color", str_to_var("Color"+env_data["Sky"]["ground_horizon_color"]))
 	
 	for i in beatmap_data["geometry"].size():
 		var geometry_data = beatmap_data["geometry"][i]
 		Utility.editor_spawn_entity(geometry_data)
 	
 	if beatmap_data["config"]["song"]: set_song(beatmap_data["config"]["song"])
-	
-	#await get_tree().process_frame
 	
 	GameManager.combo = 0
 	GameManager.points = 0

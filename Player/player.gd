@@ -152,7 +152,7 @@ const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
 const SLIDE_BOOST := 1.1
 const SLIDE_LIMIT := 1.0
-const SLIDE_DOWNHILL_BOOST := 1.7
+const SLIDE_DOWNHILL_BOOST := 1.9
 
 var on_floor := false
 var was_on_floor := false
@@ -254,7 +254,7 @@ func jump():
 	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
 	
 	if wallrunning:
-		velocity.y -= 2
+		velocity.y -= 1.2
 		hvel = velocity - Vector3.UP*velocity.y
 		var dot = hvel.normalized().dot(move_dir)
 		print(dot)

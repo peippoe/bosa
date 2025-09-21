@@ -243,6 +243,7 @@ size_flags_horizontal = 3
 [node name="PropertiesList" type="VBoxContainer" parent="EditorUI/VBoxContainer/HBoxContainer/PropertiesPanel"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 40
 
 [node name="Section" parent="EditorUI/VBoxContainer/HBoxContainer/PropertiesPanel/PropertiesList" instance=ExtResource("7_2wpdj")]
 layout_mode = 2
@@ -323,15 +324,15 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "sphere"
 
-[node name="EnvironmentButton" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "environment"
-
 [node name="SpawnLabel" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "label"
+
+[node name="EnvironmentButton" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "environment"
 
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
