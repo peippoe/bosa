@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b61cana4h6drw"]
+[gd_scene load_steps=5 format=3 uid="uid://b61cana4h6drw"]
 
 [ext_resource type="Script" uid="uid://bduavc3ybkyeg" path="res://MapEditor/Geometry/geometry_base.gd" id="1_pplrm"]
+[ext_resource type="Material" uid="uid://chpulun3qryb6" path="res://Assets/Images/Textures/geometry_base_material.tres" id="1_yi06q"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_pplrm"]
 height = 1.0
@@ -10,6 +11,7 @@ radial_segments = 32
 height = 1.0
 
 [node name="Cylinder" type="MeshInstance3D"]
+material_override = ExtResource("1_yi06q")
 mesh = SubResource("CylinderMesh_pplrm")
 script = ExtResource("1_pplrm")
 

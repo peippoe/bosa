@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Node3D
 
 var start_time := 0.0
 var pop_time := 1.0
@@ -60,7 +60,7 @@ func update_markers():
 const ENTITY_PROPERTIES = {
 	"_": [
 		"start_time", "pop_time",
-		"global_position", "global_rotation"
+		"global_position", "rotation_degrees", "scale"
 		],
 	"hidden": [
 		"marker", "id",

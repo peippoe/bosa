@@ -455,6 +455,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 [node name="Cam" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
 fov = 96.0
+near = 0.04
 
 [node name="GoodShader" type="MeshInstance3D" parent="Head/Cam"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -1)

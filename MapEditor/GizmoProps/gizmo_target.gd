@@ -7,7 +7,7 @@ var marker : Node = null
 const ENTITY_PROPERTIES = {
 	"_": [
 		"pop_time",
-		"global_position", "global_rotation", "scale"
+		"global_position", "rotation_degrees", "scale"
 	],
 	"hidden": [
 		"id", "marker",

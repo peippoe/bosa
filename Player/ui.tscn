@@ -140,7 +140,7 @@ offset_right = 1.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 0, 1)
+color = Color(1, 0, 0, 1)
 
 [node name="Crosshair" type="ColorRect" parent="Crosshair"]
 layout_mode = 1
@@ -155,7 +155,7 @@ offset_right = 5.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 0, 1)
+color = Color(1, 0, 0, 1)
 
 [node name="TempTutorialText" type="Control" parent="."]
 unique_name_in_owner = true
@@ -294,7 +294,6 @@ grow_vertical = 0
 
 [node name="Debug" type="Control" parent="DynamicUI"]
 unique_name_in_owner = true
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

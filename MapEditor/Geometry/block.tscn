@@ -1,15 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://cet4a1o7foe0w"]
 
 [ext_resource type="Script" uid="uid://bduavc3ybkyeg" path="res://MapEditor/Geometry/geometry_base.gd" id="1_8lh0s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8lh0s"]
+[ext_resource type="Material" uid="uid://chpulun3qryb6" path="res://Assets/Images/Textures/geometry_base_material.tres" id="1_vw8k7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ag80p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8lh0s"]
 
 [node name="Block" type="MeshInstance3D"]
-material_override = SubResource("StandardMaterial3D_8lh0s")
+material_override = ExtResource("1_vw8k7")
 mesh = SubResource("BoxMesh_ag80p")
 script = ExtResource("1_8lh0s")
 

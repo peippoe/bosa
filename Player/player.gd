@@ -288,7 +288,7 @@ func wallrun():
 	
 	if wallrunning == 1:
 		%RightWallRaycast.force_raycast_update()
-		if not %RightWallRaycast.is_colliding(): stop_wallrunning()
+		if not %RightWallRaycast.is_colliding(): stop_wallrunning() # add wallrun buffer
 	elif wallrunning == -1:
 		%LeftWallRaycast.force_raycast_update()
 		if not %LeftWallRaycast.is_colliding(): stop_wallrunning()

@@ -54,9 +54,9 @@ noise_type = 3
 frequency = 0.0017
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wjw6d"]
-seamless = true
-color_ramp = SubResource("Gradient_ov5y3")
 noise = SubResource("FastNoiseLite_lf0yh")
+color_ramp = SubResource("Gradient_ov5y3")
+seamless = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ov5y3"]
 transparency = 1
@@ -328,6 +328,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "environment"
 
+[node name="SpawnLabel" type="Button" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "label"
+
 [node name="TimelinePanel" type="PanelContainer" parent="EditorUI/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -430,7 +435,7 @@ script = ExtResource("5_lf0yh")
 
 [node name="SubViewport" type="SubViewport" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(1347, 76)
 render_target_update_mode = 4
 
 [node name="Timeline" type="Control" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer/TimelineSubViewportContainer/SubViewport"]
@@ -526,7 +531,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.02
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EditorUI"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 15.0
 offset_top = 8.0
 offset_right = 1167.0

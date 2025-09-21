@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt1lurvg7srow"]
+
+[ext_resource type="Script" uid="uid://d3e815d35wevj" path="res://MapEditor/Geometry/label.gd" id="1_s5xo2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s5xo2"]
+
+[node name="Label3D" type="Label3D"]
+text = "placeholder text"
+script = ExtResource("1_s5xo2")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_s5xo2")

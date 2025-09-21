@@ -3,19 +3,26 @@
 [ext_resource type="Script" uid="uid://ronb7we3ewxm" path="res://MapEditor/Environment/environment.gd" id="1_7vjaj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7vjaj"]
+ground_horizon_color = Color(0.21459475, 0.22009587, 0.22834697, 1)
+ground_curve = 0.056568734
 
 [sub_resource type="Sky" id="Sky_6s7wx"]
 sky_material = SubResource("ProceduralSkyMaterial_7vjaj")
 
 [sub_resource type="Environment" id="Environment_7vjaj"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.804251, 0.847591, 0.990506, 1)
 sky = SubResource("Sky_6s7wx")
+ssao_enabled = true
+glow_enabled = true
+glow_intensity = 0.26
+glow_blend_mode = 1
+glow_hdr_threshold = 3.47
 
 [node name="Environment" type="WorldEnvironment"]
 environment = SubResource("Environment_7vjaj")
 script = ExtResource("1_7vjaj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+transform = Transform3D(-0.96362984, 0.23143514, -0.13361922, 0, 0.49999982, 0.86602587, 0.2672382, 0.83452827, -0.48181543, 0, 0, 0)
 shadow_enabled = true

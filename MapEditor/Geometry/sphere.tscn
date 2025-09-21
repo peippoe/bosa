@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://fbm25mjud2ps"]
+[gd_scene load_steps=5 format=3 uid="uid://fbm25mjud2ps"]
 
+[ext_resource type="Material" uid="uid://chpulun3qryb6" path="res://Assets/Images/Textures/geometry_base_material.tres" id="1_auae2"]
 [ext_resource type="Script" uid="uid://bduavc3ybkyeg" path="res://MapEditor/Geometry/geometry_base.gd" id="1_bc14i"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_bc14i"]
@@ -7,6 +8,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_auae2"]
 
 [node name="Sphere" type="MeshInstance3D"]
+material_override = ExtResource("1_auae2")
 mesh = SubResource("SphereMesh_bc14i")
 script = ExtResource("1_bc14i")
 

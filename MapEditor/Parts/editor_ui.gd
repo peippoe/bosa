@@ -14,7 +14,8 @@ func display_properties(entity, resource = null):
 	
 	if not resource: resource = entity
 	
-	
+	#if resource is Environment:
+		#resource = resource.merge(resource.sky)
 	var properties = Utility.get_entity_properties(entity, resource)
 	
 	#print("\n\n\n")
@@ -30,9 +31,13 @@ func display_properties(entity, resource = null):
 		%PropertiesList.add_child(section_inst)
 		section_inst.get_child(0).text = section
 		
-		if section == "Background":
+		
+		if section == "Sky":
 			properties[section] = {
-				"background_color": resource.background_color
+				"sky_top_color": resource.sky.sky_material.sky_top_color,
+				"sky_horizon_color": resource.sky.sky_material.sky_horizon_color,
+				"ground_bottom_color": resource.sky.sky_material.ground_bottom_color,
+				"ground_horizon_color": resource.sky.sky_material.ground_horizon_color
 			}
 		
 		
@@ -49,7 +54,7 @@ func display_properties_subfunc(properties, section, section_inst, resource):
 	for property in properties[section].keys():
 		
 		var data_type
-		if property == "background_color": data_type = Variant.Type.TYPE_COLOR
+		if property == "sky_top_color" or property == "sky_horizon_color" or property == "ground_bottom_color" or property == "ground_horizon_color": data_type = Variant.Type.TYPE_COLOR
 		
 		
 		
@@ -77,7 +82,7 @@ func display_properties_subfunc(properties, section, section_inst, resource):
 		
 		var new_field
 		match data_type:
-			Variant.Type.TYPE_INT, Variant.Type.TYPE_FLOAT, Variant.Type.TYPE_VECTOR3:
+			Variant.Type.TYPE_INT, Variant.Type.TYPE_FLOAT, Variant.Type.TYPE_VECTOR3, Variant.Type.TYPE_STRING:
 				new_field = LineEdit.new()
 				
 				new_field.text_submitted.connect(
@@ -92,9 +97,12 @@ func display_properties_subfunc(properties, section, section_inst, resource):
 							Variant.Type.TYPE_VECTOR3:
 								var string = "Vector3"+new_text
 								value = str_to_var(string)
+							Variant.Type.TYPE_STRING:
+								value = new_text
 						
 						resource.set(property, value)
 						print("PROP: %s, VALUE: %s" % [property, value])
+						new_field.release_focus()
 				)
 				
 				new_field.text = str(properties[section][property])
@@ -105,17 +113,19 @@ func display_properties_subfunc(properties, section, section_inst, resource):
 				
 				new_field.color_changed.connect(
 					func color_changed(color):
-						resource.set(property, color)
+						if property == "sky_top_color" or property == "sky_horizon_color" or property == "ground_bottom_color" or property == "ground_horizon_color":
+							resource.sky.sky_material.set(property, color)
+						else:
+							resource.set(property, color)
 				)
 				
 				new_field.color = properties[section][property]
-				print(new_field.color)
 			
 			Variant.Type.TYPE_OBJECT:
 				property_inst.queue_free()
 				continue
 			
-			_: print("DATA TYPE UNSUPPORTED: %d" % data_type)
+			_: push_error("DATA TYPE UNSUPPORTED: %d" % data_type)
 		
 		property_inst.add_child(new_field)
 		new_field.size_flags_horizontal = Control.SIZE_EXPAND_FILL

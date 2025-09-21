@@ -119,6 +119,10 @@ func _ready():
 		func spawn(): Utility.editor_spawn_entity(
 			{"id": Utility.EntityID["SPHERE"]}
 			))
+	%SpawnLabel.pressed.connect(
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["LABEL"]}
+			))
 	
 	get_node("%BPMCalculator/%Confirm").pressed.connect(
 		
@@ -351,7 +355,7 @@ func _process(delta):
 
 func fade_gizmos():
 	for i in gizmo_beatmap.get_children().size():
-		var target_gizmo : MeshInstance3D = gizmo_beatmap.get_child(i)
+		var target_gizmo = gizmo_beatmap.get_child(i)
 		
 		var fadein = Settings.fadein_time
 		if "start_time" in target_gizmo:
@@ -363,7 +367,11 @@ func fade_gizmos():
 		var alpha = 0
 		if playhead_relative > 0 and playhead_relative < fadein:
 			alpha = playhead_relative / fadein
-		target_gizmo.get_active_material(0).albedo_color.a = alpha
+		
+		if target_gizmo is not MeshInstance3D:
+			target_gizmo.get_child(1).get_active_material(0).albedo_color.a = alpha
+		else:
+			target_gizmo.get_active_material(0).albedo_color.a = alpha
 		
 		var coll : CollisionShape3D = target_gizmo.get_node("GizmoHitbox").get_child(0)
 		if alpha == 0:
@@ -497,8 +505,11 @@ func load_map(path):
 		Utility.editor_spawn_entity(geometry_data)
 	
 	var env_data = Playback.beatmap_data["environment"]["environment"]
-	env_data["Background"]["background_color"] = str_to_var("Color"+env_data["Background"]["background_color"])
 	Utility.apply_data(%Environment.environment, env_data)
+	%Environment.environment.sky.sky_material.set("sky_top_color", str_to_var("Color"+env_data["Sky"]["sky_top_color"]))
+	%Environment.environment.sky.sky_material.set("sky_horizon_color", str_to_var("Color"+env_data["Sky"]["sky_horizon_color"]))
+	%Environment.environment.sky.sky_material.set("ground_bottom_color", str_to_var("Color"+env_data["Sky"]["ground_bottom_color"]))
+	%Environment.environment.sky.sky_material.set("ground_horizon_color", str_to_var("Color"+env_data["Sky"]["ground_horizon_color"]))
 	
 	for i in Playback.beatmap_data["editor"].size():
 		var data = Playback.beatmap_data["editor"][i]
@@ -520,8 +531,11 @@ func compile_map():
 		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i, [i, i.material_override]))
 	
 	var env_data = Utility.get_entity_properties(%Environment, %Environment.environment)
-	env_data["Background"] = {
-		"background_color": %Environment.environment.background_color
+	env_data["Sky"] = {
+		"sky_top_color": %Environment.environment.sky.sky_material.sky_top_color,
+		"sky_horizon_color": %Environment.environment.sky.sky_material.sky_horizon_color,
+		"ground_bottom_color": %Environment.environment.sky.sky_material.ground_bottom_color,
+		"ground_horizon_color": %Environment.environment.sky.sky_material.ground_horizon_color,
 	}
 	Playback.beatmap_data["environment"]["environment"] = env_data
 	

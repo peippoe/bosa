@@ -1,27 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnm4sdqrdfwye"]
+[gd_scene load_steps=12 format=3 uid="uid://dnm4sdqrdfwye"]
 
 [ext_resource type="Script" uid="uid://0u0kobq56mi0" path="res://MapPlayer/Props/goal.gd" id="1_sga52"]
-[ext_resource type="Texture2D" uid="uid://cpyyjqtsmpxc6" path="res://Assets/Images/General/grid2.png" id="2_sga52"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0h11s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sga52"]
-transparency = 3
-alpha_hash_scale = 0.24
-alpha_antialiasing_mode = 0
-blend_mode = 1
-cull_mode = 1
-albedo_color = Color(0.483333, 1, 0, 0.611765)
-albedo_texture = ExtResource("2_sga52")
-uv1_scale = Vector3(6, 6, 6)
-uv1_triplanar = true
-uv1_triplanar_sharpness = 1e-05
-distance_fade_mode = 2
-distance_fade_min_distance = 0.5
-distance_fade_max_distance = 15.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_grn5j"]
-material = SubResource("StandardMaterial3D_sga52")
+radius = 1.0
 
 [sub_resource type="Animation" id="Animation_grn5j"]
 length = 0.001
@@ -61,10 +43,22 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D2:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_sga52"]
 resource_name = "fadein"
-length = 0.5
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -72,10 +66,10 @@ tracks/0/path = NodePath("MeshInstance3D:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
+"times": PackedFloat32Array(0, 0.26666668, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0.5, 0.5, 0.5), Vector3(1.06, 1.06, 1.06), Vector3(1, 1, 1)]
+"values": [Vector3(0.5, 0.5, 0.5), Vector3(1, 1, 1), Vector3(1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -84,7 +78,7 @@ tracks/1/path = NodePath("MeshInstance3D:transparency")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -96,10 +90,22 @@ tracks/2/path = NodePath("MeshInstance3D2:surface_material_override/0:albedo_col
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.333333),
+"times": PackedFloat32Array(0.13333334, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D2:scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2pv15"]
@@ -108,18 +114,34 @@ _data = {
 &"fadein": SubResource("Animation_sga52")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kfm0"]
+transparency = 1
+cull_mode = 1
+albedo_color = Color(0.45850003, 1, 0.43, 0.07450981)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_grn5j"]
+material = SubResource("StandardMaterial3D_0kfm0")
+radius = 0.4
+height = 0.7
+radial_segments = 12
+rings = 6
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_sga52"]
 flip_faces = true
 top_radius = 0.3
 bottom_radius = 0.3
 height = 30.0
-radial_segments = 5
+radial_segments = 12
 cap_top = false
 cap_bottom = false
 
 [sub_resource type="Gradient" id="Gradient_sga52"]
 interpolation_mode = 2
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.46153846, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.152, 0.152, 0.152, 0.152, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_grn5j"]
 gradient = SubResource("Gradient_sga52")
@@ -129,12 +151,13 @@ fill_from = Vector2(1, 0)
 fill_to = Vector2(1, 1)
 repeat = 1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kfm0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7wfl"]
 transparency = 1
+cull_mode = 1
 albedo_texture = SubResource("GradientTexture2D_grn5j")
 emission_enabled = true
 emission = Color(0, 1, 0, 1)
-emission_energy_multiplier = 6.0
+emission_energy_multiplier = 8.0
 
 [node name="Goal" type="Area3D"]
 collision_layer = 0
@@ -143,12 +166,11 @@ monitorable = false
 script = ExtResource("1_sga52")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_0h11s")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_grn5j")
-
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 light_color = Color(0.537833, 1, 0.41, 1)
 light_energy = 0.52
 omni_range = 52.567
@@ -160,9 +182,13 @@ libraries = {
 }
 autoplay = "fadein"
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_grn5j")
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 15, 0)
 mesh = SubResource("CylinderMesh_sga52")
-surface_material_override/0 = SubResource("StandardMaterial3D_0kfm0")
+surface_material_override/0 = SubResource("StandardMaterial3D_x7wfl")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

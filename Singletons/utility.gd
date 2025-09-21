@@ -162,7 +162,6 @@ func remove_sections_from_data(data):
 			var value = data[section][property]
 			sectionless_data[property] = value
 	
-	print(sectionless_data)
 	return sectionless_data
 
 
@@ -207,6 +206,8 @@ const EntityID : Dictionary = {
 	"RAMP": 21,
 	"CYLINDER": 22,
 	"SPHERE": 23,
+	
+	"LABEL": 30,
 }
 
 const PROPS : Dictionary = {
@@ -217,6 +218,8 @@ const PROPS : Dictionary = {
 	21: "res://MapEditor/Geometry/ramp.tscn",
 	22: "res://MapEditor/Geometry/cylinder.tscn",
 	23: "res://MapEditor/Geometry/sphere.tscn",
+	
+	30: "uid://bt1lurvg7srow"
 }
 
 
@@ -230,12 +233,14 @@ func editor_spawn_entity(data):
 			new_editor_entity = Utility.spawn_gizmo(data["id"], data)
 		2:
 			new_editor_entity = Utility.spawn_geometry(data)
+		3:
+			new_editor_entity = Utility.spawn_entity(PROPS[data["id"]], get_node_or_null_in_scene("%Geometry"), data)
 	
 	return new_editor_entity
 
 func spawn_geometry(data):
 	var geometry = spawn_entity(load(PROPS[data["id"]]), get_node_or_null_in_scene("%Geometry"), data)
-	var mat = StandardMaterial3D.new()
+	var mat = geometry.material_override.duplicate()
 	if "albedo_color" in data:
 		mat.albedo_color = data["albedo_color"]
 	geometry.material_override = mat
@@ -247,8 +252,8 @@ func spawn_target(target_data):
 	#make_mesh_unique(mesh_instance)
 	mesh_instance.material_override = mesh_instance.material_override.duplicate()
 	
-	mesh_instance.material_override.albedo_color = Settings.target_color_palette[Settings.target_color_palette_index]
-	Settings.target_color_palette_index += 1
+	mesh_instance.material_override.albedo_color = Settings.config["visual"]["target_colors"][Settings.target_colors_index]
+	Settings.target_colors_index += 1
 	
 	var scale = target_data["scale"]
 	if scale.x != scale.y or scale.x != scale.z or scale.y != scale.z:
@@ -382,8 +387,11 @@ func spawn_gizmo(id, data := {}):
 	
 	var new_marker = new_marker_func.bind(new_gizmo).call()
 	
-	
-	make_surface_materials_unique(new_gizmo)
+	if new_gizmo.get_child_count() >= 2 and new_gizmo.get_child(1).get_surface_override_material(0):
+		new_gizmo.get_child(1).set_surface_override_material(0, new_gizmo.get_child(1).get_surface_override_material(0).duplicate())
+	else:
+		make_surface_materials_unique(new_gizmo)
+
 
 
 func spawn_marker(gizmo : Node):

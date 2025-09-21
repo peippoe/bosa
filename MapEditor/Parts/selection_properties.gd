@@ -32,10 +32,10 @@ func _ready():
 			
 			get_tree().current_scene.record(editor.selected)
 			
-			if editor.selected.get_child(0) is StaticBody3D:
-				editor.selected.queue_free()
-			else:
+			if "marker" in editor.selected:
 				Utility.delete_gizmo(editor.selected)
+			else:
+				editor.selected.queue_free()
 			
 			get_tree().current_scene.set_selected(null)
 	)

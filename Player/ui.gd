@@ -49,7 +49,8 @@ func _process(delta):
 	var vel = player.velocity
 	var hvel = (vel - Vector3.UP * vel.y).length()
 	var vvel = vel.y
-	var debug_text = "h_vel: %.2f \n" % hvel
+	var debug_text = "fps: %d \n" % Engine.get_frames_per_second()
+	debug_text += "h_vel: %.2f \n" % hvel
 	debug_text += "v_vel: %.2f \n" % vvel
 	debug_text += "sliding: %s\n" % player.sliding
 	debug_text += "on_floor: %s\n" % player.on_floor

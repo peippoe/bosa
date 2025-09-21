@@ -1,17 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv6owahnhwq31"]
+[gd_scene load_steps=7 format=3 uid="uid://cv6owahnhwq31"]
 
 [ext_resource type="Script" uid="uid://bnuglk3bir1im" path="res://MapEditor/GizmoProps/gizmo_goal.gd" id="1_ydmca"]
 [ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/GizmoManipulation/gizmo_hitbox.tscn" id="2_wam6h"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_ydmca"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_wq5a0"]
+top_radius = 0.3
+bottom_radius = 0.3
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Gradient" id="Gradient_nana5"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.4846154, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.35730544, 0.35730544, 0.35730544, 0.35730544, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_df7vm"]
+gradient = SubResource("Gradient_nana5")
+width = 2
+height = 8
+fill_from = Vector2(1, 0)
+fill_to = Vector2(1, 1)
+repeat = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wam6h"]
 transparency = 1
+albedo_color = Color(0.0666666, 1, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_df7vm")
+emission_enabled = true
+emission = Color(0.0666666, 1, 0, 1)
+emission_energy_multiplier = 5.75
 
-[node name="GizmoGoal" type="MeshInstance3D"]
-mesh = SubResource("SphereMesh_ydmca")
-surface_material_override/0 = SubResource("StandardMaterial3D_wam6h")
+[node name="GizmoGoal" type="Node3D"]
 script = ExtResource("1_ydmca")
-metadata/pop_time = 0.0
 
 [node name="GizmoHitbox" parent="." instance=ExtResource("2_wam6h")]
+
+[node name="GizmoGoal" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_wq5a0")
+surface_material_override/0 = SubResource("StandardMaterial3D_wam6h")
+metadata/pop_time = 0.0

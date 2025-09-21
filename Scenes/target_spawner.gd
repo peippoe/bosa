@@ -1,12 +1,14 @@
 extends Node3D
 
+@export var child_count : int = 30
+
 func _ready():
 	await get_tree().create_timer(1).timeout
 	
 	while true:
 		await get_tree().create_timer(.3).timeout
 		
-		if get_tree().current_scene.get_child_count() < 30:
+		if get_tree().current_scene.get_child_count() < child_count:
 			
 			var a = 20.0
 			var b = 10.0
