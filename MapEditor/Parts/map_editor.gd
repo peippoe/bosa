@@ -75,6 +75,9 @@ func _ready():
 	%ChooseSong.pressed.connect(func choose_song():
 		Utility.open_file_dialog("user://songs", FileDialog.FILE_MODE_OPEN_FILE, song_file_selected, PackedStringArray(["*.mp3", "*.ogg", "*.wav"]))
 	)
+	%GamemodeButton.item_selected.connect(func item_selected(index):
+		print(index)
+	)
 	
 	
 	
@@ -493,6 +496,7 @@ func load_map(path):
 	if Playback.beatmap_data["config"]["song"]: Playback.set_song(Playback.beatmap_data["config"]["song"])
 	var length_edit : LineEdit = Utility.get_node_or_null_in_scene("%LengthEdit")
 	length_edit.text_submitted.emit(str(Playback.beatmap_data["config"]["duration"]))
+	Utility.get_node_or_null_in_scene("%GamemodeButton").selected = Playback.beatmap_data["config"]["gamemode"]
 	
 	
 	for i in Playback.beatmap_data["beatmap"].size():
@@ -521,6 +525,9 @@ func load_map(path):
 
 
 func compile_map():
+	Playback.beatmap_data["config"]["duration"] = float(Utility.get_node_or_null_in_scene("%LengthEdit").text)
+	Playback.beatmap_data["config"]["gamemode"] = int(Utility.get_node_or_null_in_scene("%GamemodeButton").selected)
+	
 	Playback.beatmap_data["beatmap"] = []
 	for i in gizmo_beatmap.get_children():
 		Playback.beatmap_data["beatmap"].append(Utility.get_entity_properties(i))
@@ -554,8 +561,6 @@ func save_map(path):
 	var dir = DirAccess.open("user://")
 	if not dir.dir_exists("beatmaps"): dir.make_dir("beatmaps")
 	
-	Playback.beatmap_data["config"]["duration"] = float(Utility.get_node_or_null_in_scene("%LengthEdit").text)
-	
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	if file:
 		file.store_string(JSON.stringify(Playback.beatmap_data, "\t"))
@@ -571,8 +576,6 @@ func save_map(path):
 
 
 func _on_play_pressed():
-	# save objects as beatmap_data
-	# playback the beatmap_data
 	
 	compile_map()
 	

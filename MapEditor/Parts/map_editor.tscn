@@ -190,6 +190,7 @@ unique_name_in_owner = true
 fov = 90.0
 
 [node name="Grid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 0)
 mesh = SubResource("QuadMesh_7xmfy")
 surface_material_override/0 = SubResource("ShaderMaterial_43ajp")
 
@@ -594,7 +595,6 @@ text = "settings"
 
 [node name="SettingsDropdown" type="VBoxContainer" parent="EditorUI/HBoxContainer/Settings"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
 offset_top = 44.0
 offset_right = 179.0
@@ -610,6 +610,24 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 text = "choose song"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown/HBoxContainer"]
+layout_mode = 2
+text = "gamemode"
+
+[node name="GamemodeButton" type="OptionButton" parent="EditorUI/HBoxContainer/Settings/SettingsDropdown/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "classic"
+popup/item_0/id = 0
+popup/item_1/text = "time_trial"
+popup/item_1/id = 1
 
 [node name="Playtest" type="Button" parent="EditorUI/HBoxContainer"]
 unique_name_in_owner = true

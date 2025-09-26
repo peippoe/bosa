@@ -472,7 +472,7 @@ func convert_ints(data):
 		
 		for property in data[section].keys():
 			
-			if property == "id": data[section][property] = int(data[section][property]); print("ID CONVERTED TO %d" % data[section][property])
+			if property == "id" or property == "gamemode": data[section][property] = int(data[section][property]); print("ID CONVERTED TO %d" % data[section][property])
 	
 	return data
 

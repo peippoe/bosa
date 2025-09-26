@@ -14,14 +14,24 @@ func _input(event):
 		var relative = -event.screen_relative * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0
 		head.rotate_y(relative.x)
 		head.orthonormalize()
-		cam.rotate_x(relative.y)
-		cam.rotation.x = clampf(cam.rotation.x, -PI/2.0, PI/2.0)
+		var rel_y = clampf(cam.rotation.x + relative.y, -PI/2, PI/2) - cam.rotation.x
+		cam.rotate_x(rel_y)
+		#cam.rotation.x = clampf(cam.rotation.x, -PI/2.0, PI/2.0)
 		cam.orthonormalize()
 	
 	elif event is InputEventMouseButton:
-		if event.pressed: shoot()
+		if not event.pressed: return
+		
+		if event.button_index == 1:
+			shoot()
+		
+		if Input.is_action_just_pressed("quickturn"):
+			head.rotate_y(PI)
 	
 	if event is InputEventKey:
+		if Input.is_action_just_pressed("pop"):
+			shoot()
+		
 		if Input.is_action_just_pressed("space"):
 			start_wallrun()
 			%JumpBuffer.start()
@@ -96,14 +106,14 @@ func vault():
 		vault_stored_velocity = velocity
 		
 		var vault_dist = vault_point.distance_to(global_position)
+		vault_speed = vault_dist / vault_time
+		#var to_point = (vault_point - global_position).normalized()
+		#var vel_to_point = velocity.dot(to_point)
+		#vel_to_point = max(vel_to_point, 1.0)
+		#var vault_efficiency = max(vel_to_point / vault_dist * 10.0, 5.0)
+		#vault_speed = remap(vault_efficiency, 5.0, 30.0, 8.0, 12.0)
 		
-		var to_point = (vault_point - global_position).normalized()
-		var vel_to_point = velocity.dot(to_point)
-		vel_to_point = max(vel_to_point, 1.0)
-		var vault_efficiency = max(vel_to_point / vault_dist * 10.0, 5.0)
-		vault_speed = remap(vault_efficiency, 5.0, 30.0, 8.0, 12.0)
-		
-		print("vault distance: %f\n vel_to_point: %f\n vault efficiency: %f\n vault_speed: %f" % [vault_dist, vel_to_point, vault_efficiency, vault_speed])
+		#print("vault distance: %f\n vel_to_point: %f\n vault efficiency: %f\n vault_speed: %f" % [vault_dist, vel_to_point, vault_efficiency, vault_speed])
 
 
 
@@ -126,23 +136,25 @@ func shoot():
 
 const GRAV := 16
 const FAST_FALL_BOOST := 1#3.0
-const SKYDIVE_GRAV_BOOST := 15.0
+const SKYDIVE_GRAV_BOOST := 30.0
+const DOWNSHIFT := 14.0
 const WALLRUN_GRAV := 6.0
 const JUMP_VELOCITY := 6.9
-const JUMP_BOOST := 0.1
+const JUMP_EDGE_BOOST := 0.1
 const JUMP_CUTOFF := 0.3
 var jump_cutoff_applied := false
 const JUMP_EXTEND := 0#6.0
 
 const MAX_SPEED := 8.0
 const WISH_DIR_COMPENSATION_LIMIT := MAX_SPEED + 40.0
-const AIR_MAX_SPEED := 40.0
+const AIR_SPEED_CAP := 40.0
+const AIR_SPEED_CAP_MULT := 1.0
 var acceleration := 0.0
 const FLOOR_ACCELERATION := 140.0
 const AIR_ACCELERATION := 50.0
-const AIR_SLOWDOWN_ASSIST := 0.4
+const AIR_SLOWDOWN_ASSIST := 0.0
 const FLOOR_FRICTION := 120.0
-const AIR_FRICTION := 15.0
+const AIR_FRICTION := 0.5
 
 var input_dir := Vector2.ZERO
 var move_dir := Vector3.ZERO
@@ -150,15 +162,16 @@ var move_dir := Vector3.ZERO
 var sliding := false
 const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
-const SLIDE_BOOST := 1.1
+#const SLIDE_BOOST := 1.1
+const SLIDE_NERF := .5
 const SLIDE_LIMIT := 1.0
 const SLIDE_DOWNHILL_BOOST := 1.9
 
 var on_floor := false
 var was_on_floor := false
 
-#var vel_buffer := []
-#const VEL_BUFFER_SIZE := 4
+var vel_buffer := [] # changing physics fps will nerf/buff this
+const VEL_BUFFER_SIZE := 4
 
 var prev_y := 0.0
 
@@ -168,6 +181,7 @@ var vault_point = null
 var vault_start_point : Vector3 = Vector3.ZERO
 var vault_stored_velocity
 var vault_speed
+@export var vault_time = 0.2
 var vault_end_dist : float = 0.1
 @export var vault_y_curve : Curve
 
@@ -195,7 +209,7 @@ func _physics_process(delta):
 		#global_position = lerp(global_position, vault_point, delta*vault_speed)
 		$CollisionShape3D.disabled = true
 		
-		global_position = global_position.move_toward(vault_point, delta*vault_speed*1)
+		global_position = global_position.move_toward(vault_point, delta*vault_speed)
 		
 		if global_position.distance_to(vault_point) < vault_end_dist:
 			global_position = vault_point
@@ -209,6 +223,7 @@ func _physics_process(delta):
 		return
 	
 	
+	autostep()
 	slide()
 	movement(delta)
 	
@@ -222,6 +237,18 @@ func _physics_process(delta):
 	
 	wallrun()
 
+
+func autostep():
+	if not move_dir or not on_floor or sliding: return
+	
+	%AutoStepLowRaycast.target_position = move_dir
+	if not %AutoStepLowRaycast.is_colliding(): return
+	
+	%AutoStepHighRaycast.target_position = move_dir
+	%AutoStepHighRaycast.force_raycast_update()
+	if not %AutoStepHighRaycast.is_colliding():
+		position.y += 0.25
+		on_floor = true
 
 func jump_extend(delta):
 	if Input.is_action_pressed("space") and not %JumpExtendTime.is_stopped():
@@ -255,10 +282,12 @@ func jump():
 	
 	if wallrunning:
 		velocity.y -= 1.2
-		hvel = velocity - Vector3.UP*velocity.y
-		var dot = hvel.normalized().dot(move_dir)
-		print(dot)
-		velocity = move_dir * hvel.length() + Vector3.UP * velocity.y
+		#hvel = velocity - Vector3.UP*velocity.y
+		#var dot = hvel.normalized().dot(move_dir)
+		#print(dot)
+		var dir = move_dir
+		if not dir: dir = -head.global_basis.z
+		velocity = dir * get_max_from_vel_buffer() * 1.4 + Vector3.UP * velocity.y
 		return
 	
 	if sliding:
@@ -267,7 +296,7 @@ func jump():
 	
 	%EdgeRaycast.force_raycast_update()
 	if not %EdgeRaycast.is_colliding():
-		velocity += velocity * JUMP_BOOST
+		velocity += velocity * JUMP_EDGE_BOOST
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3), 10)
 	
 	
@@ -303,10 +332,10 @@ func wallrun():
 	
 	if wallrunning == 1:
 		%RightWallRaycast.force_raycast_update()
-		if not %RightWallRaycast.is_colliding(): stop_wallrunning() # add wallrun buffer
+		if not %RightWallRaycast.is_colliding() and %WallrunCoyoteTime.is_stopped(): %WallrunCoyoteTime.start()
 	elif wallrunning == -1:
 		%LeftWallRaycast.force_raycast_update()
-		if not %LeftWallRaycast.is_colliding(): stop_wallrunning()
+		if not %LeftWallRaycast.is_colliding() and %WallrunCoyoteTime.is_stopped(): %WallrunCoyoteTime.start()
 
 
 func start_wallrun():
@@ -328,7 +357,11 @@ func start_wallrun():
 			can_wallrun_left = false
 	
 	if wallrunning:
+		#if not %WallrunCoyoteTime.is_stopped(): %WallrunCoyoteTime.stop()
 		%Sliding.play()
+
+func _on_wallrun_coyote_time_timeout():
+	stop_wallrunning()
 
 func stop_wallrunning():
 	if not wallrunning: return
@@ -347,19 +380,29 @@ func update_variables():
 		can_wallrun_right = true
 		can_wallrun_left = true
 	
-	#vel_buffer.push_front(velocity)
-	#if vel_buffer.size() > VEL_BUFFER_SIZE:
-		#vel_buffer.pop_back()
-	
 	prev_y = global_position.y
 	
 	#if sliding:
 		#cam.rotation.z = -.05
 	#else:
 		#cam.rotation.z = 0
+	
+	update_vel_buffer()
+
+func update_vel_buffer():
+	vel_buffer.push_front(velocity)
+	if vel_buffer.size() > VEL_BUFFER_SIZE:
+		vel_buffer.pop_back()
+
+func get_max_from_vel_buffer():
+	var max = -1
+	for i in vel_buffer:
+		var v = i.length()
+		if v > max: max = v
+	return max
 
 func slide():
-	if not %SlideBuffer.is_stopped() and was_on_floor:
+	if not %SlideBuffer.is_stopped() and (was_on_floor or on_floor):
 		
 		%SlideCooldown.start()
 		%SlideBuffer.stop()
@@ -370,7 +413,12 @@ func slide():
 		var vel = get_real_velocity()
 		var dir = move_dir
 		if not dir: dir = -head.global_basis.z
-		velocity = dir * vel.length() * SLIDE_BOOST
+		
+		var buffer_max = get_max_from_vel_buffer()
+		var max = max(buffer_max, vel.length())
+		var diff = max - vel.length()
+		var speed = vel.length() + diff * SLIDE_NERF
+		velocity = dir * speed
 		
 		%Slide.pitch_scale = clampf(remap(velocity.length(), 0, 50, 0.8, 1.6), 0.8, 1.6)
 		%Slide.play()
@@ -401,7 +449,8 @@ func movement(delta):
 				#var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
 				#grav += FAST_FALL_BOOST * x
 			if velocity.y < 0.0: grav += FAST_FALL_BOOST
-			if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
+			#if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
+			if Input.is_action_just_pressed("ctrl"): velocity.y -= DOWNSHIFT; AudioPlayer.play_audio("res://Assets/Audio/Effect/roll.wav", null, Vector2(2, 3))
 		velocity.y += -grav * delta
 	
 	input_dir = Input.get_vector("a", "d", "w", "s")
@@ -461,10 +510,7 @@ func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 	var friction_amount := 0.0
 	
 	if not on_floor:
-		if hvel.length() > AIR_MAX_SPEED:
-			var mult = remap(hvel.length(), AIR_MAX_SPEED, AIR_MAX_SPEED + 20, 0, 1)
-			friction_amount = AIR_FRICTION * mult
-			#print("friction mult: %.2f" % mult)
+		friction_amount = AIR_FRICTION
 	elif sliding:
 		friction_amount = SLIDE_FRICTION
 	else:
@@ -474,6 +520,11 @@ func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 	var jitter_fix_max = 2.0
 	var too_much_friction_jitter_fix : float = clampf(remap(hvel.length(), 0.0, jitter_fix_max, 0.0, 1.0), 0.0, 1.0)
 	velocity += friction_vec * friction_amount * delta * too_much_friction_jitter_fix
+	
+	
+	var extra = hvel.length() - AIR_SPEED_CAP
+	if extra > 0.0:
+		velocity += friction_vec * extra * AIR_SPEED_CAP_MULT * delta
 
 
 

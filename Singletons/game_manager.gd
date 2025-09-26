@@ -48,6 +48,9 @@ func back_to_editor():
 	
 	get_tree().current_scene.load_map(beatmap_path)
 
+func retry():
+	change_scene(get_tree().current_scene.scene_file_path)
+
 func change_scene(scene_path : String):
 	Playback.playback_speed = 0
 	get_tree().paused = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://sast1hlg37nk"]
+[gd_scene load_steps=53 format=4 uid="uid://sast1hlg37nk"]
 
 [ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scenes/target_spawner.gd" id="1_50ct6"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_hb2xm"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpyyjqtsmpxc6" path="res://Assets/Images/General/grid2.png" id="7_rdbpf"]
 [ext_resource type="Texture2D" uid="uid://b855t3tpfi3pp" path="res://Blender/skybox1.png" id="8_oho3u"]
 [ext_resource type="Texture2D" uid="uid://jjf1fq65nebn" path="res://Assets/Images/Textures/ivy.png" id="9_d3awe"]
+[ext_resource type="PackedScene" uid="uid://4fmxm2rx6dm3" path="res://MapPlayer/Props/boost_pad.tscn" id="10_yglu3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
 sky_top_color = Color(0.162074, 0.294184, 0.999998, 1)
@@ -357,6 +358,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 5)
 use_collision = true
 size = Vector3(1, 0.2, 1)
 
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 0.5999999, 5.5)
+use_collision = true
+size = Vector3(10, 7, 2)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 1.5999999, 0.5)
+use_collision = true
+size = Vector3(10, 11, 4)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(0.49999997, 0, 0.86602545, 0, 1, 0, -0.86602545, 0, 0.49999997, 43.5, -0.4000001, 5.5)
+use_collision = true
+size = Vector3(10, 11, 4)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.8660254, -0.5, 0, 0.5, 0.8660254, 0, 0, 0, 1, 33.5, -1.4000001, 10.5)
+use_collision = true
+size = Vector3(10, 7, 2)
+
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(-5.13986, 0.911198, 0, -0.911198, -5.13986, 0, 0, 0, -5.22, 0, 3, 0)
 text = "0.05ms"
@@ -456,5 +477,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ibmi3")
 transform = Transform3D(0.2745758, 0, 0.96945393, 0, 1.8343532, 0, -1.0852726, 0, 0.24527355, 1.0896388, 3.1084201, 4.5907097)
 mesh = SubResource("QuadMesh_yglu3")
 surface_material_override/0 = SubResource("StandardMaterial3D_ibmi3")
+
+[node name="BoostPad" parent="." instance=ExtResource("10_yglu3")]
+transform = Transform3D(0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881907, 4.5313845, 0.04999997, 3.8774395)
 
 [editable path="azal"]

@@ -9,7 +9,7 @@ func _ready():
 	
 	%Retry.pressed.connect(
 		func retry():
-			GameManager.change_scene(get_tree().current_scene.scene_file_path)
+			GameManager.retry()
 	)
 	
 	%BackToEditor.pressed.connect(func back_to_editor():
@@ -34,6 +34,9 @@ func _unhandled_input(event):
 				get_tree().paused = false
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 				%PauseMusic.stop()
+		
+		elif Input.is_action_just_pressed("retry"):
+			GameManager.retry()
 
 func _input(event):
 	if not %PauseMenu.visible: return
@@ -56,6 +59,7 @@ func _process(delta):
 	debug_text += "on_floor: %s\n" % player.on_floor
 	debug_text += "coiling: %s\n" % player.coiling
 	debug_text += "coyote: %s\n" % player.get_node("%CoyoteTime").time_left
+	debug_text += "wallrun_coyote: %s\n" % player.get_node("%WallrunCoyoteTime").time_left
 	%DebugLabel.text = debug_text
 	
 	%Health.size.x = %HealthBar.size.x * GameManager.health / 100.0

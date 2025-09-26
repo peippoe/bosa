@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=39 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
@@ -10,8 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://duobajbsufun7" path="res://Assets/Audio/Effect/roll.wav" id="8_od3ui"]
 
 [sub_resource type="Curve" id="Curve_od3ui"]
-_data = [Vector2(0, 0), 0.0, 1.1858257, 0, 0, Vector2(0.3673469, 0.73033714), 0.6882022, 0.6882022, 0, 0, Vector2(0.72448975, 0.8988764), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.15730286, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0), 0.0, 1.937978, 0, 0, Vector2(0.32142857, 0.6516854), 0.9715795, 0.9715795, 0, 0, Vector2(1, 1), 0.15730286, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Curve" id="Curve_k53q1"]
 _data = [Vector2(0, 0), 0.0, 0.167701, 0, 0, Vector2(0.295, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.32193, 0.0, 0, 0]
@@ -20,6 +20,30 @@ point_count = 3
 [sub_resource type="Curve" id="Curve_vtle1"]
 _data = [Vector2(0.14, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_od3ui"]
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_00tjw"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x3vf3"]
+gradient = SubResource("Gradient_00tjw")
+width = 2
+height = 4
+fill_from = Vector2(0, 0.3974359)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apopc"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_x3vf3")
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_5htga"]
+material = SubResource("StandardMaterial3D_apopc")
+cap_top = false
+cap_bottom = false
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k53q1"]
 radius = 0.3
@@ -441,12 +465,19 @@ shader_parameter/enable_480i_upscale = false
 shader_parameter/scanline_intensity = 0.1
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 3
 floor_max_angle = 1.13446
 floor_snap_length = 0.7
 script = ExtResource("1_v0iea")
+vault_time = 0.16
 vault_y_curve = SubResource("Curve_od3ui")
 jump_extend_curve = SubResource("Curve_k53q1")
 fast_fall_curve = SubResource("Curve_vtle1")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+lifetime = 0.09999999999999999
+process_material = SubResource("ParticleProcessMaterial_od3ui")
+draw_pass_1 = SubResource("TubeTrailMesh_5htga")
 
 [node name="GroundCast" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
@@ -455,6 +486,18 @@ target_position = Vector3(0, -0.5, 0)
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="AutoStepLowRaycast" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95000005, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="AutoStepHighRaycast" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70000005, 0)
+enabled = false
+target_position = Vector3(0, 0, -1)
+hit_back_faces = false
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -616,12 +659,17 @@ stream = ExtResource("8_od3ui")
 
 [node name="JumpBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.1
+wait_time = 0.06
 one_shot = true
 
 [node name="CoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.25
+one_shot = true
+
+[node name="WallrunCoyoteTime" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.18
 one_shot = true
 
 [node name="SlideBuffer" type="Timer" parent="."]
@@ -651,3 +699,5 @@ one_shot = true
 unique_name_in_owner = true
 wait_time = 0.1
 one_shot = true
+
+[connection signal="timeout" from="WallrunCoyoteTime" to="." method="_on_wallrun_coyote_time_timeout"]

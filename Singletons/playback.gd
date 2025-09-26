@@ -6,6 +6,7 @@ var beatmap_data = {
 		"creator": null,
 		"song": null,
 		"duration": 0.0,
+		"gamemode": 0,
 		"version": 1
 	},
 	"environment": {
