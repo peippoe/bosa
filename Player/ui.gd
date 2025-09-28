@@ -64,8 +64,19 @@ func _process(delta):
 	
 	%Health.size.x = %HealthBar.size.x * GameManager.health / 100.0
 	
-	%Stats.text = "%dpts\n[font_size=25]%dx" % [GameManager.points, GameManager.combo]
-	
+	%Points.text = "%dpts" % GameManager.points
+	var t = %Combo.get_parsed_text()
+	var prev_combo = int(t.substr(0, t.length()-1))
+	%Combo.text = "[font_size=25]%dx" % GameManager.combo
+	if GameManager.combo != prev_combo:
+		var tween = get_tree().create_tween()
+		tween.tween_property(%Combo, "scale", Vector2.ONE * 1.3, .015)
+		tween.set_parallel(true)
+		tween.tween_property(%Combo, "modulate", Color(1, 0, 0), .015)
+		tween.set_parallel(false)
+		tween.tween_property(%Combo, "scale", Vector2.ONE, .1)
+		tween.set_parallel(true)
+		tween.tween_property(%Combo, "modulate", Color(1, 1, 1), .1)
 	
 	
 	var inertia_vec : Vector3 = -player.velocity * player.get_node("%Cam").global_basis / 2.0

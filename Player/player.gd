@@ -128,8 +128,20 @@ func shoot():
 	
 	if result:
 		Utility.pop_target(result.collider)
-
-
+	
+	
+	
+	
+	var spawn_pos = cam.global_position - cam.global_basis.z*1 - cam.global_basis.y*0.2 + cam.global_basis.x*0.06
+	var bullet_inst = preload("uid://bn3qrpqhylncu").instantiate()
+	get_parent().add_child(bullet_inst)
+	bullet_inst.look_at_from_position(spawn_pos, to)
+	bullet_inst.rotation_degrees.x += 90
+	var tween = get_tree().create_tween()
+	
+	tween.tween_property(bullet_inst, "global_position", to, .7)
+	tween.set_parallel(false)
+	tween.tween_callback(bullet_inst.queue_free)
 
 
 
@@ -164,7 +176,7 @@ const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
 #const SLIDE_BOOST := 1.1
 const SLIDE_NERF := .5
-const SLIDE_LIMIT := 1.0
+const SLIDE_LIMIT := 3.0
 const SLIDE_DOWNHILL_BOOST := 1.9
 
 var on_floor := false
@@ -531,6 +543,8 @@ func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 
 
 func _process(delta):
+	
+	$GPUTrail3D.global_position = lerp($GPUTrail3D.global_position, global_position + cam.global_basis.z * 1, delta*30)
 	
 	if velocity.length() > 25:
 		%Wind.volume_linear = remap(velocity.length(), 25, 50, 0, .4)

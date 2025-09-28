@@ -1,10 +1,14 @@
-[gd_scene load_steps=39 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=45 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
+[ext_resource type="Shader" uid="uid://ditear0e0bhwk" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_apopc"]
 [ext_resource type="PackedScene" uid="uid://deccvoewfo1bl" path="res://Player/ui.tscn" id="2_cvnsp"]
 [ext_resource type="Shader" uid="uid://cfcb0fup7aldj" path="res://Assets/Shader/style.gdshader" id="2_vtle1"]
+[ext_resource type="Shader" uid="uid://2k0ss58sqaqw" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="3_5htga"]
 [ext_resource type="AudioStream" uid="uid://bjamvokn8wuwu" path="res://Assets/Audio/Effect/windloop.ogg" id="3_k53q1"]
 [ext_resource type="AudioStream" uid="uid://bg1idkmsqy5a" path="res://Assets/Audio/Effect/jump.wav" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://d0y664i6ng2sn" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="4_p5o4e"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail-main/defaults/texture.tres" id="5_5htga"]
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/Effect/slideloop.wav" id="5_k53q1"]
 [ext_resource type="Shader" uid="uid://dgjh5fvbqqctp" path="res://Assets/Shader/crt.gdshader" id="6_fhl08"]
 [ext_resource type="AudioStream" uid="uid://duobajbsufun7" path="res://Assets/Audio/Effect/roll.wav" id="8_od3ui"]
@@ -21,32 +25,40 @@ point_count = 3
 _data = [Vector2(0.14, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_od3ui"]
-direction = Vector3(0, 0, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-
-[sub_resource type="Gradient" id="Gradient_00tjw"]
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_x3vf3"]
-gradient = SubResource("Gradient_00tjw")
-width = 2
-height = 4
-fill_from = Vector2(0, 0.3974359)
-fill_to = Vector2(0, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_apopc"]
-transparency = 1
-albedo_texture = SubResource("GradientTexture2D_x3vf3")
-
-[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_5htga"]
-material = SubResource("StandardMaterial3D_apopc")
-cap_top = false
-cap_bottom = false
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_k53q1"]
 radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gu6f8"]
+shader = ExtResource("2_apopc")
+
+[sub_resource type="Gradient" id="Gradient_p5o4e"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lfmf2"]
+gradient = SubResource("Gradient_p5o4e")
+width = 2
+
+[sub_resource type="Curve" id="Curve_gu6f8"]
+bake_resolution = 16
+_data = [Vector2(0, 0.033707857), 0.0, -0.08239699, 0, 0, Vector2(1, 0), -0.041198492, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b1ygp"]
+curve = SubResource("Curve_gu6f8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dkpta"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_5htga")
+shader_parameter/tex = ExtResource("5_5htga")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_lfmf2")
+shader_parameter/curve = SubResource("CurveTexture_b1ygp")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 44
+
+[sub_resource type="QuadMesh" id="QuadMesh_n471f"]
+material = SubResource("ShaderMaterial_dkpta")
 
 [sub_resource type="QuadMesh" id="QuadMesh_od3ui"]
 flip_faces = true
@@ -474,11 +486,6 @@ vault_y_curve = SubResource("Curve_od3ui")
 jump_extend_curve = SubResource("Curve_k53q1")
 fast_fall_curve = SubResource("Curve_vtle1")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-lifetime = 0.09999999999999999
-process_material = SubResource("ParticleProcessMaterial_od3ui")
-draw_pass_1 = SubResource("TubeTrailMesh_5htga")
-
 [node name="GroundCast" type="ShapeCast3D" parent="."]
 unique_name_in_owner = true
 shape = SubResource("SphereShape3D_k53q1")
@@ -498,6 +505,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70000005, 0)
 enabled = false
 target_position = Vector3(0, 0, -1)
 hit_back_faces = false
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="."]
+top_level = true
+amount = 288
+lifetime = 288.0
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ShaderMaterial_gu6f8")
+draw_pass_1 = SubResource("QuadMesh_n471f")
+script = ExtResource("4_p5o4e")
+length = 288
+length_seconds = 2.0
+color_ramp = SubResource("GradientTexture1D_lfmf2")
+curve = SubResource("CurveTexture_b1ygp")
+billboard = true
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://d0y664i6ng2sn"
 
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true

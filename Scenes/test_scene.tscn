@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://sast1hlg37nk"]
+[gd_scene load_steps=68 format=4 uid="uid://sast1hlg37nk"]
 
 [ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scenes/target_spawner.gd" id="1_50ct6"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_hb2xm"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://b855t3tpfi3pp" path="res://Blender/skybox1.png" id="8_oho3u"]
 [ext_resource type="Texture2D" uid="uid://jjf1fq65nebn" path="res://Assets/Images/Textures/ivy.png" id="9_d3awe"]
 [ext_resource type="PackedScene" uid="uid://4fmxm2rx6dm3" path="res://MapPlayer/Props/boost_pad.tscn" id="10_yglu3"]
+[ext_resource type="Shader" uid="uid://ditear0e0bhwk" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="11_4blnk"]
+[ext_resource type="Shader" uid="uid://2k0ss58sqaqw" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="12_tnimv"]
+[ext_resource type="Script" uid="uid://d0y664i6ng2sn" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="13_4qg1e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
 sky_top_color = Color(0.162074, 0.294184, 0.999998, 1)
@@ -312,12 +315,58 @@ alpha_antialiasing_mode = 1
 alpha_antialiasing_edge = 0.09
 albedo_texture = ExtResource("9_d3awe")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_040rt"]
+bounce = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dhrl2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_i0miu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6bfml"]
+shader = ExtResource("11_4blnk")
+
+[sub_resource type="Gradient" id="Gradient_0g4ye"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_soh27"]
+gradient = SubResource("Gradient_0g4ye")
+
+[sub_resource type="Curve" id="Curve_733rx"]
+bake_resolution = 16
+_data = [Vector2(0, 0.1460675), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kmsc6"]
+curve = SubResource("Curve_733rx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajhoy"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("12_tnimv")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_soh27")
+shader_parameter/curve = SubResource("CurveTexture_kmsc6")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 44
+
+[sub_resource type="QuadMesh" id="QuadMesh_68bto"]
+material = SubResource("ShaderMaterial_ajhoy")
+
+[sub_resource type="Curve3D" id="Curve3D_4blnk"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, -2.05, 0, 0, -0.7250724, 1.7863436, -0.582991, 0, 0, 0, 0, -1.22, 0, -1.9256043, 0.43410206, 0.24911141, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_tnimv"]
+
 [node name="Main" type="Node3D"]
 
 [node name="TargetSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.207144, 8.25369, 13.2934)
 script = ExtResource("1_50ct6")
-child_count = 35
+child_count = 50
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8gbba")
@@ -480,5 +529,41 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ibmi3")
 
 [node name="BoostPad" parent="." instance=ExtResource("10_yglu3")]
 transform = Transform3D(0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881907, 4.5313845, 0.04999997, 3.8774395)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 23.02768, 5)
+physics_material_override = SubResource("PhysicsMaterial_040rt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_dhrl2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_i0miu")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08356714, -1)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 144
+process_material = SubResource("ShaderMaterial_6bfml")
+draw_pass_1 = SubResource("QuadMesh_68bto")
+script = ExtResource("13_4qg1e")
+length_seconds = 0.6944444444444444
+color_ramp = SubResource("GradientTexture1D_soh27")
+curve = SubResource("CurveTexture_kmsc6")
+billboard = true
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://d0y664i6ng2sn"
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.832366, 5.5611057, 0)
+curve = SubResource("Curve3D_4blnk")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-4.371055e-08, 0, 0.99998796, 0, 0.99998736, 0, -0.9999808, 0, -4.3710862e-08, -0.7250724, 1.7863436, -0.582991)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+mesh = SubResource("SphereMesh_tnimv")
 
 [editable path="azal"]

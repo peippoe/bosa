@@ -1,0 +1,157 @@
+[gd_scene load_steps=27 format=3 uid="uid://bn3qrpqhylncu"]
+
+[sub_resource type="Gradient" id="Gradient_vouaq"]
+offsets = PackedFloat32Array(0.07751938, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kxw81"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tqmay"]
+noise = SubResource("FastNoiseLite_kxw81")
+color_ramp = SubResource("Gradient_vouaq")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_tqmay"]
+offsets = PackedFloat32Array(0.07751938, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d7yj7"]
+frequency = 0.0003
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ggrph"]
+noise = SubResource("FastNoiseLite_d7yj7")
+color_ramp = SubResource("Gradient_tqmay")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_kxw81"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tqmay"]
+gradient = SubResource("Gradient_kxw81")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tqmay"]
+transparency = 1
+blend_mode = 1
+cull_mode = 1
+albedo_color = Color(1, 0.937, 0.45999998, 1)
+albedo_texture = SubResource("NoiseTexture2D_tqmay")
+emission_enabled = true
+emission = Color(1, 0.88633335, 0.38, 1)
+emission_energy_multiplier = 4.91
+emission_texture = SubResource("NoiseTexture2D_ggrph")
+rim_tint = 1.0
+rim_texture = SubResource("GradientTexture1D_tqmay")
+clearcoat_roughness = 0.3
+distance_fade_mode = 1
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 0.5
+
+[sub_resource type="Gradient" id="Gradient_d7yj7"]
+offsets = PackedFloat32Array(0.07751938, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ggrph"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fdgrx"]
+noise = SubResource("FastNoiseLite_ggrph")
+color_ramp = SubResource("Gradient_d7yj7")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_7knge"]
+offsets = PackedFloat32Array(0.07751938, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ki1tx"]
+frequency = 0.0003
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gpiie"]
+noise = SubResource("FastNoiseLite_ki1tx")
+color_ramp = SubResource("Gradient_7knge")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_ty31a"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7ckxb"]
+gradient = SubResource("Gradient_ty31a")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1qj41"]
+transparency = 1
+blend_mode = 1
+cull_mode = 1
+albedo_color = Color(1, 0.937, 0.45999998, 0.007843138)
+albedo_texture = SubResource("NoiseTexture2D_fdgrx")
+emission = Color(1, 0.88633335, 0.38, 1)
+emission_energy_multiplier = 0.0
+emission_texture = SubResource("NoiseTexture2D_gpiie")
+rim_tint = 1.0
+rim_texture = SubResource("GradientTexture1D_7ckxb")
+clearcoat_roughness = 0.3
+distance_fade_mode = 1
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 0.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hdw3b"]
+radius = 0.04
+height = 1.4
+radial_segments = 9
+rings = 1
+
+[sub_resource type="Gradient" id="Gradient_ggrph"]
+offsets = PackedFloat32Array(0.023255814, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fdgrx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7knge"]
+noise = SubResource("FastNoiseLite_fdgrx")
+color_ramp = SubResource("Gradient_ggrph")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_7ckxb"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qj41"]
+gradient = SubResource("Gradient_7ckxb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdw3b"]
+transparency = 1
+blend_mode = 1
+cull_mode = 1
+albedo_color = Color(1, 0.9615, 0.66999996, 0.2901961)
+albedo_texture = SubResource("NoiseTexture2D_7knge")
+emission_enabled = true
+emission = Color(1, 0.9383333, 0.26, 1)
+emission_energy_multiplier = 16.0
+rim_tint = 1.0
+rim_texture = SubResource("GradientTexture1D_1qj41")
+clearcoat_roughness = 0.3
+distance_fade_mode = 1
+distance_fade_min_distance = 0.5
+distance_fade_max_distance = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vouaq"]
+top_radius = 0.016
+bottom_radius = 0.04
+height = 0.7
+cap_top = false
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_tqmay")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_1qj41")
+mesh = SubResource("CapsuleMesh_hdw3b")
+skeleton = NodePath("")
+
+[node name="Bullet" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hdw3b")
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_vouaq")
+skeleton = NodePath("../..")

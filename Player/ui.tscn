@@ -314,24 +314,47 @@ offset_top = -80.0
 offset_right = 169.0
 grow_vertical = 0
 
-[node name="Stats" type="RichTextLabel" parent="DynamicUI/Control2"]
+[node name="Combo" type="RichTextLabel" parent="DynamicUI/Control2"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -61.0
-offset_right = 116.0
+offset_left = 4.0
+offset_top = -40.0
+offset_right = 124.0
+offset_bottom = 2.0
 grow_vertical = 0
+pivot_offset = Vector2(0, 21)
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[font_size=25]0x"
+fit_content = true
+
+[node name="Points" type="RichTextLabel" parent="DynamicUI/Control2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -59.0
+offset_right = 122.0
+offset_bottom = -35.0
+grow_vertical = 0
+size_flags_vertical = 3
 bbcode_enabled = true
 text = "0pts
-[font_size=25]0x"
+"
+fit_content = true
 
 [node name="HealthBar" type="ColorRect" parent="DynamicUI/Control2"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 119.0
-offset_bottom = 12.0
+offset_right = 120.0
+offset_bottom = 7.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
 color = Color(0, 0, 0, 1)
 
 [node name="Health" type="ColorRect" parent="DynamicUI/Control2/HealthBar"]
@@ -346,9 +369,13 @@ color = Color(0, 1, 0.435294, 1)
 
 [node name="FailScreen" parent="." instance=ExtResource("5_wmn8w")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 
 [node name="EndScreen" parent="." instance=ExtResource("6_kvoao")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
+offset_top = -5.0
+offset_bottom = -5.0
 pivot_offset = Vector2(960, 540)
