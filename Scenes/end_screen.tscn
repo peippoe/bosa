@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cd3aak4r1e7rt"]
+[gd_scene load_steps=7 format=3 uid="uid://cd3aak4r1e7rt"]
 
-[ext_resource type="Script" uid="uid://cdoxcplu2ej8v" path="res://Scenes/fail_screen.gd" id="1_f2mtv"]
+[ext_resource type="Script" uid="uid://cdoxcplu2ej8v" path="res://Scenes/end_screen.gd" id="1_f2mtv"]
 
 [sub_resource type="Animation" id="Animation_7ctyi"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/path = NodePath("Pass/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -19,14 +19,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/path = NodePath("Fail/ColorRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_173jn"]
@@ -34,7 +34,7 @@ resource_name = "failed"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/path = NodePath("Pass/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -43,24 +43,32 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+
+[sub_resource type="Animation" id="Animation_f2mtv"]
+resource_name = "fail"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fail/ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fg7so"]
 _data = {
 &"RESET": SubResource("Animation_7ctyi"),
-&"end": SubResource("Animation_173jn")
+&"fail": SubResource("Animation_f2mtv"),
+&"pass": SubResource("Animation_173jn")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2mtv"]
+bg_color = Color(0.1302, 0.17542, 0.21, 0.62352943)
+skew = Vector2(0.045, 0)
 
 [node name="EndScreen" type="Control"]
 process_mode = 2
@@ -73,17 +81,29 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_f2mtv")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fg7so")
+}
+
+[node name="Fail" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(2.31028e-06, 0.974715, 0.714664, 0.427451)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+[node name="ColorRect" type="ColorRect" parent="Fail"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.576471)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fail/ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,39 +112,139 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="Control2" type="Control" parent="ColorRect/VBoxContainer"]
+[node name="Control2" type="Control" parent="Fail/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Fail/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-text = "you winneded!"
+text = "failed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Retry" type="Button" parent="ColorRect/VBoxContainer"]
-unique_name_in_owner = true
+[node name="Retry" type="Button" parent="Fail/ColorRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 text = "retry"
 
-[node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer"]
-unique_name_in_owner = true
+[node name="MainMenu" type="Button" parent="Fail/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+text = "menu"
+
+[node name="Control" type="Control" parent="Fail/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Pass" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Pass"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0.98333335, 0.6745098)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pass/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Pass/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
+theme_override_styles/panel = SubResource("StyleBoxFlat_f2mtv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pass/ColorRect/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.8
+theme_override_constants/separation = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Pass/ColorRect/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+bbcode_enabled = true
+text = "
+
+					[font_size=30]passed [beatmap]"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Pass/ColorRect/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+bbcode_enabled = true
+text = "bla bla stats bla bla"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Pass/ColorRect/HBoxContainer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Pass/ColorRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+
+[node name="Control" type="Control" parent="Pass/ColorRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Pass/ColorRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+bbcode_enabled = true
+text = "[font_size=250][color=yellow]	SS[font_size=60]		[color=white]RANK"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control3" type="Control" parent="Pass/ColorRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Retry" type="Button" parent="Pass/ColorRect/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+text = "retry"
+
+[node name="MainMenu" type="Button" parent="Pass/ColorRect/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.5
 text = "main menu"
 
-[node name="Control" type="Control" parent="ColorRect/VBoxContainer"]
+[node name="Control2" type="Control" parent="Pass/ColorRect/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 4.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_fg7so")
-}
+size_flags_stretch_ratio = 2.0

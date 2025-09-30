@@ -36,7 +36,7 @@ func _input(event):
 			start_wallrun()
 			%JumpBuffer.start()
 		
-		if Input.is_action_just_pressed("shift") and %SlideCooldown.is_stopped(): %SlideBuffer.start()
+		if Input.is_action_just_pressed("shift"): %SlideBuffer.start()
 		
 		if Input.is_action_just_pressed("vault"):
 			vault()
@@ -119,7 +119,7 @@ func vault():
 
 func shoot():
 	var from = cam.global_position
-	var to = from + -cam.global_basis.z * 100
+	var to = from + -cam.global_basis.z * 140
 	
 	var space_state = get_world_3d().direct_space_state
 	
@@ -132,14 +132,14 @@ func shoot():
 	
 	
 	
-	var spawn_pos = cam.global_position - cam.global_basis.z*1 - cam.global_basis.y*0.2 + cam.global_basis.x*0.06
+	var spawn_pos = cam.global_position - cam.global_basis.z*0.7 - cam.global_basis.y*0.1 + cam.global_basis.x*0.06
 	var bullet_inst = preload("uid://bn3qrpqhylncu").instantiate()
 	get_parent().add_child(bullet_inst)
 	bullet_inst.look_at_from_position(spawn_pos, to)
 	bullet_inst.rotation_degrees.x += 90
 	var tween = get_tree().create_tween()
 	
-	tween.tween_property(bullet_inst, "global_position", to, .7)
+	tween.tween_property(bullet_inst, "global_position", to, 1)
 	tween.set_parallel(false)
 	tween.tween_callback(bullet_inst.queue_free)
 
@@ -150,7 +150,7 @@ const GRAV := 16
 const FAST_FALL_BOOST := 1#3.0
 const SKYDIVE_GRAV_BOOST := 30.0
 const DOWNSHIFT := 14.0
-const WALLRUN_GRAV := 6.0
+const WALLRUN_GRAV := 4.0
 const JUMP_VELOCITY := 6.9
 const JUMP_EDGE_BOOST := 0.1
 const JUMP_CUTOFF := 0.3
@@ -174,8 +174,8 @@ var move_dir := Vector3.ZERO
 var sliding := false
 const SLIDE_ACCELERATION := 10.0
 const SLIDE_FRICTION := 5.0
-#const SLIDE_BOOST := 1.1
-const SLIDE_NERF := .5
+const SLIDE_BOOST := 1.1
+const SLIDE_CONVERSION_MULT := .5
 const SLIDE_LIMIT := 3.0
 const SLIDE_DOWNHILL_BOOST := 1.9
 
@@ -206,6 +206,8 @@ var can_wallrun_right := true
 
 func _physics_process(delta):
 	
+	input_dir = Input.get_vector("a", "d", "w", "s")
+	
 	if vault_point:
 		
 		var max_dist = (vault_start_point - vault_point).length() - vault_end_dist
@@ -225,7 +227,10 @@ func _physics_process(delta):
 		
 		if global_position.distance_to(vault_point) < vault_end_dist:
 			global_position = vault_point
-			var new_vel = -cam.global_basis.z * vault_stored_velocity.length() * 1.1
+			
+			var dir = cam.global_basis * Vector3(input_dir.x, 0.0, input_dir.y)
+			if dir == Vector3.ZERO: dir = -cam.global_basis.z
+			var new_vel = dir * vault_stored_velocity.length() * 1.1
 			velocity = new_vel
 			vault_point = null
 			on_floor = true
@@ -416,7 +421,6 @@ func get_max_from_vel_buffer():
 func slide():
 	if not %SlideBuffer.is_stopped() and (was_on_floor or on_floor):
 		
-		%SlideCooldown.start()
 		%SlideBuffer.stop()
 		
 		sliding = true
@@ -429,7 +433,7 @@ func slide():
 		var buffer_max = get_max_from_vel_buffer()
 		var max = max(buffer_max, vel.length())
 		var diff = max - vel.length()
-		var speed = vel.length() + diff * SLIDE_NERF
+		var speed = vel.length() + diff * SLIDE_CONVERSION_MULT
 		velocity = dir * speed
 		
 		%Slide.pitch_scale = clampf(remap(velocity.length(), 0, 50, 0.8, 1.6), 0.8, 1.6)
@@ -465,7 +469,6 @@ func movement(delta):
 			if Input.is_action_just_pressed("ctrl"): velocity.y -= DOWNSHIFT; AudioPlayer.play_audio("res://Assets/Audio/Effect/roll.wav", null, Vector2(2, 3))
 		velocity.y += -grav * delta
 	
-	input_dir = Input.get_vector("a", "d", "w", "s")
 	move_dir = (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	var hvel := velocity

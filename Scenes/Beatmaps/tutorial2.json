@@ -45,7 +45,8 @@
 		"duration": 100.0,
 		"name": null,
 		"song": "res://Assets/Audio/Music/tutorial.wav",
-		"version": 1.0
+		"version": 1.0,
+		"gamemode": 1
 	},
 	"editor": [],
 	"environment": {

@@ -25,13 +25,7 @@ var playhead := 0.0:
 		
 		if not GameManager.in_editor:
 			if playhead >= beatmap_data["config"]["duration"]:
-				#print(beatmap_data)
-				playback_speed = 0
-				get_tree().paused = true
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-				var player = get_tree().get_first_node_in_group("player")
-				var end_screen = player.get_node("%UI/%EndScreen")
-				end_screen.get_node("AnimationPlayer").play("end")
+				beatmap_ended()
 			return
 		
 		var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
@@ -45,6 +39,12 @@ var playhead := 0.0:
 			#if not playing or abs(playhead - get_playback_position()) > 0.05: # Scrubbing/Jumping during playback
 				#seek(playhead)
 				#recalculate_event_index()
+
+func beatmap_ended(failed = false):
+	
+	var player = get_tree().get_first_node_in_group("player")
+	var end_screen = player.get_node("%UI/%EndScreen")
+	end_screen.end(failed)
 
 
 var playback_speed := 0.0:
@@ -72,6 +72,10 @@ func print_color(target):
 
 func _process(delta):
 	if playback_speed == 0.0: return
+	
+	if playhead > 0.01 and beatmap_data["config"]["gamemode"] == 1:
+		if Utility.get_node_or_null_in_scene("%Beatmap").get_child_count() == 0:
+			beatmap_ended()
 	
 	var playback_delta = playback_speed * delta
 	playhead += playback_delta
@@ -202,6 +206,20 @@ func setup():
 	#beatmap_data["geometry"] = Utility.convert_vec3s(parsed["geometry"])
 	#beatmap_data["geometry"] = Utility.convert_ints(parsed["geometry"])
 	#beatmap_data["environment"] = Utility.convert_ints(parsed["environment"])
+	
+	var idxs_to_remove = []
+	if parsed["config"]["gamemode"] == 1:
+		for i in parsed["beatmap"].size():
+			var id = parsed["beatmap"][i]["hidden"]["id"]
+			if id == 11:
+				parsed["beatmap"][i]["_"]["start_time"] = 0.0
+				#parsed["beatmap"][i]["_"]["pop_time"] = 1000.0
+			else:
+				idxs_to_remove.append(i)
+	
+	for i in idxs_to_remove:
+		parsed["beatmap"].remove_at(i)
+	
 	
 	beatmap_data = parsed
 	

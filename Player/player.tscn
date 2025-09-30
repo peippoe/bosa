@@ -719,9 +719,4 @@ unique_name_in_owner = true
 wait_time = 0.4
 one_shot = true
 
-[node name="SlideCooldown" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 0.1
-one_shot = true
-
 [connection signal="timeout" from="WallrunCoyoteTime" to="." method="_on_wallrun_coyote_time_timeout"]

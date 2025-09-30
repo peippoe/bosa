@@ -47,6 +47,8 @@ func _input(event):
 		#$PauseMenu/MarginContainer.global_position = Vector2.ZERO + offset
 
 
+var lerped_points : int = 0
+
 func _process(delta):
 	var player = $".."
 	var vel = player.velocity
@@ -64,7 +66,11 @@ func _process(delta):
 	
 	%Health.size.x = %HealthBar.size.x * GameManager.health / 100.0
 	
-	%Points.text = "%dpts" % GameManager.points
+	#lerped_points = lerp(lerped_points, int(GameManager.points * 1.2), delta*5)
+	#lerped_points = min(lerped_points, GameManager.points)
+	lerped_points = move_toward(lerped_points, GameManager.points, delta*1500)
+	%Points.text = "%dpts" % lerped_points
+	
 	var t = %Combo.get_parsed_text()
 	var prev_combo = int(t.substr(0, t.length()-1))
 	%Combo.text = "[font_size=25]%dx" % GameManager.combo

@@ -131,9 +131,9 @@ distance_fade_min_distance = 0.5
 distance_fade_max_distance = 0.5
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vouaq"]
-top_radius = 0.016
-bottom_radius = 0.04
-height = 0.7
+top_radius = 0.01
+bottom_radius = 0.02
+height = 0.4
 cap_top = false
 
 [node name="Node3D" type="Node3D"]

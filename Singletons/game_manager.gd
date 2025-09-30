@@ -16,11 +16,7 @@ var health := 50:
 		
 		if value > 0: return
 		
-		get_tree().paused = true
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		var player = get_tree().get_first_node_in_group("player")
-		var fail_screen = player.get_node("%UI/%FailScreen")
-		fail_screen.get_node("AnimationPlayer").play("failed")
+		Playback.beatmap_ended(true)
 
 
 func _ready():

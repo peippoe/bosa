@@ -374,7 +374,6 @@ layout_mode = 1
 
 [node name="EndScreen" parent="." instance=ExtResource("6_kvoao")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 offset_top = -5.0
 offset_bottom = -5.0
