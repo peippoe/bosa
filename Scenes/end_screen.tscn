@@ -29,12 +29,12 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_173jn"]
-resource_name = "failed"
+[sub_resource type="Animation" id="Animation_f2mtv"]
+resource_name = "fail"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pass/ColorRect:modulate")
+tracks/0/path = NodePath("Fail/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -44,12 +44,12 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_f2mtv"]
-resource_name = "fail"
+[sub_resource type="Animation" id="Animation_173jn"]
+resource_name = "failed"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Fail/ColorRect:modulate")
+tracks/0/path = NodePath("Pass/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -198,9 +198,8 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 bbcode_enabled = true
-text = "bla bla stats bla bla"
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "bla bla stats bla bla
+bla bla"
 
 [node name="Control" type="Control" parent="Pass/ColorRect/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2

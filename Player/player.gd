@@ -22,15 +22,10 @@ func _input(event):
 	elif event is InputEventMouseButton:
 		if not event.pressed: return
 		
-		if event.button_index == 1:
-			shoot()
-		
 		if Input.is_action_just_pressed("quickturn"):
 			head.rotate_y(PI)
 	
 	if event is InputEventKey:
-		if Input.is_action_just_pressed("pop"):
-			shoot()
 		
 		if Input.is_action_just_pressed("space"):
 			start_wallrun()
@@ -41,10 +36,21 @@ func _input(event):
 		if Input.is_action_just_pressed("vault"):
 			vault()
 		
+		if Input.is_action_just_pressed("ctrl") and downshift_charges > 1.0:
+			velocity.y -= DOWNSHIFT
+			downshift_charges -= 1.0
+			AudioPlayer.play_audio("res://Assets/Audio/Effect/roll.wav", null, Vector2(2, 3))
+			
+			
+			
+			if cam_tween: cam_tween.kill()
+			cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			cam_tween.tween_property(%CamHolder, "rotation", Vector3(0.02, 0, 0), .07)
+			cam_tween.tween_property(%CamHolder, "rotation", Vector3(0, 0, 0), .2)
 		
 		
-		if Input.is_action_just_released("space"):
-			jump_cutoff()
+		#if Input.is_action_just_released("space"):
+			#jump_cutoff()
 
 
 func vault():
@@ -68,15 +74,15 @@ func vault():
 		
 		var start = cam.global_position - Vector3.UP*cam.global_position.y
 		var end = point - Vector3.UP*point.y
-		var dist = end.distance_to(start)
+		var horizontal_dist = end.distance_to(start)
 		
 		var angle = cam.rotation.x
 		
-		var x_dist = dist / cos(angle) + 0.1
+		var x_dist = horizontal_dist / cos(angle) + 0.1
 		var x = cam.global_position + -cam.global_basis.z * x_dist
 		
 		
-		var height = -sqrt(pow(x_dist, 2.0) - pow(dist, 2.0)) - 1.5
+		var height = -sqrt(pow(x_dist, 2.0) - pow(horizontal_dist, 2.0)) - 1.5
 		
 		%LedgeRaycast.global_position = x
 		%LedgeRaycast.target_position.y = height
@@ -103,7 +109,7 @@ func vault():
 		#print("STIPPPPPPPPPPPPP")
 		stop_sliding()
 		
-		vault_stored_velocity = velocity
+		vault_stored_speed = max(velocity.length(), get_max_from_vel_buffer().length())
 		
 		var vault_dist = vault_point.distance_to(global_position)
 		vault_speed = vault_dist / vault_time
@@ -116,57 +122,68 @@ func vault():
 		#print("vault distance: %f\n vel_to_point: %f\n vault efficiency: %f\n vault_speed: %f" % [vault_dist, vel_to_point, vault_efficiency, vault_speed])
 
 
-
-func shoot():
+func get_cam_ray_result():
 	var from = cam.global_position
 	var to = from + -cam.global_basis.z * 140
-	
 	var space_state = get_world_3d().direct_space_state
-	
 	var query = PhysicsRayQueryParameters3D.create(from, to, 4)
 	var result = space_state.intersect_ray(query)
+	return result
+
+func shoot():
+	var result = get_cam_ray_result()
 	
 	if result:
-		Utility.pop_target(result.collider)
+		var target = result.collider
+		if target.has_method("pop"):
+			Utility.pop_target(target)
+		elif target is StaticBody3D and not target.get_parent().get_parent().popped:
+			target.get_parent().get_parent().popped = true
+			Utility.pop_target(target.get_parent().get_parent())
+		
+		var hitmarker = %UI.get_node("Hitmarker")
+		hitmarker.modulate = Color(1,1,1,1)
+		var tween = get_tree().create_tween()
+		tween.tween_property(hitmarker, "modulate", Color(1,1,1,0), .2)
 	
 	
-	
-	
-	var spawn_pos = cam.global_position - cam.global_basis.z*0.7 - cam.global_basis.y*0.1 + cam.global_basis.x*0.06
-	var bullet_inst = preload("uid://bn3qrpqhylncu").instantiate()
-	get_parent().add_child(bullet_inst)
-	bullet_inst.look_at_from_position(spawn_pos, to)
-	bullet_inst.rotation_degrees.x += 90
-	var tween = get_tree().create_tween()
-	
-	tween.tween_property(bullet_inst, "global_position", to, 1)
-	tween.set_parallel(false)
-	tween.tween_callback(bullet_inst.queue_free)
+	#var spawn_pos = cam.global_position - cam.global_basis.z*0.7 - cam.global_basis.y*0.1 + cam.global_basis.x*0.06
+	#var bullet_inst = preload("uid://bn3qrpqhylncu").instantiate()
+	#get_parent().add_child(bullet_inst)
+	#bullet_inst.look_at_from_position(spawn_pos, to)
+	#bullet_inst.rotation_degrees.x += 90
+	#var tween = get_tree().create_tween()
+	#
+	#tween.tween_property(bullet_inst, "global_position", to, 1)
+	#tween.set_parallel(false)
+	#tween.tween_callback(bullet_inst.queue_free)
 
 
 
 
-const GRAV := 16
-const FAST_FALL_BOOST := 1#3.0
+
+const GRAV := 15.5
+const FAST_FALL_BOOST := 3.5
 const SKYDIVE_GRAV_BOOST := 30.0
-const DOWNSHIFT := 14.0
+const DOWNSHIFT := 12.0
+var downshift_charges := 2.0
 const WALLRUN_GRAV := 4.0
-const JUMP_VELOCITY := 6.9
-const JUMP_EDGE_BOOST := 0.1
+const JUMP_VELOCITY := 6
+const JUMP_EDGE_BOOST := 0.2
 const JUMP_CUTOFF := 0.3
 var jump_cutoff_applied := false
-const JUMP_EXTEND := 0#6.0
+const JUMP_EXTEND := 10.0
 
-const MAX_SPEED := 8.0
-const WISH_DIR_COMPENSATION_LIMIT := MAX_SPEED + 40.0
-const AIR_SPEED_CAP := 40.0
-const AIR_SPEED_CAP_MULT := 1.0
+const MAX_SPEED := 8.5
+const WISH_DIR_COMPENSATION_LIMIT := MAX_SPEED + 40.0 # makes friction not apply to direction of movement
+const AIR_SPEED_CAP := 48.0
+const AIR_SPEED_CAP_DAMPING_MULT := 0.4
 var acceleration := 0.0
-const FLOOR_ACCELERATION := 140.0
-const AIR_ACCELERATION := 50.0
+const FLOOR_ACCELERATION := 100.0
+const AIR_ACCELERATION := 45.0
 const AIR_SLOWDOWN_ASSIST := 0.0
-const FLOOR_FRICTION := 120.0
-const AIR_FRICTION := 0.5
+const FLOOR_FRICTION := 105.0
+const AIR_FRICTION := 0#0.1
 
 var input_dir := Vector2.ZERO
 var move_dir := Vector3.ZERO
@@ -177,13 +194,13 @@ const SLIDE_FRICTION := 5.0
 const SLIDE_BOOST := 1.1
 const SLIDE_CONVERSION_MULT := .5
 const SLIDE_LIMIT := 3.0
-const SLIDE_DOWNHILL_BOOST := 1.9
+const SLIDE_DOWNHILL_BOOST := 2
 
 var on_floor := false
 var was_on_floor := false
 
 var vel_buffer := [] # changing physics fps will nerf/buff this
-const VEL_BUFFER_SIZE := 4
+const VEL_BUFFER_SIZE := 5
 
 var prev_y := 0.0
 
@@ -191,13 +208,29 @@ var coiling := false
 
 var vault_point = null
 var vault_start_point : Vector3 = Vector3.ZERO
-var vault_stored_velocity
+var vault_stored_speed
 var vault_speed
 @export var vault_time = 0.2
 var vault_end_dist : float = 0.1
 @export var vault_y_curve : Curve
+@export var vault_cam_rotation_curve : Curve
 
-var wallrunning := 0
+
+var wallrunning := 0:
+	set(value):
+		wallrunning = value
+		
+		var angle = 0
+		match value:
+			-1: angle = -0.05
+			1: angle = 0.05
+		
+		if cam_tween: cam_tween.kill()
+		cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		cam_tween.tween_property(%CamHolder, "position", Vector3(angle * -4, 0, 0), .1)
+		cam_tween.set_parallel(true)
+		cam_tween.tween_property(%CamHolder, "rotation", Vector3(0, 0, angle), .1)
+
 var can_wallrun_left := true
 var can_wallrun_right := true
 
@@ -213,12 +246,12 @@ func _physics_process(delta):
 		var max_dist = (vault_start_point - vault_point).length() - vault_end_dist
 		var curr_dist = (global_position - vault_point).length() - vault_end_dist
 		var alpha = curr_dist/max_dist
-		print(alpha)
 		
 		
 		var start_y = vault_start_point.y + 0.75
 		var end_y = vault_point.y + 0.75
 		cam.global_position.y = lerpf(start_y, end_y, vault_y_curve.sample_baked(1.0-alpha))
+		%CamHolder.rotation.x = vault_cam_rotation_curve.sample_baked(alpha) * -0.04
 		
 		#global_position = lerp(global_position, vault_point, delta*vault_speed)
 		$CollisionShape3D.disabled = true
@@ -230,7 +263,7 @@ func _physics_process(delta):
 			
 			var dir = cam.global_basis * Vector3(input_dir.x, 0.0, input_dir.y)
 			if dir == Vector3.ZERO: dir = -cam.global_basis.z
-			var new_vel = dir * vault_stored_velocity.length() * 1.1
+			var new_vel = dir * vault_stored_speed * 1.1
 			velocity = new_vel
 			vault_point = null
 			on_floor = true
@@ -248,7 +281,7 @@ func _physics_process(delta):
 	
 	if on_floor: %CoyoteTime.start()
 	
-	update_variables()
+	update_variables(delta)
 	jump_extend(delta)
 	can_jump()
 	
@@ -295,6 +328,11 @@ func jump():
 	
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
 	
+	if cam_tween: cam_tween.kill()
+	cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	cam_tween.tween_property(%CamHolder, "rotation", Vector3(-0.02, 0, 0), .15)
+	cam_tween.tween_property(%CamHolder, "rotation", Vector3(0, 0, 0), .25)
+	
 	velocity.y = max(velocity.y, 0) + JUMP_VELOCITY
 	
 	if wallrunning:
@@ -302,9 +340,9 @@ func jump():
 		#hvel = velocity - Vector3.UP*velocity.y
 		#var dot = hvel.normalized().dot(move_dir)
 		#print(dot)
-		var dir = move_dir
-		if not dir: dir = -head.global_basis.z
-		velocity = dir * get_max_from_vel_buffer() * 1.4 + Vector3.UP * velocity.y
+		var vel = get_max_from_vel_buffer() * Vector3(1.2, 1.0, 1.2)
+		if vel.y < 0.0: vel.y *= 1.35
+		velocity = move_dir * vel.length() + Vector3.UP * velocity.y
 		return
 	
 	if sliding:
@@ -331,7 +369,7 @@ func jump():
 func jump_cutoff():
 	if jump_cutoff_applied: return
 	
-	print("CUTOFFFFFFFFFFFFFF FR")
+	print("cutoff")
 	
 	if velocity.y > 0:
 		var extra = velocity.y
@@ -342,6 +380,7 @@ func jump_cutoff():
 func wallrun():
 	if wallrunning:
 		if on_floor:
+			
 			stop_wallrunning()
 		if not Input.is_action_pressed("space"):
 			jump()
@@ -387,7 +426,7 @@ func stop_wallrunning():
 	%Sliding.stop()
 
 
-func update_variables():
+func update_variables(delta):
 	was_on_floor = on_floor
 	on_floor = is_on_floor()
 	
@@ -398,6 +437,8 @@ func update_variables():
 		can_wallrun_left = true
 	
 	prev_y = global_position.y
+	
+	downshift_charges = min(downshift_charges + delta * 1.5, 2.0)
 	
 	#if sliding:
 		#cam.rotation.z = -.05
@@ -413,10 +454,11 @@ func update_vel_buffer():
 
 func get_max_from_vel_buffer():
 	var max = -1
+	var max_vel = Vector3.ZERO
 	for i in vel_buffer:
 		var v = i.length()
-		if v > max: max = v
-	return max
+		if v > max: max = v; max_vel = i
+	return max_vel
 
 func slide():
 	if not %SlideBuffer.is_stopped() and (was_on_floor or on_floor):
@@ -430,27 +472,42 @@ func slide():
 		var dir = move_dir
 		if not dir: dir = -head.global_basis.z
 		
-		var buffer_max = get_max_from_vel_buffer()
+		var buffer_max = get_max_from_vel_buffer().length()
 		var max = max(buffer_max, vel.length())
 		var diff = max - vel.length()
 		var speed = vel.length() + diff * SLIDE_CONVERSION_MULT
 		velocity = dir * speed
 		
-		%Slide.pitch_scale = clampf(remap(velocity.length(), 0, 50, 0.8, 1.6), 0.8, 1.6)
+		%Slide.pitch_scale = clampf(remap(velocity.length(), 0, 50, 0.65, 1.4), 0.65, 1.4)
 		%Slide.play()
+		
+		%CamHolder.position.y = 0.7
+		#cam_tween.kill()
+		cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+		cam_tween.tween_property(%CamHolder, "position", Vector3.ZERO, .15)
+		cam_tween.set_parallel(true)
+		cam_tween.tween_property(%CamHolder, "rotation", Vector3(0, 0, 0.03), .15)
 		%Sliding.play()
 	
 	if sliding and on_floor: %SlideOffFloorTimer.start()
 	if (Input.is_action_just_released("shift") or velocity.length() < SLIDE_LIMIT or %SlideOffFloorTimer.is_stopped()) and sliding:
 		stop_sliding()
 
+var cam_tween : Tween
+
 func stop_sliding():
 	if not sliding: return
+	
+	if cam_tween: cam_tween.kill()
+	cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	cam_tween.tween_property(%CamHolder, "position", Vector3.ZERO, .1)
+	cam_tween.set_parallel(true)
+	cam_tween.tween_property(%CamHolder, "rotation", Vector3(0, 0, 0), .1)
 	
 	%SlideOffFloorTimer.stop()
 	%Sliding.stop()
 	sliding = false
-	position.y += 1
+	position.y += 0.9
 	$CollisionShape3D.shape.height = 2
 
 func movement(delta):
@@ -461,12 +518,11 @@ func movement(delta):
 		if wallrunning:
 			grav = WALLRUN_GRAV
 		else:
-			#if not Input.is_action_pressed("space"):
-				#var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
-				#grav += FAST_FALL_BOOST * x
-			if velocity.y < 0.0: grav += FAST_FALL_BOOST
+			if not Input.is_action_pressed("space"):
+				var x = fast_fall_curve.sample_baked(1.0 - %FastFallTime.time_left / %FastFallTime.wait_time)
+				grav += FAST_FALL_BOOST * x
+			#if velocity.y < 0.0: grav += FAST_FALL_BOOST
 			#if Input.is_action_pressed("ctrl"): grav += SKYDIVE_GRAV_BOOST
-			if Input.is_action_just_pressed("ctrl"): velocity.y -= DOWNSHIFT; AudioPlayer.play_audio("res://Assets/Audio/Effect/roll.wav", null, Vector2(2, 3))
 		velocity.y += -grav * delta
 	
 	move_dir = (head.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -539,13 +595,23 @@ func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 	
 	var extra = hvel.length() - AIR_SPEED_CAP
 	if extra > 0.0:
-		velocity += friction_vec * extra * AIR_SPEED_CAP_MULT * delta
+		velocity += friction_vec * extra * AIR_SPEED_CAP_DAMPING_MULT * delta
 
 
 
 
+
+var lerped_speed = 0.0
 
 func _process(delta):
+	
+	if Input.is_action_just_pressed("pop"):
+		shoot()
+	
+	lerped_speed = lerpf(lerped_speed, velocity.length(), delta * 36.0)
+	cam.fov = Settings.config["visual"]["fov"] + lerped_speed / 6.0
+	
+	#%CamHolder.rotation.z = -input_dir.x * 0.02
 	
 	$GPUTrail3D.global_position = lerp($GPUTrail3D.global_position, global_position + cam.global_basis.z * 1, delta*30)
 	

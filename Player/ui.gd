@@ -49,6 +49,9 @@ func _input(event):
 
 var lerped_points : int = 0
 
+var current_loudness := 0.0
+const SMOOTHING := 25.0
+
 func _process(delta):
 	var player = $".."
 	var vel = player.velocity
@@ -65,11 +68,15 @@ func _process(delta):
 	%DebugLabel.text = debug_text
 	
 	%Health.size.x = %HealthBar.size.x * GameManager.health / 100.0
+	$DynamicUI/Control2/DownshiftCharges/Progress/Bar.size.x = $DynamicUI/Control2/DownshiftCharges/Progress.size.x * player.downshift_charges / 2.0
 	
 	#lerped_points = lerp(lerped_points, int(GameManager.points * 1.2), delta*5)
 	#lerped_points = min(lerped_points, GameManager.points)
 	lerped_points = move_toward(lerped_points, GameManager.points, delta*1500)
 	%Points.text = "%dpts" % lerped_points
+	
+	$DynamicUI/left.visible = !player.can_wallrun_left
+	$DynamicUI/right.visible = !player.can_wallrun_right
 	
 	var t = %Combo.get_parsed_text()
 	var prev_combo = int(t.substr(0, t.length()-1))
@@ -92,3 +99,7 @@ func _process(delta):
 	%DynamicUI.position.x = inertia_vec.x
 	%DynamicUI.position.y = -inertia_vec.y
 	#print($DynamicUI.position)
+	
+	
+	var a = remap(GameManager.health, 25, 10, 0, 1)
+	$Vignette.modulate.a = min(a, 1.0)

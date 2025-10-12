@@ -23,6 +23,27 @@ func end(failed = false):
 		$AnimationPlayer.play("pass")
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/applause.mp3")
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/voice-nice-one.mp3")
+		
+		$Pass/ColorRect/HBoxContainer/Panel/VBoxContainer/RichTextLabel.text = """
+		[font_size=30]passed %s in %.2fs
+		""" % [Playback.beatmap_data["config"]["name"], Playback.playhead]
+		
+		var amount = 0
+		for i in Playback.beatmap_data["beatmap"].size():
+			if Playback.beatmap_data["beatmap"][i]["hidden"]["id"] == 10: amount += 1
+		
+		var max = amount * Settings.POINTS_REWARDS[0]
+		var acc = GameManager.points / float(max) * 100.0
+		$Pass/ColorRect/HBoxContainer/Panel/VBoxContainer/RichTextLabel2.text = """
+		\tscore: %d\n
+		\tcombo: %d\n
+		\taccuracy: %.2f%%\n
+		""" % [GameManager.points, GameManager.combo, acc]
+		
+		$Pass/ColorRect/HBoxContainer/VBoxContainer2/RichTextLabel2.text = """
+		[font_size=250][color=yellow]	%s[font_size=60]		[color=white]RANK
+		""" % Settings.get_rank(acc)
+		
 
 func _ready():
 	$Fail/ColorRect/VBoxContainer/Retry.pressed.connect(retry)

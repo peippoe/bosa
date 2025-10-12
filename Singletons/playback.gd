@@ -25,7 +25,9 @@ var playhead := 0.0:
 		
 		if not GameManager.in_editor:
 			if playhead >= beatmap_data["config"]["duration"]:
-				beatmap_ended()
+				var failed = false
+				if beatmap_data["config"]["gamemode"] == 1: failed = true
+				beatmap_ended(failed)
 			return
 		
 		var timeline = Utility.get_node_or_null_in_scene("%TimelineSlider")
@@ -66,9 +68,7 @@ var event_index = 0
 var pop_times = []
 var targets = []
 
-func print_color(target):
-	await get_tree().create_timer(.1).timeout
-	print("COLOR: %s" % str(target.get_node("Mesh/MeshInstance3D").material_override.albedo_color))
+
 
 func _process(delta):
 	if playback_speed == 0.0: return
@@ -96,12 +96,14 @@ func _process(delta):
 			match event_data["id"]:
 				Utility.EntityID["TARGET_TAP"]:
 					new_prop = Utility.spawn_target(event_data)
-					print_color.call_deferred(new_prop)
 					
 					if GameManager.in_editor:
 						auto_pop.call_deferred(new_prop)
+				
 				Utility.EntityID["GOAL"]:
 					new_prop = Utility.spawn_entity(Utility.PROPS[Utility.EntityID["GOAL"]], GameManager.target_parent, event_data)
+				Utility.EntityID["SLIDER"]:
+					new_prop = Utility.spawn_entity(Utility.PROPS[Utility.EntityID["SLIDER"]], GameManager.target_parent, event_data)
 			
 			event_index += 1
 			
@@ -112,13 +114,17 @@ func _process(delta):
 			if event_data["id"] == Utility.EntityID["TARGET_TAP"] and Utility.remove_sections_from_data(beatmap[event_index-1])["id"] == Utility.EntityID["TARGET_TAP"]:
 				spawn_flow_line.call_deferred(event_index)
 
+func print_color(target):
+	await get_tree().create_timer(.1).timeout
+	print("COLOR: %s" % str(target.get_node("Mesh/MeshInstance3D").material_override.albedo_color))
+
 func get_spawn_time(entity):
 	var spawn_time = -1.0
 	
 	entity = Utility.remove_sections_from_data(entity)
 	
 	match entity["id"]:
-		Utility.EntityID["TARGET_TAP"]:
+		Utility.EntityID["TARGET_TAP"], Utility.EntityID["SLIDER"]:
 			spawn_time = entity["pop_time"] - Settings.fadein_time
 		Utility.EntityID["GOAL"]:
 			spawn_time = entity["start_time"]
@@ -213,7 +219,7 @@ func setup():
 			var id = parsed["beatmap"][i]["hidden"]["id"]
 			if id == 11:
 				parsed["beatmap"][i]["_"]["start_time"] = 0.0
-				#parsed["beatmap"][i]["_"]["pop_time"] = 1000.0
+				parsed["beatmap"][i]["_"]["pop_time"] = 10000.0
 			else:
 				idxs_to_remove.append(i)
 	
@@ -233,7 +239,16 @@ func setup():
 	
 	for i in beatmap_data["geometry"].size():
 		var geometry_data = beatmap_data["geometry"][i]
-		Utility.editor_spawn_entity(geometry_data)
+		
+		var first_digit = int(str(geometry_data["hidden"]["id"])[0])
+		if first_digit == 3:
+			var path
+			match geometry_data["hidden"]["id"]:
+				30: path = "res://MapPlayer/Props/boost_pad.tscn"
+					
+			Utility.spawn_entity(path, Utility.get_node_or_null_in_scene("%Geometry"), geometry_data)
+		else:
+			Utility.editor_spawn_entity(geometry_data)
 	
 	if beatmap_data["config"]["song"]: set_song(beatmap_data["config"]["song"])
 	
@@ -241,16 +256,39 @@ func setup():
 	GameManager.points = 0
 	GameManager.health = 50
 	
-	playhead = 0.0
-	playback_speed = 1.0
 	
 	if GameManager.beatmap_path == "res://Scenes/Beatmaps/tutorial.json":
 		get_tree().get_first_node_in_group("player").get_node("%UI/%TempTutorialText/AnimationPlayer").play("tutorial_text")
 	
 	#print(get_playback_position())
 	#print(playhead)
-	#seek(playhead)
+	
+	var measured_delay = await measure_delay()
+	
+	playhead = 0.0
+	playback_speed = 1.0
+	
+	var offset = Settings.config["gameplay"]["song_offset"] / 1000.0
+	seek(playhead + measured_delay)
 
+func measure_delay():
+	await get_tree().create_timer(.2).timeout
+	
+	var t1 = Time.get_ticks_msec()
+	
+	Playback.stop()
+	Playback.play()
+	Playback.seek(0.0)
+	await get_tree().process_frame
+	
+	var t2 = Time.get_ticks_msec()
+	var playhead_time = Playback.get_playback_position() + AudioServer.get_time_since_last_mix()
+	
+	print("MEASURED DELAY")
+	print((t2 - t1) / 1000.0)
+	print(playhead_time)
+	
+	return playhead_time
 
 
 func set_song(song_path : String):

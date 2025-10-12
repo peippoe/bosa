@@ -78,12 +78,48 @@ fit_content = true
 [node name="ValueHolder0" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/Settings/gameplay/mouse_sensitivity"]
 layout_mode = 2
 size_flags_horizontal = 3
+placeholder_text = "1.0"
 metadata/data_type = "float"
+
+[node name="song_offset" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Settings/gameplay"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/Settings/gameplay/song_offset"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "song offset"
+fit_content = true
+
+[node name="ValueHolder0" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/Settings/gameplay/song_offset"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "12.0 (default in ms)"
+metadata/data_type = "float"
+
+[node name="Panel3" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/Settings"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+color = Color(0.87, 0.8091, 0.696, 1)
 
 [node name="visual" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Settings"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="fov" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Settings/visual"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/Settings/visual/fov"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "fov"
+fit_content = true
+
+[node name="ValueHolder0" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/Settings/visual/fov"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "90.0"
+metadata/data_type = "float"
 
 [node name="target_colors" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Settings/visual"]
 layout_mode = 2

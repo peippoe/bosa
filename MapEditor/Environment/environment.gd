@@ -19,6 +19,8 @@ const ENTITY_PROPERTIES = {
 	#"Adjustments": 0
 }
 
+var ENTITY_RESOURCES = [environment, environment.sky, environment.sky.sky_material]
+
 
 #func _ready():
 	##print(get_property_list())

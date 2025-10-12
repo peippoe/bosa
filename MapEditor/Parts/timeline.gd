@@ -30,9 +30,14 @@ var pixels_per_second := 10.0:
 				if i.get_child(0) is TextureButton:
 					var x = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").pop_time)
 					i.position.x = x
-				else:
+				elif "start_time" in i.get_meta("gizmo"):
 					var a = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").start_time)
 					var b = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").pop_time)
+					i.get_child(0).position.x = a
+					i.get_child(1).position.x = b
+				else:
+					var a = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").pop_time)
+					var b = Utility.get_position_on_timeline_from_value(i.get_meta("gizmo").end_time)
 					i.get_child(0).position.x = a
 					i.get_child(1).position.x = b
 			elif "bpm" in i:

@@ -40,4 +40,3 @@ script = ExtResource("1_ydmca")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CylinderMesh_wq5a0")
 surface_material_override/0 = SubResource("StandardMaterial3D_wam6h")
-metadata/pop_time = 0.0

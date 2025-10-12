@@ -12,10 +12,12 @@ func _ready():
 				get_tree().current_scene.record(marker.get_meta("gizmo"), "pop_time", marker.get_meta("gizmo").pop_time)
 			
 			elif marker.get_parent().has_meta("gizmo"):
-				if marker.name == "Start":
-					get_tree().current_scene.record(marker.get_parent().get_meta("gizmo"), "start_time", marker.get_parent().get_meta("gizmo").start_time)
-				else:
-					get_tree().current_scene.record(marker.get_parent().get_meta("gizmo"), "pop_time", marker.get_parent().get_meta("gizmo").pop_time)
+				var gizmo = marker.get_parent().get_meta("gizmo")
+				if gizmo.id == 11:
+					if marker.name == "Start":
+						get_tree().current_scene.record(marker.get_parent().get_meta("gizmo"), "start_time", marker.get_parent().get_meta("gizmo").start_time)
+					else:
+						get_tree().current_scene.record(marker.get_parent().get_meta("gizmo"), "pop_time", marker.get_parent().get_meta("gizmo").pop_time)
 	)
 	
 	#marker_drag_end.connect(

@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=46 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="Shader" uid="uid://ditear0e0bhwk" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_apopc"]
@@ -17,12 +17,16 @@
 _data = [Vector2(0, 0), 0.0, 1.937978, 0, 0, Vector2(0.32142857, 0.6516854), 0.9715795, 0.9715795, 0, 0, Vector2(1, 1), 0.15730286, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="Curve" id="Curve_5htga"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.62051284, 0.6741574), 0.86312586, 0.86312586, 0, 0, Vector2(0.88717955, 0.47191018), -1.2415733, -1.2415733, 0, 0, Vector2(1, 0), -4.9795723, 0.0, 0, 0]
+point_count = 4
+
 [sub_resource type="Curve" id="Curve_k53q1"]
 _data = [Vector2(0, 0), 0.0, 0.167701, 0, 0, Vector2(0.295, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.32193, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="Curve" id="Curve_vtle1"]
-_data = [Vector2(0.14, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.24615386, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k53q1"]
@@ -32,7 +36,7 @@ radius = 0.3
 shader = ExtResource("2_apopc")
 
 [sub_resource type="Gradient" id="Gradient_p5o4e"]
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_lfmf2"]
 gradient = SubResource("Gradient_p5o4e")
@@ -72,7 +76,7 @@ shader_parameter/levels = 30.0
 shader_parameter/dither_intensity = 2.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vtle1"]
-size = Vector3(0.02, 2.7, 1)
+size = Vector3(0.02, 2.65, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_vtle1"]
 radius = 0.05
@@ -478,11 +482,12 @@ shader_parameter/scanline_intensity = 0.1
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 3
-floor_max_angle = 1.13446
-floor_snap_length = 0.7
+floor_max_angle = 1.1519173
+floor_snap_length = 0.8
 script = ExtResource("1_v0iea")
-vault_time = 0.16
+vault_time = 0.18
 vault_y_curve = SubResource("Curve_od3ui")
+vault_cam_rotation_curve = SubResource("Curve_5htga")
 jump_extend_curve = SubResource("Curve_k53q1")
 fast_fall_curve = SubResource("Curve_vtle1")
 
@@ -490,9 +495,6 @@ fast_fall_curve = SubResource("Curve_vtle1")
 unique_name_in_owner = true
 shape = SubResource("SphereShape3D_k53q1")
 target_position = Vector3(0, -0.5, 0)
-
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
 [node name="AutoStepLowRaycast" type="RayCast3D" parent="."]
 unique_name_in_owner = true
@@ -508,36 +510,43 @@ hit_back_faces = false
 
 [node name="GPUTrail3D" type="GPUParticles3D" parent="."]
 top_level = true
-amount = 288
-lifetime = 288.0
+visible = false
+amount = 72
+lifetime = 72.0
 explosiveness = 1.0
 fixed_fps = 144
 process_material = SubResource("ShaderMaterial_gu6f8")
 draw_pass_1 = SubResource("QuadMesh_n471f")
 script = ExtResource("4_p5o4e")
-length = 288
-length_seconds = 2.0
+length = 72
+length_seconds = 0.5
 color_ramp = SubResource("GradientTexture1D_lfmf2")
 curve = SubResource("CurveTexture_b1ygp")
 billboard = true
 _defaults_have_been_set = true
 metadata/_custom_type_script = "uid://d0y664i6ng2sn"
 
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
 [node name="Head" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 
-[node name="Cam" type="Camera3D" parent="Head"]
+[node name="CamHolder" type="Node3D" parent="Head"]
+unique_name_in_owner = true
+
+[node name="Cam" type="Camera3D" parent="Head/CamHolder"]
 unique_name_in_owner = true
 fov = 96.0
-near = 0.04
+near = 0.035
 
-[node name="GoodShader" type="MeshInstance3D" parent="Head/Cam"]
+[node name="GoodShader" type="MeshInstance3D" parent="Head/CamHolder/Cam"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -1)
 visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_od3ui")
-skeleton = NodePath("../../../Shaders/ColorRect")
+skeleton = NodePath("../../../../Shaders/ColorRect")
 surface_material_override/0 = SubResource("ShaderMaterial_apopc")
 
 [node name="EdgeRaycast" type="RayCast3D" parent="Head"]
@@ -550,7 +559,7 @@ debug_shape_custom_color = Color(0, 1, 0, 1)
 [node name="WallFinderShapecast" type="ShapeCast3D" parent="Head"]
 unique_name_in_owner = true
 shape = SubResource("BoxShape3D_vtle1")
-target_position = Vector3(0, 0, -2)
+target_position = Vector3(0, 0, -1.7)
 
 [node name="LedgeRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
@@ -567,12 +576,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vtle1")
 
 [node name="LeftWallRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 enabled = false
 target_position = Vector3(-1, 0, 0)
 hit_back_faces = false
 
 [node name="RightWallRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 enabled = false
 target_position = Vector3(1, 0, 0)
 hit_back_faces = false
@@ -683,26 +694,27 @@ stream = ExtResource("8_od3ui")
 
 [node name="JumpBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.06
+wait_time = 0.072
 one_shot = true
 
 [node name="CoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.25
+wait_time = 0.22
 one_shot = true
 
 [node name="WallrunCoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.18
+wait_time = 0.17
 one_shot = true
 
 [node name="SlideBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.1
+wait_time = 0.08600000000000001
 one_shot = true
 
 [node name="DoubleJumpDebounce" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 0.1
 one_shot = true
 
 [node name="SlideOffFloorTimer" type="Timer" parent="."]
@@ -716,7 +728,7 @@ one_shot = true
 
 [node name="FastFallTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.4
+wait_time = 0.45
 one_shot = true
 
 [connection signal="timeout" from="WallrunCoyoteTime" to="." method="_on_wallrun_coyote_time_timeout"]

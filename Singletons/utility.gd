@@ -93,19 +93,17 @@ func ensure_dir_exists(absolute_path : String):
 # Entity utility
 
 func spawn_entity(entity,  parent : Node = null, data = null):
-	if not parent: parent = get_tree().current_scene
-	
 	var new_entity
-	if entity is String:
-		new_entity = load(entity).instantiate()
-	else:
-		new_entity = entity.instantiate()
+	if entity is String: new_entity = load(entity).instantiate()
+	else: new_entity = entity.instantiate()
 	
+	if not parent: parent = get_tree().current_scene
 	parent.add_child(new_entity)
 	
 	if data: apply_data(new_entity, data)
 	
 	return new_entity
+
 
 func apply_data(entity, data):
 	for section in data.keys():
@@ -115,9 +113,15 @@ func apply_data(entity, data):
 		if section_data is not Dictionary: section_data = data # part 1
 		
 		for property in section_data.keys():
-			if property in entity:
-				##print("ENTITY.SET %s = %s" % [str(property), str(section_data[property])])
-				entity.set(property, section_data[property])
+			if "ENTITY_RESOURCES" in entity:
+				
+				for res in entity.ENTITY_RESOURCES:
+					if property in res:
+						res.set(property, section_data[property])
+			else:
+				if property in entity:
+					##print("ENTITY.SET %s = %s" % [str(property), str(section_data[property])])
+					entity.set(property, section_data[property])
 		
 		if section_data == data: break # part 2
 
@@ -165,28 +169,28 @@ func remove_sections_from_data(data):
 	return sectionless_data
 
 
-func get_entity_properties(entity : Node, resources = null):
+func get_entity_properties(entity : Node):
 	if not entity: push_error("NULL ENTITY"); return
 	if not "ENTITY_PROPERTIES" in entity: push_error("NO ENTITY_PROPERTIES"); return
-	if not resources: resources = [entity]
-	if resources is not Array: resources = [resources]
+	if not "ENTITY_RESOURCES" in entity: push_error("NO ENTITY_RESOURCES"); return
 	
-	var p_dict = {}
+	var properties = {}
 	
+	var entity_resources = entity.ENTITY_RESOURCES
 	var entity_properties = entity.ENTITY_PROPERTIES
 	
 	
 	for section in entity_properties.keys():
-		p_dict[section] = {}
+		properties[section] = {}
 	
-	for res in resources:
+	for res in entity_resources:
 		for section in entity_properties.keys():
 			
 			for property in entity_properties[section]:
 				if property in res:
-					p_dict[section][property] = res[property]
+					properties[section][property] = res[property]
 	
-	return p_dict
+	return properties
 
 
 
@@ -201,25 +205,31 @@ func get_entity_properties(entity : Node, resources = null):
 const EntityID : Dictionary = {
 	"TARGET_TAP": 10,
 	"GOAL": 11,
+	"SLIDER": 12,
 	
 	"BLOCK": 20,
 	"RAMP": 21,
 	"CYLINDER": 22,
 	"SPHERE": 23,
 	
-	"LABEL": 30,
+	"BOOST_PAD": 30,
+	
+	"LABEL": 40,
 }
 
 const PROPS : Dictionary = {
 	10: preload("res://MapPlayer/Props/Targets/target.tscn"),
 	11: preload("res://MapPlayer/Props/goal.tscn"),
+	12: preload("res://MapPlayer/Props/Targets/target_track.tscn"),
 	
 	20: "res://MapEditor/Geometry/block.tscn",
 	21: "res://MapEditor/Geometry/ramp.tscn",
 	22: "res://MapEditor/Geometry/cylinder.tscn",
 	23: "res://MapEditor/Geometry/sphere.tscn",
 	
-	30: "uid://bt1lurvg7srow"
+	30: "res://MapEditor/GizmoProps/gizmo_boost_pad.tscn",
+	
+	40: "res://MapEditor/Geometry/label.tscn"
 }
 
 
@@ -230,20 +240,20 @@ func editor_spawn_entity(data):
 	var first_digit = int(str(data["id"])[0])
 	match first_digit:
 		1:
-			new_editor_entity = Utility.spawn_gizmo(data["id"], data)
+			match data["id"]:
+				10, 11:
+					new_editor_entity = Utility.spawn_gizmo(data["id"], data)
+				12:
+					new_editor_entity = Utility.spawn_gizmo(data["id"], data)
 		2:
 			new_editor_entity = Utility.spawn_geometry(data)
-		3:
+		3, 4:
 			new_editor_entity = Utility.spawn_entity(PROPS[data["id"]], get_node_or_null_in_scene("%Geometry"), data)
 	
 	return new_editor_entity
 
 func spawn_geometry(data):
 	var geometry = spawn_entity(load(PROPS[data["id"]]), get_node_or_null_in_scene("%Geometry"), data)
-	var mat = geometry.material_override.duplicate()
-	if "albedo_color" in data:
-		mat.albedo_color = data["albedo_color"]
-	geometry.material_override = mat
 
 func spawn_target(target_data):
 	var new_target = spawn_entity(Utility.PROPS[target_data["id"]], GameManager.target_parent, target_data)
@@ -283,21 +293,27 @@ func spawn_target(target_data):
 	return new_target
 
 
+func ping_target(target):
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/hitsound.wav", null, Vector2(0.6, 1.4))
+	
+	GameManager.health += 1
+	GameManager.combo += 1
+	GameManager.points += 10
 
 func pop_target(target):
 	if not target: return
-	if not target.has_method("pop"): return
+	
 	
 	var delta = Playback.playhead - target.pop_time
-	
-	print("DELTA: %f" % delta)
+	#print("DELTA: %f" % delta)
 	if absf(delta) > Settings.POP_TIMING_WINDOWS[3]:
 		Utility.on_miss(target.global_position)
-		target.queue_free()
+		if not "bpm" in target:
+			target.queue_free()
 		return
 	
-	target.pop()
-	AudioPlayer.play_audio("res://Assets/Audio/Effect/hitsound.wav", null, Vector2(0.6, 1.4))
+	if target.has_method("pop"): target.pop()
+	#AudioPlayer.play_audio("res://Assets/Audio/Effect/hitsound.wav", null, Vector2(0.6, 1.4))
 	#AudioPlayer.play_audio("res://Assets/Audio/Effect/splash.wav", target.global_position, Vector2(1.5, 2.5))
 	
 	
@@ -335,7 +351,7 @@ func pop_target(target):
 	var pop_timing = get_pop_timing(target.pop_time)
 	if pop_timing <= 1:
 		AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", null, Vector2(2, 4), -10)
-		target.get_node("Effect").show()
+		if target.get_node("Effect"): target.get_node("Effect").show()
 	print("POP_TIMING %d" % pop_timing)
 
 func on_miss(pos):
@@ -372,6 +388,9 @@ func spawn_gizmo(id, data := {}):
 		EntityID["GOAL"]:
 			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_goal.tscn"
 			new_marker_func = Utility.spawn_start_end_markers
+		EntityID["SLIDER"]:
+			gizmo_scene_path = "res://MapEditor/GizmoProps/gizmo_slider.tscn"
+			new_marker_func = Utility.spawn_start_end_markers
 	
 	new_gizmo = Utility.spawn_entity(gizmo_scene_path, get_node_or_null_in_scene("%GizmoBeatmap"), data)
 	if spawned_without_data:
@@ -386,6 +405,12 @@ func spawn_gizmo(id, data := {}):
 	
 	
 	var new_marker = new_marker_func.bind(new_gizmo).call()
+	if id == 11:
+		new_marker.modulate.b = 1.0
+		new_marker.modulate.g = randf_range(0.0, 1.0)
+	elif id == 12:
+		new_marker.modulate.r = 1.0
+		new_marker.modulate.b = randf_range(0.0, 1.0)
 	
 	if new_gizmo.get_child_count() >= 2 and new_gizmo.get_child(1).get_surface_override_material(0):
 		new_gizmo.get_child(1).set_surface_override_material(0, new_gizmo.get_child(1).get_surface_override_material(0).duplicate())
@@ -401,7 +426,7 @@ func spawn_marker(gizmo : Node):
 	gizmo.marker = new_marker
 	new_marker.set_meta("gizmo", gizmo)
 	new_marker.position.x = Utility.get_position_on_timeline_from_value(gizmo.pop_time)
-	new_marker.position.y = 34
+	new_marker.position.y = 38
 	get_tree().current_scene.connect_marker_signals(new_marker)
 	return new_marker
 
@@ -440,6 +465,17 @@ func spawn_bpm_guide(data = null):
 	new_bpm_guide.zoom_update()
 	new_bpm_guide.position.y = 64
 	get_tree().current_scene.connect_marker_signals(new_bpm_guide)
+	
+	new_bpm_guide.get_node("%BPMLabel").text = "[font_size=10]bpm: %.2f" % new_bpm_guide.bpm
+	
+	#await get_tree().create_timer(2).timeout
+	
+	print(data)
+	
+	#new_bpm_guide.end_time = data["_"]["end_time"]
+	#new_bpm_guide.ticks = new_bpm_guide.ticks
+	#new_bpm_guide.end_drag()
+	
 	return new_bpm_guide
 
 
@@ -454,13 +490,21 @@ func spawn_bpm_guide(data = null):
 func convert_vec3s(data):
 	
 	for section in data.keys():
-		for property in data[section].keys():
-			var value = data[section][property]
-			
-			if value is not String: continue
-			if not value.begins_with("("): continue
-			
-			data[section][property] = str_to_var("Vector3"+value)
+		data[section] = convert_vec3s_subfunc(data[section])
+	return data
+
+func convert_vec3s_subfunc(data):
+	for property in data.keys():
+		var value = data[property]
+		
+		if value is Array:
+			for i in value.size():
+				data[property][i] = convert_vec3s_subfunc(value[i])
+		if value is not String: continue
+		if not value.begins_with("("): continue
+		
+		data[property] = str_to_var("Vector3"+value)
+	
 	return data
 
 func convert_ints(data):

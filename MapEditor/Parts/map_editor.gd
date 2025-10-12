@@ -41,7 +41,18 @@ func save_pressed():
 		map_save_as()
 
 
+var playtest_ghost
+
 func _ready():
+	print(GameManager.playtest_ghost_positions)
+	
+	playtest_ghost = null
+	if GameManager.playtest_ghost_positions:
+		playtest_ghost = MeshInstance3D.new()
+		self.add_child(playtest_ghost)
+		playtest_ghost.mesh = CapsuleMesh.new()
+	
+	
 	var axis_mesh = ImmediateMesh.new()
 	axis_mesh.surface_begin(Mesh.PRIMITIVE_LINES)
 	axis_mesh.surface_add_vertex(Vector3.FORWARD * 100)
@@ -92,6 +103,7 @@ func _ready():
 	%Load.pressed.connect(open_load_map_file_dialog)
 	%Playtest.pressed.connect(func play():
 		if save_path:
+			
 			GameManager.play_map(save_path)
 		else:
 			map_save_as()
@@ -99,6 +111,10 @@ func _ready():
 	%SpawnTarget.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
 			{"id": Utility.EntityID["TARGET_TAP"]}
+			))
+	%SpawnSlider.pressed.connect(
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["SLIDER"]}
 			))
 	%SpawnGoal.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
@@ -121,6 +137,10 @@ func _ready():
 	%SpawnSphere.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
 			{"id": Utility.EntityID["SPHERE"]}
+			))
+	%SpawnBoostPad.pressed.connect(
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["BOOST_PAD"]}
 			))
 	%SpawnLabel.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
@@ -255,6 +275,11 @@ func _unhandled_input(event):
 			else:
 				dragging = false
 	
+	elif event is InputEventKey:
+		if event.keycode == KEY_SPACE and event.pressed:
+			
+			Playback.playback_speed = 1.0 - 1.0 * float(Playback.playback_speed)
+	
 	if event is InputEventKey:
 		if not event.pressed: return
 		
@@ -354,6 +379,18 @@ func _process(delta):
 	handle_dragging()
 	fade_gizmos()
 	%TimeLabel.text = str(Playback.playhead).pad_decimals(2)# + " -- " + str(%Timeline.value - Playback.playhead).pad_decimals(2)
+	
+	if playtest_ghost:
+		var playhead = Playback.playhead / 0.1
+		var inted = floorf(playhead)
+		var decimal = playhead - inted
+		
+		if int(inted + 1) >= GameManager.playtest_ghost_positions.size():
+			playtest_ghost.global_position = GameManager.playtest_ghost_positions[GameManager.playtest_ghost_positions.size()-1]
+		else:
+			var a = GameManager.playtest_ghost_positions[inted]
+			var b = GameManager.playtest_ghost_positions[inted+1]
+			playtest_ghost.global_position = lerp(a, b, decimal)
 
 
 func fade_gizmos():
@@ -535,9 +572,9 @@ func compile_map():
 	
 	Playback.beatmap_data["geometry"] = []
 	for i in %Geometry.get_children():
-		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i, [i, i.material_override]))
+		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i))
 	
-	var env_data = Utility.get_entity_properties(%Environment, %Environment.environment)
+	var env_data = Utility.get_entity_properties(%Environment)
 	env_data["Sky"] = {
 		"sky_top_color": %Environment.environment.sky.sky_material.sky_top_color,
 		"sky_horizon_color": %Environment.environment.sky.sky_material.sky_horizon_color,
@@ -620,6 +657,7 @@ func copy():
 	
 
 func paste():
+	if not copied: return
 	Utility.editor_spawn_entity(copied)
 	%FloatingTextManager.spawn_floating_text("PASTE")
 

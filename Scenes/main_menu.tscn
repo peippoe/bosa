@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dbv72bxs15p17"]
+[gd_scene load_steps=45 format=3 uid="uid://dbv72bxs15p17"]
 
 [ext_resource type="Script" uid="uid://c18t20fa3csw8" path="res://Scenes/main_menu.gd" id="1_48xlc"]
 [ext_resource type="Shader" uid="uid://b7kngkyjvq1pu" path="res://Assets/Shader/main_menu.gdshader" id="2_1ehe0"]
@@ -253,12 +253,20 @@ shader = ExtResource("3_n45e2")
 shader_parameter/zoom_amount = 1.0
 shader_parameter/zoom_scale = 0.081
 
+[sub_resource type="Animation" id="Animation_yhxw7"]
+resource_name = "transition"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trj04"]
+_data = {
+&"transition": SubResource("Animation_yhxw7")
+}
+
 [sub_resource type="Animation" id="Animation_opfnp"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SubViewportContainer/SubViewport/HolderHolder/Holder:rotation")
+tracks/0/path = NodePath("HolderHolder/Holder:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -270,26 +278,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D:scale")
+tracks/1/path = NodePath("SpinnyText/MeshInstance3D3:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(1, 1, 1)]
+"values": [Vector3(0, 0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("SubViewportContainer/SubViewport/SpinnyText/MeshInstance3D3:rotation")
+tracks/2/path = NodePath("Sprite3D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -323,7 +331,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SubViewportContainer/SubViewport/HolderHolder/Holder:rotation")
+tracks/0/path = NodePath("HolderHolder/Holder:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -335,26 +343,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D:scale")
-tracks/1/interp = 1
+tracks/1/path = NodePath("SpinnyText/MeshInstance3D3:rotation")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 0.0666666, 1.03333, 1.06667, 2.03333, 2.06667, 3.03333, 3.06667, 4.03334, 4.06667, 5.03334, 5.06667, 6.03334, 6.06667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SubViewportContainer/SubViewport/SpinnyText/MeshInstance3D3:rotation")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 3.73, 6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.253073, 6.39663, 0.226893), Vector3(0, 6.28319, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0666666, 1.03333, 1.06667, 2.03333, 2.06667, 3.03333, 3.06667, 4.03334, 4.06667, 5.03334, 5.06667, 6.03334, 6.06667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -396,10 +404,17 @@ font_size = 35
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n45e2"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trj04"]
+
+[sub_resource type="TextMesh" id="TextMesh_vr1f0"]
+material = SubResource("StandardMaterial3D_trj04")
+text = "back"
+font_size = 50
+
 [sub_resource type="TextMesh" id="TextMesh_n45e2"]
 material = SubResource("StandardMaterial3D_ce3w2")
 text = "pLAY"
-font_size = 50
+font_size = 60
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhxw7"]
 albedo_color = Color(0.53133345, 1, 0.24000001, 1)
@@ -411,7 +426,7 @@ font_size = 20
 
 [sub_resource type="TextMesh" id="TextMesh_cp0ys"]
 material = SubResource("StandardMaterial3D_ce3w2")
-text = "make a map"
+text = "EDITOR"
 font_size = 50
 
 [sub_resource type="TextMesh" id="TextMesh_yhxw7"]
@@ -435,46 +450,20 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0.402442, -0.306947, 0.86245
 light_color = Color(1, 0.971277, 0.74013, 1)
 shadow_enabled = true
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1920, 1080)
-render_target_update_mode = 4
-
-[node name="HolderHolder" type="Node3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.959614, -0.28132, 0, 0.278712, 0.95072, -0.135837, 0.0382136, 0.130351, 0.990731, 2.672, 0, -2.469)
-
-[node name="Holder" type="Node3D" parent="SubViewportContainer/SubViewport/HolderHolder"]
-
-[node name="azal" parent="SubViewportContainer/SubViewport/HolderHolder/Holder" instance=ExtResource("3_1ehe0")]
-
-[node name="SpinnyText" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="SpinnyText" type="Node3D" parent="."]
 transform = Transform3D(0.96363, -0.267238, 0, 0.267238, 0.96363, 0, 0, 0, 1, 2.22723, 2.06028, -3.588)
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/SpinnyText"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SpinnyText"]
 mesh = SubResource("TextMesh_opfnp")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../..")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32565, 0, -0.940272)
-fov = 115.2
+[node name="HolderHolder" type="Node3D" parent="."]
+transform = Transform3D(0.87468576, -0.4837668, 0.029911814, 0.48318124, 0.8654357, -0.13250272, 0.038213596, 0.13035099, 0.99073094, 1.5457106, 0, -1.4242076)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_ce3w2")
+[node name="Holder" type="Node3D" parent="HolderHolder"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/WorldEnvironment"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0.402442, -0.306947, 0.862453, -0.296717, 0.847516, 0.440085, 0, 0, 0)
-light_color = Color(1, 0.971277, 0.74013, 1)
-shadow_enabled = true
+[node name="azal" parent="HolderHolder/Holder" instance=ExtResource("3_1ehe0")]
+transform = Transform3D(0.95466065, -0.29492053, 0.040551644, 0.295373, 0.955366, -0.0055203587, -0.03711361, 0.017247908, 0.9991621, 0, 0, 0)
 
 [node name="MainMenuUI" type="Control" parent="."]
 visible = false
@@ -681,16 +670,86 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -23.0
-offset_right = 45.0
+offset_right = 65.0
 grow_vertical = 0
 text = "v0.2.0"
 fit_content = true
+
+[node name="PlayPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="PlayPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayPanel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="PlayPanel/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayPanel/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Control" type="Control" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "movement tutorial
+(old)"
+
+[node name="Button" type="Button" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level
+all my fellas - frizk"
+
+[node name="Button3" type="Button" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level2
+monkey target 2 - super monkey ball 2"
+
+[node name="ColorRect" type="ColorRect" parent="PlayPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayPanel"]
+libraries = {
+&"": SubResource("AnimationLibrary_trj04")
+}
 
 [node name="Mainmenuu" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24114, 0, -2.75388)
 stream = ExtResource("5_cp0ys")
 volume_db = -20.64
 unit_size = 20.0
+max_db = -24.0
 bus = &"Music"
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -706,7 +765,7 @@ libraries = {
 speed_scale = 0.75
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.8033418, -0.3785019, 0.4597589, 0.38558495, 0.91894966, 0.08279925, -0.45383495, 0.110760026, 0.8841753, -2.53122, 0.418046, -10.3018)
+transform = Transform3D(0.80334187, -0.37850192, 0.45975888, 0.38558495, 0.9189497, 0.08279924, -0.45383495, 0.11076001, 0.88417536, -2.53122, 0.418046, -10.3018)
 shaded = true
 texture = ExtResource("4_ce3w2")
 
@@ -717,6 +776,18 @@ texture = ExtResource("6_opfnp")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.85532, -0.295038, 0.425888, -0.0511386, 0.769928, 0.636078, -0.515571, -0.56583, 0.643447, -4.377, 2.368, -9.311)
 mesh = SubResource("TextMesh_ce3w2")
+
+[node name="Back" type="Area3D" parent="."]
+transform = Transform3D(-0.044684656, 0.33404788, -0.94149625, -0.13400106, 0.93191624, 0.33700964, 0.9899735, 0.14122076, 0.0031208023, 8.630809, -2.4685647, -0.33775592)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Back"]
+shape = SubResource("BoxShape3D_n45e2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Back"]
+mesh = SubResource("TextMesh_vr1f0")
+skeleton = NodePath("../../Play")
 
 [node name="Play" type="Area3D" parent="."]
 transform = Transform3D(0.903392, 0.242832, -0.353433, -0.207669, 0.968858, 0.134859, 0.375175, -0.0484333, 0.925688, -0.729884, -0.856856, -3.47487)
@@ -732,6 +803,7 @@ skeleton = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Play/MeshInstance3D"]
 transform = Transform3D(0.84544975, -0.09317543, 0.5258678, -0.016110778, 0.97977066, 0.19950025, -0.5338157, -0.17713904, 0.8268414, 0.8392215, -0.0013445616, 1.1081893)
+visible = false
 mesh = SubResource("TextMesh_16hvj")
 skeleton = NodePath("../..")
 
@@ -770,6 +842,13 @@ shape = SubResource("BoxShape3D_n45e2")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Test"]
 mesh = SubResource("TextMesh_trj04")
 skeleton = NodePath("../..")
+
+[node name="Sprite3D4" type="Sprite3D" parent="."]
+transform = Transform3D(-0.012780781, 0.48259604, -0.87574923, -0.15921861, 0.8636638, 0.4782599, 0.98715967, 0.14554767, 0.065801665, 29.106478, -8.105961, 4.471882)
+modulate = Color(0.81, 0.841667, 1, 0.607843)
+pixel_size = 0.065
+shaded = true
+texture = ExtResource("8_yhxw7")
 
 [node name="Sprite3D3" type="Sprite3D" parent="."]
 transform = Transform3D(0.986989, 0.0444855, 0.154509, -0.0688977, 0.985282, 0.156434, -0.145275, -0.165044, 0.975528, 1.24, -1.86, -27.666)

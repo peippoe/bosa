@@ -5,6 +5,13 @@ var beatmap_path := ""
 var target_parent : Node
 
 var in_editor := false
+var editor_playtest := false:
+	set(value):
+		editor_playtest = value
+		if value:
+			playtest_ghost_positions = []
+
+var playtest_ghost_positions := []
 
 var points := 0
 var combo := 0
@@ -42,6 +49,8 @@ func back_to_editor():
 	while not get_tree().current_scene:
 		await get_tree().process_frame
 	
+	await get_tree().create_timer(.1).timeout
+	
 	get_tree().current_scene.load_map(beatmap_path)
 
 func retry():
@@ -51,12 +60,13 @@ func change_scene(scene_path : String):
 	Playback.playback_speed = 0
 	get_tree().paused = false
 	
-	var back_to_editor_visible = false
-	if in_editor and scene_path == "res://MapPlayer/map_player.tscn":
-		back_to_editor_visible = true
 	
-	if scene_path == get_tree().current_scene.scene_file_path and get_tree().get_first_node_in_group("player").get_node("%UI/%BackToEditor").visible:
-		back_to_editor_visible = true
+	if in_editor and scene_path == "res://MapPlayer/map_player.tscn":
+		editor_playtest = true
+	elif scene_path == get_tree().current_scene.scene_file_path and get_tree().get_first_node_in_group("player").get_node("%UI/%BackToEditor").visible:
+		editor_playtest = true
+	else:
+		editor_playtest = false
 	
 	update_in_editor(scene_path)
 	get_tree().change_scene_to_file(scene_path)
@@ -68,7 +78,8 @@ func change_scene(scene_path : String):
 		#await get_tree().process_frame
 	
 	var player = get_tree().get_first_node_in_group("player")
-	if player: player.get_node("%UI/%BackToEditor").visible = back_to_editor_visible
+	if player:
+		player.get_node("%UI/%BackToEditor").visible = editor_playtest
 	
 	update_target_parent()
 

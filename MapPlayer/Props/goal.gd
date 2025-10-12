@@ -31,5 +31,6 @@ func _ready():
 	body_entered.connect(func body_entered(body):
 			if body.is_in_group("player"):
 				AudioPlayer.play_audio("res://Assets/Audio/Effect/goal_completed.wav", self.global_position, Vector2(0.9, 1.1))
+				GameManager.points += 300
 				queue_free()
 			)

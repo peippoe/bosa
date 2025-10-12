@@ -34,6 +34,7 @@ height = 0.001
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Floor"]
 shape = SubResource("WorldBoundaryShape3D_837eu")
+disabled = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3

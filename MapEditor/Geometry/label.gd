@@ -13,3 +13,5 @@ const ENTITY_PROPERTIES = {
 		"id",
 	]
 }
+
+var ENTITY_RESOURCES = [self]

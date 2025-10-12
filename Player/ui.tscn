@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://c3npvnfvy1c5m" path="res://Player/ui.gd" id="1_4qruw"]
 [ext_resource type="AudioStream" uid="uid://cxrhmpyqrw0a8" path="res://Assets/Audio/Music/pause.wav" id="2_bxrt6"]
 [ext_resource type="PackedScene" uid="uid://bjarepplh7h4d" path="res://Components/music_pulse_component.tscn" id="2_d6uvt"]
+[ext_resource type="Texture2D" uid="uid://chfiwn7nfcksu" path="res://Assets/Images/vignette.png" id="2_kvoao"]
 [ext_resource type="PackedScene" uid="uid://cp87hswnvokx4" path="res://MapPlayer/timing_indicator.tscn" id="4_3hae7"]
-[ext_resource type="PackedScene" uid="uid://d3gtvaqxpj834" path="res://Scenes/fail_screen.tscn" id="5_wmn8w"]
 [ext_resource type="PackedScene" uid="uid://cd3aak4r1e7rt" path="res://Scenes/end_screen.tscn" id="6_kvoao"]
 
 [sub_resource type="Animation" id="Animation_e7kh4"]
@@ -118,6 +118,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4qruw")
 
+[node name="Vignette" type="TextureRect" parent="."]
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.37254903)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kvoao")
+
 [node name="Crosshair" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -125,6 +136,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(960, 540)
 mouse_filter = 2
 
 [node name="Crosshair2" type="ColorRect" parent="Crosshair"]
@@ -156,6 +168,74 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 1)
+
+[node name="Hitmarker" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.7853982
+pivot_offset = Vector2(960, 540)
+mouse_filter = 2
+
+[node name="Crosshair2" type="ColorRect" parent="Hitmarker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -15.0
+offset_right = 0.5
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair4" type="ColorRect" parent="Hitmarker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = 7.0
+offset_right = 0.5
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="ColorRect" parent="Hitmarker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -0.5
+offset_right = -7.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair3" type="ColorRect" parent="Hitmarker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 7.0
+offset_top = -0.5
+offset_right = 15.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TempTutorialText" type="Control" parent="."]
 unique_name_in_owner = true
@@ -367,13 +447,104 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 1, 0.435294, 1)
 
-[node name="FailScreen" parent="." instance=ExtResource("5_wmn8w")]
-unique_name_in_owner = true
-visible = false
+[node name="DownshiftCharges" type="Control" parent="DynamicUI/Control2"]
+anchors_preset = 0
+offset_left = 690.0
+offset_top = 51.0
+offset_right = 730.0
+offset_bottom = 91.0
+rotation = -1.6580628
+
+[node name="Progress" type="ColorRect" parent="DynamicUI/Control2/DownshiftCharges"]
+layout_mode = 0
+offset_right = 120.000275
+offset_bottom = 7.000019
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+color = Color(0, 0, 0, 1)
+
+[node name="Bar" type="ColorRect" parent="DynamicUI/Control2/DownshiftCharges/Progress"]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = -3.0
+offset_right = 6.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.49599993, 0.44, 1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="DynamicUI/Control2/DownshiftCharges"]
+layout_mode = 0
+offset_left = 63.719
+offset_top = -5.4673357
+offset_right = 66.15834
+offset_bottom = 7.5326643
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DynamicUI/Control2/DownshiftCharges"]
+layout_mode = 0
+offset_left = 72.14959
+offset_top = 24.381021
+offset_right = 170.72696
+offset_bottom = 64.38102
+rotation = 3.1136675
+bbcode_enabled = true
+text = "[font_size=10][outline_color=#ffffff00][color=black]downshift"
+fit_content = true
+
+[node name="left" type="Control" parent="DynamicUI"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 22.999985
+offset_top = 1.0
+offset_right = 62.999985
+offset_bottom = 41.0
+grow_vertical = 2
+rotation = -0.7853982
+
+[node name="ColorRect" type="ColorRect" parent="DynamicUI/left"]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 2.0
+
+[node name="ColorRect2" type="ColorRect" parent="DynamicUI/left"]
+layout_mode = 0
+offset_right = 2.0
+offset_bottom = 14.0
+
+[node name="right" type="Control" parent="DynamicUI"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = 1.0
+offset_right = 10.0
+offset_bottom = 41.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 2.3561945
+
+[node name="ColorRect" type="ColorRect" parent="DynamicUI/right"]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 2.0
+
+[node name="ColorRect2" type="ColorRect" parent="DynamicUI/right"]
+layout_mode = 0
+offset_right = 2.0
+offset_bottom = 14.0
 
 [node name="EndScreen" parent="." instance=ExtResource("6_kvoao")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_top = -5.0
 offset_bottom = -5.0

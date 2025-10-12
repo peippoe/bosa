@@ -7,9 +7,9 @@ var fadein_time := 1.0
 # hidden settings
 const POP_TIMING_WINDOWS = [
 	0.010, #perfect
-	0.070, #sick
-	0.140, #great
-	0.210, #ok
+	0.075, #sick
+	0.150, #great
+	0.250, #ok
 ]
 
 const POINTS_REWARDS = [
@@ -17,6 +17,26 @@ const POINTS_REWARDS = [
 	300,
 	200,
 	100,
+]
+
+func get_rank(acc):
+	for i in RANKS.size():
+		if acc >= RANKS[i]:
+			match i:
+				0: return "SS"
+				1: return "S"
+				2: return "A"
+				3: return "B"
+				4: return "C"
+				5: return "D"
+
+const RANKS = [
+	100.0,
+	95.0,
+	90.0,
+	85.0,
+	75.0,
+	0.0
 ]
 
 
@@ -41,9 +61,11 @@ func set_hit_sound_path(new_path : String):
 var config : Dictionary = {
 	"gameplay": {
 		"mouse_sensitivity": 1.0,
+		"song_offset": 12.0,
 	},
 	"visual": {
-		"target_colors": [Color.html("0350e7"), Color.html("36ffc3")]
+		"fov": 96.0,
+		"target_colors": [Color.html("0350e7"), Color.html("36ffc3")],
 	}
 }
 

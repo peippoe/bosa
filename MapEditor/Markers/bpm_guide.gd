@@ -32,6 +32,8 @@ const ENTITY_PROPERTIES = {
 	]
 }
 
+var ENTITY_RESOURCES = [self]
+
 
 func _gui_input(event):
 	queue_redraw()

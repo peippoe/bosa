@@ -1,0 +1,427 @@
+[gd_scene load_steps=19 format=3 uid="uid://ctgtk6ps2xvfx"]
+
+[ext_resource type="Script" uid="uid://b41vttkmr07bb" path="res://MapPlayer/Props/Targets/target_track.gd" id="1_so41k"]
+
+[sub_resource type="Curve3D" id="Curve3D_dtqqd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0.575, 0, 1.77, 0, 0, 0, 0.57, 1.785, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_so41k"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.15294118)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j8xmc"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_imi4r"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_so41k"]
+
+[sub_resource type="Shader" id="Shader_bj6ud"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, unshaded, depth_test_disabled;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+//uniform float roughness : hint_range(0.0, 1.0);
+//uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+//uniform vec4 metallic_texture_channel;
+//uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+//
+//uniform float specular : hint_range(0.0, 1.0, 0.01);
+//uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform float circle_radius = 1.0;
+uniform float circle_width = 1.0;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Enabled
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+
+	//// Billboard Keep Scale: Enabled
+	//MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			//vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			//vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			//vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			//vec4(0.0, 0.0, 0.0, 1.0));
+	//MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	//float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	//METALLIC = metallic_tex * metallic;
+	//SPECULAR = specular;
+//
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	//ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	
+	vec2 center = vec2(0.5, 0.5);
+	float dist = distance(UV, center);
+	if (dist < circle_radius - circle_width || dist > circle_radius + circle_width) {
+		discard;
+	}
+	ALPHA *= albedo.a * albedo_tex.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8xmc"]
+render_priority = 1
+shader = SubResource("Shader_bj6ud")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/circle_radius = 0.2
+shader_parameter/circle_width = 0.01
+
+[sub_resource type="QuadMesh" id="QuadMesh_imi4r"]
+
+[sub_resource type="Shader" id="Shader_muvpb"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, unshaded, depth_test_disabled;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+//uniform float roughness : hint_range(0.0, 1.0);
+//uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+//uniform vec4 metallic_texture_channel;
+//uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+//
+//uniform float specular : hint_range(0.0, 1.0, 0.01);
+//uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform float circle_radius = 1.0;
+uniform float circle_width = 1.0;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Enabled
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+
+	//// Billboard Keep Scale: Enabled
+	//MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			//vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			//vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			//vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			//vec4(0.0, 0.0, 0.0, 1.0));
+	//MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	//float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	//METALLIC = metallic_tex * metallic;
+	//SPECULAR = specular;
+//
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	//ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+
+	vec2 center = vec2(0.5, 0.5);
+	float dist = distance(UV, center);
+	if (dist < circle_radius - circle_width || dist > circle_radius + circle_width) {
+		discard;
+	}
+	ALPHA *= albedo.a * albedo_tex.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ddld"]
+render_priority = 0
+shader = SubResource("Shader_muvpb")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/circle_radius = 0.49
+shader_parameter/circle_width = 0.01
+
+[sub_resource type="Animation" id="Animation_lvn3c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ring:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PathFollow3D/RigidBody3D/Rings/ConstantRing:surface_material_override/0:shader_parameter/circle_width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.01, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PathFollow3D/RigidBody3D/Rings/ShrinkingRing:surface_material_override/0:shader_parameter/circle_radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.49]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_muvpb"]
+resource_name = "fadein"
+length = 1.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow3D/RigidBody3D/Rings/ConstantRing:surface_material_override/0:shader_parameter/circle_width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.00965935, -0.25, 0, 0.00406039, 0.0228378, 0.0695505, -0.0292696, -0.000537001, 0.0145917, -0.0336437, 0.000343213, -0.0368694, -0.000743703, 0.0297972, 0.000106243),
+"times": PackedFloat32Array(0.2, 0.96667, 1, 1.2)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PathFollow3D/RigidBody3D/Rings/ShrinkingRing:surface_material_override/0:shader_parameter/circle_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.49, 0.2]
+}
+
+[sub_resource type="Animation" id="Animation_j2086"]
+resource_name = "pop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WaterDroplets:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effect:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ring:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_muvpb"]
+_data = {
+&"RESET": SubResource("Animation_lvn3c"),
+&"fadein": SubResource("Animation_muvpb"),
+&"pop": SubResource("Animation_j2086")
+}
+
+[sub_resource type="Animation" id="Animation_7nqtw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_6ddld"]
+resource_name = "follow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g2su2"]
+_data = {
+&"RESET": SubResource("Animation_7nqtw"),
+&"follow": SubResource("Animation_6ddld")
+}
+
+[node name="Path3D" type="Path3D"]
+curve = SubResource("Curve3D_dtqqd")
+debug_custom_color = Color(1, 0, 0, 1)
+script = ExtResource("1_so41k")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+material_override = SubResource("StandardMaterial3D_so41k")
+polygon = PackedVector2Array(0, 0, 0, 0.3, 0.3, 0.3, 0.3, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.25
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+
+[node name="PathFollow3D" type="PathFollow3D" parent="."]
+transform = Transform3D(0.99999905, 0, 0, 0, 0.9999965, 0, 0, 0, 0.99999523, 0, 0, 0)
+rotation_mode = 0
+
+[node name="RigidBody3D" type="StaticBody3D" parent="PathFollow3D"]
+collision_layer = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PathFollow3D/RigidBody3D"]
+shape = SubResource("SphereShape3D_j8xmc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PathFollow3D/RigidBody3D"]
+mesh = SubResource("SphereMesh_imi4r")
+
+[node name="Rings" type="Node3D" parent="PathFollow3D/RigidBody3D"]
+transform = Transform3D(1.000001, 0, 0, 0, 1.0000036, 0, 0, 0, 1.0000048, 0, 0, 0)
+
+[node name="ConstantRing" type="MeshInstance3D" parent="PathFollow3D/RigidBody3D/Rings"]
+unique_name_in_owner = true
+mesh = SubResource("QuadMesh_so41k")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_j8xmc")
+
+[node name="ShrinkingRing" type="MeshInstance3D" parent="PathFollow3D/RigidBody3D/Rings"]
+unique_name_in_owner = true
+mesh = SubResource("QuadMesh_imi4r")
+skeleton = NodePath("../../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_6ddld")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathFollow3D/RigidBody3D/Rings"]
+root_node = NodePath("../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_muvpb")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g2su2")
+}
+
+[node name="Timeout" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="PingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="PingTimer" to="." method="_on_ping_timer_timeout"]

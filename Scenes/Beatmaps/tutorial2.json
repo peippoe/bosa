@@ -2,15 +2,27 @@
 	"beatmap": [
 		{
 			"_": {
+				"global_position": "(0.0, 2.963343, -10.13533)",
+				"pop_time": 0.999996948242187,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "Marker:<Control#467648120392>"
+			}
+		},
+		{
+			"_": {
 				"global_position": "(-2.0, 6.0, -20.08431)",
-				"pop_time": 4.89999694824219,
+				"pop_time": 4.89999710083008,
 				"rotation_degrees": "(0.0, 0.0, 0.0)",
 				"scale": "(1.0, 1.0, 1.0)",
 				"start_time": 0.0
 			},
 			"hidden": {
 				"id": 11,
-				"marker": "StartEndMarkers:<Control#36890816285832>"
+				"marker": "StartEndMarkers:<Control#469577500431>"
 			}
 		},
 		{
@@ -19,34 +31,34 @@
 				"pop_time": 9.99999389648437,
 				"rotation_degrees": "(0.0, 0.0, 0.0)",
 				"scale": "(1.0, 1.0, 1.0)",
-				"start_time": 6.09999389648438
+				"start_time": 6.09999389648437
 			},
 			"hidden": {
 				"id": 11,
-				"marker": "@Control@3019:<Control#36891655147213>"
+				"marker": "@Control@146:<Control#470416361140>"
 			}
 		},
 		{
 			"_": {
 				"global_position": "(40.59869, 37.5, -51.71709)",
-				"pop_time": 20.6999938964844,
+				"pop_time": 20.6999945068359,
 				"rotation_degrees": "(0.0, 0.0, 0.0)",
 				"scale": "(1.0, 1.0, 1.0)",
 				"start_time": 11.4999938964844
 			},
 			"hidden": {
 				"id": 11,
-				"marker": "@Control@3021:<Control#36892494008100>"
+				"marker": "@Control@148:<Control#471255221949>"
 			}
 		}
 	],
 	"config": {
 		"creator": null,
 		"duration": 100.0,
+		"gamemode": 1,
 		"name": null,
 		"song": "res://Assets/Audio/Music/tutorial.wav",
-		"version": 1.0,
-		"gamemode": 1
+		"version": 1.0
 	},
 	"editor": [],
 	"environment": {
@@ -357,7 +369,7 @@
 				"scale": "(1.8, 1.757383, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -370,7 +382,7 @@
 				"scale": "(1.634959, 1.85345, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -383,7 +395,7 @@
 				"scale": "(1.0, 1.0, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -452,7 +464,7 @@
 				"scale": "(2.0, 2.0, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -675,7 +687,7 @@
 				"scale": "(1.8, 1.6, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -688,7 +700,7 @@
 				"scale": "(1.8, 1.6, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -701,7 +713,7 @@
 				"scale": "(1.8, 1.6, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{
@@ -924,7 +936,7 @@
 				"scale": "(1.8, 1.757383, 1.0)"
 			},
 			"hidden": {
-				"id": 30
+				"id": 40
 			}
 		},
 		{

@@ -13,6 +13,5 @@ material = SubResource("StandardMaterial3D_rffix")
 [node name="GizmoTarget" type="MeshInstance3D"]
 mesh = SubResource("SphereMesh_7f73g")
 script = ExtResource("1_rffix")
-metadata/pop_time = 0.0
 
 [node name="GizmoHitbox" parent="." instance=ExtResource("1_hvoow")]

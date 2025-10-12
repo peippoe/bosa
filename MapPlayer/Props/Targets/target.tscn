@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://dxiqtn7ptwvgb"]
+[gd_scene load_steps=65 format=4 uid="uid://dxiqtn7ptwvgb"]
 
 [ext_resource type="Script" uid="uid://ouwi82iutg1" path="res://MapPlayer/Props/Targets/target.gd" id="1_wbg1h"]
 [ext_resource type="PackedScene" uid="uid://cmq6i71umhwgl" path="res://Blender/waterbloon.blend" id="3_bxfnh"]
@@ -332,344 +332,19 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_0f1qr")
 size = Vector2(3, 3)
 
-[sub_resource type="Animation" id="Animation_lvn3c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Effect:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Ring:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("waterbloon:scale:x:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("waterbloon:scale:x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("waterbloon:scale:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("waterbloon:scale:z")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.5, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("waterbloon/Icosphere:material_override")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [null]
-}
-tracks/7/type = "bezier"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("ConstantRing:surface_material_override/0:shader_parameter/circle_width")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.01, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("ShrinkingRing:surface_material_override/0:shader_parameter/circle_radius")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.49]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Ring2:emitting")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4p5p"]
+albedo_color = Color(0, 1, 1, 1)
+metallic_specular = 1.0
+roughness = 0.26
+emission = Color(0.0979872, 9.62615e-08, 0.609226, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bj6ud"]
-
-[sub_resource type="Animation" id="Animation_muvpb"]
-resource_name = "fadein"
-length = 1.2
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("waterbloon:scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0, 0.485466, 0.5, -0.246635, -0.0118895, 0.0391164, 0.00793403),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("waterbloon:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0, 0.485466, 0.5, -0.246635, -0.0118895, 0.0391164, 0.00793403),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("waterbloon:scale:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0, 0.485466, 0.5, -0.246635, -0.0118895, 0.0391164, 0.00793403),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = false
-tracks/3/path = NodePath("waterbloon/Icosphere:material_override")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.966667),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("StandardMaterial3D_bj6ud")]
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = false
-tracks/4/path = NodePath("ConstantRing:surface_material_override/0:shader_parameter/circle_width")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.00965935, -0.25, 0, 0.00406039, 0.0228378, 0.0695505, -0.0292696, -0.000537001, 0.0145917, -0.0336437, 0.000343213, -0.0368694, -0.000743703, 0.0297972, 0.000106243),
-"times": PackedFloat32Array(0.2, 0.96667, 1, 1.2)
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ShrinkingRing:surface_material_override/0:shader_parameter/circle_radius")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.49, 0.2]
-}
-
-[sub_resource type="Animation" id="Animation_j2086"]
-resource_name = "pop"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("WaterDroplets:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Effect:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Ring:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Ring2:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_muvpb"]
-_data = {
-&"RESET": SubResource("Animation_lvn3c"),
-&"fadein": SubResource("Animation_muvpb"),
-&"pop": SubResource("Animation_j2086")
-}
-
-[sub_resource type="QuadMesh" id="QuadMesh_heo43"]
-
-[sub_resource type="Shader" id="Shader_muvpb"]
-code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
-
-shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, unshaded, depth_test_disabled;
-
-uniform vec4 albedo : source_color;
-uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
-uniform ivec2 albedo_texture_size;
-uniform float point_size : hint_range(0.1, 128.0, 0.1);
-
-//uniform float roughness : hint_range(0.0, 1.0);
-//uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
-//uniform vec4 metallic_texture_channel;
-//uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
-//
-//uniform float specular : hint_range(0.0, 1.0, 0.01);
-//uniform float metallic : hint_range(0.0, 1.0, 0.01);
-
-uniform vec3 uv1_scale;
-uniform vec3 uv1_offset;
-uniform vec3 uv2_scale;
-uniform vec3 uv2_offset;
-
-uniform float circle_radius = 1.0;
-uniform float circle_width = 1.0;
-
-void vertex() {
-	UV = UV * uv1_scale.xy + uv1_offset.xy;
-
-	// Billboard Mode: Enabled
-	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
-			MAIN_CAM_INV_VIEW_MATRIX[0],
-			MAIN_CAM_INV_VIEW_MATRIX[1],
-			MAIN_CAM_INV_VIEW_MATRIX[2],
-			MODEL_MATRIX[3]);
-
-	//// Billboard Keep Scale: Enabled
-	//MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
-			//vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
-			//vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
-			//vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
-			//vec4(0.0, 0.0, 0.0, 1.0));
-	//MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
-}
-
-void fragment() {
-	vec2 base_uv = UV;
-
-	vec4 albedo_tex = texture(texture_albedo, base_uv);
-	ALBEDO = albedo.rgb * albedo_tex.rgb;
-
-	//float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
-	//METALLIC = metallic_tex * metallic;
-	//SPECULAR = specular;
-//
-	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
-	//float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
-	//ROUGHNESS = roughness_tex * roughness;
-	//ALPHA *= albedo.a * albedo_tex.a;
-
-	vec2 center = vec2(0.5, 0.5);
-	float dist = distance(UV, center);
-	if (dist < circle_radius - circle_width || dist > circle_radius + circle_width) {
-		discard;
-	}
-	ALPHA *= albedo.a * albedo_tex.a;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_17oyj"]
-render_priority = 0
-shader = SubResource("Shader_muvpb")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/albedo_texture_size = Vector2i(0, 0)
-shader_parameter/point_size = 1.0
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/uv2_scale = Vector3(1, 1, 1)
-shader_parameter/uv2_offset = Vector3(0, 0, 0)
-shader_parameter/circle_radius = 0.49
-shader_parameter/circle_width = 0.01
+[sub_resource type="SphereMesh" id="SphereMesh_ic8vo"]
+radial_segments = 16
+rings = 6
 
 [sub_resource type="QuadMesh" id="QuadMesh_17oyj"]
 
-[sub_resource type="Shader" id="Shader_bj6ud"]
+[sub_resource type="Shader" id="Shader_h4p5p"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
 
 shader_type spatial;
@@ -741,7 +416,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vlwt"]
 render_priority = 1
-shader = SubResource("Shader_bj6ud")
+shader = SubResource("Shader_h4p5p")
 shader_parameter/albedo = Color(0, 0, 0, 1)
 shader_parameter/albedo_texture_size = Vector2i(0, 0)
 shader_parameter/point_size = 1.0
@@ -752,17 +427,228 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/circle_radius = 0.2
 shader_parameter/circle_width = 0.01
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4p5p"]
-albedo_color = Color(0, 1, 1, 1)
-metallic_specular = 1.0
-roughness = 0.26
-emission = Color(0.0979872, 9.62615e-08, 0.609226, 1)
+[sub_resource type="QuadMesh" id="QuadMesh_heo43"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_ic8vo"]
-radial_segments = 16
-rings = 6
+[sub_resource type="Shader" id="Shader_lipyj"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, unshaded, depth_test_disabled;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+//uniform float roughness : hint_range(0.0, 1.0);
+//uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+//uniform vec4 metallic_texture_channel;
+//uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+//
+//uniform float specular : hint_range(0.0, 1.0, 0.01);
+//uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform float circle_radius = 1.0;
+uniform float circle_width = 1.0;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Enabled
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(
+			MAIN_CAM_INV_VIEW_MATRIX[0],
+			MAIN_CAM_INV_VIEW_MATRIX[1],
+			MAIN_CAM_INV_VIEW_MATRIX[2],
+			MODEL_MATRIX[3]);
+
+	//// Billboard Keep Scale: Enabled
+	//MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			//vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			//vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			//vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			//vec4(0.0, 0.0, 0.0, 1.0));
+	//MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	//float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	//METALLIC = metallic_tex * metallic;
+	//SPECULAR = specular;
+//
+	//vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	//float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	//ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+
+	vec2 center = vec2(0.5, 0.5);
+	float dist = distance(UV, center);
+	if (dist < circle_radius - circle_width || dist > circle_radius + circle_width) {
+		discard;
+	}
+	ALPHA *= albedo.a * albedo_tex.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17oyj"]
+render_priority = 0
+shader = SubResource("Shader_lipyj")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/circle_radius = 0.49
+shader_parameter/circle_width = 0.01
+
+[sub_resource type="Animation" id="Animation_lvn3c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ring:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rings/ConstantRing:surface_material_override/0:shader_parameter/circle_width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.01, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Rings/ShrinkingRing:surface_material_override/0:shader_parameter/circle_radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.49]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_muvpb"]
+resource_name = "fadein"
+length = 1.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rings/ConstantRing:surface_material_override/0:shader_parameter/circle_width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.00965935, -0.25, 0, 0.00406039, 0.0228378, 0.0695505, -0.0292696, -0.000537001, 0.0145917, -0.0336437, 0.000343213, -0.0368694, -0.000743703, 0.0297972, 0.000106243),
+"times": PackedFloat32Array(0.2, 0.96667, 1, 1.2)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rings/ShrinkingRing:surface_material_override/0:shader_parameter/circle_radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.49, 0.2]
+}
+
+[sub_resource type="Animation" id="Animation_j2086"]
+resource_name = "pop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WaterDroplets:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effect:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ring:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Ring2:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_muvpb"]
+_data = {
+&"RESET": SubResource("Animation_lvn3c"),
+&"fadein": SubResource("Animation_muvpb"),
+&"pop": SubResource("Animation_j2086")
+}
 
 [node name="Target" type="RigidBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 7
 lock_rotation = true
 freeze = true
@@ -854,19 +740,6 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_tmsnt")
 draw_pass_1 = SubResource("QuadMesh_kmlqp")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_muvpb")
-}
-
-[node name="ShrinkingRing" type="MeshInstance3D" parent="."]
-mesh = SubResource("QuadMesh_heo43")
-surface_material_override/0 = SubResource("ShaderMaterial_17oyj")
-
-[node name="ConstantRing" type="MeshInstance3D" parent="."]
-mesh = SubResource("QuadMesh_17oyj")
-surface_material_override/0 = SubResource("ShaderMaterial_1vlwt")
-
 [node name="Timeout" type="Timer" parent="."]
 unique_name_in_owner = true
 one_shot = true
@@ -877,5 +750,25 @@ one_shot = true
 material_override = SubResource("StandardMaterial3D_h4p5p")
 mesh = SubResource("SphereMesh_ic8vo")
 skeleton = NodePath("../..")
+
+[node name="Rings" type="Node3D" parent="."]
+
+[node name="ConstantRing" type="MeshInstance3D" parent="Rings"]
+unique_name_in_owner = true
+mesh = SubResource("QuadMesh_17oyj")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_1vlwt")
+
+[node name="ShrinkingRing" type="MeshInstance3D" parent="Rings"]
+unique_name_in_owner = true
+mesh = SubResource("QuadMesh_heo43")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_17oyj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Rings"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_muvpb")
+}
 
 [editable path="waterbloon"]
