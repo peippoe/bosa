@@ -1,0 +1,337 @@
+{
+	"beatmap": [
+		{
+			"_": {
+				"global_position": "(0.0, 19.11341, -100.0)",
+				"pop_time": 0.736196279525757,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 5.0, 5.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "Marker:<Control#230878248699554>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 40.04215, -135.6594)",
+				"pop_time": 4.57894582333772,
+				"rotation_degrees": "(69.99999, 0.0, 0.0)",
+				"scale": "(12.0, 1.0, 12.0)",
+				"start_time": 0.73684140910273
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "StartEndMarkers:<Control#230879188224347>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(30.30965, 84.16029, -56.55452)",
+				"pop_time": 5.88957023620605,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@5163:<Control#230879909644995>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(24.60337, 123.9447, -33.10793)",
+				"pop_time": 6.993865331014,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@5165:<Control#230880513623877>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(24.60337, 123.9447, -33.10793)",
+				"pop_time": 8.83435567220052,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@5167:<Control#230881117604505>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(24.60337, 123.9447, -33.10793)",
+				"pop_time": 9.93865013122559,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@5169:<Control#230881721583977>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-22.44988, 224.8041, 102.9483)",
+				"pop_time": 13.9877305464311,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@5171:<Control#230882325564319>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-22.44988, 239.0125, 106.8077)",
+				"pop_time": 14.1717790876116,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@5173:<Control#230882929543930>"
+			}
+		}
+	],
+	"config": {
+		"creator": null,
+		"duration": 23.0,
+		"gamemode": 0,
+		"name": null,
+		"song": "res://Assets/Audio/Music/orion sun - antidote [official audio].mp3",
+		"version": 1.0
+	},
+	"editor": [
+		{
+			"_": {
+				"bpm": 326.0,
+				"end_time": 23.1565208103346,
+				"start_time": 0.0
+			}
+		}
+	],
+	"environment": {
+		"directional_light": [],
+		"environment": {
+			"Sky": {
+				"ground_bottom_color": "(0.0, 0.3378, 1.0, 1.0)",
+				"ground_horizon_color": "(0.7098, 0.8078, 1.0, 1.0)",
+				"sky_horizon_color": "(0.7109, 0.8073, 1.0, 1.0)",
+				"sky_top_color": "(0.0, 0.4286, 1.0, 1.0)"
+			},
+			"Tonemap": {
+				"tonemap_exposure": 1.0,
+				"tonemap_mode": 0,
+				"tonemap_white": 1.0
+			}
+		}
+	},
+	"events": [],
+	"geometry": [
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9083, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 37.3708, -149.0051)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 1.0, 20.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, -1.0, -0.303623)",
+				"rotation_degrees": "(79.99997, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 3.051801, -0.609617)",
+				"rotation_degrees": "(79.99997, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9083, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, -2.0, 0.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(40.0, 1.0, 40.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9083, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 164.5498, 24.09127)",
+				"rotation_degrees": "(19.99999, 0.0, 0.0)",
+				"scale": "(10.0, 1.0, 40.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(1.096596, 312.0989, -2.724305)",
+				"rotation_degrees": "(60.0, 0.0, 0.0)",
+				"scale": "(9.0, 9.0, 9.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 39.38163, -139.5614)",
+				"rotation_degrees": "(105.0, 0.0, 0.0)",
+				"scale": "(5.0, 5.0, 5.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 39.82682, -68.74102)",
+				"rotation_degrees": "(9.999996, 0.0, 180.0)",
+				"scale": "(10.0, 7.0, 10.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(1.8113, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 2.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 19.0, -48.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 2.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9083, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 9.460518, -55.33245)",
+				"rotation_degrees": "(39.99998, 0.0, 0.0)",
+				"scale": "(5.0, 1.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9083, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 9.815346, -65.63561)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 1.0, 20.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 33.92696, -7.778152)",
+				"rotation_degrees": "(-9.999996, 0.0, 180.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(1.096596, 162.7127, 78.77753)",
+				"rotation_degrees": "(79.99997, 0.0, -180.0)",
+				"scale": "(8.0, 8.0, 8.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(1.096596, 283.7332, 56.51656)",
+				"rotation_degrees": "(30.0, 0.0, 180.0)",
+				"scale": "(10.0, 10.0, 10.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		}
+	]
+}

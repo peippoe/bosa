@@ -5,7 +5,7 @@ var beatmap_data = {
 		"name": null,
 		"creator": null,
 		"song": null,
-		"duration": 0.0,
+		"duration": 10.0,
 		"gamemode": 0,
 		"version": 1
 	},
@@ -62,6 +62,9 @@ var playback_speed := 0.0:
 			pitch_scale = playback_speed
 			if not playing: play(playhead)
 			else: seek(playhead)
+		
+		if GameManager.in_editor:
+			Utility.get_node_or_null_in_scene("%GizmoBeatmap").visible = (playback_speed == 0)
 
 var event_index = 0
 

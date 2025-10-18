@@ -283,7 +283,7 @@ size_flags_vertical = 6
 size_flags_stretch_ratio = 10.0
 theme_type_variation = &"FancyLabel"
 bbcode_enabled = true
-text = "[font_size=30][color=black]edit tab"
+text = "[font_size=30][color=black]edit "
 fit_content = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="EditorUI/VBoxContainer/VBoxContainer/EditPanel/MarginContainer/VBoxContainer"]
@@ -530,6 +530,7 @@ size_flags_stretch_ratio = 0.2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+text = "10.0"
 virtual_keyboard_type = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="EditorUI/VBoxContainer/VBoxContainer/TimelinePanel/HBoxContainer/VBoxContainer2"]

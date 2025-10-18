@@ -239,6 +239,12 @@ var can_wallrun_right := true
 
 func _physics_process(delta):
 	
+	if get_floor_normal().dot(Vector3.UP) < 0.98:
+		floor_snap_length = 2
+		#print("A")
+	else:
+		floor_snap_length = 0.4
+	
 	input_dir = Input.get_vector("a", "d", "w", "s")
 	
 	if vault_point:

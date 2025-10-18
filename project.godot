@@ -41,6 +41,7 @@ enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons
 
 player=""
 map_editor=""
+button_1=""
 
 [gui]
 

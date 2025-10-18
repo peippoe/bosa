@@ -10,11 +10,10 @@ var pop_time := 0.0:
 		
 		print("pop_time: %f, \t true pop time: %f" % [pop_time, Playback.playhead + 1.0 - $Rings/AnimationPlayer.current_animation_position])
 		
-		#var a : AudioStreamPlayer
-		print("SPAWNED")
-		print(Playback.playhead)
-		print(Playback.get_playback_position())
-		print(AudioServer.get_output_latency())
+		#print("SPAWNED")
+		#print(Playback.playhead)
+		#print(Playback.get_playback_position())
+		#print(AudioServer.get_output_latency())
 		
 		var timeout = pop_time - Playback.playhead + Settings.POP_TIMING_WINDOWS[3]
 		

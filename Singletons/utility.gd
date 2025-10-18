@@ -348,11 +348,19 @@ func pop_target(target):
 	GameManager.combo += 1
 	GameManager.points += Settings.POINTS_REWARDS[get_pop_timing(target.pop_time)]
 	
-	var pop_timing = get_pop_timing(target.pop_time)
-	if pop_timing <= 1:
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", null, Vector2(2, 4), -10)
+	var pitch = delta + sign(delta) * 0.2
+	var vol = -5 - absf(delta) * 80
+	if get_pop_timing(target.pop_time) <= 1:
+		pitch = 0
+		vol = 0
+		#AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", null, Vector2(2, 4), -10)
 		if target.get_node("Effect"): target.get_node("Effect").show()
-	print("POP_TIMING %d" % pop_timing)
+	
+	
+	
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", null, Vector2(0.9 - pitch, 1.1 - pitch), vol)
+	
+	#print("POP_TIMING %d" % pop_timing)
 
 func on_miss(pos):
 	GameManager.health -= 10
@@ -526,7 +534,7 @@ func convert_colors(data):
 		
 		for property in data[section].keys():
 			
-			if property == "albedo_color":
+			if property == "albedo_color" or property == "emission":
 				var value = str_to_var("Color"+data[section][property])
 				data[section][property] = value
 				print("COLOR CONVERTED TO %s" % data[section][property])

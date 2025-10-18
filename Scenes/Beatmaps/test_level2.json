@@ -1,0 +1,290 @@
+{
+	"beatmap": [
+		{
+			"_": {
+				"global_position": "(0.0, 24.92615, -21.28034)",
+				"pop_time": 5.09999708695845,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 0.2, 3.0)",
+				"start_time": 0.0
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "StartEndMarkers:<Control#5737052899909>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 49.49121, -52.49069)",
+				"pop_time": 9.19999348033558,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 1.0, 4.0)",
+				"start_time": 2.29999680952592
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@731:<Control#5737891760723>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 58.09318, -70.85703)",
+				"pop_time": 8.22600763494318,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "Marker:<Control#5738764176006>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 78.63181, -78.61097)",
+				"pop_time": 10.2058801651001,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(7.0, 7.0, 7.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@733:<Control#5739368155789>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 106.4802, -110.3698)",
+				"pop_time": 12.2143737792969,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(16.0, 16.0, 16.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@735:<Control#5739972135572>"
+			}
+		}
+	],
+	"config": {
+		"creator": null,
+		"duration": 16.5,
+		"gamemode": 0,
+		"name": null,
+		"song": "res://Assets/Audio/Music/Super Monkey Ball 2 OST - Monkey Target 2.mp3",
+		"version": 1.0
+	},
+	"editor": [
+		{
+			"_": {
+				"bpm": 240.7,
+				"end_time": 13.2947143554688,
+				"start_time": 0.0
+			}
+		}
+	],
+	"environment": {
+		"directional_light": [],
+		"environment": {
+			"Sky": {
+				"ground_bottom_color": "(0.1333, 0.1686, 1.0, 1.0)",
+				"ground_horizon_color": "(0.0, 0.7882, 1.0, 1.0)",
+				"sky_horizon_color": "(0.0, 0.7882, 1.0, 1.0)",
+				"sky_top_color": "(0.0, 0.55, 1.0, 1.0)"
+			},
+			"Tonemap": {
+				"tonemap_exposure": 1.0,
+				"tonemap_mode": 0,
+				"tonemap_white": 1.0
+			}
+		}
+	},
+	"events": [],
+	"geometry": [
+		{
+			"_": {
+				"global_position": "(0.0, 11.03012, 12.12722)",
+				"rotation_degrees": "(110.0, 180.0, 0.0)",
+				"scale": "(3.0, 1.0, 3.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, -1.0, 0.277752)",
+				"rotation_degrees": "(60.0, -180.0, 0.0)",
+				"scale": "(2.0, 1.0, 2.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3647, 1.0, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"texture_id": 2,
+				"uv1_scale": "(0.3, 0.3, 0.3)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 48.59467, -51.37065)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 1.0, 14.01778)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.0, 0.8118, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"texture_id": 3,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, -2.0, 0.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(160.0, 1.0, 160.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 13.54002, -15.7536)",
+				"rotation_degrees": "(79.99997, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 3.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 0.706, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 48.59158, -51.37688)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 1.0, 14.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 0.7059, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 23.64838, -21.42822)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 1.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 25.32336, -31.55938)",
+				"rotation_degrees": "(79.99997, 0.0, 0.0)",
+				"scale": "(3.0, 1.0, 3.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3636, 1.0, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"texture_id": 2,
+				"uv1_scale": "(0.3, 0.3, 0.3)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 23.64978, -21.42822)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 1.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Text": {
+				"text": "click!"
+			},
+			"_": {
+				"global_position": "(0.0, 55.95694, -64.63647)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.160491, 3.519318, 3.0)"
+			},
+			"hidden": {
+				"id": 40
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 50.93779, -61.54468)",
+				"rotation_degrees": "(79.99997, 0.0, 0.0)",
+				"scale": "(3.0, 1.0, 3.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 69.76104, -79.98688)",
+				"rotation_degrees": "(40.0, 0.0, 0.0)",
+				"scale": "(4.0, 3.0, 4.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 84.57205, -85.52129)",
+				"rotation_degrees": "(115.0, 0.0, 0.0)",
+				"scale": "(3.0, 3.0, 3.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 73.3638, -84.16512)",
+				"rotation_degrees": "(79.99997, 0.0, 0.0)",
+				"scale": "(3.0, 3.0, 3.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		}
+	]
+}

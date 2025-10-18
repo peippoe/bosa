@@ -1,0 +1,858 @@
+[gd_scene load_steps=45 format=3 uid="uid://dbv72bxs15p17"]
+
+[ext_resource type="Script" uid="uid://c18t20fa3csw8" path="res://Scenes/main_menu2.gd" id="1_obhlr"]
+[ext_resource type="PackedScene" uid="uid://cgs6r47ympgcx" path="res://Assets/Models/azal.glb" id="2_d8apk"]
+[ext_resource type="Shader" uid="uid://b7kngkyjvq1pu" path="res://Assets/Shader/main_menu.gdshader" id="3_8lwb4"]
+[ext_resource type="Shader" uid="uid://dioouvxobf5bt" path="res://Assets/Shader/main_menu_pulse.gdshader" id="4_8wqwl"]
+[ext_resource type="AudioStream" uid="uid://b4v0m3bimmcy0" path="res://Assets/Audio/Music/mainemnu.wav" id="5_c4h3v"]
+[ext_resource type="Texture2D" uid="uid://btxpoy0ykjqy6" path="res://Assets/Images/UI/logo.png" id="6_i4ct6"]
+[ext_resource type="Texture2D" uid="uid://bntilmoae4y0i" path="res://Assets/Images/UI/logobg.png" id="7_i0sk2"]
+[ext_resource type="Texture2D" uid="uid://wxxqp2yd0ols" path="res://Assets/Images/UI/beachview.png" id="8_bwsn0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ehe0"]
+sky_top_color = Color(0.200345, 0.356139, 1, 1)
+sky_horizon_color = Color(0.289992, 0.552758, 1, 1)
+sky_curve = 0.252269
+ground_bottom_color = Color(0, 0.195909, 1, 1)
+ground_horizon_color = Color(0.280466, 0.554351, 1, 1)
+ground_curve = 0.485029
+sun_curve = 0.0568394
+
+[sub_resource type="Sky" id="Sky_bo1nx"]
+sky_material = SubResource("ProceduralSkyMaterial_1ehe0")
+
+[sub_resource type="Environment" id="Environment_ce3w2"]
+background_mode = 2
+sky = SubResource("Sky_bo1nx")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n45e2"]
+albedo_color = Color(0.991278, 0.871978, 0, 1)
+roughness = 0.0
+
+[sub_resource type="TextMesh" id="TextMesh_opfnp"]
+material = SubResource("StandardMaterial3D_n45e2")
+text = "under construction"
+font_size = 15
+depth = 0.04
+
+[sub_resource type="Animation" id="Animation_7vrkn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/Panel:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/Title:size_flags_stretch_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/Panel:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_06t4h"]
+resource_name = "loop"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/Panel:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.26667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.0523599, 0.0261799]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/Title:size_flags_stretch_ratio")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.33333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.23, 1.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/Panel:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.46667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 31.785), Vector2(0, 13.01)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fu7sn"]
+_data = {
+&"RESET": SubResource("Animation_7vrkn"),
+&"loop": SubResource("Animation_06t4h")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
+bg_color = Color(0.291964, 0.287567, 0.285677, 1)
+
+[sub_resource type="Gradient" id="Gradient_06t4h"]
+colors = PackedColorArray(0, 0, 1, 0, 0, 1, 0.839216, 0.52549)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_06t4h"]
+noise_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7vrkn"]
+noise = SubResource("FastNoiseLite_06t4h")
+color_ramp = SubResource("Gradient_06t4h")
+seamless = true
+seamless_blend_skirt = 0.295
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fu7sn"]
+shader = ExtResource("3_8lwb4")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7vrkn")
+shader_parameter/scroll_amplitude = Vector2(0.02, 0.06)
+shader_parameter/sin_frequency = 0.3
+
+[sub_resource type="Shader" id="Shader_7vrkn"]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise_tex;
+uniform vec2 scroll_amplitude = vec2(0.1, 0.1);
+uniform float sin_frequency = 1.0;
+
+void fragment() {
+	vec2 uv = UV;
+	
+	vec2 scroll = vec2(0, sin(TIME * sin_frequency)) + vec2(TIME, 0);
+	uv += scroll * scroll_amplitude;
+	uv = fract(uv);
+	COLOR = textureLod(noise_tex, uv, 0.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jix8l"]
+shader = SubResource("Shader_7vrkn")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_7vrkn")
+shader_parameter/scroll_amplitude = Vector2(0.02, 0.06)
+shader_parameter/sin_frequency = 0.3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06t4h"]
+draw_center = false
+border_width_left = 200
+border_width_top = 100
+border_width_right = 200
+border_width_bottom = 100
+border_color = Color(0.129412, 0.121569, 0.121569, 0.882353)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vrkn"]
+draw_center = false
+skew = Vector2(-0.375, 0)
+border_width_left = 60
+border_width_top = 10
+border_width_right = 5
+border_width_bottom = 16
+border_color = Color(0.929412, 0.894118, 0.870588, 0.137255)
+
+[sub_resource type="Shader" id="Shader_n45e2"]
+code = "// Converted from https://www.shadertoy.com/view/td2GzW
+shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+
+// Anti fish eye (negative amount) / fish eye (positive)
+uniform float effect_amount : hint_range(-2.5, 2.5) = 1.0;
+
+void fragment() {
+	// glsl -> godot shader
+	vec2 iResolution = 1.0 / SCREEN_PIXEL_SIZE;
+	vec4 fragCoord = FRAGCOORD;
+
+	//normalized coords 
+	vec2 p = fragCoord.xy / iResolution.x;
+
+	//screen proroption
+	float prop = iResolution.x / iResolution.y;
+
+	//center coords
+	vec2 m = vec2(0.5, 0.5 / prop);
+
+	//vector from center to current fragment
+	vec2 d = p - m;
+
+	// distance of pixel from center
+	float r = sqrt(dot(d, d)); 
+
+	float power = effect_amount;
+
+	//radius of 1:1 effect
+	float bind;
+	
+	//stick to borders
+	if (power > 0.0) 
+		bind = sqrt(dot(m, m));
+	else {
+		if (prop < 1.0) 
+    		bind = m.x; 
+    	else 
+        	bind = m.y;
+	}
+
+	vec2 uv;
+	//fisheye
+	if (power > 0.0)
+		uv = m + normalize(d) * tan(r * power) * bind / tan( bind * power);
+	//antifisheye
+	else if (power < 0.0)
+		uv = m + normalize(d) * atan(r * -power * 10.0) * bind / atan(-power * bind * 10.0);
+	//no effect for power = 1.0
+	else
+		uv = p;
+    uv.y *= prop;
+
+	vec3 col = texture(SCREEN_TEXTURE, uv).rgb;
+    
+	COLOR = vec4(col, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp0ys"]
+shader = SubResource("Shader_n45e2")
+shader_parameter/effect_amount = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_opfnp"]
+shader = ExtResource("4_8wqwl")
+shader_parameter/zoom_amount = 1.0
+shader_parameter/zoom_scale = 0.081
+
+[sub_resource type="Animation" id="Animation_yhxw7"]
+resource_name = "transition"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trj04"]
+_data = {
+&"transition": SubResource("Animation_yhxw7")
+}
+
+[sub_resource type="Animation" id="Animation_opfnp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HolderHolder/Holder:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpinnyText/MeshInstance3D3:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shaders/ColorRect:material:shader_parameter/zoom_amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera3D:fov")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [54.0]
+}
+
+[sub_resource type="Animation" id="Animation_n45e2"]
+resource_name = "loop"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HolderHolder/Holder:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpinnyText/MeshInstance3D3:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.73, 6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.253073, 6.39663, 0.226893), Vector3(0, 6.28319, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 0.0666666, 1.03333, 1.06667, 2.03333, 2.06667, 3.03333, 3.06667, 4.03334, 4.06667, 5.03334, 5.06667, 6.03334, 6.06667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14), Vector3(1, 1, 1), Vector3(1.14, 1.14, 1.14)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Shaders/ColorRect:material:shader_parameter/zoom_amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.0323107, 1, 1.03231, 2, 2.03231, 3, 3.03231, 4, 4.03231, 5, 5.03231, 6, 6.03231),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/path = NodePath("Camera3D:fov")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 1, 1.06667, 2, 2.06667, 3, 3.06667, 4, 4.06667, 5, 5.06667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [54.0, 60.0, 54.0, 60.0, 54.0, 60.0, 54.0, 60.0, 54.0, 60.0, 54.0, 60.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cp0ys"]
+_data = {
+&"RESET": SubResource("Animation_opfnp"),
+&"loop": SubResource("Animation_n45e2")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ce3w2"]
+
+[sub_resource type="TextMesh" id="TextMesh_ce3w2"]
+material = SubResource("StandardMaterial3D_ce3w2")
+text = "super early build"
+font_size = 35
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n45e2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trj04"]
+
+[sub_resource type="TextMesh" id="TextMesh_vr1f0"]
+material = SubResource("StandardMaterial3D_trj04")
+text = "back"
+font_size = 50
+
+[sub_resource type="TextMesh" id="TextMesh_n45e2"]
+material = SubResource("StandardMaterial3D_ce3w2")
+text = "pLAY"
+font_size = 60
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhxw7"]
+albedo_color = Color(0.53133345, 1, 0.24000001, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_16hvj"]
+material = SubResource("StandardMaterial3D_yhxw7")
+text = "(movement tutorial for now)"
+font_size = 20
+
+[sub_resource type="TextMesh" id="TextMesh_cp0ys"]
+material = SubResource("StandardMaterial3D_ce3w2")
+text = "EDITOR"
+font_size = 50
+
+[sub_resource type="TextMesh" id="TextMesh_yhxw7"]
+material = SubResource("StandardMaterial3D_ce3w2")
+text = "exit :("
+font_size = 50
+
+[sub_resource type="TextMesh" id="TextMesh_trj04"]
+material = SubResource("StandardMaterial3D_ce3w2")
+text = "test scene"
+font_size = 20
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_obhlr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ce3w2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0.402442, -0.306947, 0.862453, -0.296717, 0.847516, 0.440085, 0, 0, 0)
+light_color = Color(1, 0.971277, 0.74013, 1)
+shadow_enabled = true
+
+[node name="SpinnyText" type="Node3D" parent="."]
+transform = Transform3D(0.96363, -0.267238, 0, 0.267238, 0.96363, 0, 0, 0, 1, 2.22723, 2.06028, -3.588)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="SpinnyText"]
+mesh = SubResource("TextMesh_opfnp")
+skeleton = NodePath("../..")
+
+[node name="HolderHolder" type="Node3D" parent="."]
+transform = Transform3D(0.87468576, -0.4837668, 0.029911814, 0.48318124, 0.8654357, -0.13250272, 0.038213596, 0.13035099, 0.99073094, 1.5457106, 0, -1.4242076)
+
+[node name="Holder" type="Node3D" parent="HolderHolder"]
+
+[node name="azal" parent="HolderHolder/Holder" instance=ExtResource("2_d8apk")]
+transform = Transform3D(0.95466065, -0.29492053, 0.040551644, 0.295373, 0.955366, -0.0055203587, -0.03711361, 0.017247908, 0.9991621, 0, 0, 0)
+
+[node name="MainMenuUI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainMenuUI"]
+libraries = {
+&"": SubResource("AnimationLibrary_fu7sn")
+}
+autoplay = "loop"
+
+[node name="Panel" type="Panel" parent="MainMenuUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhts7")
+
+[node name="ColorRect" type="ColorRect" parent="MainMenuUI"]
+visible = false
+material = SubResource("ShaderMaterial_fu7sn")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="MainMenuUI"]
+visible = false
+material = SubResource("ShaderMaterial_jix8l")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel2" type="Panel" parent="MainMenuUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_06t4h")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 75
+
+[node name="Control" type="Control" parent="MainMenuUI/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MainMenuUI/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(376, 256.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7vrkn")
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenuUI/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Control" type="Control" parent="MainMenuUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Title" type="RichTextLabel" parent="MainMenuUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[font_size=70][color=blue][outline_color=yellow][outline_size=60][font=res://Assets/Font/BombFont-d3wV.otf]BOSA"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Play" type="Button" parent="MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+focus_mode = 0
+text = "play"
+
+[node name="Editor" type="Button" parent="MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+focus_mode = 0
+text = "editor"
+
+[node name="Settings" type="Button" parent="MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+focus_mode = 0
+text = "settings"
+
+[node name="Exit" type="Button" parent="MainMenuUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+focus_mode = 0
+text = "exit"
+
+[node name="Control2" type="Control" parent="MainMenuUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Shaders" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="Shaders"]
+visible = false
+material = SubResource("ShaderMaterial_cp0ys")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Shaders"]
+visible = false
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Shaders"]
+material = SubResource("ShaderMaterial_opfnp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ver2" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -69.0
+offset_right = 305.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+bbcode_enabled = true
+text = "[font_size=15]this is an early build
+everything is subject to change"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="ver" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 65.0
+grow_vertical = 0
+text = "v0.2.0"
+fit_content = true
+
+[node name="PlayPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="PlayPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayPanel/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="PlayPanel/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayPanel/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Control" type="Control" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "movement tutorial
+(old)"
+
+[node name="Button" type="Button" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level
+all my fellas - frizk"
+
+[node name="Button3" type="Button" parent="PlayPanel/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level2
+monkey target 2 - super monkey ball 2"
+
+[node name="ColorRect" type="ColorRect" parent="PlayPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayPanel"]
+libraries = {
+&"": SubResource("AnimationLibrary_trj04")
+}
+
+[node name="Mainmenuu" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24114, 0, -2.75388)
+stream = ExtResource("5_c4h3v")
+volume_db = -20.64
+unit_size = 20.0
+max_db = -24.0
+bus = &"Music"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.80823)
+current = true
+fov = 54.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cp0ys")
+}
+speed_scale = 0.75
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.80334187, -0.37850192, 0.45975888, 0.38558495, 0.9189497, 0.08279924, -0.45383495, 0.11076001, 0.88417536, -2.53122, 0.418046, -10.3018)
+shaded = true
+texture = ExtResource("6_i4ct6")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(1.10878, -1.19059, 0.872252, 0.647436, 1.37275, 1.05076, -1.32633, -0.325204, 1.2421, -4.14635, 0.809151, -16.2673)
+texture = ExtResource("7_i0sk2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.85532, -0.295038, 0.425888, -0.0511386, 0.769928, 0.636078, -0.515571, -0.56583, 0.643447, -4.377, 2.368, -9.311)
+mesh = SubResource("TextMesh_ce3w2")
+
+[node name="Back" type="Area3D" parent="."]
+transform = Transform3D(-0.044684656, 0.33404788, -0.94149625, -0.13400106, 0.93191624, 0.33700964, 0.9899735, 0.14122076, 0.0031208023, 8.630809, -2.4685647, -0.33775592)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Back"]
+shape = SubResource("BoxShape3D_n45e2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Back"]
+mesh = SubResource("TextMesh_vr1f0")
+skeleton = NodePath("../../Play")
+
+[node name="Play" type="Area3D" parent="."]
+transform = Transform3D(0.903392, 0.242832, -0.353433, -0.207669, 0.968858, 0.134859, 0.375175, -0.0484333, 0.925688, -0.729884, -0.856856, -3.47487)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Play"]
+shape = SubResource("BoxShape3D_n45e2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Play"]
+mesh = SubResource("TextMesh_n45e2")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Play/MeshInstance3D"]
+transform = Transform3D(0.84544975, -0.09317543, 0.5258678, -0.016110778, 0.97977066, 0.19950025, -0.5338157, -0.17713904, 0.8268414, 0.8392215, -0.0013445616, 1.1081893)
+visible = false
+mesh = SubResource("TextMesh_16hvj")
+skeleton = NodePath("../..")
+
+[node name="MapEditor" type="Area3D" parent="."]
+transform = Transform3D(0.722232, 0.0120544, 0.691546, -0.188567, 0.965404, 0.180106, -0.66545, -0.260481, 0.699519, -1.38254, -1.92929, -5.03251)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MapEditor"]
+shape = SubResource("BoxShape3D_n45e2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MapEditor"]
+mesh = SubResource("TextMesh_cp0ys")
+skeleton = NodePath("../..")
+
+[node name="Exit" type="Area3D" parent="."]
+transform = Transform3D(0.943928, 0.132516, 0.30239, -0.0256951, 0.942621, -0.332875, -0.32915, 0.30644, 0.893171, -2.00747, -3.23901, -6.37105)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Exit"]
+shape = SubResource("BoxShape3D_n45e2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Exit"]
+mesh = SubResource("TextMesh_yhxw7")
+skeleton = NodePath("../..")
+
+[node name="Test" type="Area3D" parent="."]
+transform = Transform3D(0.999657, -0.0261769, 0, 0.0261769, 0.999657, 0, 0, 0, 1, -1.274, 2.646, -6.894)
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Test"]
+shape = SubResource("BoxShape3D_n45e2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Test"]
+mesh = SubResource("TextMesh_trj04")
+skeleton = NodePath("../..")
+
+[node name="Sprite3D4" type="Sprite3D" parent="."]
+transform = Transform3D(-0.012780781, 0.48259604, -0.87574923, -0.15921861, 0.8636638, 0.4782599, 0.98715967, 0.14554767, 0.065801665, 29.106478, -8.105961, 4.471882)
+modulate = Color(0.81, 0.841667, 1, 0.607843)
+pixel_size = 0.065
+shaded = true
+texture = ExtResource("8_bwsn0")
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform3D(0.986989, 0.0444855, 0.154509, -0.0688977, 0.985282, 0.156434, -0.145275, -0.165044, 0.975528, 1.24, -1.86, -27.666)
+modulate = Color(0.81, 0.841667, 1, 0.607843)
+pixel_size = 0.065
+shaded = true
+texture = ExtResource("8_bwsn0")

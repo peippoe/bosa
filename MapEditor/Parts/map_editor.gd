@@ -301,7 +301,7 @@ func _unhandled_input(event):
 
 func click(event):
 	var from = cam.project_ray_origin(event.position)
-	var to = from + cam.project_ray_normal(event.position) * 200
+	var to = from + cam.project_ray_normal(event.position) * 300
 	
 	var space_state = get_world_3d().direct_space_state
 	var mousepos = get_viewport().get_mouse_position()
@@ -400,8 +400,16 @@ func fade_gizmos():
 		var fadein = Settings.fadein_time
 		if "start_time" in target_gizmo:
 			fadein = target_gizmo.pop_time - target_gizmo.start_time
+		elif "end_time" in target_gizmo:
+			fadein = target_gizmo.end_time - target_gizmo.pop_time
 		
-		var start = target_gizmo.pop_time - fadein
+		var end = target_gizmo.pop_time
+		if "end_time" in target_gizmo:
+			end = target_gizmo.end_time
+		
+		
+		var start = end - fadein
+		
 		var playhead_relative = maxf(Playback.playhead - start, 0)
 		
 		var alpha = 0

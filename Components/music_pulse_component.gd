@@ -20,7 +20,7 @@ func _process(delta):
 	#var mult := 2.0
 	#var adjusted = pow(peak_linear * mult, exp) / pow(mult, exp)
 	
-	var target_scale = lerp(0.95, 1.0, current_loudness)
+	var target_scale = lerp(0.92, 1.0, current_loudness)
 	#current_scale = current_scale.lerp(Vector2.ONE * target_scale, delta * SMOOTHING)
 	
 	#print("%.2f, %.2f" % [current_loudness, peak_linear])

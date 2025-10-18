@@ -26,7 +26,7 @@ const ENTITY_PROPERTIES = {
 		"global_position", "rotation_degrees", "scale"
 	],
 	"Material": [
-		"albedo_color", "texture_id", "emission_enabled", "emission", "uv1_scale", "uv1_triplanar", "uv1_world_triplanar"
+		"albedo_color", "texture_id", "emission_enabled", "emission", "emission_energy_multiplier", "uv1_scale", "uv1_triplanar", "uv1_world_triplanar"
 	],
 	"hidden": [
 		"id",

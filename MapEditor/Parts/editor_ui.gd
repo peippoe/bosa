@@ -156,6 +156,7 @@ func make_new_field(value, data_type, entity, property, property_inst):
 					
 					var x = "!"+str(property)+"["+str(i)+"{"+str(key)#+"="+str(val)
 					var field = make_new_field(val, type, entity, x, property_inst)
+					#var tag = 
 					field.reparent(vbox)
 					#vbox.add_child(field)
 		

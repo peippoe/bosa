@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhg3c72gsam2y"
+path="res://.godot/imported/orion sun - antidote [official audio].mp3-60abe3ee3d90c165794a47e23db3178f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/orion sun - antidote [official audio].mp3"
+dest_files=["res://.godot/imported/orion sun - antidote [official audio].mp3-60abe3ee3d90c165794a47e23db3178f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

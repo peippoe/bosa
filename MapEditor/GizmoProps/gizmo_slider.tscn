@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/GizmoManipulation/gizmo_hitbox.tscn" id="1_j1wtu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6mbbl"]
+transparency = 1
 albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_skjnx"]

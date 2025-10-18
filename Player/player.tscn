@@ -483,7 +483,6 @@ shader_parameter/scanline_intensity = 0.1
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 3
 floor_max_angle = 1.1519173
-floor_snap_length = 0.8
 script = ExtResource("1_v0iea")
 vault_time = 0.18
 vault_y_curve = SubResource("Curve_od3ui")

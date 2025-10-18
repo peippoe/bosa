@@ -130,12 +130,12 @@ size_flags_horizontal = 3
 text = "target colors"
 fit_content = true
 
-[node name="ValueHolder0" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer/Settings/visual/target_colors"]
+[node name="ValueHolder0" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer/Settings/visual/target_colors" groups=["button_1"]]
 layout_mode = 2
 size_flags_horizontal = 3
 metadata/data_type = "Color"
 
-[node name="ValueHolder1" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer/Settings/visual/target_colors"]
+[node name="ValueHolder1" type="ColorPickerButton" parent="Panel/MarginContainer/VBoxContainer/Settings/visual/target_colors" groups=["button_1"]]
 layout_mode = 2
 size_flags_horizontal = 3
 metadata/data_type = "Color"
@@ -145,18 +145,35 @@ custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 color = Color(0.87, 0.8091, 0.696, 1)
 
+[node name="miscellaneous" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Settings"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="debug" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Settings/miscellaneous"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer/Settings/miscellaneous/debug"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "debug"
+fit_content = true
+
+[node name="ValueHolder0" type="CheckBox" parent="Panel/MarginContainer/VBoxContainer/Settings/miscellaneous/debug"]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Apply" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Apply" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" groups=["button_1"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "apply"
 
-[node name="Close" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Close" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" groups=["button_1"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

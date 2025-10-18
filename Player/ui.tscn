@@ -49,7 +49,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%PauseMusic:volume_db")
+tracks/0/path = NodePath("PauseMusic:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -61,7 +61,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%PauseMusic:playing")
+tracks/1/path = NodePath("PauseMusic:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -77,7 +77,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%PauseMusic:volume_db")
+tracks/0/path = NodePath("PauseMusic:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,7 +89,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("%PauseMusic:playing")
+tracks/1/path = NodePath("PauseMusic:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -268,83 +268,22 @@ click on the targets with the beat"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="PauseMenu" type="Control" parent="."]
+[node name="Debug" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
+[node name="DebugLabel" type="Label" parent="Debug"]
 unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_3hae7")
-}
-
-[node name="PauseMusic" type="AudioStreamPlayer" parent="PauseMenu"]
-unique_name_in_owner = true
-stream = ExtResource("2_bxrt6")
-bus = &"Music"
-
-[node name="Panel" type="Panel" parent="PauseMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3hae7")
-
-[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"FancyLabel"
-bbcode_enabled = true
-text = "[font_size=25]paused"
-fit_content = true
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="PauseMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "uhh"
-fit_content = true
-
-[node name="Retry" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "retry"
-
-[node name="Settings" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "settings"
-
-[node name="MainMenu" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "main menu"
-
-[node name="BackToEditor" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-text = "back to editor"
-
-[node name="MusicPulseComponent" parent="PauseMenu/MarginContainer" instance=ExtResource("2_d6uvt")]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "vel"
 
 [node name="DynamicUI" type="Control" parent="."]
 unique_name_in_owner = true
@@ -371,19 +310,6 @@ offset_right = 104.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[node name="Debug" type="Control" parent="DynamicUI"]
-unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="DebugLabel" type="Label" parent="DynamicUI/Debug"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "vel"
 
 [node name="Control2" type="Control" parent="DynamicUI"]
 layout_mode = 1
@@ -549,3 +475,85 @@ layout_mode = 1
 offset_top = -5.0
 offset_bottom = -5.0
 pivot_offset = Vector2(960, 540)
+
+[node name="PauseMenu" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_3hae7")
+}
+
+[node name="PauseMusic" type="AudioStreamPlayer" parent="PauseMenu"]
+unique_name_in_owner = true
+stream = ExtResource("2_bxrt6")
+bus = &"Music"
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hae7")
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"FancyLabel"
+bbcode_enabled = true
+text = "[font_size=25]paused"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "uhh"
+fit_content = true
+
+[node name="Retry" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "retry"
+
+[node name="Settings" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer" groups=["button_1"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "settings"
+
+[node name="Help" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer" groups=["button_1"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "help"
+
+[node name="MainMenu" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "main menu"
+
+[node name="BackToEditor" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "back to editor"
+
+[node name="MusicPulseComponent" parent="PauseMenu/MarginContainer" instance=ExtResource("2_d6uvt")]

@@ -24,3 +24,15 @@ func play_audio(audio_path, pos = null, min_max := Vector2(1.0, 1.0), volume := 
 func delayed_free(audio):
 	await audio.finished
 	audio.queue_free()
+
+
+
+var music_bus_index = AudioServer.get_bus_index("Music")
+var current_loudness := 0.0
+const SMOOTHING := 30.0
+
+func _process(delta):
+	var peak_db = max(AudioServer.get_bus_peak_volume_left_db(music_bus_index, 0), AudioServer.get_bus_peak_volume_right_db(music_bus_index, 0))
+	
+	var peak_linear = db_to_linear(peak_db)
+	current_loudness = lerp(current_loudness, peak_linear, delta * SMOOTHING)

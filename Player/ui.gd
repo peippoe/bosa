@@ -2,6 +2,9 @@ extends Control
 
 
 func _ready():
+	
+	%PauseMenu.hide()
+	
 	%MainMenu.pressed.connect(
 		func main_menu():
 			GameManager.change_scene("res://Scenes/main_menu.tscn")
@@ -10,6 +13,11 @@ func _ready():
 	%Retry.pressed.connect(
 		func retry():
 			GameManager.retry()
+	)
+	
+	%Help.pressed.connect(
+		func help():
+			OS.shell_open("https://peippoe.github.io/bob/")
 	)
 	
 	%BackToEditor.pressed.connect(func back_to_editor():
@@ -54,18 +62,26 @@ const SMOOTHING := 25.0
 
 func _process(delta):
 	var player = $".."
-	var vel = player.velocity
-	var hvel = (vel - Vector3.UP * vel.y).length()
-	var vvel = vel.y
-	var debug_text = "fps: %d \n" % Engine.get_frames_per_second()
-	debug_text += "h_vel: %.2f \n" % hvel
-	debug_text += "v_vel: %.2f \n" % vvel
-	debug_text += "sliding: %s\n" % player.sliding
-	debug_text += "on_floor: %s\n" % player.on_floor
-	debug_text += "coiling: %s\n" % player.coiling
-	debug_text += "coyote: %s\n" % player.get_node("%CoyoteTime").time_left
-	debug_text += "wallrun_coyote: %s\n" % player.get_node("%WallrunCoyoteTime").time_left
-	%DebugLabel.text = debug_text
+	
+	if Settings.config["miscellaneous"]["debug"] == true:
+		%Debug.show()
+		
+		var vel = player.velocity
+		var hvel = (vel - Vector3.UP * vel.y).length()
+		var vvel = vel.y
+		
+		
+		var debug_text = "fps: %d \n" % Engine.get_frames_per_second()
+		debug_text += "h_vel: %.2f \n" % hvel
+		debug_text += "v_vel: %.2f \n" % vvel
+		debug_text += "sliding: %s\n" % player.sliding
+		debug_text += "on_floor: %s\n" % player.on_floor
+		debug_text += "coiling: %s\n" % player.coiling
+		debug_text += "coyote: %s\n" % player.get_node("%CoyoteTime").time_left
+		debug_text += "wallrun_coyote: %s\n" % player.get_node("%WallrunCoyoteTime").time_left
+		%DebugLabel.text = debug_text
+	else:
+		%Debug.hide()
 	
 	%Health.size.x = %HealthBar.size.x * GameManager.health / 100.0
 	$DynamicUI/Control2/DownshiftCharges/Progress/Bar.size.x = $DynamicUI/Control2/DownshiftCharges/Progress.size.x * player.downshift_charges / 2.0

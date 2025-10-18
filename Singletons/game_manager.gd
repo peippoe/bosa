@@ -82,6 +82,14 @@ func change_scene(scene_path : String):
 		player.get_node("%UI/%BackToEditor").visible = editor_playtest
 	
 	update_target_parent()
+	
+	
+	var buttons : Array = get_tree().get_nodes_in_group("button_1")
+	for inst in buttons:
+		inst.pressed.connect(button_pressed)
+
+func button_pressed():
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg")
 
 func update_target_parent():
 	target_parent = Utility.get_node_or_null_in_scene("%Beatmap")

@@ -66,6 +66,9 @@ var config : Dictionary = {
 	"visual": {
 		"fov": 96.0,
 		"target_colors": [Color.html("0350e7"), Color.html("36ffc3")],
+	},
+	"miscellaneous": {
+		"debug": false,
 	}
 }
 
@@ -123,7 +126,10 @@ func set_value(value_holder : Node, value):
 			value_holder.text = str(value)
 		"ColorPickerButton":
 			value_holder.color = value
-		_: push_error("UNDEFINED DATA TYPE ERROR #1")
+		"CheckBox":
+			value_holder.button_pressed = value
+		_:
+			push_error("UNDEFINED DATA TYPE ERROR #1")
 
 func get_value(value_holder : Node):
 	var value = -1
@@ -133,10 +139,13 @@ func get_value(value_holder : Node):
 			value = value_holder.text
 		"ColorPickerButton":
 			value = value_holder.color
+		"CheckBox":
+			value = value_holder.button_pressed
 	
 	match value_holder.get_meta("data_type"):
 		"float": value = float(value)
 		"Color": value = value
+		"bool": value = bool(value)
 		_: push_error("UNDEFINED DATA TYPE ERROR #2")
 	
 	print(value)
