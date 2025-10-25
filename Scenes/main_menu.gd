@@ -6,7 +6,8 @@ extends Control
 func _process(delta):
 	var loudness = AudioPlayer.current_loudness
 	
-	var s = lerpf(0.98, 1.03, ease(loudness * 3, -2))
+	var s = lerpf(1.0, 1.2
+	, ease(loudness * 3, -2))
 	self.scale = Vector2.ONE * s
 	
 	var pos = get_viewport().get_mouse_position()
@@ -14,7 +15,17 @@ func _process(delta):
 	pos -= Vector2(0.5, 0.5)
 	self.position = pos * -20
 	#print(pos)
+	
+	$Play/RichTextLabel.text = """
+	playtime: %dmins
+	pp: %d
+	""" % [LocalSave.save["playtime"] / 60, get_pp()]
 
+func get_pp():
+	var sum = 0
+	for key in LocalSave.save["scores_classic"].keys():
+		sum += LocalSave.save["scores_classic"][key]["pp"]
+	return sum
 
 
 var start_sizes = []
@@ -55,7 +66,50 @@ func _ready():
 	$Play/HBoxContainer/VBoxContainer/Button.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level.json"))
 	$Play/HBoxContainer/VBoxContainer/Button3.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level2.json"))
 	$Play/HBoxContainer/VBoxContainer/Button5.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level3.json"))
-	$Play/HBoxContainer/VBoxContainer/Button4.pressed.connect(func a(): GameManager.change_scene("res://Scenes/test_scene.tscn"))
+	$Play/HBoxContainer/VBoxContainer/Button6.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level4.json"))
+	$Play/HBoxContainer/VBoxContainer/Button7.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level_tt.json"))
+	$Play/HBoxContainer/VBoxContainer/Button4.pressed.connect(func a(): Playback.playhead = 0.0; GameManager.change_scene("res://Scenes/test_scene.tscn"))
+	
+	
+	set_classic_label($Play/HBoxContainer/VBoxContainer/Button, "test_level")
+	set_classic_label($Play/HBoxContainer/VBoxContainer/Button3, "test_level2")
+	set_classic_label($Play/HBoxContainer/VBoxContainer/Button5, "test_level3")
+	set_classic_label($Play/HBoxContainer/VBoxContainer/Button6, "test_level4")
+	
+	set_timetrial_label($Play/HBoxContainer/VBoxContainer/Button7, "test_level_tt")
+	set_timetrial_label($Play/HBoxContainer/VBoxContainer/Button2, "tutorial2")
+
+
+func set_timetrial_label(parent, beatmap_name):
+	
+	var label = $"../Control/RichTextLabel".duplicate()
+	parent.add_child(label)
+	label.position = Vector2.ZERO
+	
+	var new_text = "	unplayed"
+	if LocalSave.save["scores_timetrial"].has(beatmap_name):
+		new_text = "		%.2fs" % [LocalSave.save["scores_timetrial"][beatmap_name]["time"]]
+	
+	
+	label.text = new_text
+
+func set_classic_label(parent, beatmap_name):
+	
+	var label = $"../Control/RichTextLabel".duplicate()
+	parent.add_child(label)
+	label.position = Vector2.ZERO
+	
+	var new_text = "	unplayed"
+	if LocalSave.save["scores_classic"].has(beatmap_name):
+		new_text = """		[font_size=15]score %d
+		accuracy %.2f%%
+		%.2f pp
+		""" % [LocalSave.save["scores_classic"][beatmap_name]["points"], LocalSave.save["scores_classic"][beatmap_name]["acc"] * 100.0, LocalSave.save["scores_classic"][beatmap_name]["pp"]]
+	
+	
+	label.text = new_text
+
+
 
 func transition(_play = true):
 	$"../AnimationPlayer".play("transition")
@@ -64,6 +118,7 @@ func transition(_play = true):
 	$Play.visible = _play
 	$Home.visible = !_play
 	$"../Spectrum".visible = !_play
+
 
 
 func on_gui_input(event):

@@ -1,21 +1,23 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2tbn78waw88y"]
+[gd_scene load_steps=19 format=3 uid="uid://d2tbn78waw88y"]
 
 [ext_resource type="Script" uid="uid://hg2do2impqqq" path="res://Scenes/main_menu.gd" id="1_48xlc"]
 [ext_resource type="Shader" uid="uid://cfcwjg12eeid0" path="res://Scenes/main_menu.gdshader" id="2_ce3w2"]
-[ext_resource type="AudioStream" uid="uid://g5bgw135ft71" path="res://Assets/Audio/Music/Fall Guys OST_ Final Fall (Retro Mix).mp3" id="3_1ehe0"]
 [ext_resource type="Texture2D" uid="uid://dk74n6225rl35" path="res://Assets/Images/bubble.png" id="3_ce3w2"]
 [ext_resource type="Texture2D" uid="uid://d1b02p1gjrxw" path="res://Assets/Images/shine.png" id="4_cp0ys"]
 [ext_resource type="Script" uid="uid://dbhfe2tosr5x" path="res://Scenes/spectrum.gd" id="4_n45e2"]
+[ext_resource type="FontFile" uid="uid://cv76pcalujae" path="res://Assets/Font/goodfonts/comicsneeze.ttf" id="4_trj04"]
+[ext_resource type="FontFile" uid="uid://lx115etbeneo" path="res://Assets/Font/goodfonts/Street Style.ttf" id="5_yhxw7"]
+[ext_resource type="AudioStream" uid="uid://bt8uo15ia5yeg" path="res://Assets/Audio/Music/Krystle (URL Cyber Palace Mix).mp3" id="6_cp0ys"]
 [ext_resource type="Texture2D" uid="uid://chfiwn7nfcksu" path="res://Assets/Images/vignette.png" id="6_opfnp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("2_ce3w2")
-shader_parameter/speed = 0.2
-shader_parameter/color1 = Color(0.73260003, 0.85700995, 0.99, 1)
-shader_parameter/color2 = Color(0.79, 0.89149994, 1, 1)
+shader_parameter/speed = 0.4
+shader_parameter/color1 = Color(0.7, 0.965, 1, 1)
+shader_parameter/color2 = Color(0.62, 0.9430001, 1, 1)
 shader_parameter/direction_x = 1.0
-shader_parameter/direction_y = 1.0
-shader_parameter/size = 120.0000056525
+shader_parameter/direction_y = 4.7499999933364734e-08
+shader_parameter/size = 0.06000000145297
 
 [sub_resource type="Shader" id="Shader_n45e2"]
 code = "shader_type canvas_item;
@@ -51,70 +53,6 @@ shader_parameter/density = 10.49200030837
 shader_parameter/color1 = Color(0.6998158, 0.84362125, 0.9913114, 1)
 shader_parameter/color2 = Color(0.726806, 0.8592825, 0.9999997, 1)
 shader_parameter/speed = 0.805
-
-[sub_resource type="Animation" id="Animation_opfnp"]
-resource_name = "loop"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../ColorRect4:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.53333336),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [-0.1134464, 0.14486232791552955]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../ColorRect3:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.53333336),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0.13962634, -0.1832595714594046]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:rotation")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.23333333, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.03490658503988659, 0.12217304763960307]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:scale")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.23333333, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.055, 1.055)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../Shine:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5331258, 0.53333336),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [3.0019662, -0.12217305, 0.0]
-}
 
 [sub_resource type="Animation" id="Animation_cp0ys"]
 length = 0.001
@@ -177,6 +115,70 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_opfnp"]
+resource_name = "loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ColorRect4:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.53333336),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [-0.1134464, 0.14486232791552955]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ColorRect3:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.53333336),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0.13962634, -0.1832595714594046]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 4
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.23333333, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.03490658503988659, 0.12217304763960309]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.13333334, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.055, 1.055)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Shine:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5331258, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3.0019662, -0.12217305, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yhxw7"]
@@ -247,6 +249,55 @@ _data = {
 
 [node name="MainMenu" type="Node3D"]
 
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1070.0
+offset_top = 302.0
+offset_right = 1070.0
+offset_bottom = 302.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+mouse_filter = 2
+bbcode_enabled = true
+text = "	[font_size=15]score 100000
+	accuracy 100%
+	0 pp"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_1ehe0")
+offset_left = -12.56002
+offset_top = -528.6854
+offset_right = 2387.44
+offset_bottom = 1871.3146
+rotation = 0.2443461
+mouse_filter = 2
+color = Color(1, 1, 1, 0.5254902)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_opfnp")
+offset_left = -228.4129
+offset_top = -902.41113
+offset_right = 3244.7603
+offset_bottom = 997.0635
+rotation = 0.2443461
+mouse_filter = 2
+color = Color(1, 1, 1, 0.5254902)
+
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
@@ -258,35 +309,13 @@ pivot_offset = Vector2(960, 540)
 script = ExtResource("1_48xlc")
 
 [node name="Home" type="Control" parent="Menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="Menu/Home"]
-visible = false
-material = SubResource("ShaderMaterial_1ehe0")
-layout_mode = 0
-offset_left = -12.56002
-offset_top = -528.6854
-offset_right = 2387.0396
-offset_bottom = 1087.213
-rotation = 0.2443461
-mouse_filter = 2
-color = Color(1, 1, 1, 0.5254902)
-
-[node name="ColorRect2" type="ColorRect" parent="Menu/Home"]
-material = SubResource("ShaderMaterial_opfnp")
-layout_mode = 0
-offset_left = -228.4129
-offset_top = -902.41113
-offset_right = 3244.7603
-offset_bottom = 997.0635
-rotation = 0.2443461
-mouse_filter = 2
-color = Color(1, 1, 1, 0.5254902)
 
 [node name="Polygon2D3" type="Polygon2D" parent="Menu/Home"]
 position = Vector2(1215, -332)
@@ -296,7 +325,7 @@ polygon = PackedVector2Array(-89, -214, -126, 316, 619, 441, 740, 669, 1375, 560
 [node name="Polygon2D" type="Polygon2D" parent="Menu/Home"]
 position = Vector2(47, 267)
 color = Color(0.003921569, 0.22352941, 0.54901963, 0.75686276)
-polygon = PackedVector2Array(-70, -123, -173, 461, 966, 841, 1996, 1164, 2080, 438, 1479, 562, 1186, 555, 934, 496, 703, 423, 446, 309, 173, 131)
+polygon = PackedVector2Array(-93, -149, -173, 461, 966, 841, 1996, 1164, 2080, 438, 1479, 562, 1186, 555, 934, 496, 703, 423, 446, 309, 173, 131)
 
 [node name="Polygon2D4" type="Polygon2D" parent="Menu/Home"]
 position = Vector2(-330, 709)
@@ -340,21 +369,25 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 12.82
+offset_left = 27.38
 offset_top = 21.775
-offset_right = 12.820007
-offset_bottom = 21.774994
+offset_right = 27.380005
+offset_bottom = 21.775024
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.20071286
 pivot_offset = Vector2(154, 129)
 mouse_filter = 2
-theme_type_variation = &"FancyLabel2"
-theme_override_colors/default_color = Color(0.47058824, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_type_variation = &"FancyLabel3"
+theme_override_colors/default_color = Color(0.009833183, 0, 0.59, 1)
+theme_override_colors/font_outline_color = Color(0, 1, 0.66666675, 1)
+theme_override_colors/font_shadow_color = Color(0.044166747, 0, 0.53, 0.38039216)
+theme_override_constants/shadow_outline_size = 35
+theme_override_constants/shadow_offset_x = -12
+theme_override_constants/shadow_offset_y = 6
 theme_override_constants/outline_size = 35
 bbcode_enabled = true
-text = "[font_size=90]PLAY"
+text = "[font_size=90]PIaY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -405,9 +438,14 @@ rotation = 0.07853982
 pivot_offset = Vector2(128, 110.5)
 mouse_filter = 2
 theme_type_variation = &"FancyLabel2"
-theme_override_constants/outline_size = 60
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.37779915, 0.7851379, 1)
+theme_override_colors/font_shadow_color = Color(0.86383337, 1, 0.57, 1)
+theme_override_constants/shadow_outline_size = 50
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 5
 bbcode_enabled = true
-text = "[font_size=70]EDIT"
+text = "[font_size=70]edit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -455,11 +493,14 @@ grow_vertical = 2
 rotation = 0.16580628
 pivot_offset = Vector2(154, 129)
 mouse_filter = 2
-theme_type_variation = &"FancyLabel2"
+theme_type_variation = &"FancyLabel"
 theme_override_colors/default_color = Color(0, 0.7764706, 0.8039216, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 56
+theme_override_constants/shadow_offset_x = 6
 theme_override_constants/outline_size = 15
 bbcode_enabled = true
-text = "[font_size=60]EXIT"
+text = "[font_size=54]EXIT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -507,10 +548,11 @@ mouse_filter = 1
 
 [node name="Polygon2D2" type="Polygon2D" parent="Menu/Home"]
 position = Vector2(302, -203)
-color = Color(0, 0.49019608, 0.5568628, 0.73333335)
+color = Color(0, 0.40133336, 0.56, 0.9254902)
 polygon = PackedVector2Array(518, 700, 1197, 765, 1387, 596, 1210, 404, 624, 446)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Home"]
+[node name="title" type="RichTextLabel" parent="Menu/Home"]
+visible = false
 layout_mode = 0
 offset_left = 954.99994
 offset_top = 205.99998
@@ -521,6 +563,25 @@ mouse_filter = 2
 theme_type_variation = &"FancyLabel"
 theme_override_colors/font_outline_color = Color(0, 0, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6117647)
+theme_override_constants/shadow_outline_size = 86
+theme_override_constants/shadow_offset_x = 21
+theme_override_constants/shadow_offset_y = 26
+theme_override_constants/outline_size = 55
+bbcode_enabled = true
+text = "[font_size=190]bosa"
+fit_content = true
+
+[node name="title2" type="RichTextLabel" parent="Menu/Home"]
+layout_mode = 0
+offset_left = 976.99994
+offset_top = 196.0
+offset_right = 1618.7266
+offset_bottom = 509.0
+rotation = 0.13962634
+mouse_filter = 2
+theme_type_variation = &"FancyLabel2"
+theme_override_colors/font_outline_color = Color(0, 0, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.014666652, 0.08, 0.6117647)
 theme_override_constants/shadow_outline_size = 86
 theme_override_constants/shadow_offset_x = 21
 theme_override_constants/shadow_offset_y = 26
@@ -545,7 +606,7 @@ mouse_filter = 2
 theme_type_variation = &"FancyLabel2"
 theme_override_constants/outline_size = 25
 bbcode_enabled = true
-text = "[font_size=30]	O.3.O"
+text = "[font_size=30]	alpha O.3.2"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Menu/Home"]
 layout_mode = 1
@@ -561,7 +622,12 @@ grow_vertical = 2
 rotation = 0.10471976
 mouse_filter = 2
 theme_type_variation = &"FancyLabel2"
-theme_override_constants/outline_size = 26
+theme_override_colors/default_color = Color(0.98, 1, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0.26666668, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.37254903, 0.49803922)
+theme_override_constants/shadow_outline_size = 16
+theme_override_constants/shadow_offset_x = 9
+theme_override_constants/shadow_offset_y = 6
 bbcode_enabled = true
 text = "[font_size=50]currently very early in development"
 
@@ -573,7 +639,7 @@ offset_right = 792.6138
 offset_bottom = 434.90024
 rotation = 0.16580628
 pivot_offset = Vector2(216.5, 60.512)
-color = Color(0.36862746, 0.7019608, 1, 0.3529412)
+color = Color(0, 0.04599974, 0.92, 0.3529412)
 
 [node name="ColorRect4" type="ColorRect" parent="Menu/Home"]
 layout_mode = 0
@@ -583,19 +649,22 @@ offset_right = 768.5106
 offset_bottom = 450.7391
 rotation = -0.1134464
 pivot_offset = Vector2(197.694, 55.839)
-color = Color(0.20392157, 0.8392157, 1, 0.35686275)
+color = Color(0.19999999, 0.5333334, 1, 0.35686275)
 
 [node name="LinkButton" type="LinkButton" parent="Menu/Home"]
 layout_mode = 0
-offset_left = 311.09143
-offset_top = 339.5
-offset_right = 806.09143
-offset_bottom = 463.5
-pivot_offset = Vector2(247.5, 62)
+offset_left = 311.091
+offset_top = 363.56
+offset_right = 806.091
+offset_bottom = 427.56
+pivot_offset = Vector2(247.5, 32)
 mouse_filter = 1
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.03916674, 0, 0.47, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("4_trj04")
 theme_override_font_sizes/font_size = 61
 text = "join the discord!!!"
 uri = "https://discord.gg/GHuS2PDx"
@@ -613,16 +682,32 @@ position = Vector2(556.0915, 397.5)
 scale = Vector2(0.34625, 0.34625)
 texture = ExtResource("4_cp0ys")
 
+[node name="RichTextLabel4" type="RichTextLabel" parent="Menu/Home"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 158.85
+offset_top = 40.0
+offset_right = -756.31104
+offset_bottom = -934.84875
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.08726646
+mouse_filter = 2
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("5_yhxw7")
+bbcode_enabled = true
+text = "[font_size=46]♫ Krystle - Machine Girl"
+
 [node name="Vignette" type="Sprite2D" parent="Menu"]
-visible = false
 modulate = Color(0, 0.27450982, 0.5294118, 0.6509804)
 position = Vector2(899.144, 539.9813)
-rotation = 0.18325956
+rotation = 0.18325955
 scale = Vector2(1.1786977, 1.363042)
 texture = ExtResource("6_opfnp")
 
 [node name="Play" type="Control" parent="Menu"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -641,12 +726,11 @@ grow_vertical = 2
 [node name="Control" type="VBoxContainer" parent="Menu/Play/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.5
 
 [node name="Control" type="Control" parent="Menu/Play/HBoxContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 16.0
+size_flags_stretch_ratio = 14.0
 
 [node name="Back" type="Button" parent="Menu/Play/HBoxContainer/Control"]
 layout_mode = 2
@@ -656,10 +740,16 @@ text = "back"
 [node name="Control2" type="Control" parent="Menu/Play/HBoxContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 1.2
+
+[node name="Control2" type="Control" parent="Menu/Play/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Menu/Play/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.6
 theme_override_constants/separation = 10
 
 [node name="Control" type="Control" parent="Menu/Play/HBoxContainer/VBoxContainer"]
@@ -676,23 +766,65 @@ layout_mode = 2
 text = "test scene
 (old)"
 
+[node name="ColorRect" type="ColorRect" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "classic"
+fit_content = true
+
 [node name="Button" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "test_level
-all my fellas - frizk"
+ALL MY FELLAS - Frizk
+[hard]"
 
 [node name="Button3" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "test_level2
-monkey target 2 - super monkey ball 2"
+Monket Target 2 - Super Monkey Ball 2 OST
+[easy]"
 
 [node name="Button5" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "test_level3
-antidote - orion sun"
+antidote - orion sun
+[easy]"
+
+[node name="Button6" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level4
+Ghost - Machine Girl
+[harder]"
+
+[node name="ColorRect2" type="ColorRect" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "time trial"
+fit_content = true
+
+[node name="Button7" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level
+ALL MY FELLAS - Frizk"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Menu/Play"]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 70.0
+offset_right = 945.0
+offset_bottom = 144.0
+text = "playtime: 0
+pp: 0"
+fit_content = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Menu"]
-stream = ExtResource("3_1ehe0")
+stream = ExtResource("6_cp0ys")
 volume_db = -15.0
 autoplay = true
 bus = &"Music"

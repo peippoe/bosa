@@ -56,7 +56,7 @@
 		"creator": null,
 		"duration": 100.0,
 		"gamemode": 1,
-		"name": null,
+		"name": "tutorial2",
 		"song": "res://Assets/Audio/Music/tutorial.wav",
 		"version": 1.0
 	},

@@ -118,4 +118,5 @@ func _process(delta):
 	
 	
 	var a = remap(GameManager.health, 25, 10, 0, 1)
-	$Vignette.modulate.a = min(a, 1.0)
+	a = clampf(a, 0.0, 1.0)
+	$Vignette.modulate.a = a

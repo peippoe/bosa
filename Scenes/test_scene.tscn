@@ -14,7 +14,7 @@
 [ext_resource type="Shader" uid="uid://ditear0e0bhwk" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="11_4blnk"]
 [ext_resource type="Shader" uid="uid://2k0ss58sqaqw" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="12_tnimv"]
 [ext_resource type="Script" uid="uid://d0y664i6ng2sn" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="13_4qg1e"]
-[ext_resource type="PackedScene" uid="uid://ctgtk6ps2xvfx" path="res://MapPlayer/Props/Targets/target_track.tscn" id="14_tnimv"]
+[ext_resource type="PackedScene" uid="uid://ctgtk6ps2xvfx" path="res://MapPlayer/Props/Targets/target_slider.tscn" id="14_tnimv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
 sky_top_color = Color(0.162074, 0.294184, 0.999998, 1)
@@ -611,5 +611,7 @@ mesh = SubResource("SphereMesh_tnimv")
 
 [node name="Path3D2" parent="." instance=ExtResource("14_tnimv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.422505, 3.2144237, 0)
+
+[node name="Timer" type="Timer" parent="."]
 
 [editable path="azal"]

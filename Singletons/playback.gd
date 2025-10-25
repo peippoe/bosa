@@ -76,7 +76,7 @@ var targets = []
 func _process(delta):
 	if playback_speed == 0.0: return
 	
-	if playhead > 0.01 and beatmap_data["config"]["gamemode"] == 1:
+	if playhead > 1 and beatmap_data["config"]["gamemode"] == 1:
 		if Utility.get_node_or_null_in_scene("%Beatmap").get_child_count() == 0:
 			beatmap_ended()
 	
@@ -169,13 +169,13 @@ func auto_pop(new_target):
 	await get_tree().create_timer(new_target.pop_time - playhead).timeout
 	Utility.pop_target(new_target)
 
-func sort_beatmap_data():
-	beatmap_data["beatmap"].sort_custom(func(a, b):
-		return Playback.get_spawn_time(a) < Playback.get_spawn_time(b)
+func sort_by_spawn_time(data):
+	data.sort_custom(func(a, b):
+		return get_spawn_time(a) < get_spawn_time(b)
 	)
 
 func precompute_pop_times():
-	sort_beatmap_data()
+	sort_by_spawn_time(beatmap_data["beatmap"])
 	pop_times = [0]
 	for i in beatmap_data["beatmap"].size():
 		var value = Utility.get_property_ignoring_sections(beatmap_data["beatmap"][i], "pop_time")
@@ -202,6 +202,7 @@ func setup():
 	for i in parsed["beatmap"].size():
 		parsed["beatmap"][i] = Utility.convert_vec3s(parsed["beatmap"][i])
 		parsed["beatmap"][i] = Utility.convert_ints(parsed["beatmap"][i])
+	sort_by_spawn_time(parsed["beatmap"])
 	
 	for i in parsed["geometry"].size():
 		parsed["geometry"][i] = Utility.convert_colors(parsed["geometry"][i])
@@ -216,29 +217,24 @@ func setup():
 	#beatmap_data["geometry"] = Utility.convert_ints(parsed["geometry"])
 	#beatmap_data["environment"] = Utility.convert_ints(parsed["environment"])
 	
-	var idxs_to_remove = []
-	if parsed["config"]["gamemode"] == 1:
-		for i in parsed["beatmap"].size():
-			var id = parsed["beatmap"][i]["hidden"]["id"]
-			if id == 11:
-				parsed["beatmap"][i]["_"]["start_time"] = 0.0
-				parsed["beatmap"][i]["_"]["pop_time"] = 10000.0
-			else:
-				idxs_to_remove.append(i)
 	
-	for i in idxs_to_remove:
-		parsed["beatmap"].remove_at(i)
+	if parsed["config"]["gamemode"] == 1:
+		var new_beatmap = []
+		for i in parsed["beatmap"]:
+			if i["hidden"]["id"] == 11:
+				i["_"]["start_time"] = 0.0
+				i["_"]["pop_time"] = 10000.0
+				new_beatmap.append(i)
+		
+		parsed["beatmap"] = new_beatmap
 	
 	
 	beatmap_data = parsed
 	
-	var env_data = beatmap_data["environment"]["environment"]
+	Playback.beatmap_data["environment"]["environment"] = Utility.convert_colors(Playback.beatmap_data["environment"]["environment"])
 	var env = Utility.get_node_or_null_in_scene("%Environment")
-	Utility.apply_data(env.environment, env_data)
-	env.environment.sky.sky_material.set("sky_top_color", str_to_var("Color"+env_data["Sky"]["sky_top_color"]))
-	env.environment.sky.sky_material.set("sky_horizon_color", str_to_var("Color"+env_data["Sky"]["sky_horizon_color"]))
-	env.environment.sky.sky_material.set("ground_bottom_color", str_to_var("Color"+env_data["Sky"]["ground_bottom_color"]))
-	env.environment.sky.sky_material.set("ground_horizon_color", str_to_var("Color"+env_data["Sky"]["ground_horizon_color"]))
+	Utility.apply_data(env, Playback.beatmap_data["environment"]["environment"])
+	
 	
 	for i in beatmap_data["geometry"].size():
 		var geometry_data = beatmap_data["geometry"][i]
@@ -257,7 +253,7 @@ func setup():
 	
 	GameManager.combo = 0
 	GameManager.points = 0
-	GameManager.health = 50
+	GameManager.health = 100
 	
 	
 	if GameManager.beatmap_path == "res://Scenes/Beatmaps/tutorial.json":
@@ -272,7 +268,7 @@ func setup():
 	playback_speed = 1.0
 	
 	var offset = Settings.config["gameplay"]["song_offset"] / 1000.0
-	seek(playhead + measured_delay)
+	seek(playhead + measured_delay + offset)
 
 func measure_delay():
 	await get_tree().create_timer(.2).timeout

@@ -17,6 +17,6 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("ctrl"): return
 	var input_dir = Input.get_vector("a", "d", "w", "s")
-	var speed = 16
-	if Input.is_action_pressed("shift"): speed = 46
+	var speed = 18
+	if Input.is_action_pressed("shift"): speed = 54
 	self.global_position += %Cam.global_basis * Vector3(input_dir.x, 0, input_dir.y) * speed * delta

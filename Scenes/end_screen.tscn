@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cd3aak4r1e7rt"]
+[gd_scene load_steps=8 format=3 uid="uid://cd3aak4r1e7rt"]
 
 [ext_resource type="Script" uid="uid://cdoxcplu2ej8v" path="res://Scenes/end_screen.gd" id="1_f2mtv"]
+[ext_resource type="FontFile" uid="uid://lx115etbeneo" path="res://Assets/Font/goodfonts/Street Style.ttf" id="2_1gwaw"]
 
 [sub_resource type="Animation" id="Animation_7ctyi"]
 length = 0.001
@@ -199,7 +200,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 bbcode_enabled = true
 text = "bla bla stats bla bla
-bla bla"
+[color=green]bla bla"
 
 [node name="Control" type="Control" parent="Pass/ColorRect/HBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -220,8 +221,9 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
+theme_override_fonts/normal_font = ExtResource("2_1gwaw")
 bbcode_enabled = true
-text = "[font_size=250][color=yellow]	SS[font_size=60]		[color=white]RANK"
+text = "[font_size=250][color=yellow]	SS[font_size=60]		[color=white]	RANK"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -67,7 +67,7 @@
 		"creator": null,
 		"duration": 16.5,
 		"gamemode": 0,
-		"name": null,
+		"name": "test_level2",
 		"song": "res://Assets/Audio/Music/Super Monkey Ball 2 OST - Monkey Target 2.mp3",
 		"version": 1.0
 	},

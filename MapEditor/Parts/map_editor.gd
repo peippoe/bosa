@@ -138,6 +138,10 @@ func _ready():
 		func spawn(): Utility.editor_spawn_entity(
 			{"id": Utility.EntityID["SPHERE"]}
 			))
+	%SpawnQuad.pressed.connect(
+		func spawn(): Utility.editor_spawn_entity(
+			{"id": Utility.EntityID["QUAD"]}
+			))
 	%SpawnBoostPad.pressed.connect(
 		func spawn(): Utility.editor_spawn_entity(
 			{"id": Utility.EntityID["BOOST_PAD"]}
@@ -400,12 +404,8 @@ func fade_gizmos():
 		var fadein = Settings.fadein_time
 		if "start_time" in target_gizmo:
 			fadein = target_gizmo.pop_time - target_gizmo.start_time
-		elif "end_time" in target_gizmo:
-			fadein = target_gizmo.end_time - target_gizmo.pop_time
 		
 		var end = target_gizmo.pop_time
-		if "end_time" in target_gizmo:
-			end = target_gizmo.end_time
 		
 		
 		var start = end - fadein
@@ -553,12 +553,8 @@ func load_map(path):
 		var geometry_data = Playback.beatmap_data["geometry"][i]
 		Utility.editor_spawn_entity(geometry_data)
 	
-	var env_data = Playback.beatmap_data["environment"]["environment"]
-	Utility.apply_data(%Environment.environment, env_data)
-	%Environment.environment.sky.sky_material.set("sky_top_color", str_to_var("Color"+env_data["Sky"]["sky_top_color"]))
-	%Environment.environment.sky.sky_material.set("sky_horizon_color", str_to_var("Color"+env_data["Sky"]["sky_horizon_color"]))
-	%Environment.environment.sky.sky_material.set("ground_bottom_color", str_to_var("Color"+env_data["Sky"]["ground_bottom_color"]))
-	%Environment.environment.sky.sky_material.set("ground_horizon_color", str_to_var("Color"+env_data["Sky"]["ground_horizon_color"]))
+	Playback.beatmap_data["environment"]["environment"] = Utility.convert_colors(Playback.beatmap_data["environment"]["environment"])
+	Utility.apply_data(%Environment, Playback.beatmap_data["environment"]["environment"])
 	
 	for i in Playback.beatmap_data["editor"].size():
 		var data = Playback.beatmap_data["editor"][i]
@@ -576,20 +572,13 @@ func compile_map():
 	Playback.beatmap_data["beatmap"] = []
 	for i in gizmo_beatmap.get_children():
 		Playback.beatmap_data["beatmap"].append(Utility.get_entity_properties(i))
-	Playback.sort_beatmap_data()
+	Playback.sort_by_spawn_time(Playback.beatmap_data["beatmap"])
 	
 	Playback.beatmap_data["geometry"] = []
 	for i in %Geometry.get_children():
 		Playback.beatmap_data["geometry"].append(Utility.get_entity_properties(i))
 	
-	var env_data = Utility.get_entity_properties(%Environment)
-	env_data["Sky"] = {
-		"sky_top_color": %Environment.environment.sky.sky_material.sky_top_color,
-		"sky_horizon_color": %Environment.environment.sky.sky_material.sky_horizon_color,
-		"ground_bottom_color": %Environment.environment.sky.sky_material.ground_bottom_color,
-		"ground_horizon_color": %Environment.environment.sky.sky_material.ground_horizon_color,
-	}
-	Playback.beatmap_data["environment"]["environment"] = env_data
+	Playback.beatmap_data["environment"]["environment"] = Utility.get_entity_properties(%Environment)
 	
 	
 	Playback.beatmap_data["editor"] = []

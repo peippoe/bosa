@@ -20,15 +20,17 @@ config/icon="res://Assets/Images/icon.svg"
 
 AudioPlayer="*res://Singletons/audio_player.gd"
 Settings="*res://Singletons/settings.tscn"
-GameManager="*res://Singletons/game_manager.gd"
 Playback="*res://Singletons/playback.tscn"
 Utility="*res://Singletons/utility.gd"
 SignalBus="*res://Singletons/signal_bus.gd"
+LocalSave="*res://Singletons/local_save.gd"
+GameManager="*res://Singletons/game_manager.tscn"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 window/vsync/vsync_mode=0

@@ -1,8 +1,9 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://crk4nvf5s0bqn"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://crk4nvf5s0bqn"]
 
 [ext_resource type="FontFile" uid="uid://tf3e664pkot6" path="res://Assets/Font/BOREDSB.TTF" id="1_4w8ak"]
 [ext_resource type="FontFile" uid="uid://dyi7dfqyjvf1e" path="res://Assets/Font/GRAFFITI.TTF" id="2_4w8ak"]
 [ext_resource type="FontFile" uid="uid://bqeei4ay71ebk" path="res://Assets/Font/comicsans/comici.ttf" id="3_najkf"]
+[ext_resource type="FontFile" uid="uid://lx115etbeneo" path="res://Assets/Font/goodfonts/Street Style.ttf" id="3_ye651"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4w8ak"]
 
@@ -21,6 +22,8 @@ FancyLabel/fonts/normal_font = ExtResource("1_4w8ak")
 FancyLabel2/base_type = &"RichTextLabel"
 FancyLabel2/constants/outline_size = 0
 FancyLabel2/fonts/normal_font = ExtResource("2_4w8ak")
+FancyLabel3/base_type = &"RichTextLabel"
+FancyLabel3/fonts/normal_font = ExtResource("3_ye651")
 HSlider/styles/slider = SubResource("StyleBoxEmpty_4w8ak")
 Label/constants/outline_size = 5
 Panel/styles/panel = SubResource("StyleBoxFlat_gb1w0")

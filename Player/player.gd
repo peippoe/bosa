@@ -137,14 +137,14 @@ func shoot():
 		var target = result.collider
 		if target.has_method("pop"):
 			Utility.pop_target(target)
-		elif target is StaticBody3D and not target.get_parent().get_parent().popped:
-			target.get_parent().get_parent().popped = true
-			Utility.pop_target(target.get_parent().get_parent())
+		elif target is StaticBody3D and not target.get_parent().get_parent().get_parent().popped:
+			target.get_parent().get_parent().get_parent().popped = true
+			Utility.pop_target(target.get_parent().get_parent().get_parent())
 		
 		var hitmarker = %UI.get_node("Hitmarker")
 		hitmarker.modulate = Color(1,1,1,1)
-		var tween = get_tree().create_tween()
-		tween.tween_property(hitmarker, "modulate", Color(1,1,1,0), .2)
+		var tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC)
+		tween.tween_property(hitmarker, "modulate", Color(1,1,1,0), .1)
 	
 	
 	#var spawn_pos = cam.global_position - cam.global_basis.z*0.7 - cam.global_basis.y*0.1 + cam.global_basis.x*0.06
@@ -162,7 +162,7 @@ func shoot():
 
 
 
-const GRAV := 15.5
+const GRAV := 15.6
 const FAST_FALL_BOOST := 3.5
 const SKYDIVE_GRAV_BOOST := 30.0
 const DOWNSHIFT := 12.0
@@ -239,7 +239,7 @@ var can_wallrun_right := true
 
 func _physics_process(delta):
 	
-	if get_floor_normal().dot(Vector3.UP) < 0.98:
+	if on_floor and (sliding or get_floor_normal().dot(Vector3.UP) < 0.98):
 		floor_snap_length = 2
 		#print("A")
 	else:
@@ -283,7 +283,7 @@ func _physics_process(delta):
 	slide()
 	movement(delta)
 	
-	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(0.8, 1.2))
+	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(1.2, 1.4), -10)
 	
 	if on_floor: %CoyoteTime.start()
 	
@@ -467,13 +467,13 @@ func get_max_from_vel_buffer():
 	return max_vel
 
 func slide():
-	if not %SlideBuffer.is_stopped() and (was_on_floor or on_floor):
+	if not %SlideBuffer.is_stopped() and (was_on_floor or on_floor) and get_max_from_vel_buffer().length() > 1:
 		
 		%SlideBuffer.stop()
 		
 		sliding = true
 		$CollisionShape3D.shape.height = .2
-		position.y -= 0.31
+		position.y -= 0.6
 		var vel = get_real_velocity()
 		var dir = move_dir
 		if not dir: dir = -head.global_basis.z
@@ -488,7 +488,7 @@ func slide():
 		%Slide.play()
 		
 		%CamHolder.position.y = 0.7
-		#cam_tween.kill()
+		if cam_tween: cam_tween.kill()
 		cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 		cam_tween.tween_property(%CamHolder, "position", Vector3.ZERO, .15)
 		cam_tween.set_parallel(true)

@@ -211,6 +211,7 @@ const EntityID : Dictionary = {
 	"RAMP": 21,
 	"CYLINDER": 22,
 	"SPHERE": 23,
+	"QUAD": 24,
 	
 	"BOOST_PAD": 30,
 	
@@ -220,12 +221,13 @@ const EntityID : Dictionary = {
 const PROPS : Dictionary = {
 	10: preload("res://MapPlayer/Props/Targets/target.tscn"),
 	11: preload("res://MapPlayer/Props/goal.tscn"),
-	12: preload("res://MapPlayer/Props/Targets/target_track.tscn"),
+	12: preload("res://MapPlayer/Props/Targets/target_slider.tscn"),
 	
 	20: "res://MapEditor/Geometry/block.tscn",
 	21: "res://MapEditor/Geometry/ramp.tscn",
 	22: "res://MapEditor/Geometry/cylinder.tscn",
 	23: "res://MapEditor/Geometry/sphere.tscn",
+	24: "res://MapEditor/Geometry/quad.tscn",
 	
 	30: "res://MapEditor/GizmoProps/gizmo_boost_pad.tscn",
 	
@@ -256,7 +258,7 @@ func spawn_geometry(data):
 	var geometry = spawn_entity(load(PROPS[data["id"]]), get_node_or_null_in_scene("%Geometry"), data)
 
 func spawn_target(target_data):
-	var new_target = spawn_entity(Utility.PROPS[target_data["id"]], GameManager.target_parent, target_data)
+	var new_target = spawn_entity(PROPS[target_data["id"]], GameManager.target_parent, target_data)
 	print("SPAWNED TARGET")
 	var mesh_instance : MeshInstance3D = new_target.get_node("Mesh/MeshInstance3D")
 	#make_mesh_unique(mesh_instance)
@@ -296,7 +298,7 @@ func spawn_target(target_data):
 func ping_target(target):
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/hitsound.wav", null, Vector2(0.6, 1.4))
 	
-	GameManager.health += 1
+	GameManager.health += 4
 	GameManager.combo += 1
 	GameManager.points += 10
 
@@ -344,7 +346,7 @@ func pop_target(target):
 	tween.set_parallel(false)
 	tween.tween_callback(new_pop_up.queue_free)
 	
-	GameManager.health += 5
+	GameManager.health += 2
 	GameManager.combo += 1
 	GameManager.points += Settings.POINTS_REWARDS[get_pop_timing(target.pop_time)]
 	
@@ -363,7 +365,7 @@ func pop_target(target):
 	#print("POP_TIMING %d" % pop_timing)
 
 func on_miss(pos):
-	GameManager.health -= 10
+	GameManager.health -= 16
 	GameManager.combo = 0
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/miss.wav", pos, Vector2(0.9, 1.1))
 
@@ -414,10 +416,10 @@ func spawn_gizmo(id, data := {}):
 	
 	var new_marker = new_marker_func.bind(new_gizmo).call()
 	if id == 11:
-		new_marker.modulate.b = 1.0
-		new_marker.modulate.g = randf_range(0.0, 1.0)
+		new_marker.modulate = Color(randf_range(0.0, 1.0), randf_range(0.0, 1.0), randf_range(0.0, 1.0))
 	elif id == 12:
 		new_marker.modulate.r = 1.0
+		
 		new_marker.modulate.b = randf_range(0.0, 1.0)
 	
 	if new_gizmo.get_child_count() >= 2 and new_gizmo.get_child(1).get_surface_override_material(0):
@@ -533,13 +535,15 @@ func convert_colors(data):
 		if data[section] is not Dictionary: continue
 		
 		for property in data[section].keys():
+			if data[section][property] is not String: continue
+			if data[section][property].count(",") != 3 or !data[section][property].begins_with("(") or !data[section][property].ends_with(")"): continue
 			
-			if property == "albedo_color" or property == "emission":
-				var value = str_to_var("Color"+data[section][property])
-				data[section][property] = value
-				print("COLOR CONVERTED TO %s" % data[section][property])
+			var value = str_to_var("Color"+data[section][property])
+			data[section][property] = value
+			print("COLOR CONVERTED TO %s" % data[section][property])
 	
 	return data
+
 
 func _unhandled_input(event):
 

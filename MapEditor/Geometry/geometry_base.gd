@@ -15,10 +15,10 @@ var texture_id : int = 0:
 const TEXTURES = [
 	null,
 	preload("res://Assets/Images/Textures/grass.png"),
-	preload("uid://coyfy4164n0w1"),
-	preload("uid://cxh5y86sxb1dr"),
-	preload("uid://cvf4fy2ibfg6w"),
-	preload("uid://jjf1fq65nebn"),
+	preload("res://Assets/Images/Textures/grass_checkered.png"),
+	preload("res://Assets/Images/Textures/stone.png"),
+	preload("res://Assets/Images/Textures/gravel.png"),
+	preload("res://Assets/Images/Textures/ivy2.png"),
 ]
 
 const ENTITY_PROPERTIES = {

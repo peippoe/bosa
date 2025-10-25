@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dytpmgr6vogxp"]
+
+[ext_resource type="PackedScene" uid="uid://cgm0tck70mjnv" path="res://MapEditor/GizmoManipulation/gizmo_hitbox.tscn" id="1_lhk3d"]
+[ext_resource type="Script" uid="uid://bduavc3ybkyeg" path="res://MapEditor/Geometry/geometry_base.gd" id="1_mi4b5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lhk3d"]
+transparency = 2
+alpha_scissor_threshold = 0.892
+alpha_antialiasing_mode = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_mi4b5"]
+
+[node name="Quad" type="MeshInstance3D"]
+material_override = SubResource("StandardMaterial3D_lhk3d")
+mesh = SubResource("QuadMesh_mi4b5")
+script = ExtResource("1_mi4b5")
+
+[node name="GizmoHitbox" parent="." instance=ExtResource("1_lhk3d")]
+
+[editable path="GizmoHitbox"]

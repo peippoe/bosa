@@ -102,7 +102,7 @@
 		"creator": null,
 		"duration": 23.0,
 		"gamemode": 0,
-		"name": null,
+		"name": "test_level3",
 		"song": "res://Assets/Audio/Music/orion sun - antidote [official audio].mp3",
 		"version": 1.0
 	},

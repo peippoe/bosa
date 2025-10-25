@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://deccvoewfo1bl"]
+[gd_scene load_steps=13 format=3 uid="uid://deccvoewfo1bl"]
 
 [ext_resource type="Script" uid="uid://c3npvnfvy1c5m" path="res://Player/ui.gd" id="1_4qruw"]
 [ext_resource type="AudioStream" uid="uid://cxrhmpyqrw0a8" path="res://Assets/Audio/Music/pause.wav" id="2_bxrt6"]
-[ext_resource type="PackedScene" uid="uid://bjarepplh7h4d" path="res://Components/music_pulse_component.tscn" id="2_d6uvt"]
 [ext_resource type="Texture2D" uid="uid://chfiwn7nfcksu" path="res://Assets/Images/vignette.png" id="2_kvoao"]
 [ext_resource type="PackedScene" uid="uid://cp87hswnvokx4" path="res://MapPlayer/timing_indicator.tscn" id="4_3hae7"]
 [ext_resource type="PackedScene" uid="uid://cd3aak4r1e7rt" path="res://Scenes/end_screen.tscn" id="6_kvoao"]
@@ -130,6 +129,7 @@ grow_vertical = 2
 texture = ExtResource("2_kvoao")
 
 [node name="Crosshair" type="Control" parent="."]
+modulate = Color(1, 1, 0, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -152,7 +152,6 @@ offset_right = 1.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0, 0, 1)
 
 [node name="Crosshair" type="ColorRect" parent="Crosshair"]
 layout_mode = 1
@@ -167,7 +166,6 @@ offset_right = 5.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0, 0, 1)
 
 [node name="Hitmarker" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -178,6 +176,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.7853982
+scale = Vector2(0.66, 0.66)
 pivot_offset = Vector2(960, 540)
 mouse_filter = 2
 
@@ -371,7 +370,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 1, 0.435294, 1)
+color = Color(0.28887793, 0.9818159, 0.5414805, 1)
 
 [node name="DownshiftCharges" type="Control" parent="DynamicUI/Control2"]
 anchors_preset = 0
@@ -400,7 +399,7 @@ offset_right = 6.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.49599993, 0.44, 1, 1)
+color = Color(0.41435996, 0.4709869, 1, 1)
 
 [node name="ColorRect" type="ColorRect" parent="DynamicUI/Control2/DownshiftCharges"]
 layout_mode = 0
@@ -478,6 +477,7 @@ pivot_offset = Vector2(960, 540)
 
 [node name="PauseMenu" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -512,8 +512,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MarginContainer"]
 layout_mode = 2
@@ -525,10 +526,9 @@ bbcode_enabled = true
 text = "[font_size=25]paused"
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="PauseMenu/MarginContainer/VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
-text = "uhh"
-fit_content = true
 
 [node name="Retry" type="Button" parent="PauseMenu/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -555,5 +555,3 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 text = "back to editor"
-
-[node name="MusicPulseComponent" parent="PauseMenu/MarginContainer" instance=ExtResource("2_d6uvt")]

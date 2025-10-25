@@ -1,0 +1,437 @@
+{
+	"beatmap": [
+		{
+			"_": {
+				"global_position": "(0.0, 4.890608, -37.38946)",
+				"pop_time": 2.94230669195002,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 3.0, 5.0)",
+				"start_time": 0.0
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "StartEndMarkers:<Control#17495985489841>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 7.741354, -33.46852)",
+				"pop_time": 1.96078433990479,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "Marker:<Control#17496857906041>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 4.0, -42.8581)",
+				"pop_time": 2.74509811401367,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1181:<Control#17497461885421>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 19.26403, -78.0)",
+				"pop_time": 3.13725503285726,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1183:<Control#17498065865246>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(6.353003, 14.0, -82.22277)",
+				"pop_time": 3.92156847785501,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1185:<Control#17498669844151>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(16.9762, 10.2491, -89.40536)",
+				"pop_time": 5.49019640142267,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 3.0, 5.0)",
+				"start_time": 3.52941200949929
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@1187:<Control#17499391265349>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(29.28176, 32.91241, -104.4937)",
+				"pop_time": 5.88235321044922,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1189:<Control#17500112685910>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(39.57884, 38.81695, -110.6191)",
+				"pop_time": 7.84313652732156,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 3.0, 6.0)",
+				"start_time": 6.27451047030362
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@1191:<Control#17500834106144>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(28.99867, 82.86478, -81.2263)",
+				"pop_time": 10.1960781321806,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1193:<Control#17501555526594>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-11.05405, 76.52805, -97.65561)",
+				"pop_time": 13.3333334489302,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 3.0, 6.0)",
+				"start_time": 9.29411628029563
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@1195:<Control#17502276945602>"
+			}
+		},
+		{
+			"_": {
+				"bpm": 153.0,
+				"end_time": 11.1551700938832,
+				"global_position": "(17.15654, 92.09201, -84.57437)",
+				"points": [
+					{
+						"in": "(0.0, 0.0, 0.0)",
+						"out": "(0.0, 0.0, 0.0)",
+						"pos": "(0.0, 0.0, 0.0)"
+					},
+					{
+						"in": "(0.0, 0.0, 0.0)",
+						"out": "(0.0, 0.0, 0.0)",
+						"pos": "(-4.0, 0.0, 0.0)"
+					}
+				],
+				"pop_time": 10.5882370688699,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 12,
+				"marker": "@Control@1196:<Control#17503115806646>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-8.960608, 92.41983, -87.90867)",
+				"pop_time": 11.3725486755371,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1198:<Control#17503854004690>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(64.59214, 182.6318, -97.65561)",
+				"pop_time": 17.6470579667525,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 3.0, 6.0)",
+				"start_time": 14.9019595059482
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@1200:<Control#17504575425433>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(153.6331, 214.3385, -87.69785)",
+				"pop_time": 18.7460327148438,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(9.0, 9.0, 9.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@1202:<Control#17505296845447>"
+			}
+		}
+	],
+	"config": {
+		"creator": null,
+		"duration": 22.0,
+		"gamemode": 0,
+		"name": "test_level4",
+		"song": "res://Assets/Audio/Music/Ghost.mp3",
+		"version": 1.0
+	},
+	"editor": [
+		{
+			"_": {
+				"bpm": 153.0,
+				"end_time": 20.0727225563743,
+				"start_time": 0.0
+			}
+		}
+	],
+	"environment": {
+		"directional_light": [],
+		"environment": {
+			"Sky": {
+				"ground_bottom_color": "(0.2954, 0.2954, 0.2954, 1.0)",
+				"ground_horizon_color": "(0.6965, 0.6965, 0.6965, 1.0)",
+				"sky_horizon_color": "(1.0, 0.0, 0.0, 1.0)",
+				"sky_top_color": "(0.682, 0.0, 0.0, 1.0)"
+			},
+			"Tonemap": {
+				"tonemap_exposure": 1.0,
+				"tonemap_mode": 0,
+				"tonemap_white": 1.0
+			}
+		}
+	},
+	"events": [],
+	"geometry": [
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, 2.0, -19.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 1.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(105.3551, 181.0567, -98.046)",
+				"rotation_degrees": "(0.0, 0.0, 35.0)",
+				"scale": "(20.0, 3.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-42.75386, 94.74496, -95.59434)",
+				"rotation_degrees": "(69.99999, -89.99995, 180.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(4.571274, 7.0, -66.31384)",
+				"rotation_degrees": "(4.999999, -20.0, 0.0)",
+				"scale": "(10.0, 1.0, 16.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(41.07559, 38.18578, -112.4537)",
+				"rotation_degrees": "(4.999999, 0.0, 0.0)",
+				"scale": "(16.0, 1.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(73.44723, 39.79261, -112.4537)",
+				"rotation_degrees": "(4.999998, 0.0, 0.0)",
+				"scale": "(2.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(88.03028, 51.53986, -108.0)",
+				"rotation_degrees": "(0.0, 0.0, -9.999996)",
+				"scale": "(4.0, 5.0, 8.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, -0.5, 0.0)",
+				"rotation_degrees": "(-4.999998, 0.0, 0.0)",
+				"scale": "(10.0, 1.0, 13.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(17.23178, 11.04945, -91.42065)",
+				"rotation_degrees": "(79.99997, -20.0, 0.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-34.05752, 78.56284, -95.59434)",
+				"rotation_degrees": "(60.0, 90.0, 0.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-5.802205, 74.25967, -98.046)",
+				"rotation_degrees": "(0.0, 0.0, -4.999999)",
+				"scale": "(20.0, 3.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(58.43316, 180.1198, -98.046)",
+				"rotation_degrees": "(0.0, 0.0, 5.0)",
+				"scale": "(20.0, 3.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		}
+	]
+}

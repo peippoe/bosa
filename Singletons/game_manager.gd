@@ -13,13 +13,24 @@ var editor_playtest := false:
 
 var playtest_ghost_positions := []
 
+@export var pp_accuracy_curve : Curve
+
 var points := 0
 var combo := 0
-var health := 50:
+var health := 100:
 	set(value):
 		if GameManager.in_editor: return
 		
 		health = clampi(value, 0, 100)
+		
+		if health < 25.0:
+			AudioServer.set_bus_effect_enabled(1, 1, true)
+			var filter = AudioServer.get_bus_effect(1, 1)
+			var a = remap(GameManager.health, 25, 10, 0, 1)
+			a = clampf(a, 0.0, 1.0)
+			filter.cutoff_hz = remap(a, 0.0, 1.0, 20000, 2000)
+		else:
+			AudioServer.set_bus_effect_enabled(1, 1, false)
 		
 		if value > 0: return
 		
@@ -89,7 +100,7 @@ func change_scene(scene_path : String):
 		inst.pressed.connect(button_pressed)
 
 func button_pressed():
-	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg")
+	AudioPlayer.play_audio("res://Assets/Audio/Effect/menubutton.wav")
 
 func update_target_parent():
 	target_parent = Utility.get_node_or_null_in_scene("%Beatmap")

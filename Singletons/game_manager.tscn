@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bttrkp4cvct7k"]
+
+[ext_resource type="Script" uid="uid://ciwfu8jlkei0r" path="res://Singletons/game_manager.gd" id="1_v566q"]
+
+[sub_resource type="Curve" id="Curve_v566q"]
+_data = [Vector2(0, 0), 0.0, 0.11585917, 0, 0, Vector2(0.5032766, 0.05615604), 0.19532816, 0.19532816, 0, 0, Vector2(0.8951508, 0.50211465), 2.6102633, 2.6102633, 0, 0, Vector2(1, 1), 6.7587147, 0.0, 0, 0]
+point_count = 4
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_v566q")
+pp_accuracy_curve = SubResource("Curve_v566q")

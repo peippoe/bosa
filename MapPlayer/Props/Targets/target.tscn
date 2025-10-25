@@ -333,9 +333,9 @@ material = SubResource("StandardMaterial3D_0f1qr")
 size = Vector2(3, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h4p5p"]
-albedo_color = Color(0, 1, 1, 1)
+albedo_color = Color(0, 0.1500001, 1, 1)
 metallic_specular = 1.0
-roughness = 0.26
+roughness = 0.11
 emission = Color(0.0979872, 9.62615e-08, 0.609226, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ic8vo"]

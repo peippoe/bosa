@@ -7,9 +7,9 @@ var fadein_time := 1.0
 # hidden settings
 const POP_TIMING_WINDOWS = [
 	0.010, #perfect
-	0.075, #sick
-	0.150, #great
-	0.250, #ok
+	0.080, #sick
+	0.160, #great
+	0.260, #ok
 ]
 
 const POINTS_REWARDS = [
@@ -31,11 +31,11 @@ func get_rank(acc):
 				5: return "D"
 
 const RANKS = [
-	100.0,
-	95.0,
-	90.0,
-	85.0,
-	75.0,
+	1.0,
+	0.95,
+	0.9,
+	0.80,
+	0.70,
 	0.0
 ]
 
@@ -61,11 +61,11 @@ func set_hit_sound_path(new_path : String):
 var config : Dictionary = {
 	"gameplay": {
 		"mouse_sensitivity": 1.0,
-		"song_offset": 12.0,
+		"song_offset": 0.0,
 	},
 	"visual": {
 		"fov": 96.0,
-		"target_colors": [Color.html("0350e7"), Color.html("36ffc3")],
+		"target_colors": [Color.html("00ffe8"), Color.html("2600ff")],
 	},
 	"miscellaneous": {
 		"debug": false,
