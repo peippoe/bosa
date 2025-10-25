@@ -309,7 +309,6 @@ pivot_offset = Vector2(960, 540)
 script = ExtResource("1_48xlc")
 
 [node name="Home" type="Control" parent="Menu"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -667,7 +666,7 @@ theme_override_constants/outline_size = 15
 theme_override_fonts/font = ExtResource("4_trj04")
 theme_override_font_sizes/font_size = 61
 text = "join the discord!!!"
-uri = "https://discord.gg/GHuS2PDx"
+uri = "https://discord.gg/a6Q4AxBHkz"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Menu/Home/LinkButton"]
 libraries = {
@@ -708,6 +707,7 @@ scale = Vector2(1.1786977, 1.363042)
 texture = ExtResource("6_opfnp")
 
 [node name="Play" type="Control" parent="Menu"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
