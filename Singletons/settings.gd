@@ -7,9 +7,9 @@ var fadein_time := 1.0
 # hidden settings
 const POP_TIMING_WINDOWS = [
 	0.010, #perfect
-	0.080, #sick
-	0.160, #great
-	0.260, #ok
+	0.075, #sick
+	0.150, #great
+	0.250, #ok
 ]
 
 const POINTS_REWARDS = [

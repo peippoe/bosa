@@ -5,7 +5,7 @@ extends Control
 
 func _process(delta):
 	var loudness = AudioPlayer.current_loudness
-	
+
 	var s = lerpf(1.0, 1.2
 	, ease(loudness * 3, -2))
 	self.scale = Vector2.ONE * s
@@ -17,9 +17,13 @@ func _process(delta):
 	#print(pos)
 	
 	$Play/RichTextLabel.text = """
-	playtime: %dmins
-	pp: %d
+	[font_size=18][color=white]playtime: %dmins
+
+	[font_size=30][color=yellow]pp: %d
 	""" % [LocalSave.save["playtime"] / 60, get_pp()]
+
+	var lp_filter = AudioServer.get_bus_effect(1, 1)
+	lp_filter.cutoff_hz = move_toward(lp_filter.cutoff_hz, 20000, delta*380.0)
 
 func get_pp():
 	var sum = 0
@@ -67,7 +71,10 @@ func _ready():
 	$Play/HBoxContainer/VBoxContainer/Button3.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level2.json"))
 	$Play/HBoxContainer/VBoxContainer/Button5.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level3.json"))
 	$Play/HBoxContainer/VBoxContainer/Button6.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level4.json"))
+	$Play/HBoxContainer/VBoxContainer/Button8.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level5.json"))
 	$Play/HBoxContainer/VBoxContainer/Button7.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level_tt.json"))
+	$Play/HBoxContainer/VBoxContainer/Button9.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level4_tt.json"))
+	$Play/HBoxContainer/VBoxContainer/Button10.pressed.connect(func a(): GameManager.play_map("res://Scenes/Beatmaps/test_level5_tt.json"))
 	$Play/HBoxContainer/VBoxContainer/Button4.pressed.connect(func a(): Playback.playhead = 0.0; GameManager.change_scene("res://Scenes/test_scene.tscn"))
 	
 	
@@ -75,8 +82,11 @@ func _ready():
 	set_classic_label($Play/HBoxContainer/VBoxContainer/Button3, "test_level2")
 	set_classic_label($Play/HBoxContainer/VBoxContainer/Button5, "test_level3")
 	set_classic_label($Play/HBoxContainer/VBoxContainer/Button6, "test_level4")
+	set_classic_label($Play/HBoxContainer/VBoxContainer/Button8, "test_level5")
 	
 	set_timetrial_label($Play/HBoxContainer/VBoxContainer/Button7, "test_level_tt")
+	set_timetrial_label($Play/HBoxContainer/VBoxContainer/Button9, "test_level4_tt")
+	set_timetrial_label($Play/HBoxContainer/VBoxContainer/Button10, "test_level5_tt")
 	set_timetrial_label($Play/HBoxContainer/VBoxContainer/Button2, "tutorial2")
 
 

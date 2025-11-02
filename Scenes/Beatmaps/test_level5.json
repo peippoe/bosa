@@ -1,0 +1,3861 @@
+{
+	"beatmap": [
+		{
+			"_": {
+				"global_position": "(-1.430331, 2.58689, -27.28344)",
+				"pop_time": 0.774193551805284,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "Marker:<Control#278099134100>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-2.751245, -2.193465, -29.73092)",
+				"pop_time": 0.967741966247559,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@167:<Control#278703113951>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, -13.03562, -33.91751)",
+				"pop_time": 1.93548382350377,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 1.0, 6.0)",
+				"start_time": 0.0
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "StartEndMarkers:<Control#280632493741>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(1.631682, -3.704931, -43.37369)",
+				"pop_time": 1.54838711874826,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@169:<Control#281353914121>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(3.164398, -11.43121, -49.50158)",
+				"pop_time": 1.74193551199777,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@171:<Control#281957893907>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-12.07332, -3.846381, -91.0)",
+				"pop_time": 2.2258063180106,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@173:<Control#282561873694>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-5.447834, -9.251612, -99.77705)",
+				"pop_time": 2.41935485839844,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@175:<Control#283165853481>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-5.447834, -9.150824, -102.7653)",
+				"pop_time": 2.51612915039063,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@177:<Control#283769833268>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(1.482203, -8.150846, -109.9593)",
+				"pop_time": 2.70967742919922,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@179:<Control#284373813055>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(7.222995, -5.126014, -115.0509)",
+				"pop_time": 2.90322570800781,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 4.0, 4.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@181:<Control#284977792842>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-9.725444, -16.86367, -74.43067)",
+				"pop_time": 3.29032254900251,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 1.0, 6.0)",
+				"start_time": 2.2258065359933
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@183:<Control#285699213140>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 15.42323, -187.3136)",
+				"pop_time": 3.87096775599888,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 5.0, 5.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@185:<Control#286420633439>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(0.0, 27.23215, -193.5597)",
+				"pop_time": 4.06451629638672,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 5.0, 5.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@187:<Control#287024613225>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-16.24179, 39.51229, -178.1585)",
+				"pop_time": 5.32258104596819,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(7.0, 1.0, 7.0)",
+				"start_time": 3.87096764700753
+			},
+			"hidden": {
+				"id": 11,
+				"marker": "@Control@189:<Control#287746033523>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(16.52806, 74.80181, -247.0047)",
+				"pop_time": 6.29032287597656,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@191:<Control#288467453826>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(44.1903, 86.97288, -308.4802)",
+				"pop_time": 6.96774204799107,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@193:<Control#289071433605>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(51.66621, 96.87419, -317.3023)",
+				"pop_time": 7.16129019601004,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@195:<Control#289675413384>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(80.67181, 98.47009, -344.985)",
+				"pop_time": 7.74193551199777,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@197:<Control#290279393163>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(91.16957, 91.34497, -351.099)",
+				"pop_time": 7.93548409598214,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@199:<Control#290883372942>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(89.49479, 86.97288, -376.5177)",
+				"pop_time": 8.41935511997768,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@201:<Control#291487352758>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(93.90205, 77.91005, -378.1949)",
+				"pop_time": 8.61290283203125,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@203:<Control#292091332509>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(97.60313, 74.64398, -387.2982)",
+				"pop_time": 8.709677734375,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(8.0, 8.0, 8.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@205:<Control#292695312292>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(97.02783, 66.63721, -376.5177)",
+				"pop_time": 8.90322614397321,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@207:<Control#293299292166>"
+			}
+		},
+		{
+			"_": {
+				"global_position": "(99.28242, 58.33105, -376.8969)",
+				"pop_time": 9.09677368164063,
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(6.0, 6.0, 6.0)"
+			},
+			"hidden": {
+				"id": 10,
+				"marker": "@Control@209:<Control#293903272608>"
+			}
+		}
+	],
+	"config": {
+		"creator": null,
+		"duration": 10.0,
+		"gamemode": 0,
+		"name": "test_level5",
+		"song": "res://Assets/Audio/Music/femtanyl - PUSH UR T3MPRR.mp3",
+		"version": 1.0
+	},
+	"editor": [
+		{
+			"_": {
+				"bpm": 620.0,
+				"end_time": 5.71427786690848,
+				"start_time": 0.0
+			}
+		}
+	],
+	"environment": {
+		"directional_light": [],
+		"environment": {
+			"Adjustments": {
+				"adjustment_brightness": 1.0,
+				"adjustment_contrast": 1.0,
+				"adjustment_saturation": 1.10000002384186
+			},
+			"Fog": {
+				"fog_density": 0.00439999997615814,
+				"fog_enabled": true,
+				"fog_light_color": "(0.0, 0.3906, 1.0, 1.0)",
+				"fog_light_energy": 1.0,
+				"fog_sky_affect": 0.0
+			},
+			"Sky": {
+				"ground_bottom_color": "(0.0745, 0.1529, 0.3373, 1.0)",
+				"ground_horizon_color": "(0.1333, 0.7843, 1.0, 1.0)",
+				"sky_cover_modulate": "(1.0, 1.0, 1.0, 0.2431)",
+				"sky_curve": 0.100000001490116,
+				"sky_horizon_color": "(0.1333, 0.7843, 1.0, 1.0)",
+				"sky_top_color": "(0.0314, 0.5373, 1.0, 1.0)"
+			},
+			"Tonemap": {
+				"tonemap_exposure": 2.01999998092651,
+				"tonemap_mode": 2,
+				"tonemap_white": 0.879999995231628
+			}
+		}
+	},
+	"events": [],
+	"geometry": [
+		{
+			"Material": {
+				"albedo_color": "(0.0116, 0.0, 0.5245, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-20.5943, 35.94611, -169.6982)",
+				"rotation_degrees": "(5.0, -30.0, 0.0)",
+				"scale": "(11.0, 1.0, 22.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0116, 0.0, 0.5245, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, -1.0, -2.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(10.0, 1.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-14.37813, 40.94016, -185.6187)",
+				"rotation_degrees": "(40.0, -30.0, 0.0)",
+				"scale": "(5.0, 4.0, 5.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"_": {
+				"global_position": "(-11.5488, -17.7637, -81.77877)",
+				"rotation_degrees": "(45.0, 15.0, 0.0)",
+				"scale": "(5.0, 4.0, 5.0)"
+			},
+			"hidden": {
+				"id": 30
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0116, 0.0, 0.5245, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(0.0, -14.0, -31.0)",
+				"rotation_degrees": "(-20.0, 8.0, 0.0)",
+				"scale": "(7.0, 1.0, 18.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(42.0, 1.0, -68.0)",
+				"rotation_degrees": "(50.0, 0.0, 0.0)",
+				"scale": "(3.0, 3.0, 16.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 5.0, -85.18276)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 1.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.6557, 0.6557, 0.6557, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-46.0, 51.51331, -337.0)",
+				"rotation_degrees": "(9.999995, 0.0, -30.0)",
+				"scale": "(28.0, 366.0, 28.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.7949, 0.7949, 0.7949, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(147.0, 42.0, -277.0)",
+				"rotation_degrees": "(-20.0, 0.000002, 35.0)",
+				"scale": "(22.0, 351.0, 22.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8711, 0.8643, 0.8643, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(53.0, 37.0, -90.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 6.0, 3.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(33.0, 7.219383, -80.45811)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(28.0, 4.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3974, 0.3928, 0.457, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-98.26906, 5.727793, -72.6752)",
+				"rotation_degrees": "(-9.999996, -69.99998, -150.0)",
+				"scale": "(18.0, 63.0, 31.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-69.0, 9.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8164, 0.8164, 0.8164, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 13.0, -87.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 36.0, 3.354294)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.0, 15.0, -66.29353)",
+				"rotation_degrees": "(0.0, 9.999995, 4.999998)",
+				"scale": "(1.0, 6.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.946, 0.946, 0.946, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(32.68179, 19.0, -63.0)",
+				"rotation_degrees": "(-5.0, 84.99995, 0.0)",
+				"scale": "(2.0, 3.0, 12.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-20.0, 51.0, -93.0)",
+				"rotation_degrees": "(0.0, -90.0, 0.0)",
+				"scale": "(26.0, 24.0, 160.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8828, 0.8828, 0.8828, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-65.0, -17.0, -81.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(5.0, 29.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-8.0, 68.0, -184.0)",
+				"rotation_degrees": "(0.0, -20.0, 9.999996)",
+				"scale": "(62.0, 9.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-20.0, 51.0, -67.0)",
+				"rotation_degrees": "(0.0, 90.0, 0.0)",
+				"scale": "(26.0, 24.0, 160.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9648, 0.9648, 0.9648, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-73.0, -2.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-61.0, 9.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-59.0, 9.0, -85.0)",
+				"rotation_degrees": "(0.0, 180.0, 0.0)",
+				"scale": "(2.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9258, 0.9258, 0.9258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 35.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 11.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9258, 0.9258, 0.9258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 17.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 4.0, 10.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-60.0, 7.0, -85.52903)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 4.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-58.0, 26.0, -85.52903)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-72.0, 26.0, -85.52903)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-67.0, 26.0, -85.52903)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8789, 0.8789, 0.8789, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-78.0, 20.50605, -85.0)",
+				"rotation_degrees": "(0.0, 5.0, 4.999998)",
+				"scale": "(10.0, 5.0, 3.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4351, 0.8828, 0.3828, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-68.17015, 5.391115, -83.86349)",
+				"rotation_degrees": "(-69.99998, -0.000002, 49.99998)",
+				"scale": "(2.0, 3.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4733, 0.8867, 0.426, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-56.28382, 12.30019, -83.31194)",
+				"rotation_degrees": "(50.0, 20.0, -9.999996)",
+				"scale": "(7.0, 8.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5469, 1.0, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-72.52174, 9.735824, -81.11026)",
+				"rotation_degrees": "(20.0, 30.00001, -4.999997)",
+				"scale": "(3.0, 12.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0818, 0.8086, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-74.39837, 9.250909, -83.25464)",
+				"rotation_degrees": "(0.0, 20.0, 0.0)",
+				"scale": "(7.0, 11.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0964, 0.9297, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-69.96955, 12.35259, -84.22186)",
+				"rotation_degrees": "(0.0, 20.0, 0.0)",
+				"scale": "(6.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4372, 0.8164, 0.3923, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-70.97863, 9.0, -83.84268)",
+				"rotation_degrees": "(4.999998, 25.0, 15.0)",
+				"scale": "(6.0, 7.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0993, 0.9375, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-70.17952, 2.459141, -84.88401)",
+				"rotation_degrees": "(-0.000002, 9.999996, 35.0)",
+				"scale": "(2.0, 4.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1214, 0.8477, 0.0331, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-71.9037, 6.0, -84.88401)",
+				"rotation_degrees": "(0.0, 15.0, 0.0)",
+				"scale": "(4.0, 7.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1046, 1.0, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-77.71256, 5.17429, -83.91161)",
+				"rotation_degrees": "(-5.0, 45.0, 0.0)",
+				"scale": "(3.0, 9.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-65.06079, 21.63894, -85.18276)",
+				"rotation_degrees": "(0.0, 0.0, 2.0)",
+				"scale": "(1.457893, 0.450598, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-67.0, 1.0, -84.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(41.0, 1.0, 3.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8741, 0.8805, 0.9023, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-67.0, -2.0, -86.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(41.0, 2.0, 3.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9647, 0.9647, 0.9647, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-59.0, -2.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9647, 0.9647, 0.9647, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-67.0, -2.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.7958, 0.9609, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-59.32704, 11.10448, -82.97276)",
+				"rotation_degrees": "(-15.0, 4.999998, 15.0)",
+				"scale": "(5.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0818, 0.8086, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-59.889, 13.64054, -84.5683)",
+				"rotation_degrees": "(0.0, 4.999999, 15.0)",
+				"scale": "(8.0, 7.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1019, 1.0, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-58.41345, 8.0, -83.66756)",
+				"rotation_degrees": "(0.0, 4.999999, 4.999999)",
+				"scale": "(4.0, 7.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1795, 0.7656, 0.1136, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-69.10812, 2.153486, -83.55002)",
+				"rotation_degrees": "(-30.0, 49.99998, 0.0)",
+				"scale": "(3.0, 3.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4307, 0.75, 0.3926, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-80.10273, 18.73387, -79.50881)",
+				"rotation_degrees": "(-5.0, 40.0, 0.0)",
+				"scale": "(4.0, 12.0, 5.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1339, 0.7617, 0.0595, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-77.06422, 8.768027, -84.1519)",
+				"rotation_degrees": "(-4.999999, 39.99998, 0.0)",
+				"scale": "(5.0, 6.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1046, 1.0, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-69.8587, 3.617504, -84.1519)",
+				"rotation_degrees": "(-9.999996, 35.0, 0.0)",
+				"scale": "(5.0, 6.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4447, 1.0, 0.3789, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-69.60159, -0.701015, -82.05156)",
+				"rotation_degrees": "(4.999999, 35.0, 0.0)",
+				"scale": "(3.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1974, 0.8945, 0.1188, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-69.78613, 1.747808, -82.6002)",
+				"rotation_degrees": "(-49.99998, 35.0, 0.0)",
+				"scale": "(3.0, 3.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9258, 0.9258, 0.9258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, -17.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 28.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8086, 0.8086, 0.8086, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-66.0, -21.0, -83.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 22.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8984, 0.8984, 0.8984, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-52.0, -20.0, -81.0)",
+				"rotation_degrees": "(0.0, 0.0, 5.0)",
+				"scale": "(5.0, 28.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9258, 0.9258, 0.9258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 23.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 1.0, 7.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-63.0, 26.0, -85.52903)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8627, 0.8627, 0.8627, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-62.0, 20.50605, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 4.999998)",
+				"scale": "(10.0, 5.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-65.0, 20.57024, -84.86909)",
+				"rotation_degrees": "(0.0, 0.0, 2.0)",
+				"scale": "(1.208092, 2.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-60.0, 20.57024, -84.85327)",
+				"rotation_degrees": "(0.0, 0.0, 4.999998)",
+				"scale": "(1.208092, 2.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-60.0, 5.0, -85.18276)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(3.0, 1.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-60.15389, 21.70158, -85.18276)",
+				"rotation_degrees": "(0.0, 0.0, 5.0)",
+				"scale": "(1.657257, 0.450598, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9023, 0.9023, 0.9023, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-64.98866, 19.51533, -85.03596)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9333, 0.9333, 0.9333, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-59.92791, 19.51533, -85.07659)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 1.0, 2.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.898, 0.0351, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(34.0, 12.0, -68.0)",
+				"rotation_degrees": "(9.999996, 20.0, 9.999995)",
+				"scale": "(24.0, 2.0, 15.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5559, 0.551, 0.6133, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-106.1241, -21.0, -52.78415)",
+				"rotation_degrees": "(-60.0, 150.0, 0.0)",
+				"scale": "(22.0, 15.0, 43.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4866, 0.4772, 0.543, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-69.41132, -29.0, -72.98788)",
+				"rotation_degrees": "(30.0, 79.99997, 0.0)",
+				"scale": "(27.0, 38.0, 67.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5039, 0.5039, 0.5039, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-86.35728, -30.05547, -63.62379)",
+				"rotation_degrees": "(59.99998, 90.0, 0.0)",
+				"scale": "(22.0, 22.0, 31.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5559, 0.551, 0.6133, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-82.0, 3.0, -79.0)",
+				"rotation_degrees": "(90.0, 90.0, 0.0)",
+				"scale": "(27.0, 15.0, 77.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.526, 0.5192, 0.6211, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.69264, -37.4993, -59.83011)",
+				"rotation_degrees": "(20.0, 100.0, 0.0)",
+				"scale": "(22.0, 22.0, 31.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5641, 0.5564, 0.6719, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-87.82024, -31.50818, -43.24253)",
+				"rotation_degrees": "(40.0, 60.0, -19.99999)",
+				"scale": "(22.0, 22.0, 31.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.6241, 0.618, 0.7031, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-80.83459, -20.8171, -69.15369)",
+				"rotation_degrees": "(60.0, 90.0, 0.0)",
+				"scale": "(22.0, 22.0, 31.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0466, 0.457, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-73.86852, 12.0, -84.5125)",
+				"rotation_degrees": "(0.0, 9.999996, 0.0)",
+				"scale": "(12.0, 10.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3874, 0.9844, 0.3192, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-73.86852, 14.53113, -78.87872)",
+				"rotation_degrees": "(-5.0, 25.0, -4.999999)",
+				"scale": "(5.0, 10.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4666, 0.9258, 0.4123, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-73.86852, 11.45965, -82.37691)",
+				"rotation_degrees": "(39.99998, 25.0, -4.999998)",
+				"scale": "(6.0, 9.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0896, 0.8789, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-60.6047, 11.4543, -83.22224)",
+				"rotation_degrees": "(40.0, 9.999996, -9.999996)",
+				"scale": "(4.0, 9.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0993, 0.9375, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-66.57207, 3.810852, -84.10949)",
+				"rotation_degrees": "(0.0, 30.0, -4.999999)",
+				"scale": "(3.999999, 4.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.2695, 0.8945, 0.1957, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-77.65433, 11.30087, -82.16745)",
+				"rotation_degrees": "(-4.999999, 39.99998, 0.0)",
+				"scale": "(5.0, 7.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0934, 0.875, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-81.49936, 14.61869, -78.71159)",
+				"rotation_degrees": "(-5.0, 49.99998, 0.0)",
+				"scale": "(5.0, 10.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.6875, 1.0, 0.1875, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-51.4129, 16.45609, -79.28615)",
+				"rotation_degrees": "(2.0, -9.999996, 40.0)",
+				"scale": "(2.0, 5.999999, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1888, 0.7148, 0.1257, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-80.79181, 24.25487, -78.69572)",
+				"rotation_degrees": "(4.999999, 49.99998, 0.0)",
+				"scale": "(7.0, 15.0, 5.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3642, 0.7031, 0.3241, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-58.09813, 26.10045, -80.08386)",
+				"rotation_degrees": "(15.0, 15.0, 0.0)",
+				"scale": "(9.0, 7.0, 5.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.2875, 0.8047, 0.2263, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-54.63256, 24.11209, -80.50013)",
+				"rotation_degrees": "(9.999996, 15.0, 4.999999)",
+				"scale": "(6.0, 11.0, 5.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3386, 0.8633, 0.2765, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-53.3583, 20.1259, -79.95516)",
+				"rotation_degrees": "(2.0, -4.999998, 4.999999)",
+				"scale": "(4.0, 11.0, 5.000001)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.079, 0.7852, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-53.74524, 13.8094, -79.95516)",
+				"rotation_degrees": "(2.0, -4.999998, 4.999998)",
+				"scale": "(4.0, 11.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1757, 0.9063, 0.0885, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-77.07598, 25.74463, -79.10083)",
+				"rotation_degrees": "(15.0, 15.0, 0.0)",
+				"scale": "(9.0, 8.0, 5.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1031, 0.8516, 0.3075, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(28.04253, 1.503188, -65.48559)",
+				"rotation_degrees": "(-40.0, -39.99998, -20.0)",
+				"scale": "(2.0, 3.0, 1.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.7865, 0.8086, 0.832, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-17.0, 36.0, -78.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(142.0, 9.0, 24.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9023, 0.9023, 0.9023, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-17.0, 32.0, -79.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(147.0, 5.0, 33.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8711, 0.8643, 0.8643, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-87.0, 37.0, -66.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 6.0, 3.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8711, 0.8643, 0.8643, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(53.0, 37.0, -66.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(4.0, 6.0, 3.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8555, 0.8555, 0.8555, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 29.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(30.0, 3.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-49.0, -3.0, -85.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(12.0, 69.0, 12.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.7031, 0.4553, 0.2911, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 1.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.0, -3.0, -66.0)",
+				"rotation_degrees": "(0.0, 0.0, 15.0)",
+				"scale": "(0.922674, 9.0, 1.078522)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9817, 0.9817, 0.9817, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-36.0, 30.0, -74.06408)",
+				"rotation_degrees": "(30.0, 0.0, 9.999996)",
+				"scale": "(21.0, 28.0, 9.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9414, 0.9414, 0.9414, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(44.0, -20.0, -61.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(14.0, 39.0, 11.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(18.0, -2.0, -73.0)",
+				"rotation_degrees": "(0.0, 0.0, 4.999998)",
+				"scale": "(13.0, 95.0, 13.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8426, 0.2703, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(34.81071, -3.83948, -64.06348)",
+				"rotation_degrees": "(-40.0, 50.0, 45.0)",
+				"scale": "(2.105411, 1.015702, 1.215118)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8667, 0.0542, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(28.60005, 0.576221, -66.55439)",
+				"rotation_degrees": "(9.999996, 39.99998, 90.0)",
+				"scale": "(4.0, 2.0, 3.0)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9336, 0.2986, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(29.50338, 1.627671, -66.74176)",
+				"rotation_degrees": "(45.0, 9.99999, 45.0)",
+				"scale": "(4.0, 2.0, 3.0)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.9688, 0.3084, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(29.0, 0.0, -65.56579)",
+				"rotation_degrees": "(44.99998, 9.999996, 45.0)",
+				"scale": "(4.0, 2.0, 3.0)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.2122, 0.9531, 0.4481, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.22816, 0.878494, -65.48344)",
+				"rotation_degrees": "(20.0, 90.0, 45.0)",
+				"scale": "(4.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(46.0, 1.0, -68.0)",
+				"rotation_degrees": "(40.0, 0.0, 0.0)",
+				"scale": "(3.0, 3.0, 17.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9539, 0.9539, 0.9539, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(35.0, 1.0, -73.22503)",
+				"rotation_degrees": "(95.0, 0.0, 0.0)",
+				"scale": "(5.0, 1.0, 18.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(36.0, -19.86846, -72.6)",
+				"rotation_degrees": "(0.0, 0.0, 8.0)",
+				"scale": "(29.0, 30.0, 26.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5086, 0.8906, 0.4662, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(-53.12503, 8.743014, -79.95516)",
+				"rotation_degrees": "(1.999999, -15.0, 9.999996)",
+				"scale": "(3.0, 9.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.3224, 0.8505, 0.2625, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(25.96509, 6.417124, -57.32827)",
+				"rotation_degrees": "(9.99999, -30.0, 9.999996)",
+				"scale": "(4.0, 7.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8906, 0.2435, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(28.57421, -1.0, -67.38528)",
+				"rotation_degrees": "(1.999998, -14.99999, 9.999996)",
+				"scale": "(4.0, 5.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0967, 0.6875, 0.258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(31.03333, -4.74939, -65.57737)",
+				"rotation_degrees": "(-49.99998, -20.0, -39.99998)",
+				"scale": "(3.0, 3.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8906, 0.2435, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(30.29529, 0.939139, -64.30124)",
+				"rotation_degrees": "(-49.99998, 9.999996, -39.99998)",
+				"scale": "(3.0, 5.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8906, 0.2435, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(31.52464, 1.503188, -64.91348)",
+				"rotation_degrees": "(-39.99998, 0.000001, 19.99999)",
+				"scale": "(3.0, 4.999999, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8906, 0.2435, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(27.78472, 1.503188, -66.56727)",
+				"rotation_degrees": "(-39.99998, -39.99998, -19.99999)",
+				"scale": "(3.0, 5.0, 1.999999)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0849, 0.9453, 0.3199, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(28.6542, -1.117885, -64.59181)",
+				"rotation_degrees": "(30.0, -30.0, 49.99998)",
+				"scale": "(2.0, 2.187636, 1.999999)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0578, 0.8711, 0.2421, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(31.00485, -1.300439, -65.19437)",
+				"rotation_degrees": "(-30.0, -20.0, -39.99998)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8906, 0.2435, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(28.03903, -1.641582, -65.53201)",
+				"rotation_degrees": "(40.0, -60.0, 40.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.8906, 0.2435, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(28.02158, 0.25708, -65.19437)",
+				"rotation_degrees": "(-30.0, -49.99997, -39.99997)",
+				"scale": "(2.0, 4.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9579, 0.9579, 0.9579, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-17.64669, 26.0, -79.0)",
+				"rotation_degrees": "(0.0, -8.999999, 0.0)",
+				"scale": "(62.0, 9.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9414, 0.9414, 0.9414, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(34.0, 10.52877, -68.0)",
+				"rotation_degrees": "(9.99999, 20.0, 9.999996)",
+				"scale": "(26.99999, 3.999999, 12.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5086, 0.8906, 0.4662, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(29.54096, -1.0, -64.64278)",
+				"rotation_degrees": "(-9.999996, -30.0, -9.999996)",
+				"scale": "(4.0, 5.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.898, 0.0351, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 2,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(34.0, -5.0, -71.0)",
+				"rotation_degrees": "(9.999996, 0.0, 9.999996)",
+				"scale": "(27.0, 5.0, 22.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.4276, 0.8466, 0.3803, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(39.12894, 6.8639, -61.59904)",
+				"rotation_degrees": "(9.999996, 9.999994, 9.999996)",
+				"scale": "(5.000001, 11.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5086, 0.8906, 0.4662, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(27.84168, 7.580286, -58.2272)",
+				"rotation_degrees": "(9.999996, 9.999996, -9.999995)",
+				"scale": "(5.0, 5.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.5061, 0.934, 0.4597, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(31.4654, 8.276793, -58.98012)",
+				"rotation_degrees": "(9.999996, 5.0, 25.0)",
+				"scale": "(3.0, 5.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0936, 0.7551, 0.0147, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(46.76788, 10.23605, -64.19135)",
+				"rotation_degrees": "(9.999996, -20.0, -4.999999)",
+				"scale": "(4.0, 7.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0826, 0.8108, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(33.521, 8.04631, -60.12394)",
+				"rotation_degrees": "(9.999996, 9.999996, -9.999996)",
+				"scale": "(7.0, 7.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0967, 0.6875, 0.258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(30.77941, -1.82156, -65.19437)",
+				"rotation_degrees": "(-49.99997, -19.99999, -39.99998)",
+				"scale": "(3.0, 3.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.2122, 0.9531, 0.4481, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.20181, -1.313083, -65.75098)",
+				"rotation_degrees": "(20.00001, 49.99998, 45.0)",
+				"scale": "(2.54454, 0.903688, 2.0)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.7909, 0.2162, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(34.30918, -3.33578, -64.36392)",
+				"rotation_degrees": "(-30.0, -50.0, -50.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0967, 0.6875, 0.258, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(33.58985, -4.401669, -63.81821)",
+				"rotation_degrees": "(-39.99998, -40.0, -39.99998)",
+				"scale": "(3.0, 3.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.1699, 0.7909, 0.367, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 1,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(34.81071, -3.83948, -64.22086)",
+				"rotation_degrees": "(20.00001, 49.99998, 45.0)",
+				"scale": "(2.54454, 0.903688, 2.0)"
+			},
+			"hidden": {
+				"id": 23
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0, 0.7909, 0.2162, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(34.94177, -3.951885, -63.15718)",
+				"rotation_degrees": "(-19.99999, -30.0, 30.0)",
+				"scale": "(2.0, 2.0, 2.0)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(38.0, 1.0, -68.0)",
+				"rotation_degrees": "(60.0, 0.0, 0.0)",
+				"scale": "(3.0, 3.0, 16.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(33.0, 7.0, -73.0)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(28.0, 5.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(33.0, -0.565958, -80.73309)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(26.0, 16.0, 3.354294)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(33.0, 25.0, -76.27013)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(32.0, 38.0, 3.354294)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9539, 0.9539, 0.9539, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(24.0, 1.0, -67.10777)",
+				"rotation_degrees": "(95.0, 0.0, 0.0)",
+				"scale": "(1.0, 1.0, 18.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0746, 0.7352, 0.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(42.22591, 9.26892, -63.08464)",
+				"rotation_degrees": "(9.999996, 9.999996, -9.999996)",
+				"scale": "(7.0, 7.0, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0886, 0.6835, 0.0214, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 5,
+				"uv1_scale": "(1.0, 1.0, 1.0)",
+				"uv1_triplanar": false,
+				"uv1_world_triplanar": false
+			},
+			"_": {
+				"global_position": "(43.50072, 10.55659, -62.85649)",
+				"rotation_degrees": "(9.999996, 9.999994, -30.0)",
+				"scale": "(3.000001, 6.000001, 5.000002)"
+			},
+			"hidden": {
+				"id": 24
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8823, 0.8823, 0.8823, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.0, 26.0, -69.0)",
+				"rotation_degrees": "(0.0, 9.999996, 9.999996)",
+				"scale": "(21.0, 31.0, 6.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.942, 0.942, 0.942, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(38.0, 21.0, -67.0)",
+				"rotation_degrees": "(0.0, 9.999995, 4.999998)",
+				"scale": "(3.0, 19.0, 6.000002)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9141, 0.9141, 0.9141, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.83352, 12.91328, -67.0)",
+				"rotation_degrees": "(0.000001, 9.999995, 4.999997)",
+				"scale": "(15.0, 2.0, 5.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.942, 0.942, 0.942, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(25.23526, 21.0, -67.0)",
+				"rotation_degrees": "(0.000001, 9.999995, 4.999998)",
+				"scale": "(3.0, 19.0, 6.000002)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-68.0, 7.0, -85.52903)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(2.0, 4.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.0117, 0.0117, 0.0117, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(34.0, 15.0, -66.70862)",
+				"rotation_degrees": "(0.0, 9.999995, 4.999998)",
+				"scale": "(1.0, 6.0, 1.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.8863, 0.8863, 0.8863, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(31.0, 27.0, -67.43932)",
+				"rotation_degrees": "(0.0, 0.0, 0.0)",
+				"scale": "(11.0, 6.0, 5.0)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-67.0, 9.0, -85.0)",
+				"rotation_degrees": "(0.0, 180.0, 0.0)",
+				"scale": "(2.0, 1.0, 1.0)"
+			},
+			"hidden": {
+				"id": 21
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.7909, 0.7909, 0.7909, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(32.29912, 18.9, -66.5)",
+				"rotation_degrees": "(0.0, -4.999999, 4.999998)",
+				"scale": "(10.0, 2.9, 4.9)"
+			},
+			"hidden": {
+				"id": 20
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-36.0, 29.51552, -198.0)",
+				"rotation_degrees": "(9.999996, 0.0, 0.0)",
+				"scale": "(12.0, 118.0, 12.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(1.0, 1.0, 1.0, 1.0)",
+				"emission_enabled": false,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.2, 0.2, 0.2)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(23.086, 33.15381, -166.0)",
+				"rotation_degrees": "(-9.999996, 0.0, 4.999998)",
+				"scale": "(13.0, 97.0, 13.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(0.9499, 0.9499, 0.9499, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 3,
+				"uv1_scale": "(0.1, 0.1, 0.1)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(197.0, 3.0, -436.1114)",
+				"rotation_degrees": "(40.0, -50.0, 0.0)",
+				"scale": "(45.0, 714.0, 45.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(332.4894, -68.0, -368.6493)",
+				"rotation_degrees": "(9.999996, -60.0, 0.0)",
+				"scale": "(15.0, 258.0, 19.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(-39.0, 51.51331, -446.0)",
+				"rotation_degrees": "(15.0, 9.999996, 0.0)",
+				"scale": "(10.0, 158.0, 10.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		},
+		{
+			"Material": {
+				"albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+				"emission": "(0.0, 0.0, 0.0, 1.0)",
+				"emission_enabled": true,
+				"emission_energy_multiplier": 1.0,
+				"metallic": 0.0,
+				"metallic_specular": 0.5,
+				"roughness": 1.0,
+				"texture_id": 0,
+				"uv1_scale": "(0.5, 0.5, 0.5)",
+				"uv1_triplanar": true,
+				"uv1_world_triplanar": true
+			},
+			"_": {
+				"global_position": "(90.0, -5.0, -516.0)",
+				"rotation_degrees": "(4.999999, -30.0, 0.0)",
+				"scale": "(18.0, 258.0, 17.0)"
+			},
+			"hidden": {
+				"id": 22
+			}
+		}
+	]
+}

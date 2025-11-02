@@ -1,10 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://nsf47nmm03w0"]
+[gd_scene load_steps=8 format=3 uid="uid://nsf47nmm03w0"]
 
 [ext_resource type="Script" uid="uid://ronb7we3ewxm" path="res://MapEditor/Environment/environment.gd" id="1_7vjaj"]
 
+[sub_resource type="Gradient" id="Gradient_7vjaj"]
+offsets = PackedFloat32Array(0.6, 0.75555557)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6s7wx"]
+frequency = 0.0087
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c8gql"]
+noise = SubResource("FastNoiseLite_6s7wx")
+color_ramp = SubResource("Gradient_7vjaj")
+seamless = true
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7vjaj"]
-ground_horizon_color = Color(0.21459475, 0.22009587, 0.22834697, 1)
-ground_curve = 0.056568734
+sky_curve = 0.1305826
+sky_cover = SubResource("NoiseTexture2D_c8gql")
+sky_cover_modulate = Color(1, 1, 1, 0.6862745)
+ground_curve = 0.11712715
 
 [sub_resource type="Sky" id="Sky_6s7wx"]
 sky_material = SubResource("ProceduralSkyMaterial_7vjaj")
@@ -14,10 +27,14 @@ background_mode = 2
 background_color = Color(0.804251, 0.847591, 0.990506, 1)
 sky = SubResource("Sky_6s7wx")
 ssao_enabled = true
+ssao_intensity = 1.0
 glow_enabled = true
 glow_intensity = 0.26
+glow_bloom = 0.04
 glow_blend_mode = 1
 glow_hdr_threshold = 3.47
+fog_sky_affect = 0.0
+adjustment_enabled = true
 
 [node name="Environment" type="WorldEnvironment"]
 environment = SubResource("Environment_7vjaj")

@@ -117,6 +117,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4qruw")
 
+[node name="Vignette2" type="TextureRect" parent="."]
+modulate = Color(0.006999993, 0, 0.07, 1)
+self_modulate = Color(1, 1, 1, 0.21960784)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kvoao")
+
 [node name="Vignette" type="TextureRect" parent="."]
 modulate = Color(1, 0, 0, 1)
 self_modulate = Color(1, 1, 1, 0.37254903)
@@ -147,9 +158,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -1.0
-offset_top = -5.0
+offset_top = -7.0
 offset_right = 1.0
-offset_bottom = 5.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -160,9 +171,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -5.0
+offset_left = -7.0
 offset_top = -1.0
-offset_right = 5.0
+offset_right = 7.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -469,10 +480,7 @@ offset_bottom = 14.0
 
 [node name="EndScreen" parent="." instance=ExtResource("6_kvoao")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
-offset_top = -5.0
-offset_bottom = -5.0
 pivot_offset = Vector2(960, 540)
 
 [node name="PauseMenu" type="Control" parent="."]

@@ -19,6 +19,9 @@ func _ready():
 			var pos = self.global_position + Vector3(x, y, x)
 			
 			var data = {
-				"global_position": pos
+				"id": Utility.EntityID.TARGET_TAP,
+				"global_position": pos,
+				"scale": Vector3(2, 2, 2),
 			}
-			Utility.spawn_entity(Utility.PROPS[10], null, data)
+
+			Utility.spawn_target(data)

@@ -30,7 +30,6 @@ GameManager="*res://Singletons/game_manager.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 window/vsync/vsync_mode=0
@@ -140,4 +139,5 @@ common/physics_interpolation=true
 
 lights_and_shadows/directional_shadow/size=8192
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
+anti_aliasing/quality/msaa_3d=1
 anti_aliasing/screen_space_roughness_limiter/enabled=false

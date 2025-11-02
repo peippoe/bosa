@@ -320,16 +320,15 @@ func pop_target(target):
 	
 	
 	var player = get_tree().get_first_node_in_group("player")
-	if not player: return
-	
-	var timing_indicator = player.get_node("%UI/%TimingIndicator")
-	timing_indicator.display_point_on_indicator(delta)
+	if player:
+		var timing_indicator = player.get_node("%UI/%TimingIndicator")
+		timing_indicator.display_point_on_indicator(delta)
 	
 	var new_pop_up := Label3D.new()
 	get_tree().current_scene.add_child(new_pop_up)
 	new_pop_up.text = "%dms" % int(delta * 1000)
 	#new_pop_up.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	new_pop_up.look_at_from_position(target.global_position + Vector3.UP*.5, player.global_position, Vector3.UP, true)
+	new_pop_up.look_at_from_position(target.global_position + Vector3.UP*.5, get_viewport().get_camera_3d().global_position, Vector3.UP, true)
 	new_pop_up.rotation.z = randf_range(-1,1)
 	new_pop_up.scale = Vector3.ONE * 0.1
 	new_pop_up.no_depth_test = true
@@ -362,7 +361,7 @@ func pop_target(target):
 	
 	AudioPlayer.play_audio("res://Assets/Audio/Effect/osuhit.ogg", null, Vector2(0.9 - pitch, 1.1 - pitch), vol)
 	
-	#print("POP_TIMING %d" % pop_timing)
+	print("POP_TIMING")
 
 func on_miss(pos):
 	GameManager.health -= 16
@@ -547,6 +546,14 @@ func convert_colors(data):
 
 func _unhandled_input(event):
 
-	if event is InputEventKey and event.pressed and event.keycode == KEY_0:
-		get_window().size -= Vector2i(16, 9) * 4
-		get_window().move_to_center()
+	if event is InputEventKey and event.pressed:
+
+		if event.keycode == KEY_0:
+			get_window().size -= Vector2i(16, 9) * 4
+			get_window().move_to_center()
+
+		elif event.keycode == KEY_F11:
+			if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			else:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

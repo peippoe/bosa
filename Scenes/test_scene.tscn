@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://sast1hlg37nk"]
+[gd_scene load_steps=81 format=4 uid="uid://sast1hlg37nk"]
 
 [ext_resource type="Script" uid="uid://csif712vr3c5c" path="res://Scenes/target_spawner.gd" id="1_50ct6"]
 [ext_resource type="PackedScene" uid="uid://cubq6fokxek2n" path="res://Player/player.tscn" id="2_hb2xm"]
@@ -15,6 +15,81 @@
 [ext_resource type="Shader" uid="uid://2k0ss58sqaqw" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="12_tnimv"]
 [ext_resource type="Script" uid="uid://d0y664i6ng2sn" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="13_4qg1e"]
 [ext_resource type="PackedScene" uid="uid://ctgtk6ps2xvfx" path="res://MapPlayer/Props/Targets/target_slider.tscn" id="14_tnimv"]
+[ext_resource type="AudioStream" uid="uid://csjg77vwf4di6" path="res://Assets/Audio/Music/Pink Guy   01 Ramen King.mp3" id="16_040rt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhrl2"]
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_4qg1e"]
+size = Vector3(11.225, 1, 3.16)
+
+[sub_resource type="Gradient" id="Gradient_4qg1e"]
+offsets = PackedFloat32Array(0.6, 0.75555557)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_040rt"]
+frequency = 0.0087
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dhrl2"]
+noise = SubResource("FastNoiseLite_040rt")
+color_ramp = SubResource("Gradient_4qg1e")
+seamless = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4qg1e"]
+sky_top_color = Color(0.029713422, 0.5353643, 0.9999998, 1)
+sky_horizon_color = Color(0.1344612, 0.7840745, 0.99999994, 1)
+sky_curve = 0.1060654
+sky_cover = SubResource("NoiseTexture2D_dhrl2")
+sky_cover_modulate = Color(1, 1, 1, 0.48235294)
+ground_bottom_color = Color(0.073829, 0.16704121, 0.3358076, 1)
+ground_horizon_color = Color(0.13333334, 0.78431374, 1, 1)
+ground_curve = 0.22627506
+
+[sub_resource type="Sky" id="Sky_040rt"]
+sky_material = SubResource("ProceduralSkyMaterial_4qg1e")
+
+[sub_resource type="Environment" id="Environment_dhrl2"]
+background_mode = 2
+sky = SubResource("Sky_040rt")
+ambient_light_color = Color(0, 0.58805126, 0.8985881, 1)
+ambient_light_sky_contribution = 0.95
+tonemap_mode = 1
+tonemap_exposure = 2.02
+tonemap_white = 0.88
+ssr_max_steps = 512
+ssr_fade_out = 1e-05
+ssao_enabled = true
+ssao_intensity = 1.0
+glow_enabled = true
+glow_intensity = 0.26
+glow_mix = 0.626
+glow_bloom = 0.04
+glow_blend_mode = 1
+glow_hdr_threshold = 3.47
+fog_enabled = true
+fog_light_color = Color(0, 0.57166684, 0.98, 1)
+fog_light_energy = 1.25
+fog_density = 0.0044
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.0323
+volumetric_fog_albedo = Color(0, 0.83333325, 1, 1)
+volumetric_fog_ambient_inject = 0.35
+volumetric_fog_sky_affect = 0.0
+adjustment_enabled = true
+adjustment_saturation = 1.08
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_d3awe"]
+panorama = ExtResource("8_oho3u")
+filter = false
+
+[sub_resource type="Sky" id="Sky_0pp17"]
+sky_material = SubResource("PanoramaSkyMaterial_d3awe")
+
+[sub_resource type="Environment" id="Environment_yglu3"]
+background_mode = 2
+sky = SubResource("Sky_0pp17")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jjgbg"]
 sky_top_color = Color(0.162074, 0.294184, 0.999998, 1)
@@ -303,19 +378,6 @@ emission_enabled = true
 emission = Color(0, 1, 0, 1)
 emission_energy_multiplier = 16.0
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_d3awe"]
-panorama = ExtResource("8_oho3u")
-filter = false
-
-[sub_resource type="Sky" id="Sky_0pp17"]
-sky_material = SubResource("PanoramaSkyMaterial_d3awe")
-
-[sub_resource type="Environment" id="Environment_yglu3"]
-background_mode = 2
-sky = SubResource("Sky_0pp17")
-tonemap_mode = 2
-glow_enabled = true
-
 [sub_resource type="QuadMesh" id="QuadMesh_yglu3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibmi3"]
@@ -373,19 +435,49 @@ point_count = 3
 
 [node name="Main" type="Node3D"]
 
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8025174, 0.5243721, 0)
+max_distance = 91.3
+size = Vector3(20, 18.34, 20)
+box_projection = true
+enable_shadows = true
+
 [node name="TargetSpawner" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.207144, 8.25369, 13.2934)
 script = ExtResource("1_50ct6")
 child_count = 50
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_8gbba")
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9997394, -0.022826923, 0, 0.022826923, 0.9997394, 0.86644316, -0.29108924, 0)
+material_override = SubResource("StandardMaterial3D_dhrl2")
+mesh = SubResource("BoxMesh_4qg1e")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433012, 0, 0, 0)
+[node name="WorldEnvironment3" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dhrl2")
+
+[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yglu3")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="WorldEnvironment2"]
+transform = Transform3D(-0.86602527, -0.43301293, 0.2500001, 0, 0.49999994, 0.86602545, -0.50000024, 0.74999994, -0.43301257, 0, 0, 0)
+visible = false
 light_color = Color(1, 0.971277, 0.74013, 1)
 shadow_enabled = true
 shadow_blur = 0.583
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment2"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="WorldEnvironment2"]
+transform = Transform3D(-0.86602294, -0.433016, 0.2500009, 0, 0.49999806, 0.8660269, -0.50000304, 0.749999, -0.4330104, 0, 0, 0)
+visible = false
+light_color = Color(1, 0.952, 0.82, 1)
+light_energy = 1.2
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldEnvironment2"]
+environment = SubResource("Environment_8gbba")
 
 [node name="Player" parent="." instance=ExtResource("2_hb2xm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
@@ -443,6 +535,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.046856, 5.679657, 19.35339
 material_override = SubResource("StandardMaterial3D_4blnk")
 use_collision = true
 size = Vector3(4.9570313, 11.359314, 12.293213)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.208286, 1.896687, -20.29112)
+use_collision = true
+size = Vector3(10, 1.7583008, 2)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.991264, 1.3088903, -20.694233)
+use_collision = true
+size = Vector3(4.0025635, 7.3322754, 2)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.306347, 1.8993096, -20.487446)
+use_collision = true
+size = Vector3(4.0025635, 7.3322754, 2)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5, 0.5999999, 5.5)
@@ -511,6 +618,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0124, 19.3753, 3.87281)
 visible = false
 shadow_enabled = true
 
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.8372, 36.144, 0.47891)
+mesh = SubResource("PlaneMesh_d3awe")
+skeleton = NodePath("../MeshInstance3D4")
+surface_material_override/0 = SubResource("StandardMaterial3D_yglu3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D15"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D15/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_oho3u")
+
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.4186, 18.072, 0.239455)
 mesh = SubResource("PlaneMesh_d3awe")
@@ -537,14 +655,6 @@ light_color = Color(0.537833, 1, 0.41, 1)
 light_energy = 0.52
 omni_range = 2.873
 omni_attenuation = 0.609
-
-[node name="WorldEnvironment2" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_yglu3")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment2"]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-visible = false
-shadow_enabled = true
 
 [node name="Label3D2" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.703302, 4.03119, 0)
@@ -613,5 +723,11 @@ mesh = SubResource("SphereMesh_tnimv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.422505, 3.2144237, 0)
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="PinkGuy01RamenKing" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.87037, 39.719193, -2.606458)
+stream = ExtResource("16_040rt")
+autoplay = true
+max_distance = 10.0
 
 [editable path="azal"]

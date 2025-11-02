@@ -9,10 +9,10 @@ var prev_playback_speed := 0.0
 var min_value := 0.0
 var max_value := 30.0
 
-var pixels_per_second := 10.0:
+var pixels_per_second := 70.0:
 	set(value):
 		if pixels_per_second == value: return
-		if value == -1: value = 10.0
+		if value == -1: value = 70.0
 		
 		var edge_x = %WaveformEdge.global_position.x
 		var edge_value = Utility.get_slider_value_from_position(Vector2(edge_x, 0), %TimelineSlider)
@@ -44,7 +44,7 @@ var pixels_per_second := 10.0:
 				i.zoom_update()
 
 
-var zoom_step := 2.0
+var zoom_step := 6.0
 var zoom_min_max := [2.0, 100.0]
 
 func _ready():

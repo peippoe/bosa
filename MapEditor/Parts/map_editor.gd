@@ -103,7 +103,7 @@ func _ready():
 	%Load.pressed.connect(open_load_map_file_dialog)
 	%Playtest.pressed.connect(func play():
 		if save_path:
-			
+			save_pressed()
 			GameManager.play_map(save_path)
 		else:
 			map_save_as()

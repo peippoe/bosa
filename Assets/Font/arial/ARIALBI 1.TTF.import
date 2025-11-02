@@ -1,0 +1,36 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://d3lttsxpper5q"
+path="res://.godot/imported/ARIALBI 1.TTF-4e5414187bba71958db2ed21b40f46a8.fontdata"
+
+[deps]
+
+source_file="res://Assets/Font/arial/ARIALBI 1.TTF"
+dest_files=["res://.godot/imported/ARIALBI 1.TTF-4e5414187bba71958db2ed21b40f46a8.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+modulate_color_glyphs=false
+hinting=1
+subpixel_positioning=4
+keep_rounding_remainders=true
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}

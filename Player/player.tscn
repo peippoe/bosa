@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=52 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="Shader" uid="uid://ditear0e0bhwk" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_apopc"]
@@ -59,7 +59,7 @@ shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/color_ramp = SubResource("GradientTexture1D_lfmf2")
 shader_parameter/curve = SubResource("CurveTexture_b1ygp")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 44
+shader_parameter/flags = 4
 
 [sub_resource type="QuadMesh" id="QuadMesh_n471f"]
 material = SubResource("ShaderMaterial_dkpta")
@@ -75,6 +75,38 @@ shader_parameter/dither_scale = 4.0
 shader_parameter/levels = 30.0
 shader_parameter/dither_intensity = 2.0
 
+[sub_resource type="Curve" id="Curve_p5o4e"]
+_data = [Vector2(0.20118344, 0), 0.0, 0.0, 0, 0, Vector2(0.3372781, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gu6f8"]
+curve = SubResource("Curve_p5o4e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dkpta"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, 1)
+spread = 37.871
+initial_velocity_min = 3.04
+initial_velocity_max = 3.32
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_gu6f8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lfmf2"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+use_particle_trails = true
+distance_fade_mode = 1
+distance_fade_min_distance = 1.0
+distance_fade_max_distance = 2.0
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_pisgm"]
+material = SubResource("StandardMaterial3D_lfmf2")
+shape = 0
+size = 0.02
+section_length = 0.05
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_vtle1"]
 size = Vector3(0.02, 2.65, 1)
 
@@ -86,6 +118,9 @@ height = 0.1
 no_depth_test = true
 shading_mode = 0
 albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5htga"]
+radius = 0.3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 radius = 0.3
@@ -548,6 +583,18 @@ mesh = SubResource("QuadMesh_od3ui")
 skeleton = NodePath("../../../../Shaders/ColorRect")
 surface_material_override/0 = SubResource("ShaderMaterial_apopc")
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Head/CamHolder/Cam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.009619117, -3.1108036)
+visible = false
+cast_shadow = 0
+amount = 50
+lifetime = 4.0
+local_coords = true
+trail_enabled = true
+trail_lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_dkpta")
+draw_pass_1 = SubResource("RibbonTrailMesh_pisgm")
+
 [node name="EdgeRaycast" type="RayCast3D" parent="Head"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, -1)
@@ -586,6 +633,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
 enabled = false
 target_position = Vector3(1, 0, 0)
 hit_back_faces = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00023378432, 0, -5.7145953e-06)
+mesh = SubResource("CapsuleMesh_5htga")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_sh265")

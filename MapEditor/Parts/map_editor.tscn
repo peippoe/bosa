@@ -233,7 +233,7 @@ size_flags_stretch_ratio = 5.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 5.0
+size_flags_stretch_ratio = 3.5
 mouse_filter = 2
 
 [node name="PropertiesPanel" type="PanelContainer" parent="EditorUI/VBoxContainer/HBoxContainer"]

@@ -10,8 +10,14 @@ const ENTITY_PROPERTIES = {
 	"Tonemap": [
 		"tonemap_mode", "tonemap_exposure", "tonemap_white"
 	],
+	"Adjustments": [
+		"adjustment_brightness", "adjustment_contrast", "adjustment_saturation"
+	],
 	"Sky": [
-		"sky_top_color", "sky_horizon_color", "ground_horizon_color", "ground_bottom_color"
+		"sky_top_color", "sky_horizon_color", "ground_horizon_color", "ground_bottom_color", "sky_cover_modulate", "sky_curve"
+	],
+	"Fog": [
+		"fog_enabled", "fog_light_color", "fog_light_energy", "fog_density", "fog_sky_affect"
 	]
 	#"Glow": [
 		#"glow_enabled"

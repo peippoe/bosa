@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://6fvb7ntwcn3g"
+path="res://.godot/imported/femtanyl - PUSH UR T3MPRR.mp3-439ddd6b1e14c8e9ccffd1c380fb5d05.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/femtanyl - PUSH UR T3MPRR.mp3"
+dest_files=["res://.godot/imported/femtanyl - PUSH UR T3MPRR.mp3-439ddd6b1e14c8e9ccffd1c380fb5d05.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

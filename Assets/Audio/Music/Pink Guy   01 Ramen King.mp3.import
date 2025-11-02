@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csjg77vwf4di6"
+path="res://.godot/imported/Pink Guy   01 Ramen King.mp3-d449b20cb207e628e37c8bb7c290def2.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/Pink Guy   01 Ramen King.mp3"
+dest_files=["res://.godot/imported/Pink Guy   01 Ramen King.mp3-d449b20cb207e628e37c8bb7c290def2.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

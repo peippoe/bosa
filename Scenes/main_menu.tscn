@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d2tbn78waw88y"]
+[gd_scene load_steps=20 format=3 uid="uid://d2tbn78waw88y"]
 
 [ext_resource type="Script" uid="uid://hg2do2impqqq" path="res://Scenes/main_menu.gd" id="1_48xlc"]
 [ext_resource type="Shader" uid="uid://cfcwjg12eeid0" path="res://Scenes/main_menu.gdshader" id="2_ce3w2"]
@@ -199,7 +199,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -214,19 +214,19 @@ tracks/1/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_48xlc"]
-resource_name = "transition"
+[sub_resource type="Animation" id="Animation_trj04"]
+resource_name = "init"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("../AnimationPlayer/ColorRect:modulate")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.53, 0.96666664),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -235,15 +235,32 @@ tracks/1/path = NodePath("../AnimationPlayer/ColorRect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false]
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_48xlc"]
+resource_name = "transition"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimationPlayer/ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.23333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1ehe0"]
 _data = {
 &"RESET": SubResource("Animation_1ehe0"),
+&"init": SubResource("Animation_trj04"),
 &"transition": SubResource("Animation_48xlc")
 }
 
@@ -605,7 +622,7 @@ mouse_filter = 2
 theme_type_variation = &"FancyLabel2"
 theme_override_constants/outline_size = 25
 bbcode_enabled = true
-text = "[font_size=30]	alpha O.3.2"
+text = "[font_size=30]	alpha O.3.3"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Menu/Home"]
 layout_mode = 1
@@ -791,13 +808,19 @@ Monket Target 2 - Super Monkey Ball 2 OST
 layout_mode = 2
 text = "test_level3
 antidote - orion sun
-[easy]"
+[easy?]"
 
 [node name="Button6" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "test_level4
 Ghost - Machine Girl
 [harder]"
+
+[node name="Button8" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level5
+PUSH UR T3MPRR - femtanyl
+[hardest]"
 
 [node name="ColorRect2" type="ColorRect" parent="Menu/Play/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 1)
@@ -813,19 +836,30 @@ layout_mode = 2
 text = "test_level
 ALL MY FELLAS - Frizk"
 
+[node name="Button9" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level4
+Ghost - Machine Girl"
+
+[node name="Button10" type="Button" parent="Menu/Play/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "test_level5
+PUSH UR T3MPRR - femtanyl"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="Menu/Play"]
 layout_mode = 0
-offset_left = 87.0
-offset_top = 70.0
-offset_right = 945.0
-offset_bottom = 144.0
-text = "playtime: 0
-pp: 0"
+offset_left = 223.0
+offset_top = 130.0
+offset_right = 1081.0
+offset_bottom = 204.0
+bbcode_enabled = true
+text = "[font_size=18]playtime: 0
+[font_size=24]pp: 0"
 fit_content = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Menu"]
 stream = ExtResource("6_cp0ys")
-volume_db = -15.0
+volume_db = -14.0
 autoplay = true
 bus = &"Music"
 
@@ -845,16 +879,17 @@ root_node = NodePath("../Menu")
 libraries = {
 &"": SubResource("AnimationLibrary_1ehe0")
 }
-speed_scale = 2.0
+autoplay = "init"
 
 [node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
 visible = false
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0, 0, 0, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Polygon2D3" type="Polygon2D" parent="."]
