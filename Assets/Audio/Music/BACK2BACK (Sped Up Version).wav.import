@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://be3v01nv11acv"
+path="res://.godot/imported/BACK2BACK (Sped Up Version).wav-ef08a1c3fdb992bf1a2b90d63ebf5be3.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Music/BACK2BACK (Sped Up Version).wav"
+dest_files=["res://.godot/imported/BACK2BACK (Sped Up Version).wav-ef08a1c3fdb992bf1a2b90d63ebf5be3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

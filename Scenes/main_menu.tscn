@@ -622,7 +622,7 @@ mouse_filter = 2
 theme_type_variation = &"FancyLabel2"
 theme_override_constants/outline_size = 25
 bbcode_enabled = true
-text = "[font_size=30]	alpha O.3.3"
+text = "[font_size=30]	alpha O.3.4"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Menu/Home"]
 layout_mode = 1

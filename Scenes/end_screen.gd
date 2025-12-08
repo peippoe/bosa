@@ -40,6 +40,7 @@ func end(failed = false):
 					max_points += Settings.POINTS_REWARDS[0]
 		
 		var acc = GameManager.points / float(max_points)
+		if max_points == 0: acc = 0
 		var rank = Settings.get_rank(acc)
 		var pp = GameManager.pp_accuracy_curve.sample_baked(acc) * max_points / 10.0
 		

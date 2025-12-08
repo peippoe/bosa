@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cubq6fokxek2n"]
+[gd_scene load_steps=53 format=3 uid="uid://cubq6fokxek2n"]
 
 [ext_resource type="Script" uid="uid://biefjdoinfowo" path="res://Player/player.gd" id="1_v0iea"]
 [ext_resource type="Shader" uid="uid://ditear0e0bhwk" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="2_apopc"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://b0syya3vf46fd" path="res://Assets/Audio/Effect/slideloop.wav" id="5_k53q1"]
 [ext_resource type="Shader" uid="uid://dgjh5fvbqqctp" path="res://Assets/Shader/crt.gdshader" id="6_fhl08"]
 [ext_resource type="AudioStream" uid="uid://duobajbsufun7" path="res://Assets/Audio/Effect/roll.wav" id="8_od3ui"]
+[ext_resource type="AudioStream" uid="uid://cptrhn4rl8gq1" path="res://Assets/Audio/Effect/step.wav" id="13_p5o4e"]
 
 [sub_resource type="Curve" id="Curve_od3ui"]
 _data = [Vector2(0, 0), 0.0, 1.937978, 0, 0, Vector2(0.32142857, 0.6516854), 0.9715795, 0.9715795, 0, 0, Vector2(1, 1), 0.15730286, 0.0, 0, 0]
@@ -59,7 +60,7 @@ shader_parameter/uv_offset = Vector2(0, 0)
 shader_parameter/color_ramp = SubResource("GradientTexture1D_lfmf2")
 shader_parameter/curve = SubResource("CurveTexture_b1ygp")
 shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/flags = 4
+shader_parameter/flags = 44
 
 [sub_resource type="QuadMesh" id="QuadMesh_n471f"]
 material = SubResource("ShaderMaterial_dkpta")
@@ -517,7 +518,8 @@ shader_parameter/scanline_intensity = 0.1
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 3
-floor_max_angle = 1.1519173
+floor_max_angle = 1.3962634
+floor_snap_length = 0.4
 script = ExtResource("1_v0iea")
 vault_time = 0.18
 vault_y_curve = SubResource("Curve_od3ui")
@@ -742,24 +744,29 @@ stream = ExtResource("5_k53q1")
 unique_name_in_owner = true
 stream = ExtResource("8_od3ui")
 
+[node name="Step" type="AudioStreamPlayer" parent="Audio"]
+unique_name_in_owner = true
+stream = ExtResource("13_p5o4e")
+volume_db = -5.0
+
 [node name="JumpBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.072
+wait_time = 0.074
 one_shot = true
 
 [node name="CoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.22
+wait_time = 0.24
 one_shot = true
 
 [node name="WallrunCoyoteTime" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.17
+wait_time = 0.18
 one_shot = true
 
 [node name="SlideBuffer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.08600000000000001
+wait_time = 0.094
 one_shot = true
 
 [node name="DoubleJumpDebounce" type="Timer" parent="."]
@@ -769,6 +776,7 @@ one_shot = true
 
 [node name="SlideOffFloorTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 1.2
 one_shot = true
 
 [node name="JumpExtendTime" type="Timer" parent="."]

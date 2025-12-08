@@ -19,10 +19,6 @@ const ENTITY_PROPERTIES = {
 	"Fog": [
 		"fog_enabled", "fog_light_color", "fog_light_energy", "fog_density", "fog_sky_affect"
 	]
-	#"Glow": [
-		#"glow_enabled"
-	#],
-	#"Adjustments": 0
 }
 
 var ENTITY_RESOURCES = [environment, environment.sky, environment.sky.sky_material]

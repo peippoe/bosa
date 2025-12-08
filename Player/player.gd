@@ -9,6 +9,8 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Input.use_accumulated_input = false
 
+var set_cam = null
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		var relative = -event.screen_relative * Settings.config["gameplay"]["mouse_sensitivity"]/1000.0
@@ -27,6 +29,17 @@ func _input(event):
 	
 	if event is InputEventKey:
 		
+		if Input.is_action_just_pressed("set_cam"):
+			if set_cam:
+				set_cam.queue_free()
+				%UI.show()
+			else:
+				set_cam = cam.duplicate()
+				get_parent().add_child(set_cam)
+				set_cam.look_at_from_position(global_position + -cam.global_basis.z * 5, global_position)
+				set_cam.current = true
+				%UI.hide()
+		
 		if Input.is_action_just_pressed("space"):
 			start_wallrun()
 			%JumpBuffer.start()
@@ -39,7 +52,7 @@ func _input(event):
 		if Input.is_action_just_pressed("ctrl") and downshift_charges > 1.0:
 			velocity.y -= DOWNSHIFT
 			downshift_charges -= 1.0
-			AudioPlayer.play_audio("res://Assets/Audio/Effect/roll.wav", null, Vector2(2, 3))
+			AudioPlayer.play_audio("res://Assets/Audio/Effect/roll.wav", null, Vector2(3.3, 3.7))
 			
 			
 			
@@ -102,8 +115,8 @@ func vault():
 			vault_point = null
 			return
 		
-		
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(2, 3))
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/vault.wav", null, Vector2(1, 1), -5)
+		#AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(2, 3))
 		
 		#print("STIPPPPPPPPPPPPP")
 		stop_sliding()
@@ -188,7 +201,7 @@ var input_dir := Vector2.ZERO
 var move_dir := Vector3.ZERO
 
 var sliding := false
-const SLIDE_ACCELERATION := 10.0
+const SLIDE_ACCELERATION := 30.0
 const SLIDE_FRICTION := 5.0
 const SLIDE_BOOST := 1.1
 const SLIDE_CONVERSION_MULT := .5
@@ -199,7 +212,10 @@ var on_floor := false
 var was_on_floor := false
 
 var vel_buffer := [] # changing physics fps will nerf/buff this
-const VEL_BUFFER_SIZE := 5
+const VEL_BUFFER_SIZE := 7
+
+var curr_normal : Vector3 = Vector3.UP
+var prev_normal : Vector3 = Vector3.UP
 
 var prev_y := 0.0
 
@@ -237,11 +253,49 @@ var can_wallrun_right := true
 
 func _physics_process(delta):
 	
-	if on_floor and (sliding or get_floor_normal().dot(Vector3.UP) < 0.98):
-		floor_snap_length = 2
-		#print("A")
-	else:
-		floor_snap_length = 0.4
+	var hvel = get_real_velocity()
+	hvel.y = 0
+	
+	if sliding:
+		var x = curr_normal.dot(hvel.normalized())
+		if x > 0:
+			var add = -500 * x * delta
+			velocity.y += add
+			print(add)
+	
+	if curr_normal != get_floor_normal():
+		
+		if sliding and not on_floor and get_floor_normal() == Vector3.ZERO and curr_normal.dot(hvel.normalized()) > -.4:
+			print(curr_normal)
+			#print(get_floor_normal())
+			
+			
+			var space_state = get_world_3d().direct_space_state
+			
+			var query = PhysicsRayQueryParameters3D.create(global_position, global_position + Vector3.DOWN*6,
+				collision_mask, [self])
+			var result = space_state.intersect_ray(query)
+			
+			
+			if result:
+				if result.normal.dot(hvel.normalized()) > 0.0:
+					
+					#print(self.global_position)
+					#print(result)
+					var diff = result.position.y - global_position.y
+					if diff < 0:
+						print(diff)
+						#global_position = result.position + Vector3.UP * (global_position.y - result.position.y)
+						position.y += diff*0.99
+						velocity.y += diff * 30
+					#position.y = (result.position + Vector3.UP * 1).y
+		curr_normal = get_floor_normal()
+	
+	#if on_floor and (sliding or get_floor_normal().dot(Vector3.UP) < 0.98):
+		#floor_snap_length = 2
+		##print("A")
+	#else:
+		#floor_snap_length = 0.4
 	
 	input_dir = Input.get_vector("a", "d", "w", "s")
 	
@@ -282,7 +336,7 @@ func _physics_process(delta):
 	slide()
 	movement(delta)
 	
-	if on_floor != was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(1.2, 1.4), -10)
+	#if !was_on_floor and on_floor: AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(1.2, 1.4), -10)
 	
 	if on_floor: %CoyoteTime.start()
 	
@@ -331,7 +385,8 @@ func jump():
 	%JumpBuffer.stop()
 	%JumpExtendTime.start()
 	
-	AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
+	#AudioPlayer.play_audio("res://Assets/Audio/Effect/jump2.wav", null, Vector2(0.8, 1.2))
+	
 	
 	cam_tween = get_tree().create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	cam_tween.tween_property(%CamHolder, "rotation", Vector3(-0.014, 0, 0), .07)
@@ -360,8 +415,11 @@ func jump():
 	%EdgeRaycast.force_raycast_update()
 	if not %EdgeRaycast.is_colliding():
 		velocity += velocity * JUMP_EDGE_BOOST
-		AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3), 10)
-	
+		
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/ME_ConcreteFootStepLand_01.wav", null, Vector2(2, 3), 0)
+		#AudioPlayer.play_audio("res://Assets/Audio/Effect/jump3.wav", null, Vector2(2, 3), 10)
+	else:
+		AudioPlayer.play_audio("res://Assets/Audio/Effect/ME_BodyConcreteBump1.wav", null, Vector2(0.8, 1.2))
 	
 	jump_cutoff_applied = false
 	#if not Input.is_action_pressed("space"): jump_cutoff()
@@ -438,6 +496,10 @@ func update_variables(delta):
 	was_on_floor = on_floor
 	on_floor = is_on_floor()
 	
+	#if curr_normal != get_floor_normal():
+		#prev_normal = curr_normal
+		#curr_normal = get_floor_normal()
+	
 	coiling = Input.is_action_pressed("shift") and not on_floor
 	
 	if on_floor:
@@ -456,9 +518,16 @@ func update_variables(delta):
 	update_vel_buffer()
 
 func update_vel_buffer():
-	vel_buffer.push_front(velocity)
+	var v
+	if velocity.length() > get_real_velocity().length():
+		v = velocity
+	else:
+		v = get_real_velocity()
+	
+	vel_buffer.push_front(v)
 	if vel_buffer.size() > VEL_BUFFER_SIZE:
 		vel_buffer.pop_back()
+
 
 func get_max_from_vel_buffer():
 	var max = -1
@@ -479,7 +548,7 @@ func slide():
 		$CollisionShape3D.shape.height = .2
 		$MeshInstance3D.position.y = 0.9
 		$MeshInstance3D.mesh.height = 1.5
-		position.y -= 0.6
+		position.y -= .8
 		var vel = get_real_velocity()
 		var dir = move_dir
 		if not dir: dir = -head.global_basis.z
@@ -623,7 +692,26 @@ func friction(hvel : Vector3, wish_dir : Vector3, delta : float):
 
 var lerped_speed = 0.0
 
+var time_since_last_step := 0.0
+
 func _process(delta):
+	
+	if !was_on_floor and on_floor: time_since_last_step = 2
+	
+	if (on_floor or wallrunning) and move_dir and not sliding:
+		var cd = clampf(remap(velocity.length(), 0, 30, .42, .15), .15, .42)
+		if time_since_last_step > cd:
+			var pitch = clampf(remap(velocity.length(), 0, 25, 3, 4), 3, 4)
+			pitch += (randf_range(0.0, 1) - 0.5) * 0.5
+			%Step.volume_db = (randf_range(0.0, 1) - 0.5) * 5 - 5
+			%Step.pitch_scale = pitch
+			%Step.play()
+			time_since_last_step = 0.0
+	else:
+		time_since_last_step = 2
+	
+	time_since_last_step += delta
+	
 	
 	if vault_point:
 		$MeshInstance3D.position.y = 0.5
@@ -654,4 +742,4 @@ func _process(delta):
 		if %Wind.playing: %Wind.stop()
 		#$Head/CamHolder/Cam/GPUParticles3D.hide()
 	
-	if global_position.y < -20: global_position = Vector3.UP*4; velocity.y = 0.0
+	if global_position.y < -40: global_position = Vector3.UP*4; velocity.y = 0.0

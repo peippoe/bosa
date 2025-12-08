@@ -553,7 +553,10 @@ func _unhandled_input(event):
 			get_window().move_to_center()
 
 		elif event.keycode == KEY_F11:
-			if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
-				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			else:
-				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			match DisplayServer.window_get_mode():
+				DisplayServer.WINDOW_MODE_WINDOWED:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+				DisplayServer.WINDOW_MODE_MAXIMIZED:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+				_:
+					DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
